@@ -1,8 +1,0 @@
-0000000000000000000000000000000000000000 dd579618626558dfd429f2ef439117386ae26c09 Bench <test@bench.com> 1786797545 +0200	commit (initial): Initial: basic import
-dd579618626558dfd429f2ef439117386ae26c09 dd579618626558dfd429f2ef439117386ae26c09 Bench <test@bench.com> 1786797545 +0200	checkout: moving from main to agent-a
-dd579618626558dfd429f2ef439117386ae26c09 947a3445d7b146cb44578349305cf5104b2e76f4 Bench <test@bench.com> 1786797545 +0200	commit: Agent A: add net/http import
-947a3445d7b146cb44578349305cf5104b2e76f4 dd579618626558dfd429f2ef439117386ae26c09 Bench <test@bench.com> 1786797545 +0200	checkout: moving from agent-a to main
-dd579618626558dfd429f2ef439117386ae26c09 dd579618626558dfd429f2ef439117386ae26c09 Bench <test@bench.com> 1786797545 +0200	checkout: moving from main to agent-b
-dd579618626558dfd429f2ef439117386ae26c09 e47a6e919dc8d180a955a35d67e14bc9a2d902ce Bench <test@bench.com> 1786797545 +0200	commit: Agent B: add os import
-e47a6e919dc8d180a955a35d67e14bc9a2d902ce dd579618626558dfd429f2ef439117386ae26c09 Bench <test@bench.com> 1786797545 +0200	checkout: moving from agent-b to main
-dd579618626558dfd429f2ef439117386ae26c09 947a3445d7b146cb44578349305cf5104b2e76f4 Bench <test@bench.com> 1786797545 +0200	merge agent-a: Fast-forward (no commit created; -m option ignored)

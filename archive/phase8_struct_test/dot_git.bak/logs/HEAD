@@ -1,8 +1,0 @@
-0000000000000000000000000000000000000000 ceac07fb41a3404f6dbc62920b6326296ba4c867 Bench <test@bench.com> 1786797533 +0200	commit (initial): Initial: Config struct
-ceac07fb41a3404f6dbc62920b6326296ba4c867 ceac07fb41a3404f6dbc62920b6326296ba4c867 Bench <test@bench.com> 1786797533 +0200	checkout: moving from main to agent-a
-ceac07fb41a3404f6dbc62920b6326296ba4c867 5582c083e56ebb132fd5d95eb44027a5cbe5fc8f Bench <test@bench.com> 1786797533 +0200	commit: Agent A: add Port field
-5582c083e56ebb132fd5d95eb44027a5cbe5fc8f ceac07fb41a3404f6dbc62920b6326296ba4c867 Bench <test@bench.com> 1786797533 +0200	checkout: moving from agent-a to main
-ceac07fb41a3404f6dbc62920b6326296ba4c867 ceac07fb41a3404f6dbc62920b6326296ba4c867 Bench <test@bench.com> 1786797533 +0200	checkout: moving from main to agent-b
-ceac07fb41a3404f6dbc62920b6326296ba4c867 2f9a6ddf6fc1513c9e57cf249d2d22c3245d4675 Bench <test@bench.com> 1786797533 +0200	commit: Agent B: add Timeout field
-2f9a6ddf6fc1513c9e57cf249d2d22c3245d4675 ceac07fb41a3404f6dbc62920b6326296ba4c867 Bench <test@bench.com> 1786797533 +0200	checkout: moving from agent-b to main
-ceac07fb41a3404f6dbc62920b6326296ba4c867 5582c083e56ebb132fd5d95eb44027a5cbe5fc8f Bench <test@bench.com> 1786797533 +0200	merge agent-a: Fast-forward (no commit created; -m option ignored)

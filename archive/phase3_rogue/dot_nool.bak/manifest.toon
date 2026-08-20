@@ -1,7 +1,0 @@
-commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
-commit_policy_version: 1
-commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Autonomous lift of 3 features from legacy codebase
-knot_id: f46648c790343fd858b926ff145466605c990cb5b0186b66e32061331c013298
-solidified_at: 1787186132318
-thread: 

@@ -106,6 +106,33 @@ def b5():
                  "exit0_on_conflict"])
 
 
+def b6():
+    d = load("b6_context_retrieval")
+    if not d:
+        return
+    print("== B6 context retrieval (bytes an agent must ingest) ==")
+    rows = []
+    for k, v in d["queries"].items():
+        if isinstance(v, dict):
+            rows.append([k, v.get("bytes"), v.get("wall_ms"), v.get("hit")])
+        else:
+            rows.append([k, v, "-", "-"])
+    table(rows, ["query", "bytes", "wall_ms", "hit"])
+
+
+def b7():
+    d = load("b7_regression_localization")
+    if not d:
+        return
+    print("== B7 regression localization ==")
+    rows = []
+    for arm, v in d["arms"].items():
+        rows.append([arm, v.get("culprit_found"),
+                     v.get("knot_named_intent", "-"), v.get("wall_ms"),
+                     v.get("bisect_steps", v.get("bisect_steps_reported"))])
+    table(rows, ["arm", "correct", "named", "wall_ms", "steps"])
+
+
 def trackc():
     p = RESULTS / "trackc" / "runs.jsonl"
     if not p.exists():
@@ -130,7 +157,7 @@ def trackc():
 
 
 def main():
-    for f in (b1, b2, b3, b4, b5, trackc):
+    for f in (b1, b2, b3, b4, b5, b6, b7, trackc):
         f()
 
 

@@ -1,3 +1,0 @@
-0000000000000000000000000000000000000000 376cebac17785004bbc6f99987b2561f35c9f154 Arun Balakrishnan <arunbalakrishnan89@gmail.com> 1786790898 +0200	commit (initial): initial import of existing sources
-376cebac17785004bbc6f99987b2561f35c9f154 1c6a96f9e008caf931f9ef60e02e0dbc4763aca5 Arun Balakrishnan <arunbalakrishnan89@gmail.com> 1786790898 +0200	commit: Autonomous lift of 10 features from legacy codebase
-1c6a96f9e008caf931f9ef60e02e0dbc4763aca5 a84b20ac83f69900b9153e3b10af655143cebef6 Arun Balakrishnan <arunbalakrishnan89@gmail.com> 1786791677 +0200	commit: Implement Redux core

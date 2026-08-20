@@ -183,6 +183,19 @@ pass/fail assertion where the claim is binary.
   DAG-head count read via a machine-readable nool command if available, else the
   parse is marked fragile in output; results JSON includes provenance block.
 
+- **B6 Context retrieval (added 2026-08-20):** nool's differentiator claims
+  include semantic history queries and AST-level context ("structured flow"
+  for models). Build a repo knot-by-knot with recorded intents and a known
+  ground-truth feature; compare bytes an agent must ingest and hit-rate for
+  `nool query search` / `query context <file>#<symbol>` (and the chained
+  search-then-context flow) against the grep-then-read-full-files baseline.
+  Bytes reported as bytes; no token conversion.
+- **B7 Regression localization (added 2026-08-20):** seed K landings with a
+  known culprit; `nool debug bisect --good --bad --test` vs
+  `git bisect run` with the identical test. Metrics: correct culprit named,
+  wall time, steps. (`--bad` must be explicit in nool 6.13; the HEAD default
+  resolves outside knot-id space.)
+
 **Prerequisite finding to investigate during implementation:** the existing
 `swarm_bench_results.json` shows nool ≡ git on the contended scenario (1 clean /
 14 conflicts). Before building B5(c), verify with nool's documentation/CLI what
@@ -283,6 +296,20 @@ A third party with no contact with us must be able to validate results. Concrete
   reproducibility; LLM nondeterminism means replicators generate their own
   provenance and compare effect directions/magnitudes, not exact values. Stated
   in README to preempt reviewer confusion.
+
+## 8b. Track C follow-up condition: structured task flow (Tier 2, designed)
+
+Nool's task system (`task create/pick/start/qa/finish`, acceptance criteria,
+`fleet plan` disjoint waves) is a claimed coordination differentiator the
+current multi-agent protocol does not exercise (worktree sub-agents are
+outside nool tracking by design). A fifth condition, `multi_nool_tasked`,
+will run sub-agents sequentially in the shared nool workspace with the
+decomposition pre-registered as nool tasks. Prompt parity is preserved
+structurally: both arms' prompts say "consult this repository's task system
+for your assignment"; in the git arm that is a committed TASKS.md, in the
+nool arm the task board. Measured: coordination outcomes (duplicate work,
+interface mismatches at integration), token cost of task-context retrieval,
+and lease/announce conflicts if agents overlap.
 
 ## 9. Out of scope (this iteration)
 

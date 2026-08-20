@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Track C clean grid complete: N=5 per cell, pinned claude-sonnet-5, 19/20 hidden-test pass; one multi_nool integration failure (clean merge, interface mismatch)
-knot_id: 482463e86e7c49d458c68d73c3eb4abf8539bcf957f979725017aca9d79905dc
-solidified_at: 1787251378963
+intent: Remove archived pilot material (recoverable from DAG history); add B6 context-retrieval and B7 regression-localization benchmarks with results; spec adds structured-task-flow condition
+knot_id: 5189964258cc7d176989822f7d9c45093bec988f3b9e0d439ad8db2bc4bf1bec
+solidified_at: 1787251978235
 thread: main

@@ -1,4 +1,0 @@
-0000000000000000000000000000000000000000 be03e99dce0871d3e90fafd901b2e9e6aa830b4d Bench <test@bench.com> 1786797912 +0200	commit (initial): Initial billing service
-be03e99dce0871d3e90fafd901b2e9e6aa830b4d 30de3933385b1f91267de56a4c997c7681bb5890 Bench <test@bench.com> 1786797919 +0200	commit: Autonomous lift of 5 features from legacy codebase
-30de3933385b1f91267de56a4c997c7681bb5890 b964d657765ebc47e3f295db656d3784cf40eaad Bench <test@bench.com> 1786797931 +0200	commit: Initial billing service
-b964d657765ebc47e3f295db656d3784cf40eaad f22e03fe00a58770babd4e5050f2498cc5797d12 Bench <test@bench.com> 1786797953 +0200	commit: Create task: Add health check

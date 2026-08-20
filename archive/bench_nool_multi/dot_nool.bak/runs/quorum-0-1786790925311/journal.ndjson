@@ -1,1 +1,0 @@
-{"turn":1,"messages_hash":"115ff4f6035ed3603b596e1c8e98942b5ecfce1c5b985dac372f416990b407ce","tools_invoked":[],"cumulative_cost_usd":0.0,"stop_reason":"end_turn","at_hlc":1786790925311,"cumulative_usage":{"input_tokens":0,"output_tokens":0,"cache_read_tokens":0,"cache_write_tokens":0}}

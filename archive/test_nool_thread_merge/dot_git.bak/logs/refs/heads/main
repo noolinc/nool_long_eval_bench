@@ -1,5 +1,0 @@
-0000000000000000000000000000000000000000 4ad974095e10b3e0765bbee098d3a28f30044a43 Bench <test@bench.com> 1786798499 +0200	commit (initial): Initial UserService
-4ad974095e10b3e0765bbee098d3a28f30044a43 ea4faa030d5d26fd957654f112f103a85d16d932 Bench <test@bench.com> 1786798500 +0200	commit: Autonomous lift of 5 features from legacy codebase
-ea4faa030d5d26fd957654f112f103a85d16d932 7c6a56f5b596c96a73a39fb9388e28eb71b30952 Bench <test@bench.com> 1786798501 +0200	commit: Initial UserService
-7c6a56f5b596c96a73a39fb9388e28eb71b30952 f2c657eb0f44292b8753880665858ecf206c71e5 Bench <test@bench.com> 1786798502 +0200	commit: Add SetEmail
-f2c657eb0f44292b8753880665858ecf206c71e5 d5da81e9e655d9c0230aaec469ab5b06dfbf1750 Bench <test@bench.com> 1786798503 +0200	commit: Add SetAge

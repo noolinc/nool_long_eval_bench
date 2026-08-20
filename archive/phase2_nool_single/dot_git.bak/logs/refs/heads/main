@@ -1,3 +1,0 @@
-0000000000000000000000000000000000000000 7162b8d757fccebed1da51f90750434087c97294 Arun Balakrishnan <arunbalakrishnan89@gmail.com> 1786792511 +0200	commit (initial): initial import of existing sources
-7162b8d757fccebed1da51f90750434087c97294 4d17b06b940218b6dccd94ff52f443ec54275cc9 Arun Balakrishnan <arunbalakrishnan89@gmail.com> 1786792512 +0200	commit: Autonomous lift of 6 features from legacy codebase
-4d17b06b940218b6dccd94ff52f443ec54275cc9 b81d7fe0dd5c09fab20fe96945b17805a6875279 Arun Balakrishnan <arunbalakrishnan89@gmail.com> 1786792651 +0200	commit: Implement Vue reactivity in Rust

@@ -1,4 +1,0 @@
-0000000000000000000000000000000000000000 2022a6863c642a946bc43d82f6c93b80545848cd Bench <test@bench.com> 1786797879 +0200	commit (initial): Initial auth service
-2022a6863c642a946bc43d82f6c93b80545848cd 7ec84daa28e2531d770c065e272f1885786d9da2 Bench <test@bench.com> 1786797886 +0200	commit: Autonomous lift of 5 features from legacy codebase
-7ec84daa28e2531d770c065e272f1885786d9da2 2b781fd97e4a5d341dcc311d8bd3bdfea43fc894 Bench <test@bench.com> 1786797896 +0200	commit: Initial auth service
-2b781fd97e4a5d341dcc311d8bd3bdfea43fc894 13503d776cf49660ed9ef85f4dd3ce1507d3937a Bench <test@bench.com> 1786797953 +0200	commit: Create task: Add health check

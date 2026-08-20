@@ -19,7 +19,11 @@ was collected. Read it before the numbers.
 | `harness/` | Track C — LLM-in-the-loop 2×2 experiment harness (agent ± nool, single/multi) |
 | `tasks/` | Track C task catalog (spec + starter + hidden held-out tests) |
 | `analysis/summarize.py` | Renders all committed results as tables. Numbers only — no conclusions in code |
-| `archive/` | Pre-suite pilot material. **Not evidence** — see `archive/ARCHIVE.md` |
+
+Pre-suite pilot material (manual runs, no provenance — **not evidence**) was
+archived and then removed from the working tree; it remains recoverable from
+Knot DAG history (the `archive/` knots of 2026-08-20, including
+`ARCHIVE.md`, which inventories it and explains why each item is excluded).
 
 ## Running Track B (anyone can, free)
 
@@ -33,6 +37,8 @@ python3 b2_concurrency.py   # N concurrent writers, one shared workspace
 python3 b3_recovery.py      # remove a bad landing, keep later unrelated work
 python3 b4_guardrails.py    # broken/test-breaking commits vs a git control arm
 python3 b5_swarm_merge.py   # N-branch merge: disjoint / same-anchor / diff-functions
+python3 b6_context_retrieval.py       # semantic query vs grep+read baseline
+python3 b7_regression_localization.py # nool debug bisect vs git bisect
 python3 ../analysis/summarize.py
 ```
 
