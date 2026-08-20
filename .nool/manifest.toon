@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-register outcome-claim framework C1-C5 and Tracks E (longitudinal memory) and F (deterministic governance) with evidence-discipline bounds
-knot_id: 49f6d24906419458d5f8c231a22be3fdeebe85ffab87ba215ada0d5eee0b7ca8
-solidified_at: 1787252562884
+intent: Track D fleet pilot (both arms 8/8, zero conflicts, gating verified) and Phase 1 academic report with claim evidence map
+knot_id: 3b78f5d2522ea782ed748933109fa6e2e1d72b730417d811dab768b3b9448981
+solidified_at: 1787252732899
 thread: main

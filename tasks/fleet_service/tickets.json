@@ -1,0 +1,53 @@
+{
+  "service": "fleet_service",
+  "tickets": [
+    {
+      "id": "t1",
+      "title": "User deactivation",
+      "footprint": ["service/users.go", "model/user.go"],
+      "spec": "Add `func (u *Users) Deactivate(id string) error` to service/users.go: load the user, set Active=false, persist it, and return ErrNotFound for a missing id. Keep model/user.go changes minimal if you need any."
+    },
+    {
+      "id": "t2",
+      "title": "Discounted invoicing",
+      "footprint": ["service/orders.go", "service/billing.go"],
+      "spec": "Add `func DiscountedInvoice(subtotalCents, discountPct int) int` to service/billing.go: apply the percentage discount to the subtotal (round down), then apply tax exactly as Invoice does. Add `func (o *Orders) TotalWithDiscount(userID string, discountPct int) int` to service/orders.go returning DiscountedInvoice(TotalFor(userID), discountPct)."
+    },
+    {
+      "id": "t3",
+      "title": "User count endpoint",
+      "footprint": ["api/handlers.go", "api/router.go"],
+      "spec": "Add HTTP endpoint `/users/count` returning JSON {\"count\": N} with status 200, where N is the number of stored users (keys with prefix \"user/\" in the Users service's store). Wire it in Router(); implement the handler in api/handlers.go using a.Users.S via a small exported helper if needed — do not modify files outside api/."
+    },
+    {
+      "id": "t4",
+      "title": "Store TTL support",
+      "footprint": ["store/kv.go", "store/memstore.go"],
+      "spec": "Add `PutTTL(key string, value []byte, expiresAt int64)` to the KV interface in store/kv.go and implement it in Mem: entries stored with PutTTL are invisible to Get and Keys once util.Now() >= expiresAt. Plain Put entries never expire. Keep existing methods' signatures unchanged."
+    },
+    {
+      "id": "t5",
+      "title": "Order audit log",
+      "footprint": ["util/audit.go", "service/orders.go"],
+      "spec": "Create util/audit.go with package-level `func Audit(event string)` and `func AuditLog() []string` (append-only, in order). In Orders.Create, on success call util.Audit(\"order.created \" + order.ID)."
+    },
+    {
+      "id": "t6",
+      "title": "Email validation",
+      "footprint": ["model/user.go", "service/users.go"],
+      "spec": "Add `func ValidEmail(e string) bool` to model/user.go: must contain exactly one '@' with at least one '.' after it, and no spaces. Users.Create must return an error (any non-nil error) for invalid emails without storing anything."
+    },
+    {
+      "id": "t7",
+      "title": "Order count endpoint",
+      "footprint": ["api/handlers.go", "api/router.go"],
+      "spec": "Add HTTP endpoint `/orders/count` returning JSON {\"count\": N} with status 200, where N is the number of stored orders (keys with prefix \"order/\" in the Orders service's store). Wire it in Router(); implement in api/handlers.go — do not modify files outside api/."
+    },
+    {
+      "id": "t8",
+      "title": "Namespaced IDs",
+      "footprint": ["util/ids.go", "service/users.go"],
+      "spec": "Add `func SetIDNamespace(ns string)` to util/ids.go: when set to a non-empty value, NewID returns \"<ns>/<kind>-<n>\" instead of \"<kind>-<n>\"; empty ns restores the default. Users.Create keeps using util.NewID and must work under any namespace (its storage key remains \"user/\"+ID)."
+    }
+  ]
+}
