@@ -127,9 +127,14 @@ def run_fleet(arm, model, n_workers):
     tickets = json.loads((TASK / "tickets.json").read_text())["tickets"]
     parent = tempfile.mkdtemp(prefix=run_id + "_")
     ws = setup_ws(arm, parent)
+    ver = lambda c: subprocess.run(c, capture_output=True, text=True,
+                                   timeout=15).stdout.strip().splitlines()[0]
     rec = {"run_id": run_id, "arm": arm, "model": model, "n_workers": n_workers,
            "started_utc": datetime.now(timezone.utc).isoformat(),
            "preflight": claude_adapter.preflight(),
+           "nool_version": ver(["nool", "--version"]),
+           "git_version": ver(["git", "--version"]),
+           "go_version": ver(["go", "version"]),
            "agents": {}, "integration": [], "gating": {}}
     t0 = time.monotonic()
 

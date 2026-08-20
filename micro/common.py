@@ -81,7 +81,9 @@ def provenance():
         "machine": platform.machine(),
         "nool_version": version_of(["nool", "--version"]),
         "git_version": version_of(["git", "--version"]),
+        "go_version": version_of(["go", "version"]),
         "python_version": platform.python_version(),
+        "os_version": platform.mac_ver()[0] or platform.release(),
         "execution": "local (containerization deferred; see spec §8)",
     }
 
