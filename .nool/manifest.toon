@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Run 2 Track B: cross-version re-test on nool 6.14.0 replicates all four bounding findings; provenance extended (go/os versions, fleet nool version); replication manifest
-knot_id: 01a2edd05aa5afdc07948af3cd0759017b69fb7f541a97173228a2193043a0da
-solidified_at: 1787253333484
+intent: Run 2 Track B result files (nool 6.14.0) and run 1 snapshot files
+knot_id: 3e3fd95cdc762b513e2d7fb9acd7dd749a9667a921eabbb51361b5a64b3b4ade
+solidified_at: 1787253364630
 thread: main
