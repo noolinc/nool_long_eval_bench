@@ -297,6 +297,62 @@ A third party with no contact with us must be able to validate results. Concrete
   provenance and compare effect directions/magnitudes, not exact values. Stated
   in README to preempt reviewer confusion.
 
+## 8a. Track D — Fleet Operations Benchmark (pre-registered 2026-08-20, before any Track D data)
+
+The enterprise scenario the suite must speak to: N real agents processing a
+ticket backlog against ONE shared existing codebase, with the coordination
+layer as the manipulated variable. This operationalizes H3 (coordination) and
+the "air traffic controller" adoption claim.
+
+**Setup.** A self-contained synthetic Go service (~12 files, 4 packages,
+stdlib-only; synthetic-but-realistic, disclosed as such) with a passing smoke
+suite. A backlog of 8 tickets, each specifying required API signatures and
+its expected file footprint. Overlap is designed in: three contention
+clusters share hot files ({T1,T6,T8} on service/users.go; {T2,T5} on
+service/orders.go; {T3,T7} on api/*), one ticket is disjoint. One acceptance
+test per ticket, hidden until scoring; each must FAIL on the base tree
+(verified at task QA) and pass iff the ticket is correctly implemented.
+
+**Arms.** Identical agent prompts (ticket text + "land your work with the
+repository's workflow"); identical model; N=5 worker slots; agents work in
+isolated worktrees and commit to ticket branches in both arms.
+- `git_fleet` (uncoordinated baseline): all tickets dispatched in parallel;
+  integration = sequential `git merge` queue in ticket order; conflicts
+  recorded, not resolved.
+- `nool_fleet` (coordinated): tickets registered as nool tasks; before
+  dispatch the orchestrator runs `announce intent --target-nodes <footprint>`
+  and `discover conflicts <footprint>` per ticket; tickets whose footprints
+  conflict with in-flight work are HELD until the conflicting ticket
+  integrates (gated dispatch — nool's documented coordination pattern);
+  integration = `nool merge`; tasks closed on integration.
+The asymmetry (gated vs ungated dispatch) IS the treatment: each arm uses
+its layer's native coordination capability, and git has none. Disclosed.
+
+**Metrics.** Wall time to backlog completion; per-ticket acceptance pass;
+integration conflicts; main build+test health after every merge; wasted
+agent spend (cost of tickets that fail integration); attribution
+completeness of resulting history; total cost. Failure taxonomy per
+unsuccessful ticket: agent-failure / integration-conflict /
+interface-mismatch (clean merge, broken build).
+
+**Reps.** Pilot = 1 rep per arm (pipeline validation + effect direction);
+labeled underpowered. Scaling to ≥3 reps is a budget decision recorded
+before scaling.
+
+**Scenario D2 — Handoff/rehydration (pre-registered with D, before data).**
+Fleet agents are routinely interrupted (context limits, crashes, budget
+caps); the controller claim includes cheap handoff: a successor agent
+rehydrates from recorded state and continues. Protocol: agent A runs the
+`redux_go` full spec with a hard cap of 4 turns (observed solo completion
+needs ~6-7), landing whatever exists at cap; a FRESH agent B receives the
+identical prompt in both arms: "A previous engineer was interrupted partway
+through this task. Recover their progress from this repository's history and
+workflow, then complete the task." Arms differ only in what the workspace
+provides for recovery: git log/diff vs nool status/log/intents (hooks
+installed). Metrics: B's hidden-test pass, B's turns/tokens (context
+re-acquisition cost), redundant work (functions A landed that B rewrote,
+measured by diff), N=3 pairs per arm minimum.
+
 ## 8b. Track C follow-up condition: structured task flow (Tier 2, designed)
 
 Nool's task system (`task create/pick/start/qa/finish`, acceptance criteria,
