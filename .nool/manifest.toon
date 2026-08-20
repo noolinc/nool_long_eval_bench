@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Add benchmark suite design spec (pre-registration of hypotheses and methodology)
-knot_id: 58e88abde20a10e1d31b70a71a276b10182355036ffbfd5819e009c1b567d568
-solidified_at: 1787244668652
-thread: 
+intent: Track B mechanism micro-benchmarks (B1-B5) with results; archive pilot artifacts; README, Apache-2.0 LICENSE and NOTICE, analysis tooling
+knot_id: aa929d7dd7f21d3e58102bb83c093f8da42df015d508110db3a5a4fd4e81781e
+solidified_at: 1787246458122
+thread: main

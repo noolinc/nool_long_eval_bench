@@ -1,0 +1,8 @@
+0000000000000000000000000000000000000000 a9b121878650f54fc49d16ba8d8d6921e4d085b1 Test Agent <test@google.com> 1787186072 +0200	commit (initial): Initial commit
+a9b121878650f54fc49d16ba8d8d6921e4d085b1 a9b121878650f54fc49d16ba8d8d6921e4d085b1 Test Agent <test@google.com> 1787186072 +0200	checkout: moving from main to agent_a
+a9b121878650f54fc49d16ba8d8d6921e4d085b1 330066e77675b518f30571450af8c964a3749979 Test Agent <test@google.com> 1787186072 +0200	commit: Agent A adds start()
+330066e77675b518f30571450af8c964a3749979 a9b121878650f54fc49d16ba8d8d6921e4d085b1 Test Agent <test@google.com> 1787186072 +0200	checkout: moving from agent_a to main
+a9b121878650f54fc49d16ba8d8d6921e4d085b1 a9b121878650f54fc49d16ba8d8d6921e4d085b1 Test Agent <test@google.com> 1787186072 +0200	checkout: moving from main to agent_b
+a9b121878650f54fc49d16ba8d8d6921e4d085b1 ffbfdab3ec3fb45b14cf076d13dd020095a915ed Test Agent <test@google.com> 1787186072 +0200	commit: Agent B adds stop()
+ffbfdab3ec3fb45b14cf076d13dd020095a915ed a9b121878650f54fc49d16ba8d8d6921e4d085b1 Test Agent <test@google.com> 1787186072 +0200	checkout: moving from agent_b to main
+a9b121878650f54fc49d16ba8d8d6921e4d085b1 330066e77675b518f30571450af8c964a3749979 Test Agent <test@google.com> 1787186072 +0200	merge agent_a: Fast-forward

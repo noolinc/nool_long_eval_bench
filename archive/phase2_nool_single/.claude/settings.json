@@ -1,0 +1,48 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/arunbalakrishnan/Research/nool_benchmarks/phase2_nool_single/.nool/hooks/agent/claude_hook.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/arunbalakrishnan/Research/nool_benchmarks/phase2_nool_single/.nool/hooks/agent/claude_hook.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/arunbalakrishnan/Research/nool_benchmarks/phase2_nool_single/.nool/hooks/agent/claude_hook.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "command": "/Users/arunbalakrishnan/Research/nool_benchmarks/phase2_nool_single/.nool/hooks/agent/claude_hook.sh",
+            "type": "command"
+          }
+        ],
+        "matcher": "*"
+      }
+    ]
+  }
+}

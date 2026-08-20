@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 f07a216022549d789205623b7f70d36e7faa16f7 Bench <test@bench.com> 1786797521 +0200	commit (initial): Initial: two modules far apart
+f07a216022549d789205623b7f70d36e7faa16f7 f07a216022549d789205623b7f70d36e7faa16f7 Bench <test@bench.com> 1786797521 +0200	checkout: moving from main to agent-a
+f07a216022549d789205623b7f70d36e7faa16f7 015c1372f5f07fc04d40fd34605968b5cd20e07c Bench <test@bench.com> 1786797521 +0200	commit: Agent A: modify Auth module
+015c1372f5f07fc04d40fd34605968b5cd20e07c f07a216022549d789205623b7f70d36e7faa16f7 Bench <test@bench.com> 1786797521 +0200	checkout: moving from agent-a to main
+f07a216022549d789205623b7f70d36e7faa16f7 f07a216022549d789205623b7f70d36e7faa16f7 Bench <test@bench.com> 1786797521 +0200	checkout: moving from main to agent-b
+f07a216022549d789205623b7f70d36e7faa16f7 a087c0065fd6737655f1007131848712d0865a93 Bench <test@bench.com> 1786797521 +0200	commit: Agent B: modify Billing module
+a087c0065fd6737655f1007131848712d0865a93 f07a216022549d789205623b7f70d36e7faa16f7 Bench <test@bench.com> 1786797521 +0200	checkout: moving from agent-b to main
+f07a216022549d789205623b7f70d36e7faa16f7 015c1372f5f07fc04d40fd34605968b5cd20e07c Bench <test@bench.com> 1786797522 +0200	merge agent-a: Fast-forward (no commit created; -m option ignored)
+015c1372f5f07fc04d40fd34605968b5cd20e07c aa3507692938c02c12fb4860034d70230737bff6 Bench <test@bench.com> 1786797522 +0200	merge agent-b: Merge made by the 'ort' strategy.

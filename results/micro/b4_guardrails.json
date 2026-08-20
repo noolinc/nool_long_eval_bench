@@ -1,0 +1,80 @@
+{
+ "benchmark": "b4_guardrails",
+ "provenance": {
+  "timestamp_utc": "2026-08-20T17:11:27.061183+00:00",
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "nool_version": "nool 6.13.0",
+  "git_version": "git version 2.50.1 (Apple Git-155)",
+  "python_version": "3.11.2",
+  "execution": "local (containerization deferred; see spec \u00a78)"
+ },
+ "cases": {
+  "clean": {
+   "git": {
+    "accepted": true,
+    "exit_code": 0,
+    "output_tail": []
+   },
+   "nool": {
+    "stage": "accepted",
+    "propose_exit": 0,
+    "validate_exit": 0,
+    "propose_tail": [
+     "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+     "",
+     "[Auto] Solidifying proposal..."
+    ],
+    "validate_tail": [
+     "",
+     "  \u26a0 Project integrity NOT checked \u2014 no integrity driver applied to these ",
+     "Knot(s). The DAG is well-formed; whether the code is sound is unverified."
+    ]
+   }
+  },
+  "syntax_broken": {
+   "git": {
+    "accepted": true,
+    "exit_code": 0,
+    "output_tail": []
+   },
+   "nool": {
+    "stage": "rejected_at_propose_or_solidify",
+    "propose_exit": 2,
+    "validate_exit": 0,
+    "propose_tail": [
+     "  [IO] Reading from working directory: \"lib.go\"",
+     "  [Reify] \ud83d\udce6 Detected compiled language '.go'. Enabling project-level reification...",
+     "Error: Precheck failed: Go syntax error: parse failed"
+    ],
+    "validate_tail": [
+     "",
+     "  \u26a0 Project integrity NOT checked \u2014 no integrity driver applied to these ",
+     "Knot(s). The DAG is well-formed; whether the code is sound is unverified."
+    ]
+   }
+  },
+  "test_breaking": {
+   "git": {
+    "accepted": true,
+    "exit_code": 0,
+    "output_tail": []
+   },
+   "nool": {
+    "stage": "accepted",
+    "propose_exit": 0,
+    "validate_exit": 0,
+    "propose_tail": [
+     "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+     "",
+     "[Auto] Solidifying proposal..."
+    ],
+    "validate_tail": [
+     "",
+     "  \u26a0 Project integrity NOT checked \u2014 no integrity driver applied to these ",
+     "Knot(s). The DAG is well-formed; whether the code is sound is unverified."
+    ]
+   }
+  }
+ }
+}

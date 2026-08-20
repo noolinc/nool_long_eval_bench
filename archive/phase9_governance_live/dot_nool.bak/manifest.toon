@@ -1,0 +1,7 @@
+commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
+commit_policy_version: 1
+commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
+intent: Assert: entity:internal/api/handler.go:9c68a3afa18d0dc6 must_not_depend_on entity:internal/security/auth.go:8d1d7fb789c3b2a3
+knot_id: 9e5919d198650ad79f3a441a82970cb6da972c8d485230a336e03580959512ba
+solidified_at: 1786798041815
+thread: 

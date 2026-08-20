@@ -1,0 +1,7 @@
+commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
+commit_policy_version: 1
+commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
+intent: Implement Redux core
+knot_id: fa78f15d662e3ea6a99201e053da3be8e5af9bafc74d553f6ecd12beca8472ad
+solidified_at: 1786791677401
+thread: main

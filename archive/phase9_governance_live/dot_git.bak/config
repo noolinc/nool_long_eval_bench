@@ -1,0 +1,13 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[user]
+	email = test@bench.com
+	name = Bench
+[merge "nool-knot"]
+	name = Nool Knot Merge Driver
+	driver = /Users/arunbalakrishnan/.local/bin/nool merge-driver %O %A %B %P

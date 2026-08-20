@@ -1,0 +1,4 @@
+merge b
+
+# Conflicts:
+#	main.go

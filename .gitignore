@@ -1,0 +1,10 @@
+# Build artifacts (regenerable)
+archive/**/target/
+**/target/
+**/*.bak.rs
+
+# Large per-run transcripts stay local; the results index is committed
+results/**/transcripts/
+
+# Benchmark scratch workspaces
+work/

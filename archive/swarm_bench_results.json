@@ -1,0 +1,11 @@
+{
+  "agents": 15,
+  "disjoint": {
+    "git":  {"clean_merges": 15,  "conflicts": 0,  "wall_time_s": 1},
+    "nool": {"clean_merges": 15, "conflicts": 0, "wall_time_s": 1, "dag_heads_after": 16}
+  },
+  "contended": {
+    "git":  {"clean_merges": 1,  "conflicts": 14,  "wall_time_s": 1},
+    "nool": {"clean_merges": 1, "conflicts": 14, "wall_time_s": 1, "dag_heads_after": 16}
+  }
+}

@@ -1,0 +1,8 @@
+# Nool local state
+.nool/
+.nool/nool.db
+.nool/nool.db-shm
+.nool/nool.db-wal
+.nool/nool.db-journal
+.nool/knots/
+nool_proposal.tmp
