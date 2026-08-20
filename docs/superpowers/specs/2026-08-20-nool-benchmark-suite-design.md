@@ -388,7 +388,27 @@ interface-mismatch (clean merge, broken build).
 labeled underpowered. Scaling to ≥3 reps is a budget decision recorded
 before scaling.
 
-**Scenario D2 — Handoff/rehydration (pre-registered with D, before data).**
+**Scale-up 1 (pre-registered 2026-08-20 after pilot, before scale data).**
+Pilot runs 1–2 showed file-footprint overlap absorbed by textual merge: the
+uncoordinated baseline did not fail, so no arm difference was measurable.
+Scale-up 1 raises contention to the function level and widens the fleet:
+- Corpus v2: the 8 pilot tickets plus 12 new (20 total) with three designed
+  clusters — A: three tickets each modifying the SAME function body
+  (service/billing.go Invoice — the regime where B5 shows textual merge
+  fails); B: three tickets modifying the same handler file's functions;
+  C: three tickets extending the same store file; plus 3 independent
+  fillers. Cluster-A acceptance tests assert each ticket's property with
+  tolerance for the other cluster members' presence, so a ticket's score
+  reflects ITS feature landing, not its neighbors'.
+- N = 10 workers, 2 reps per arm, same pinned model.
+- Predicted (falsifiable): git arm suffers integration conflicts on
+  cluster A's 2nd/3rd merges (branches share a base; same-function edits);
+  nool arm's gated dispatch serializes the cluster so later tickets branch
+  from integrated state and compose. If the git arm again absorbs the
+  contention, that is reported as-is and the next escalation is
+  spec-level interaction (tickets whose CHANGES semantically interact).
+- Metrics as in D, plus per-cluster integration outcomes and wasted spend
+  (cost of agent runs whose tickets failed integration).
 Fleet agents are routinely interrupted (context limits, crashes, budget
 caps); the controller claim includes cheap handoff: a successor agent
 rehydrates from recorded state and continues. Protocol: agent A runs the
