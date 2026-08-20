@@ -122,14 +122,16 @@ def nool_gate(ws, ticket):
             "discover_tail": d_out.strip().splitlines()[-2:]}
 
 
-def run_fleet(arm, model, n_workers):
+def run_fleet(arm, model, n_workers, tickets_file="tickets.json"):
     run_id = f"fleet_{arm}_{uuid.uuid4().hex[:8]}"
-    tickets = json.loads((TASK / "tickets.json").read_text())["tickets"]
+    corpus = json.loads((TASK / tickets_file).read_text())
+    tickets = corpus["tickets"]
     parent = tempfile.mkdtemp(prefix=run_id + "_")
     ws = setup_ws(arm, parent)
     ver = lambda c: subprocess.run(c, capture_output=True, text=True,
                                    timeout=15).stdout.strip().splitlines()[0]
     rec = {"run_id": run_id, "arm": arm, "model": model, "n_workers": n_workers,
+           "corpus": corpus.get("corpus", "v1"), "tickets_file": tickets_file,
            "started_utc": datetime.now(timezone.utc).isoformat(),
            "preflight": claude_adapter.preflight(),
            "nool_version": ver(["nool", "--version"]),
@@ -213,9 +215,12 @@ def main():
     ap.add_argument("--model", required=True)
     ap.add_argument("--arms", default="git_fleet,nool_fleet")
     ap.add_argument("--workers", type=int, default=5)
+    ap.add_argument("--tickets", default="tickets.json")
+    ap.add_argument("--reps", type=int, default=1)
     args = ap.parse_args()
-    for arm in args.arms.split(","):
-        run_fleet(arm, args.model, args.workers)
+    for _ in range(args.reps):
+        for arm in args.arms.split(","):
+            run_fleet(arm, args.model, args.workers, args.tickets)
 
 
 if __name__ == "__main__":

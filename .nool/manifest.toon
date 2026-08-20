@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-register Track D scale-up 1: function-level contention corpus v2, N=10 workers, 2 reps per arm, falsifiable prediction
-knot_id: 25fc4a597481085b55e45927d26c8912ec30111af34f7e9bee88252b5131928d
-solidified_at: 1787262146820
+intent: Corpus v2: 12 new tickets with function-level contention clusters, QA-verified fail-on-base; fleet harness corpus/workers/reps params
+knot_id: e881085af0921dda0e7c7cc2efeec33992ea6b81ff68cd28124412ea7c8d8dfe
+solidified_at: 1787262304293
 thread: main
