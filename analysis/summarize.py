@@ -106,8 +106,31 @@ def b5():
                  "exit0_on_conflict"])
 
 
+def trackc():
+    p = RESULTS / "trackc" / "runs.jsonl"
+    if not p.exists():
+        return
+    runs = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
+    print("== Track C runs ==")
+    rows = []
+    for r in runs:
+        score = r.get("score", {})
+        agents = r.get("agents") or ([r["agent"]] if "agent" in r else [])
+        tok = sum((a.get("tokens_out") or 0) for a in agents) or "-"
+        turns = sum((a.get("num_turns") or 0) for a in agents) or "-"
+        cost = round(sum((a.get("cost_usd") or 0) for a in agents), 4) or "-"
+        integ = r.get("integration")
+        clean = f"{sum(1 for i in integ if i['clean'])}/{len(integ)}" if integ else "-"
+        rows.append([r["run_id"][:40], r.get("model_requested", "?"),
+                     score.get("build_ok"), score.get("tests_ok"), clean,
+                     turns, tok, cost,
+                     "FATAL" if "fatal_error" in r else ""])
+    table(rows, ["run", "model", "build", "tests", "merges", "turns",
+                 "tok_out", "usd", "err"])
+
+
 def main():
-    for f in (b1, b2, b3, b4, b5):
+    for f in (b1, b2, b3, b4, b5, trackc):
         f()
 
 

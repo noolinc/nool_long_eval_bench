@@ -1,0 +1,13 @@
+id: redux_go
+language: go
+description: Implement a Redux-style state container in Go (single package).
+spec_detail: high            # full API signatures given; held fixed across arms
+multi_agent_k: 2             # decomposition authored below, identical across arms
+timeouts:
+  agent_seconds: 900
+  score_seconds: 120
+score:
+  build: ["go", "build", "./..."]
+  test: ["go", "test", "./..."]
+hidden_tests:
+  - redux_test.go
