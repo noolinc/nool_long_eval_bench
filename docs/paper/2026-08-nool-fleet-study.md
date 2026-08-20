@@ -95,6 +95,21 @@ test is higher contention density (same-function edits, more tickets per
 hot file), longer tickets, and larger N, per §8; a coordination layer can
 only show value where the baseline measurably fails.
 
+### 5.3 Replication (run 2, cross-version)
+
+The full suite was re-run the same day. Provenance stamping caught a product
+upgrade between runs (nool 6.13.0 → 6.14.0), making run 2 a cross-version
+re-test rather than a same-conditions replication — and strengthening the
+result: all four Track B bounding findings replicated exactly on 6.14.0
+(B5 merge outcomes ≡ git with 15/15 semantic passes; B7 bisect names the
+first post-good knot; B3 pluck destroys later unrelated work in both
+timeline variants; B4 accepts parseable test-breaking changes). The Track C
+grid passed 20/20 (run 1: 19/20; the run 1 interface-mismatch failure did
+not recur), with token/turn medians stable within noise per cell and still
+no arm separation. The fleet pilot repeated both arms at 8/8 with zero
+conflicts; nool's gating overhead was +10 s (run 1) and +3 s (run 2).
+Conditions for both runs are indexed in `results/replications/MANIFEST.md`.
+
 ## 6. Evidence map: claims versus current evidence
 
 | Claim | Status | Basis |

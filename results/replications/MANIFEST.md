@@ -25,6 +25,14 @@ Data locations:
   `../trackc/fleet_runs.jsonl`; runs are distinguished by `started_utc`
   and per-record version fields.
 
+**Run 2 LLM outcomes (completed 19:44 UTC):** Track C grid 20/20 hidden-test
+pass (run 1: 19/20; run 1's single failure was a multi_nool inter-agent
+interface mismatch, not reproduced); token/turn medians stable within noise
+in every cell; still no arm separation on any metric. Fleet pilot: both arms
+8/8 accepted, zero conflicts, both runs; nool gating wall-time overhead
++10 s in run 1, +3 s in run 2. Effect directions fully consistent across
+runs.
+
 **Cross-version replication of the four bounding findings (Track B):**
 B5 semantic-layer-classifies-but-file-merge-conflicts: identical
 (1 clean / 14 conflicts, sem-pass 15/15, all reps, both versions).

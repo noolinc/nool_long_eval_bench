@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Run 2 Track B result files (nool 6.14.0) and run 1 snapshot files
-knot_id: 3e3fd95cdc762b513e2d7fb9acd7dd749a9667a921eabbb51361b5a64b3b4ade
-solidified_at: 1787253364630
+intent: Run 2 complete: cross-version replication on nool 6.14.0 — grid 20/20, fleet 8/8 both arms, all bounds hold; report replication section
+knot_id: 89c626d2540006d19f3616e08689f3d7c3efce9142f51033d2276b9c388eab47
+solidified_at: 1787255668403
 thread: main
