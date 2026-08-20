@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Corpus v2: 12 new tickets with function-level contention clusters, QA-verified fail-on-base; fleet harness corpus/workers/reps params
-knot_id: e881085af0921dda0e7c7cc2efeec33992ea6b81ff68cd28124412ea7c8d8dfe
-solidified_at: 1787262304293
+intent: Setup audit: nool merge driver scoped to ledger artifacts only, ruling out harness misconfiguration for B5; land completed scale-up git-arm record
+knot_id: daaf6709f01ab4c0d49e00e9024be038c1bd571f49398428255d4e1a64b58e0c
+solidified_at: 1787262639884
 thread: main
