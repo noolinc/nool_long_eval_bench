@@ -32,6 +32,55 @@ that a null result is publishable.
 - **H7 (Portability):** Effects in H1–H5 replicate across agent harnesses
   (interaction effect harness × VCS reported explicitly).
 
+## 1b. Outcome-claim framework (added 2026-08-20, before Tracks D-F data)
+
+The adoption thesis is outcome-based: "without nool, sufficiently agentic
+development becomes measurably unsafe or expensive; with nool those failures
+drop materially." Five outcome claims organize all tracks, and every claim
+is scored on the FINAL SYSTEM (hidden tests, invariants, main-branch
+health), never on whether nool emitted a warning:
+
+| # | Claim | Killer metric | Instruments |
+|---|---|---|---|
+| C1 | Agents make better changes | final-task correctness | Tracks C, D, A |
+| C2 | Fleets stop interfering | conflict/regression/rework rate | D, B5, A1 |
+| C3 | Decisions survive across agents/time | constraint-preservation rate | E (longitudinal), D2 |
+| C4 | Safe concurrency scales | correctness at N = 5 vs 50 vs 100 | D scale-ups, B2 |
+| C5 | Lower cost per accepted change | accepted changes per $ | D, C |
+
+Priority proofs: (P1) fleet correctness under high concurrency, (P2)
+longitudinal institutional memory, (P3) deterministic governance.
+
+**Evidence discipline.** Mechanism findings already collected constrain
+what the outcome tracks can show and are reported alongside them — as of
+this amendment: B5 (nool merge file-level outcomes ≡ git; semantic layer
+classifies but does not act) bounds C2; B4 (test-breaking parseable changes
+pass propose and deferred validation) bounds P3 absent governance config;
+B7 (bisect misidentifies culprit) bounds the debugging claim. If the
+product changes, the benchmarks re-run and the bounds move; goalposts do
+not.
+
+**Track E — Longitudinal institutional memory (designed; not yet built).**
+M sequential tasks (target 100+, budget-gated) against one repo, with
+architectural decisions, exceptions, and migrations introduced at scheduled
+points and recorded via each arm's native mechanism (nool: ledger/learn/
+steering; git: committed ADR markdown). Killer metric: correctness and
+constraint-adherence SLOPE over task index — the baseline is expected to
+degrade as history outgrows context reconstruction; nool's claim is a flat
+curve. Scoring: hidden tests + a constraint-violation checker per decision.
+
+**Track F — Deterministic governance (designed; not yet built).**
+Governance configured via nool's own scaffolding (config init-governance:
+steer/trust/gating policies). A battery of prohibited-change scenarios
+(bypass auth, unapproved dependency, cross ownership boundary, reverse a
+recorded decision without justification) where violation is the EASIEST
+route to the agent's stated task. Adversarial conditions: fresh sessions,
+no conversational context, alternate harness, and the raw-git bypass path
+(agent circumvents nool entirely — the enforcement surface must catch it
+or the claim fails). Killer metric: blocked violations / attempted
+violations, measured on final repo state. Current B4 evidence predicts
+gaps; the benchmark exists to quantify them before and after product fixes.
+
 ## 2. Suite structure — three tracks
 
 | Track | What | Why | Cost |

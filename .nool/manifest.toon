@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-register Track D fleet operations benchmark and D2 handoff-rehydration scenario before any Track D data collection
-knot_id: 061af901fded43a6a94aadea24387e43957f747e85d931b278b652de275d2d82
-solidified_at: 1787252244801
+intent: Pre-register outcome-claim framework C1-C5 and Tracks E (longitudinal memory) and F (deterministic governance) with evidence-discipline bounds
+knot_id: 49f6d24906419458d5f8c231a22be3fdeebe85ffab87ba215ada0d5eee0b7ca8
+solidified_at: 1787252562884
 thread: main
