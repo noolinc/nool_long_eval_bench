@@ -34,6 +34,16 @@ def run(workdir, prompt_text, model, max_turns, timeout_s,
 `None` — estimating is banned.** The tool allowlist must be identical across
 arms (the workspace, not the tool set, is the manipulated variable).
 
+**Environment isolation is mandatory.** The operator's user-level agent
+configuration (plugins, skills, personal hooks, global memory files) must be
+excluded from benchmark sessions; project/workspace-level configuration must
+stay enabled, because the nool arm's workspace hooks are the treatment under
+test. For Claude Code this is `--setting-sources project,local`. An early
+batch without this was invalidated — see
+`results/trackc/invalidated_2026-08-20_user-config-contamination/NOTE.md`.
+Any new adapter must document the equivalent isolation mechanism for its CLI
+before its data is analyzed.
+
 Implemented: `claude` (Claude Code CLI, stream-json accounting).
 To add gemini/codex/pi: implement the same contract with that CLI's
 headless mode and native usage accounting, then register it in

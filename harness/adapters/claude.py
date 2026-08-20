@@ -33,6 +33,13 @@ def run(workdir, prompt_text, model, max_turns, timeout_s, transcript_path, env)
         "--output-format", "stream-json", "--verbose",
         "--max-turns", str(max_turns),
         "--allowedTools", ALLOWED_TOOLS,
+        # Environment isolation: user-level settings (plugins, skills, personal
+        # hooks, user CLAUDE.md) must not leak into benchmark sessions — they
+        # contaminated pilot runs (an agent invoked a user-installed skill that
+        # told it to await human approval, so it never wrote code). Project
+        # settings stay enabled: the nool arm's workspace hooks ARE the
+        # treatment under test.
+        "--setting-sources", "project,local",
     ]
     t0 = time.monotonic()
     try:
