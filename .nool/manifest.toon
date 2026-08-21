@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Update fleet-study paper with the completed pre-registered N=25 point (git_fleet 41/60 and 40/60 vs nool_fleet 60/60 and 60/60, zero conflicts both nool reps), the launch-stagger fix that resolved the memory-burst wall, and the mid-run rate-limit quarantine incident; updates abstract, section 5.5, evidence map C2/C4 rows, section 7 threats to validity, and the P1 roadmap status
-knot_id: 79460c036a1a21bee14a991624199cc049f448320f986e174732a664bef6b11b
-solidified_at: 1787356041999
+intent: Land N=35 git_fleet rep-1 corpus-v3 run record: 37/60 accepted, wall 141s, cost $6.83. 20 failures are merge conflicts on contended-cluster tickets (same pattern as N=20/N=25); 3 additional failures (t54, t55, t58) are NOT merge conflicts -- final main health shows build_ok=true but smoke_ok=false, a clean-merge-but-broken-test outcome, likely a package-level symbol collision among disjoint filler tickets that git's textual merge cannot detect. First clean-merge build-poisoning signal since scale-up 1's t17.
+knot_id: 9585dd8a593d99b1621a81c414d767aa6b4121879b9ea5c6677307366022ed9e
+solidified_at: 1787356410509
 thread: main
