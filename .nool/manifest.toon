@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: B4 governance-mode re-measurement (governed path rejects test-breaking at propose; --fast is explicit opt-in) + corpus v2.1: t2 acceptance test hardened to property checks tolerant of cluster-A billing changes; findings F4/§3.3, paper abstract+§2+§5.3+§6, README, manifest updated
-knot_id: db60a7db022712524ebd513184f0994e2538c723010e02f180460f1984559687
-solidified_at: 1787309519145
+intent: Pre-register scale-up 1 confirmation (corpus v2.1): N=10, 2 reps/arm, claude-sonnet-5, nool 6.14.1; predictions nool 20/20 per rep, git bimodal <=13/20 — registered before any v2.1 data
+knot_id: d83b2548fdf87bda97300e4b2790875d3737fb547c29996531510401be471906
+solidified_at: 1787309618820
 thread: main

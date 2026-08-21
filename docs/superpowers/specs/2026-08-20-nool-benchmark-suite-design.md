@@ -422,6 +422,30 @@ installed). Metrics: B's hidden-test pass, B's turns/tokens (context
 re-acquisition cost), redundant work (functions A landed that B rewrote,
 measured by diff), N=3 pairs per arm minimum.
 
+**Scale-up 1 confirmation on corpus v2.1 (pre-registered 2026-08-21,
+before any v2.1 data).** Scale-up 1's nool reps' sole failure (t2, both
+reps) was traced to a corpus artifact, not agent quality: v2's t2
+acceptance test hard-coded pre-cluster-A invoice totals (880 cents) and
+failed whenever ALL of cluster A landed — penalizing exactly the arm that
+successfully integrates every contended ticket. Corpus v2.1 rewrites t2's
+acceptance test as property checks routed through the service's own
+functions (verified green against both plain-starter and
+full-cluster-A Invoice semantics before landing); ticket specs unchanged.
+Confirmation design, identical to scale-up 1 in every other respect:
+N=10 workers, corpus v2.1 (20 tickets), 2 reps per arm, claude-sonnet-5
+pinned, nool 6.14.1, sequential runs under the RAM watchdog.
+Predictions (falsifiable):
+- nool arm accepts 20/20 in each rep; any failure that does occur is
+  reported as-is with its taxonomy label (a recurrence of a t2 failure on
+  the property test would indicate agent quality, not the artifact).
+- git arm remains bimodal with integration conflicts on cluster 2nd/3rd
+  merges and acceptance at or below its prior 13/20; the t2 fix should
+  not materially change git outcomes, because the artifact fired only
+  when all of cluster A landed, which no git rep achieved.
+Metrics and scoring identical to scale-up 1. Reporting: these reps become
+the primary corpus-v2.1 comparison; run-3 (v2) reps are retained in the
+manifest, annotated with the artifact.
+
 ## 8b. Track C follow-up condition: structured task flow (Tier 2, designed)
 
 Nool's task system (`task create/pick/start/qa/finish`, acceptance criteria,
