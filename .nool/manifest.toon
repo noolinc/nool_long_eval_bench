@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Report scale-up 1: paper §5.4 with per-mode git failures, gate/corpus deviations, updated abstract + evidence map (C2 split, C4 first real-agent point, C5 first separation), P1 progress note; manifest run 3 block
-knot_id: d73c6a3ab99caa18933d6e02bb94dc58f5c5e3f7074e8fc5a16a6603fedec3e4
-solidified_at: 1787290676890
+intent: Findings report (F1-F7, 7 regenerable SVG figures via analysis/make_figures.py), README findings-at-a-glance + layout/status refresh; paper corrections from raw data: run 3 Track B section (B5 15/15, B3 5/5, B7 correct on 6.14.1; B4 unmoved; latency ratio 7-10x), Track C run 3 is 18/20 not 20/20, evidence map + abstract updated
+knot_id: 0f65d520cb8ffec4b1707be5d7ddc66f78e899bf595c37947044c721a4f88235
+solidified_at: 1787291712432
 thread: main

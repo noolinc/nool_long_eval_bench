@@ -10,15 +10,47 @@ improves coding-agent outcomes versus plain git, across agent harnesses
 hypotheses H1–H7 and the analysis plan were committed before any Tier 1 data
 was collected. Read it before the numbers.
 
+## Findings at a glance (runs 1–3 + fleet scale-up 1, 2026-08-20/21)
+
+Full report with figures and provenance:
+[`docs/findings/2026-08-21-findings.md`](docs/findings/2026-08-21-findings.md) ·
+academic write-up: `docs/paper/2026-08-nool-fleet-study.md`. One pinned
+model (claude-sonnet-5) throughout; product versions 6.13.0 → 6.14.1
+recorded per run.
+
+![Scale-up 1: tickets accepted per run](docs/findings/figures/trackd_acceptance.svg)
+
+- **Fleet contention (pre-registered scale-up, 10 agents, 20 tickets,
+  function-level contention):** uncoordinated git fleet accepted 1/20 and
+  13/20 (in the 1/20 rep a textually-clean merge silently broke the build,
+  voiding 13 landed tickets); nool's footprint-gated dispatch accepted
+  19/20 in both reps with 20/20 clean merges and a green main throughout,
+  at equal agent spend and +40–70% wall time. Spend per accepted ticket:
+  $0.19–0.21 vs $0.30–3.80.
+- **Mechanisms moved with the product:** on 6.14.1, contended merges
+  converge 15/15 (were 1/15, = git, on ≤6.14.0), selective undo preserves
+  later unrelated work 5/5 (was 0/5), and bisect names the true culprit.
+  Unmoved: a parseable test-breaking change still lands (B4), and landing
+  latency stays roughly 7–10× git.
+- **Standing wins:** perfect write attribution under shared-workspace
+  concurrency (git sweeps up to 56% of ops at N=15); context retrieval in
+  163–408 bytes vs 660 for grep+read at small scale.
+- **Honest nulls:** without designed contention (2×2 grid, 5-worker pilot,
+  v1 corpus) the arms do not separate on any metric, in any run.
+
 ## Layout
 
 | Path | What |
 |---|---|
 | `micro/` | Track B — deterministic mechanism micro-benchmarks (no LLM, no API keys, free to run) |
 | `results/micro/` | Raw JSON output of Track B, committed with full provenance |
-| `harness/` | Track C — LLM-in-the-loop 2×2 experiment harness (agent ± nool, single/multi) |
-| `tasks/` | Track C task catalog (spec + starter + hidden held-out tests) |
+| `harness/` | Track C — LLM-in-the-loop 2×2 experiment harness; Track D fleet runner (`fleet_run.py`) |
+| `tasks/` | Track C/D task catalogs (spec + starter + hidden held-out tests; fleet ticket corpora) |
+| `results/trackc/` | Raw LLM-run records: 2×2 grid (`runs.jsonl`) and fleet runs (`fleet_runs.jsonl`) |
+| `results/replications/` | Per-version Track B snapshots + `MANIFEST.md` indexing every run's conditions |
 | `analysis/summarize.py` | Renders all committed results as tables. Numbers only — no conclusions in code |
+| `analysis/make_figures.py` | Regenerates every figure in `docs/findings/` from the raw JSON |
+| `docs/findings/` | Findings report with figures; `docs/paper/` holds the academic write-up |
 
 Pre-suite pilot material (manual runs, no provenance — **not evidence**) was
 archived and then removed from the working tree; it remains recoverable from
@@ -80,8 +112,12 @@ harness's own accounting — estimated metrics are banned; anything a harness
 does not expose is reported as null. See `harness/README.md` for the adapter
 contract if you are adding gemini/codex/pi.
 
-Current status: Track B complete and committed. Track C harness and task
-catalog in progress. External benchmark adaptations (CooperBench,
+Current status: Track B complete on three product versions (6.13.0,
+6.14.0, 6.14.1) with per-version snapshots under `results/replications/`.
+Track C grid run three times (19/20, 20/20, 18/20; no arm separation).
+Track D fleet: pilot plus pre-registered scale-up 1 complete (first arm
+separation — see the findings report); next pre-registered step is the P1
+concurrency ladder. External benchmark adaptations (CooperBench,
 SlopCodeBench) are Tier 2 — see the spec.
 
 ## Threats to validity
