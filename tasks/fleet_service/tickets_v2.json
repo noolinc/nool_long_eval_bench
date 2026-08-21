@@ -1,177 +1,177 @@
 {
- "service": "fleet_service",
- "corpus": "v2",
- "tickets": [
-  {
-   "id": "t1",
-   "title": "User deactivation",
-   "footprint": [
-    "service/users.go",
-    "model/user.go"
-   ],
-   "spec": "Add `func (u *Users) Deactivate(id string) error` to service/users.go: load the user, set Active=false, persist it, and return ErrNotFound for a missing id. Keep model/user.go changes minimal if you need any."
-  },
-  {
-   "id": "t2",
-   "title": "Discounted invoicing",
-   "footprint": [
-    "service/orders.go",
-    "service/billing.go"
-   ],
-   "spec": "Add `func DiscountedInvoice(subtotalCents, discountPct int) int` to service/billing.go: apply the percentage discount to the subtotal (round down), then apply tax exactly as Invoice does. Add `func (o *Orders) TotalWithDiscount(userID string, discountPct int) int` to service/orders.go returning DiscountedInvoice(TotalFor(userID), discountPct)."
-  },
-  {
-   "id": "t3",
-   "title": "User count endpoint",
-   "footprint": [
-    "api/handlers.go",
-    "api/router.go"
-   ],
-   "spec": "Add HTTP endpoint `/users/count` returning JSON {\"count\": N} with status 200, where N is the number of stored users (keys with prefix \"user/\" in the Users service's store). Wire it in Router(); implement the handler in api/handlers.go using a.Users.S via a small exported helper if needed \u2014 do not modify files outside api/."
-  },
-  {
-   "id": "t4",
-   "title": "Store TTL support",
-   "footprint": [
-    "store/kv.go",
-    "store/memstore.go"
-   ],
-   "spec": "Add `PutTTL(key string, value []byte, expiresAt int64)` to the KV interface in store/kv.go and implement it in Mem: entries stored with PutTTL are invisible to Get and Keys once util.Now() >= expiresAt. Plain Put entries never expire. Keep existing methods' signatures unchanged."
-  },
-  {
-   "id": "t5",
-   "title": "Order audit log",
-   "footprint": [
-    "util/audit.go",
-    "service/orders.go"
-   ],
-   "spec": "Create util/audit.go with package-level `func Audit(event string)` and `func AuditLog() []string` (append-only, in order). In Orders.Create, on success call util.Audit(\"order.created \" + order.ID)."
-  },
-  {
-   "id": "t6",
-   "title": "Email validation",
-   "footprint": [
-    "model/user.go",
-    "service/users.go"
-   ],
-   "spec": "Add `func ValidEmail(e string) bool` to model/user.go: must contain exactly one '@' with at least one '.' after it, and no spaces. Users.Create must return an error (any non-nil error) for invalid emails without storing anything."
-  },
-  {
-   "id": "t7",
-   "title": "Order count endpoint",
-   "footprint": [
-    "api/handlers.go",
-    "api/router.go"
-   ],
-   "spec": "Add HTTP endpoint `/orders/count` returning JSON {\"count\": N} with status 200, where N is the number of stored orders (keys with prefix \"order/\" in the Orders service's store). Wire it in Router(); implement in api/handlers.go \u2014 do not modify files outside api/."
-  },
-  {
-   "id": "t8",
-   "title": "Namespaced IDs",
-   "footprint": [
-    "util/ids.go",
-    "service/users.go"
-   ],
-   "spec": "Add `func SetIDNamespace(ns string)` to util/ids.go: when set to a non-empty value, NewID returns \"<ns>/<kind>-<n>\" instead of \"<kind>-<n>\"; empty ns restores the default. Users.Create keeps using util.NewID and must work under any namespace (its storage key remains \"user/\"+ID)."
-  },
-  {
-   "id": "t9",
-   "title": "Minimum charge",
-   "footprint": [
-    "service/billing.go"
-   ],
-   "spec": "Invoice must never return less than 50 cents: any computed amount below 50 becomes exactly 50. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (fees, tax rules)."
-  },
-  {
-   "id": "t10",
-   "title": "Processing fee",
-   "footprint": [
-    "service/billing.go"
-   ],
-   "spec": "Invoice must add a fixed processing fee of 25 cents to the subtotal before tax is computed. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, tax rules)."
-  },
-  {
-   "id": "t11",
-   "title": "Large-order tax waiver",
-   "footprint": [
-    "service/billing.go"
-   ],
-   "spec": "For subtotals of 100000 cents or more, Invoice must charge no tax: the result is the subtotal plus any fixed fees only. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees)."
-  },
-  {
-   "id": "t12",
-   "title": "Request-ID header",
-   "footprint": [
-    "api/router.go",
-    "api/handlers.go"
-   ],
-   "spec": "Every response served through Router() must carry an X-Request-Id header whose value is a fresh util.NewID(\"req\"). Implement by wrapping the mux in Router(); do not modify files outside api/."
-  },
-  {
-   "id": "t13",
-   "title": "Request log",
-   "footprint": [
-    "api/router.go",
-    "api/handlers.go"
-   ],
-   "spec": "The api package must record the URL path of every request served through Router(), in order, exposed via an exported func RequestLog() []string. Do not modify files outside api/."
-  },
-  {
-   "id": "t14",
-   "title": "Error envelope",
-   "footprint": [
-    "api/handlers.go"
-   ],
-   "spec": "Error responses from handleUserGet must be JSON of the form {\"error\": <message>, \"code\": <http status>} \u2014 the numeric HTTP status repeated in the body. Success responses unchanged. Do not modify files outside api/."
-  },
-  {
-   "id": "t15",
-   "title": "Store Len",
-   "footprint": [
-    "store/memstore.go"
-   ],
-   "spec": "Add `func (m *Mem) Len() int` returning the number of visible entries. Method on Mem only \u2014 do NOT change the KV interface."
-  },
-  {
-   "id": "t16",
-   "title": "Store Clear",
-   "footprint": [
-    "store/memstore.go"
-   ],
-   "spec": "Add `func (m *Mem) Clear()` removing all entries. Method on Mem only \u2014 do NOT change the KV interface."
-  },
-  {
-   "id": "t17",
-   "title": "Store snapshot/restore",
-   "footprint": [
-    "store/memstore.go"
-   ],
-   "spec": "Add `func (m *Mem) Snapshot() map[string][]byte` (deep copy of current entries) and `func (m *Mem) Restore(s map[string][]byte)` (replace all entries with a deep copy of s). Methods on Mem only \u2014 do NOT change the KV interface."
-  },
-  {
-   "id": "t18",
-   "title": "Order status",
-   "footprint": [
-    "model/order.go",
-    "service/orders.go"
-   ],
-   "spec": "Add a Status string field to model.Order (empty by default) and `func (o *Orders) SetStatus(id, status string) error` that loads the order, sets Status, persists it, and returns ErrNotFound for a missing id."
-  },
-  {
-   "id": "t19",
-   "title": "Clock helpers",
-   "footprint": [
-    "util/clock.go"
-   ],
-   "spec": "Add `func Since(t int64) int64` returning Now()-t, and `func Deadline(d int64) int64` returning Now()+d."
-  },
-  {
-   "id": "t20",
-   "title": "User listing",
-   "footprint": [
-    "service/users.go"
-   ],
-   "spec": "Add `func (u *Users) List() ([]*model.User, error)` returning all stored users sorted by ID ascending."
-  }
- ]
+  "service": "fleet_service",
+  "corpus": "v2.1",
+  "tickets": [
+    {
+      "id": "t1",
+      "title": "User deactivation",
+      "footprint": [
+        "service/users.go",
+        "model/user.go"
+      ],
+      "spec": "Add `func (u *Users) Deactivate(id string) error` to service/users.go: load the user, set Active=false, persist it, and return ErrNotFound for a missing id. Keep model/user.go changes minimal if you need any."
+    },
+    {
+      "id": "t2",
+      "title": "Discounted invoicing",
+      "footprint": [
+        "service/orders.go",
+        "service/billing.go"
+      ],
+      "spec": "Add `func DiscountedInvoice(subtotalCents, discountPct int) int` to service/billing.go: apply the percentage discount to the subtotal (round down), then apply tax exactly as Invoice does. Add `func (o *Orders) TotalWithDiscount(userID string, discountPct int) int` to service/orders.go returning DiscountedInvoice(TotalFor(userID), discountPct)."
+    },
+    {
+      "id": "t3",
+      "title": "User count endpoint",
+      "footprint": [
+        "api/handlers.go",
+        "api/router.go"
+      ],
+      "spec": "Add HTTP endpoint `/users/count` returning JSON {\"count\": N} with status 200, where N is the number of stored users (keys with prefix \"user/\" in the Users service's store). Wire it in Router(); implement the handler in api/handlers.go using a.Users.S via a small exported helper if needed \u2014 do not modify files outside api/."
+    },
+    {
+      "id": "t4",
+      "title": "Store TTL support",
+      "footprint": [
+        "store/kv.go",
+        "store/memstore.go"
+      ],
+      "spec": "Add `PutTTL(key string, value []byte, expiresAt int64)` to the KV interface in store/kv.go and implement it in Mem: entries stored with PutTTL are invisible to Get and Keys once util.Now() >= expiresAt. Plain Put entries never expire. Keep existing methods' signatures unchanged."
+    },
+    {
+      "id": "t5",
+      "title": "Order audit log",
+      "footprint": [
+        "util/audit.go",
+        "service/orders.go"
+      ],
+      "spec": "Create util/audit.go with package-level `func Audit(event string)` and `func AuditLog() []string` (append-only, in order). In Orders.Create, on success call util.Audit(\"order.created \" + order.ID)."
+    },
+    {
+      "id": "t6",
+      "title": "Email validation",
+      "footprint": [
+        "model/user.go",
+        "service/users.go"
+      ],
+      "spec": "Add `func ValidEmail(e string) bool` to model/user.go: must contain exactly one '@' with at least one '.' after it, and no spaces. Users.Create must return an error (any non-nil error) for invalid emails without storing anything."
+    },
+    {
+      "id": "t7",
+      "title": "Order count endpoint",
+      "footprint": [
+        "api/handlers.go",
+        "api/router.go"
+      ],
+      "spec": "Add HTTP endpoint `/orders/count` returning JSON {\"count\": N} with status 200, where N is the number of stored orders (keys with prefix \"order/\" in the Orders service's store). Wire it in Router(); implement in api/handlers.go \u2014 do not modify files outside api/."
+    },
+    {
+      "id": "t8",
+      "title": "Namespaced IDs",
+      "footprint": [
+        "util/ids.go",
+        "service/users.go"
+      ],
+      "spec": "Add `func SetIDNamespace(ns string)` to util/ids.go: when set to a non-empty value, NewID returns \"<ns>/<kind>-<n>\" instead of \"<kind>-<n>\"; empty ns restores the default. Users.Create keeps using util.NewID and must work under any namespace (its storage key remains \"user/\"+ID)."
+    },
+    {
+      "id": "t9",
+      "title": "Minimum charge",
+      "footprint": [
+        "service/billing.go"
+      ],
+      "spec": "Invoice must never return less than 50 cents: any computed amount below 50 becomes exactly 50. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (fees, tax rules)."
+    },
+    {
+      "id": "t10",
+      "title": "Processing fee",
+      "footprint": [
+        "service/billing.go"
+      ],
+      "spec": "Invoice must add a fixed processing fee of 25 cents to the subtotal before tax is computed. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, tax rules)."
+    },
+    {
+      "id": "t11",
+      "title": "Large-order tax waiver",
+      "footprint": [
+        "service/billing.go"
+      ],
+      "spec": "For subtotals of 100000 cents or more, Invoice must charge no tax: the result is the subtotal plus any fixed fees only. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees)."
+    },
+    {
+      "id": "t12",
+      "title": "Request-ID header",
+      "footprint": [
+        "api/router.go",
+        "api/handlers.go"
+      ],
+      "spec": "Every response served through Router() must carry an X-Request-Id header whose value is a fresh util.NewID(\"req\"). Implement by wrapping the mux in Router(); do not modify files outside api/."
+    },
+    {
+      "id": "t13",
+      "title": "Request log",
+      "footprint": [
+        "api/router.go",
+        "api/handlers.go"
+      ],
+      "spec": "The api package must record the URL path of every request served through Router(), in order, exposed via an exported func RequestLog() []string. Do not modify files outside api/."
+    },
+    {
+      "id": "t14",
+      "title": "Error envelope",
+      "footprint": [
+        "api/handlers.go"
+      ],
+      "spec": "Error responses from handleUserGet must be JSON of the form {\"error\": <message>, \"code\": <http status>} \u2014 the numeric HTTP status repeated in the body. Success responses unchanged. Do not modify files outside api/."
+    },
+    {
+      "id": "t15",
+      "title": "Store Len",
+      "footprint": [
+        "store/memstore.go"
+      ],
+      "spec": "Add `func (m *Mem) Len() int` returning the number of visible entries. Method on Mem only \u2014 do NOT change the KV interface."
+    },
+    {
+      "id": "t16",
+      "title": "Store Clear",
+      "footprint": [
+        "store/memstore.go"
+      ],
+      "spec": "Add `func (m *Mem) Clear()` removing all entries. Method on Mem only \u2014 do NOT change the KV interface."
+    },
+    {
+      "id": "t17",
+      "title": "Store snapshot/restore",
+      "footprint": [
+        "store/memstore.go"
+      ],
+      "spec": "Add `func (m *Mem) Snapshot() map[string][]byte` (deep copy of current entries) and `func (m *Mem) Restore(s map[string][]byte)` (replace all entries with a deep copy of s). Methods on Mem only \u2014 do NOT change the KV interface."
+    },
+    {
+      "id": "t18",
+      "title": "Order status",
+      "footprint": [
+        "model/order.go",
+        "service/orders.go"
+      ],
+      "spec": "Add a Status string field to model.Order (empty by default) and `func (o *Orders) SetStatus(id, status string) error` that loads the order, sets Status, persists it, and returns ErrNotFound for a missing id."
+    },
+    {
+      "id": "t19",
+      "title": "Clock helpers",
+      "footprint": [
+        "util/clock.go"
+      ],
+      "spec": "Add `func Since(t int64) int64` returning Now()-t, and `func Deadline(d int64) int64` returning Now()+d."
+    },
+    {
+      "id": "t20",
+      "title": "User listing",
+      "footprint": [
+        "service/users.go"
+      ],
+      "spec": "Add `func (u *Users) List() ([]*model.User, error)` returning all stored users sorted by ID ascending."
+    }
+  ]
 }

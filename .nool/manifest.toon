@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Commit the seven findings-report SVG figures as files; remove the erroneous zero-byte 'figures' path entry from the previous knot
-knot_id: 37989cfb93b18e951bd40737bbd2197ab49c1fd0623a79621217ef3503b8504e
-solidified_at: 1787291757175
+intent: B4 governance-mode re-measurement (governed path rejects test-breaking at propose; --fast is explicit opt-in) + corpus v2.1: t2 acceptance test hardened to property checks tolerant of cluster-A billing changes; findings F4/§3.3, paper abstract+§2+§5.3+§6, README, manifest updated
+knot_id: db60a7db022712524ebd513184f0994e2538c723010e02f180460f1984559687
+solidified_at: 1787309519145
 thread: main

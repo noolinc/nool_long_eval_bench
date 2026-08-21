@@ -57,3 +57,21 @@ Labeled variants excluded from the primary comparison: nool_fleet 16e2e1b0
 Lost runs, no records: one git rep to a concurrent-worktree-add race, one
 to operator-machine memory exhaustion; later runs sequential under a
 memory watchdog. Raw records: results/trackc/fleet_runs.jsonl.
+
+**B4 governance-path measurement (2026-08-21, nool 6.14.1):** B4 re-run
+with three arms — git control, nool default governed path
+(`propose --solidify`, full validation), nool relaxed path
+(`propose --fast --solidify`). Governed path rejects both the
+syntax-broken and the test-breaking change at propose; fast path rejects
+syntax-broken only and accepts test-breaking with a project-integrity
+warning at deferred validate; git accepts all three. This reinterprets the
+run-1/2 "B4 accepted" rows above: those runs exercised only the `--fast`
+path. Raw: `results/micro/b4_guardrails.json` (provenance 06:16 UTC).
+
+**Corpus v2.1 (2026-08-21):** t2's acceptance test rewritten as property
+checks routed through the service's own functions — the v2 version
+hard-coded the 880-cent total and failed whenever cluster A's t10
+processing fee had landed, the tolerance artifact noted under Run 3.
+Verified green against both plain-starter and full-cluster-A Invoice
+semantics before landing. `tickets_v2.json` bumped to corpus "v2.1";
+ticket specs unchanged.

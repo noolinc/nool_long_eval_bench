@@ -6,7 +6,7 @@
 
 ## Abstract
 
-Enterprises considering fleets of autonomous coding agents need evidence for an outcome claim: that without a coordination layer, sufficiently agentic development becomes measurably unsafe or expensive, and that a coordination layer materially reduces those failures. We present a pre-registered benchmark suite comparing Nool — a semantic-agentic version-control and coordination system — against plain git across three instrument families: seven deterministic mechanism benchmarks (B1–B7), a 2×2 LLM-in-the-loop product experiment (single/multi agent × git/nool; N=5 per cell, one pinned model), and a fleet-operations pilot (5 concurrent real agents, 8-ticket backlog with designed contention). All outcome scoring is on final-system state (hidden acceptance tests, main-branch health), never on tool warnings. Phase 1 results are mixed and instructive: nool provides measured wins in concurrent-write attribution (90/90 ops attributed 1:1 vs 64% commingled under git at 15 writers), context-retrieval economy (163 vs 660 bytes to a correct hit), and syntax-level commit gating; it currently provides no measured advantage in file-level merge outcomes (identical to git across three scenarios despite its semantic layer correctly classifying changes as commutable), fails to preserve unrelated later work during selective undo, and mislocalizes regressions in its bisect tool. The 2×2 product experiment shows no arm separation at pilot power. Two subsequent developments, both under the same pre-registered goalposts, change the picture. First, a product release (nool 6.14.1) closed three of the four adverse mechanism bounds on re-test: contended merges now converge 15/15, selective undo preserves later unrelated work 5/5, and bisect names the true culprit; the commit-gating gap (B4) remains, and per-operation latency stays roughly 7–10× git. Second, a pre-registered scale-up of the fleet benchmark — 10 agents, 20 tickets with function-level contention clusters — produced the first clear arm separation: the uncoordinated git arm accepted 13/20 and 1/20 (in the latter rep a textually-clean merge silently broke the build, voiding 13 landed tickets), while the nool arm's footprint-gated dispatch accepted 19/20 in both reps with zero integration failures, at equal agent spend and +40–70% wall time. We contribute the claim framework, the instruments, honest bounds that current mechanism behavior places on the enterprise claims, and a costed roadmap for the three decisive proofs: fleet correctness at high concurrency, longitudinal institutional memory, and deterministic governance.
+Enterprises considering fleets of autonomous coding agents need evidence for an outcome claim: that without a coordination layer, sufficiently agentic development becomes measurably unsafe or expensive, and that a coordination layer materially reduces those failures. We present a pre-registered benchmark suite comparing Nool — a semantic-agentic version-control and coordination system — against plain git across three instrument families: seven deterministic mechanism benchmarks (B1–B7), a 2×2 LLM-in-the-loop product experiment (single/multi agent × git/nool; N=5 per cell, one pinned model), and a fleet-operations pilot (5 concurrent real agents, 8-ticket backlog with designed contention). All outcome scoring is on final-system state (hidden acceptance tests, main-branch health), never on tool warnings. Phase 1 results are mixed and instructive: nool provides measured wins in concurrent-write attribution (90/90 ops attributed 1:1 vs 64% commingled under git at 15 writers), context-retrieval economy (163 vs 660 bytes to a correct hit), and syntax-level commit gating (Phase 1 exercised only the `--fast` relaxed path; see below); it currently provides no measured advantage in file-level merge outcomes (identical to git across three scenarios despite its semantic layer correctly classifying changes as commutable), fails to preserve unrelated later work during selective undo (fixed in 6.14.1), and mislocalizes regressions in its bisect tool (fixed in 6.14.1). The 2×2 product experiment shows no arm separation at pilot power. Two subsequent developments, both under the same pre-registered goalposts, change the picture. First, a product release (nool 6.14.1) closed three of the four adverse mechanism bounds on re-test: contended merges now converge 15/15, selective undo preserves later unrelated work 5/5, and bisect names the true culprit; the fourth (B4 commit gating) was resolved by measurement rather than product change — the default governed path (`propose --solidify`, full validation) rejects the test-breaking change at propose, and the earlier negative had measured only the explicit `--fast` relaxed path, an attributable operator opt-in. Per-operation latency stays roughly 7–10× git. Second, a pre-registered scale-up of the fleet benchmark — 10 agents, 20 tickets with function-level contention clusters — produced the first clear arm separation: the uncoordinated git arm accepted 13/20 and 1/20 (in the latter rep a textually-clean merge silently broke the build, voiding 13 landed tickets), while the nool arm's footprint-gated dispatch accepted 19/20 in both reps with zero integration failures, at equal agent spend and +40–70% wall time. We contribute the claim framework, the instruments, honest bounds that current mechanism behavior places on the enterprise claims, and a costed roadmap for the three decisive proofs: fleet correctness at high concurrency, longitudinal institutional memory, and deterministic governance.
 
 ## 1. Introduction
 
@@ -49,7 +49,15 @@ All numbers below are medians from committed raw JSON (`results/micro/`); nool 6
 
 **B3 — Recovery (C1 operational).** Removing a bad landing while keeping later unrelated work: `git revert` preserved the unrelated work in 5/5 repetitions (16.8 ms median). Nool's selective-undo (`pluck --execute`) removed the damage 5/5 but destroyed the later unrelated work 5/5 — in both a linear timeline and a thread-separated timeline — because pluck removes causal descendants and sequential proposes create causal dependency even across threads. **Negative finding:** as shipped, nool's selective undo is strictly worse than `git revert` for the fleet-recovery scenario tested.
 
-**B4 — Guardrails (P3 bound).** Git (control) accepts everything, as expected. Nool rejects a syntax-broken change at propose (AST precheck) but **accepts a parseable test-breaking change through both propose and deferred validation** (`validate --all` passes). Default-configuration nool therefore blocks hallucinated syntax, not semantic regressions. This bounds the deterministic-governance claim: without the steering/gating configuration layer (untested here; Track F), enforcement is syntax-level only.
+**B4 — Guardrails (P3 bound): governance-mode semantics.** The benchmark tests three distinct governance paths:
+
+1. **Default governed path** (`nool propose --solidify`, full semantic validation): runs project-level tests in a ghost-run. **Rejects** the test-breaking change at propose (test fails).
+2. **Explicit relaxed path** (`nool propose --fast --solidify`, syntax-only + deferred validation): **Accepts** the test-breaking change — only AST precheck runs at propose; deferred `validate --all` passes with a warning that project integrity was not checked.
+3. **Authority/control** (not tested here; Track F): whether organizations can restrict who invokes the relaxed path.
+
+Git (control) accepts everything. Both nool paths reject the syntax-broken change at propose (AST precheck).
+
+The key finding: **the default governed path catches semantic regressions**; the "unmoved bound" in prior reports reflected testing only the explicit relaxed path (`--fast`). The deterministic-governance claim (P3) is therefore not bounded at the default configuration — it is bounded at the *relaxed* configuration, which is an intentional operator opt-in. Track F will test configured enforcement including raw-git bypass and authority controls.
 
 **B5 — Swarm merge (C2 bound).** Fifteen branches merged into main under three scenarios, success detected from working-tree state. Disjoint files (negative control): both arms 15/15 clean, 3/3 reps. Same-anchor and different-functions (the AST-mergeable case): both arms identically 1 clean / 14 conflicts, 3/3 reps each. Nool's SemanticMergeEngine reported semantic convergence for all 15 branches in both contended scenarios (correctly — the added methods are symbol-disjoint) while the file-level merge fell back to git's textual merge and conflicted identically. **Negative finding:** the semantic layer classifies but does not act; nool merge currently confers no file-level integration advantage over git. C2's killer metric (50%+ conflict reduction) is unreachable until this changes. *Setup audit:* `nool init` does install a git merge driver, correctly registered in every benchmark workspace — but scoped exclusively to nool's ledger artifacts (`.nool/knot.bin merge=nool-knot`, `.nool/manifest.toon merge=union`); source files carry `merge: unspecified`. The commutative merge machinery therefore converges the Knot DAG across branches, not working-tree source code — which is exactly the mechanism boundary this benchmark measures, and rules out harness misconfiguration as the explanation.
 
@@ -118,16 +126,24 @@ the nool arm via a new MergeReconcile union stage (git remains 1/15 on the
 identical branch sets; the disjoint negative control stays 15/15 in both
 arms). B3's selective undo now removes the damage 5/5 while preserving later
 unrelated work 5/5 in both timeline variants. B7's bisect names the true
-culprit. B4 is the bound that did not move: a parseable, test-breaking
-change is still accepted through propose plus deferred validation. The
-Track C grid scored 18/20 — singles 5/5 in both arms; one failure in each
-multi-agent cell (multi_git r4: an agent left an empty test file that broke
-the build; multi_nool r2: an inter-agent interface mismatch, the same
-failure mode as run 1) — still no arm separation. Landing latency rose with
-the fixes: nool medians of 301–507 ms on 6.14.1 versus 120–260 ms in runs
-1–2; git's medians also rose on the same host (39–50 ms versus 17–23 ms),
-so the environment contributes to the absolute shift and the robust
-statement is the ratio, roughly 7–10× git in every run.
+culprit. 
+
+The B4 finding was clarified by testing both governance paths: the **default
+governed path** (`nool propose --solidify`) **rejects** test-breaking changes
+by running project-level tests; the **explicit relaxed path** (`--fast`)
+**accepts** them as designed — this is not a validation failure but a
+governance-mode semantics test. The benchmark now separates: (1) does the
+default governed path reject semantic violations? Yes. (2) Does `--fast`
+intentionally permit greater risk? Yes. (3) Can organizations restrict
+invocation of the relaxed path? (Track F). The Track C grid scored 18/20 —
+singles 5/5 in both arms; one failure in each multi-agent cell (multi_git
+r4: an agent left an empty test file that broke the build; multi_nool r2:
+an inter-agent interface mismatch, the same failure mode as run 1) — still
+no arm separation. Landing latency rose with the fixes: nool medians of
+301–507 ms on 6.14.1 versus 120–260 ms in runs 1–2; git's medians also rose
+on the same host (39–50 ms versus 17–23 ms), so the environment contributes
+to the absolute shift and the robust statement is the ratio, roughly 7–10×
+git in every run.
 
 ### 5.4 Scale-up 1 — function-level contention (10 agents, 20 tickets)
 
@@ -202,9 +218,9 @@ watchdog.
 | C3 decision survival | **Untested** | Track E designed; D2 handoff designed |
 | C4 safe concurrency | **First real-agent point** | B2 to N=15 scripted; scale-up 1 at N=10: nool acceptance 19/20 both reps while git degrades to 13/20 and 1/20 |
 | C5 cost per accepted change | **First separation, one scale point** | scale-up 1: $0.19–0.21 (nool) vs $0.30–3.80 (git) per accepted change at equal per-run spend; wall +40–70% |
-| P3 deterministic governance | **Bounded negative at default config** | B4; Track F designed to test configured enforcement incl. raw-git bypass |
+| P3 deterministic governance | **Governed path: positive; Relaxed path: explicit opt-in** | B4 (both paths); Track F tests configured enforcement incl. authority controls & raw-git bypass |
 
-The honest present-tense summary: on 6.14.1, nool's measured advantages are attribution integrity under concurrency, token-economical context retrieval, syntax-level commit gating, fleet non-interference through footprint-gated dispatch (scale-up 1), and — new in run 3 — convergent merges, descendant-preserving selective undo, and correct bisect localization, three bounds that moved because the product did. The remaining measured gaps are semantic validation (B4: a parseable test-breaking change still lands) and per-operation latency (roughly 7–10× git across all runs). Goalposts are fixed by pre-registration; the bounds moved only when the product did, which is the property the suite was built to have.
+The honest present-tense summary: on 6.14.1, nool's measured advantages are attribution integrity under concurrency, token-economical context retrieval, fleet non-interference through footprint-gated dispatch (scale-up 1), and — new in run 3 — convergent merges, descendant-preserving selective undo, and correct bisect localization, three bounds that moved because the product did. The default governed path provides **semantic commit gating** (B4: test-breaking changes rejected at propose); the `--fast` relaxed path is an explicit, attributable operator opt-in for rapid iteration with deferred validation. The remaining measured gaps are per-operation latency (roughly 7–10× git across all runs) and the authority/control question for the relaxed path (Track F). Goalposts are fixed by pre-registration; the bounds moved only when the product did, which is the property the suite was built to have.
 
 ## 7. Threats to validity
 

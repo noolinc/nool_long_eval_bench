@@ -54,9 +54,11 @@ def git_commit_all(ws, msg):
     return run(["git", "commit", "-qm", msg], ws)
 
 
-def nool_land(ws, intent, paths=None, extra=None):
+def nool_land(ws, intent, paths=None, extra=None, fast=False):
     """propose --fast --solidify; returns (code, out, ms)."""
-    cmd = ["nool", "propose", "--intent", intent, "--fast", "--solidify", "--compact"]
+    cmd = ["nool", "propose", "--intent", intent, "--solidify", "--compact"]
+    if fast:
+        cmd += ["--fast"]
     if paths:
         cmd += ["--path", *paths]
     else:

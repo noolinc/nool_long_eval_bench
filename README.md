@@ -30,8 +30,9 @@ recorded per run.
 - **Mechanisms moved with the product:** on 6.14.1, contended merges
   converge 15/15 (were 1/15, = git, on ≤6.14.0), selective undo preserves
   later unrelated work 5/5 (was 0/5), and bisect names the true culprit.
-  Unmoved: a parseable test-breaking change still lands (B4), and landing
-  latency stays roughly 7–10× git.
+  B4 clarified: the **default governed path rejects** test-breaking changes
+  (full semantic validation); the **`--fast` relaxed path accepts** them as
+  an explicit risk-control knob. Landing latency stays roughly 7–10× git.
 - **Standing wins:** perfect write attribution under shared-workspace
   concurrency (git sweeps up to 56% of ops at N=15); context retrieval in
   163–408 bytes vs 660 for grep+read at small scale.

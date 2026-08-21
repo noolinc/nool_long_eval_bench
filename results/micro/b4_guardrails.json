@@ -1,7 +1,7 @@
 {
  "benchmark": "b4_guardrails",
  "provenance": {
-  "timestamp_utc": "2026-08-21T04:03:10.438661+00:00",
+  "timestamp_utc": "2026-08-21T06:16:59.520743+00:00",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "machine": "arm64",
   "nool_version": "nool 6.14.1",
@@ -18,7 +18,18 @@
     "exit_code": 0,
     "output_tail": []
    },
-   "nool": {
+   "nool_governed": {
+    "stage": "accepted",
+    "propose_exit": 0,
+    "validate_exit": 0,
+    "propose_tail": [
+     "  [Pre-check] \u2705 In-process parse OK (go)",
+     "  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...",
+     "  [Reify] \u2705 Full validation passed. Hash: 31ddf8102d148964d5a05d107fe701bd94b9a8a7b0d3fd93153f46be84358f23"
+    ],
+    "validate_tail": []
+   },
+   "nool_fast": {
     "stage": "accepted",
     "propose_exit": 0,
     "validate_exit": 0,
@@ -29,8 +40,8 @@
     ],
     "validate_tail": [
      "",
-     "  \u26a0 Project integrity NOT checked \u2014 no integrity driver applied to these ",
-     "Knot(s). The DAG is well-formed; whether the code is sound is unverified."
+     "  2/2 Knot(s) validated.",
+     "  \u2705 Project integrity OK \u2014 deferred validation settled."
     ]
    }
   },
@@ -40,13 +51,24 @@
     "exit_code": 0,
     "output_tail": []
    },
-   "nool": {
+   "nool_governed": {
     "stage": "rejected_at_propose_or_solidify",
     "propose_exit": 2,
     "validate_exit": 0,
     "propose_tail": [
-     "  [IO] Reading from working directory: \"lib.go\"",
      "  [Reify] \ud83d\udce6 Detected compiled language '.go'. Enabling project-level reification...",
+     "  [Reify] \ud83d\udccd Project root detected: ",
+     "Error: Precheck failed: Go syntax error: parse failed"
+    ],
+    "validate_tail": []
+   },
+   "nool_fast": {
+    "stage": "rejected_at_propose_or_solidify",
+    "propose_exit": 2,
+    "validate_exit": 0,
+    "propose_tail": [
+     "  [Reify] \ud83d\udce6 Detected compiled language '.go'. Enabling project-level reification...",
+     "  [Reify] \ud83d\udccd Project root detected: ",
      "Error: Precheck failed: Go syntax error: parse failed"
     ],
     "validate_tail": [
@@ -62,7 +84,18 @@
     "exit_code": 0,
     "output_tail": []
    },
-   "nool": {
+   "nool_governed": {
+    "stage": "rejected_at_propose_or_solidify",
+    "propose_exit": 2,
+    "validate_exit": 0,
+    "propose_tail": [
+     "  \u2500\u2500\u2500 95 B of driver output folded to 94 B (1.1% less; --verbose for raw) \u2500\u2500\u2500",
+     "",
+     "Error: Reification failed for '.go'. Output hash: 7b90c6e51f40b6baf1759cd98e6125bd54528ec3b0ad526b05b14adc415caf80"
+    ],
+    "validate_tail": []
+   },
+   "nool_fast": {
     "stage": "accepted",
     "propose_exit": 0,
     "validate_exit": 0,
@@ -73,8 +106,8 @@
     ],
     "validate_tail": [
      "",
-     "  \u26a0 Project integrity NOT checked \u2014 no integrity driver applied to these ",
-     "Knot(s). The DAG is well-formed; whether the code is sound is unverified."
+     "  2/2 Knot(s) validated.",
+     "  \u2705 Project integrity OK \u2014 deferred validation settled."
     ]
    }
   }

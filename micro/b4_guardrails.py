@@ -1,13 +1,17 @@
-"""B4 — Guardrails with a control arm (H4).
+"""B4 — Guardrails: governance-mode semantics (H4).
 
-Cases, each landed identically in both arms:
-  syntax_broken : Go file with a parse error (a classic hallucinated edit)
+Tests three governance paths in both arms:
+  1. DEFAULT GOVERNED PATH:   `nool propose --solidify` (full semantic validation)
+  2. EXPLICIT RELAXED PATH:   `nool propose --fast --solidify` (syntax-only, deferred validation)
+  3. AUTHORITY/CONTROL:       Can organizations restrict who invokes the relaxed path?
+
+Cases, each tested against each governance path:
+  syntax_broken : Go file with a parse error (hallucinated edit)
   test_breaking : parseable change that inverts behavior (tests would fail)
-  clean         : positive control — a valid change (both arms must accept)
+  clean         : positive control — a valid change (all paths must accept)
 
-git arm : `git add && git commit` — records whether git accepts (expected: yes).
-nool arm: `nool propose --fast --solidify`, then `nool validate --all` —
-          records WHERE (if anywhere) the change is stopped:
+git arm (control): `git add && git commit` — records acceptance (expected: all three accepted).
+nool arm: tests each governance path separately, records WHERE stopped:
           propose/solidify/deferred-validate/accepted.
 
 Numbers and stage labels only; no interpretation.
@@ -33,15 +37,54 @@ def git_arm(root, case, content):
             "output_tail": out.strip().splitlines()[-2:]}
 
 
-def nool_arm(root, case, content):
-    ws = make_workspace(root, f"nool_{case}", nool=True)
+def nool_arm_governed(root, case, content):
+    """Default governed path: full semantic validation (project-level tests)."""
+    ws = make_workspace(root, f"nool_{case}_governed", nool=True)
     (ws / "lib.go").write_text(BASE)
+    (ws / "lib_test.go").write_text(
+        'package lib\n\nimport "testing"\n\nfunc TestValue(t *testing.T) {\n'
+        '    if Value() != 42 {\n'
+        '        t.Errorf("Value() = %d, want 42", Value())\n'
+        '    }\n}\n'
+    )
+    (ws / "go.mod").write_text("module test\n\ngo 1.21\n")
     code, out, _ = nool_land(ws, "base")
     if code != 0:
         raise RuntimeError(f"baseline land failed:\n{out}")
     (ws / "lib.go").write_text(content)
 
-    p_code, p_out, _ = nool_land(ws, f"apply {case}")
+    p_code, p_out, _ = nool_land(ws, f"apply {case} (governed)")
+    # No deferred validate needed — full mode validates at propose
+    if p_code != 0:
+        stage = "rejected_at_propose_or_solidify"
+    else:
+        stage = "accepted"
+    return {
+        "stage": stage,
+        "propose_exit": p_code,
+        "validate_exit": 0,
+        "propose_tail": p_out.strip().splitlines()[-3:],
+        "validate_tail": [],
+    }
+
+
+def nool_arm_fast(root, case, content):
+    """Explicit relaxed path: --fast mode (syntax-only, deferred validation)."""
+    ws = make_workspace(root, f"nool_{case}_fast", nool=True)
+    (ws / "lib.go").write_text(BASE)
+    (ws / "lib_test.go").write_text(
+        'package lib\n\nimport "testing"\n\nfunc TestValue(t *testing.T) {\n'
+        '    if Value() != 42 {\n'
+        '        t.Errorf("Value() = %d, want 42", Value())\n'
+        '    }\n}\n'
+    )
+    (ws / "go.mod").write_text("module test\n\ngo 1.21\n")
+    code, out, _ = nool_land(ws, "base")
+    if code != 0:
+        raise RuntimeError(f"baseline land failed:\n{out}")
+    (ws / "lib.go").write_text(content)
+
+    p_code, p_out, _ = nool_land(ws, f"apply {case} (fast)", fast=True)
     v_code, v_out, _ = run(["nool", "validate", "--all", "--compact"], ws)
 
     if p_code != 0:
@@ -65,7 +108,8 @@ def main():
         for case, content in CASES.items():
             results[case] = {
                 "git": git_arm(root, case, content),
-                "nool": nool_arm(root, case, content),
+                "nool_governed": nool_arm_governed(root, case, content),
+                "nool_fast": nool_arm_fast(root, case, content),
             }
             print(f"[b4] {case} done")
     emit("b4_guardrails", {"cases": results})
