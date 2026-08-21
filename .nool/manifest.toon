@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land N=20 exploratory git_fleet rep-1 corpus-v3 run record: 39/60 accepted, wall 135s, cost $10.31. N=20 is off the pre-registered {10,25,35,50} concurrency ladder — a manual point picked after N=25 reproducibly hit a hard memory wall on this operator machine (watchdog aborted twice within ~9s at 0.4% free, before any agent work started); N=25/35/50 remain unmeasured.
-knot_id: 57799565cf6a6414058dc001498cc5297ceef847f1388143e4219b78224983dc
-solidified_at: 1787330734381
+intent: Land N=20 exploratory git_fleet rep-2 corpus-v3 run record: 40/60 accepted, wall 115s, cost $10.35. Same off-ladder exploratory point as rep-1.
+knot_id: 845138e83e7c2aeb4b30ee08cce55eb9d60e29f7e9bf70993d09d46595f15f99
+solidified_at: 1787330862194
 thread: main
