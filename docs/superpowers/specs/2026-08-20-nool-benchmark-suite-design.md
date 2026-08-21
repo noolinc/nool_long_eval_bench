@@ -446,6 +446,17 @@ Metrics and scoring identical to scale-up 1. Reporting: these reps become
 the primary corpus-v2.1 comparison; run-3 (v2) reps are retained in the
 manifest, annotated with the artifact.
 
+**Confirmation outcome (recorded 2026-08-21, after the quartet).** git
+12/20 and 13/20 (prediction met: bimodal good mode, cluster 2nd/3rd-merge
+conflicts, health green). nool 19/20 and 18/20 — the 20/20 prediction was
+FALSIFIED, and the cause was a new corpus artifact, not the arms: v2.1's
+t2 property test pinned one of two valid floor readings of the spec text
+and t2 failed in all four runs in both arms. Corpus v2.2 corrects the
+rounding check to admit both readings (validated against both readings
+crossed with plain and full-cluster-A Invoice semantics). No further
+N=10 reruns on the 20-ticket corpus: the scale-up 2 ladder's low-N anchor
+on corpus v3 (below) carries the corrected test forward.
+
 ## 8b. Track C follow-up condition: structured task flow (Tier 2, designed)
 
 Nool's task system (`task create/pick/start/qa/finish`, acceptance criteria,

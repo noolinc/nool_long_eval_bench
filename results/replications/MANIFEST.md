@@ -75,3 +75,22 @@ processing fee had landed, the tolerance artifact noted under Run 3.
 Verified green against both plain-starter and full-cluster-A Invoice
 semantics before landing. `tickets_v2.json` bumped to corpus "v2.1";
 ticket specs unchanged.
+
+## Run 4 scale-up 1 confirmation (2026-08-21, corpus v2.1, nool 6.14.1, CLI 2.1.238, claude-sonnet-5)
+
+Pre-registered confirmation quartet at N=10 on corpus v2.1:
+git_fleet f39cb295 (12/20) and a3d8d322 (13/20) — bimodal good mode both
+reps, cluster 2nd/3rd-merge conflicts, final health green, no
+build-poisoning rep; matches the prediction (at or below 13/20).
+nool_fleet 05bd48e0 (19/20, t2 only) and fd169904 (18/20, t2 + t10).
+Prediction "nool 20/20 per rep" FALSIFIED — cause traced to a v2.1 test
+artifact: t2's property test pinned one floor reading, the discounted
+subtotal floored (999 at 20% -> 799), while every failing implementation
+chose the other, discount amount floored (999 - 199 -> 800); both satisfy
+the spec text "apply the percentage discount (round down)". t2 failed in
+all four runs, both arms; git reps had passed t2 on v2, whose hard-coded
+totals happened to match the pre-cluster semantics. Corpus v2.2 corrects
+the rounding check to admit both readings, validated green against the
+2x2 matrix of floor reading x plain / full-cluster-A Invoice. nool
+fd169904's t10 failure is agent-quality (serialized dispatch, clean
+merge, semantic miss). Raw: results/trackc/fleet_runs.jsonl.
