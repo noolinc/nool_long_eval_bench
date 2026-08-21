@@ -183,6 +183,11 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json"):
                     if len(inflight) + len(ready) >= n_workers:
                         break
                     ready.append(t)
+                    # Tickets admitted in the same batch must gate each other
+                    # too — busy alone let the whole first wave dispatch from
+                    # one base, racing cluster members (observed t9 vs t10,
+                    # t12 vs t13 same-batch conflicts).
+                    busy |= set(t["footprint"])
                 for t in ready:
                     rec["gating"].setdefault(t["id"], []).append(nool_gate(ws, t))
                     inflight[t["id"]] = set(t["footprint"])

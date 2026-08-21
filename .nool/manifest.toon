@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Scale-up 1 rep 1/4 (git_fleet 10w corpus v2, nool 6.14.1): 14/20 clean merges (6 conflicts in clusters A/B), 1/20 accepted — t17 merged clean but broke the build, failing all downstream acceptance; only independent t19 survived
-knot_id: 0f7483bd133c0f1295427693b7211f6c3fc459c1276a3357bde2a6ae0daad7b1
-solidified_at: 1787289907724
+intent: Fix nool-arm dispatch gate hole: busy set ignored same-batch admissions, so wave-1 cluster members (t9|t10, t12|t13) raced from one base; batch members now gate each other
+knot_id: 6bcb0eb5327c500cc581bb156e1df1da031e27d2dab5b671ae7aefcd709fe45b
+solidified_at: 1787290023784
 thread: main
