@@ -13,8 +13,10 @@ import (
 func TestUsersCount(t *testing.T) {
 	s := store.NewMem()
 	app := &api.App{Users: &service.Users{S: s}, Orders: &service.Orders{S: s}}
-	for range 3 {
-		if _, err := app.Users.Create("x@y.com"); err != nil {
+	// Distinct emails: the property under test is the count endpoint, and
+	// duplicate-rejection semantics teammates may add must not interfere.
+	for _, e := range []string{"x1@y.com", "x2@y.com", "x3@y.com"} {
+		if _, err := app.Users.Create(e); err != nil {
 			t.Fatal(err)
 		}
 	}

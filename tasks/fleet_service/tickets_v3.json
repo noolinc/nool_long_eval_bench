@@ -1,0 +1,503 @@
+{
+ "service": "fleet_service",
+ "corpus": "v3",
+ "tickets": [
+  {
+   "id": "t1",
+   "title": "User deactivation",
+   "footprint": [
+    "service/users.go",
+    "model/user.go"
+   ],
+   "spec": "Add `func (u *Users) Deactivate(id string) error` to service/users.go: load the user, set Active=false, persist it, and return ErrNotFound for a missing id. Keep model/user.go changes minimal if you need any."
+  },
+  {
+   "id": "t2",
+   "title": "Discounted invoicing",
+   "footprint": [
+    "service/orders.go",
+    "service/billing.go"
+   ],
+   "spec": "Add `func DiscountedInvoice(subtotalCents, discountPct int) int` to service/billing.go: apply the percentage discount to the subtotal (round down), then apply tax exactly as Invoice does. Add `func (o *Orders) TotalWithDiscount(userID string, discountPct int) int` to service/orders.go returning DiscountedInvoice(TotalFor(userID), discountPct)."
+  },
+  {
+   "id": "t3",
+   "title": "User count endpoint",
+   "footprint": [
+    "api/handlers.go",
+    "api/router.go"
+   ],
+   "spec": "Add HTTP endpoint `/users/count` returning JSON {\"count\": N} with status 200, where N is the number of stored users (keys with prefix \"user/\" in the Users service's store). Wire it in Router(); implement the handler in api/handlers.go using a.Users.S via a small exported helper if needed \u2014 do not modify files outside api/."
+  },
+  {
+   "id": "t4",
+   "title": "Store TTL support",
+   "footprint": [
+    "store/kv.go",
+    "store/memstore.go"
+   ],
+   "spec": "Add `PutTTL(key string, value []byte, expiresAt int64)` to the KV interface in store/kv.go and implement it in Mem: entries stored with PutTTL are invisible to Get and Keys once util.Now() >= expiresAt. Plain Put entries never expire. Keep existing methods' signatures unchanged."
+  },
+  {
+   "id": "t5",
+   "title": "Order audit log",
+   "footprint": [
+    "util/audit.go",
+    "service/orders.go"
+   ],
+   "spec": "Create util/audit.go with package-level `func Audit(event string)` and `func AuditLog() []string` (append-only, in order). In Orders.Create, on success call util.Audit(\"order.created \" + order.ID)."
+  },
+  {
+   "id": "t6",
+   "title": "Email validation",
+   "footprint": [
+    "model/user.go",
+    "service/users.go"
+   ],
+   "spec": "Add `func ValidEmail(e string) bool` to model/user.go: must contain exactly one '@' with at least one '.' after it, and no spaces. Users.Create must return an error (any non-nil error) for invalid emails without storing anything."
+  },
+  {
+   "id": "t7",
+   "title": "Order count endpoint",
+   "footprint": [
+    "api/handlers.go",
+    "api/router.go"
+   ],
+   "spec": "Add HTTP endpoint `/orders/count` returning JSON {\"count\": N} with status 200, where N is the number of stored orders (keys with prefix \"order/\" in the Orders service's store). Wire it in Router(); implement in api/handlers.go \u2014 do not modify files outside api/."
+  },
+  {
+   "id": "t8",
+   "title": "Namespaced IDs",
+   "footprint": [
+    "util/ids.go",
+    "service/users.go"
+   ],
+   "spec": "Add `func SetIDNamespace(ns string)` to util/ids.go: when set to a non-empty value, NewID returns \"<ns>/<kind>-<n>\" instead of \"<kind>-<n>\"; empty ns restores the default. Users.Create keeps using util.NewID and must work under any namespace (its storage key remains \"user/\"+ID)."
+  },
+  {
+   "id": "t9",
+   "title": "Minimum charge",
+   "footprint": [
+    "service/billing.go"
+   ],
+   "spec": "Invoice must never return less than 50 cents: any computed amount below 50 becomes exactly 50. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (fees, tax rules)."
+  },
+  {
+   "id": "t10",
+   "title": "Processing fee",
+   "footprint": [
+    "service/billing.go"
+   ],
+   "spec": "Invoice must add a fixed processing fee of 25 cents to the subtotal before tax is computed. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, tax rules)."
+  },
+  {
+   "id": "t11",
+   "title": "Large-order tax waiver",
+   "footprint": [
+    "service/billing.go"
+   ],
+   "spec": "For subtotals of 100000 cents or more, Invoice must charge no tax: the result is the subtotal plus any fixed fees only. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees)."
+  },
+  {
+   "id": "t12",
+   "title": "Request-ID header",
+   "footprint": [
+    "api/router.go",
+    "api/handlers.go"
+   ],
+   "spec": "Every response served through Router() must carry an X-Request-Id header whose value is a fresh util.NewID(\"req\"). Implement by wrapping the mux in Router(); do not modify files outside api/."
+  },
+  {
+   "id": "t13",
+   "title": "Request log",
+   "footprint": [
+    "api/router.go",
+    "api/handlers.go"
+   ],
+   "spec": "The api package must record the URL path of every request served through Router(), in order, exposed via an exported func RequestLog() []string. Do not modify files outside api/."
+  },
+  {
+   "id": "t14",
+   "title": "Error envelope",
+   "footprint": [
+    "api/handlers.go"
+   ],
+   "spec": "Error responses from handleUserGet must be JSON of the form {\"error\": <message>, \"code\": <http status>} \u2014 the numeric HTTP status repeated in the body. Success responses unchanged. Do not modify files outside api/."
+  },
+  {
+   "id": "t15",
+   "title": "Store Len",
+   "footprint": [
+    "store/memstore.go"
+   ],
+   "spec": "Add `func (m *Mem) Len() int` returning the number of visible entries. Method on Mem only \u2014 do NOT change the KV interface."
+  },
+  {
+   "id": "t16",
+   "title": "Store Clear",
+   "footprint": [
+    "store/memstore.go"
+   ],
+   "spec": "Add `func (m *Mem) Clear()` removing all entries. Method on Mem only \u2014 do NOT change the KV interface."
+  },
+  {
+   "id": "t17",
+   "title": "Store snapshot/restore",
+   "footprint": [
+    "store/memstore.go"
+   ],
+   "spec": "Add `func (m *Mem) Snapshot() map[string][]byte` (deep copy of current entries) and `func (m *Mem) Restore(s map[string][]byte)` (replace all entries with a deep copy of s). Methods on Mem only \u2014 do NOT change the KV interface."
+  },
+  {
+   "id": "t18",
+   "title": "Order status",
+   "footprint": [
+    "model/order.go",
+    "service/orders.go"
+   ],
+   "spec": "Add a Status string field to model.Order (empty by default) and `func (o *Orders) SetStatus(id, status string) error` that loads the order, sets Status, persists it, and returns ErrNotFound for a missing id."
+  },
+  {
+   "id": "t19",
+   "title": "Clock helpers",
+   "footprint": [
+    "util/clock.go"
+   ],
+   "spec": "Add `func Since(t int64) int64` returning Now()-t, and `func Deadline(d int64) int64` returning Now()+d."
+  },
+  {
+   "id": "t20",
+   "title": "User listing",
+   "footprint": [
+    "service/users.go"
+   ],
+   "spec": "Add `func (u *Users) List() ([]*model.User, error)` returning all stored users sorted by ID ascending."
+  },
+  {
+   "id": "t21",
+   "title": "Negative-subtotal clamp",
+   "footprint": [
+    "service/billing.go"
+   ],
+   "spec": "Invoice must treat a negative subtotal exactly like a zero subtotal: for any negative input the result equals Invoice(0). Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees, tax rules, caps)."
+  },
+  {
+   "id": "t22",
+   "title": "Invoice hard cap",
+   "footprint": [
+    "service/billing.go"
+   ],
+   "spec": "Invoice must never return more than 5000000 cents: any computed amount above that becomes exactly 5000000, applied as the final step after every other rule. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees, tax rules, negative handling)."
+  },
+  {
+   "id": "t23",
+   "title": "Server identity header",
+   "footprint": [
+    "api/router.go",
+    "api/handlers.go"
+   ],
+   "spec": "Every response served through Router() must carry the header `X-Served-By: fleetsvc`. Do not modify files outside api/."
+  },
+  {
+   "id": "t24",
+   "title": "Request blocklist",
+   "footprint": [
+    "api/router.go",
+    "api/handlers.go"
+   ],
+   "spec": "Requests carrying the header `X-Blocked: true` must be rejected by Router() with HTTP status 403 before reaching any handler; all other requests are unaffected. Do not modify files outside api/."
+  },
+  {
+   "id": "t25",
+   "title": "Store Range iteration",
+   "footprint": [
+    "store/memstore.go"
+   ],
+   "spec": "Add `func (m *Mem) Range(prefix string, fn func(key string, value []byte) bool)` to store/memstore.go: call fn once per visible entry whose key starts with prefix, in ascending key order, stopping early if fn returns false. Method on Mem only \u2014 do NOT change the KV interface."
+  },
+  {
+   "id": "t26",
+   "title": "Store value isolation",
+   "footprint": [
+    "store/memstore.go"
+   ],
+   "spec": "Mem must not alias caller or internal memory: Put stores a copy of the value slice (later mutation of the caller's slice must not change stored data), and Get returns a copy (mutating the returned slice must not change stored data). Preserve all existing method signatures and behavior."
+  },
+  {
+   "id": "t27",
+   "title": "Email lowercasing",
+   "footprint": [
+    "service/users.go"
+   ],
+   "spec": "Users.Create must lowercase the email before storing it (and before any validation or duplicate checks teammates may be adding); the returned and fetched user's Email is the lowercased input."
+  },
+  {
+   "id": "t28",
+   "title": "Duplicate email rejection",
+   "footprint": [
+    "service/users.go"
+   ],
+   "spec": "Users.Create must return an error (any non-nil error) when a user with the same email is already stored, comparing values as stored after any normalization teammates may be adding (lowercasing, trimming); nothing is stored on rejection. Distinct emails must both succeed."
+  },
+  {
+   "id": "t29",
+   "title": "Email trimming",
+   "footprint": [
+    "service/users.go"
+   ],
+   "spec": "Users.Create must trim leading and trailing whitespace (spaces and tabs) from the email before storing it and before any validation, duplicate check, or other normalization; the stored Email carries no surrounding whitespace."
+  },
+  {
+   "id": "t30",
+   "title": "Reject non-positive orders",
+   "footprint": [
+    "service/orders.go"
+   ],
+   "spec": "Orders.Create must return an error (any non-nil error) for cents <= 0 and store nothing; positive amounts are unaffected."
+  },
+  {
+   "id": "t31",
+   "title": "Order creation timestamp",
+   "footprint": [
+    "model/order.go",
+    "service/orders.go"
+   ],
+   "spec": "Add a `CreatedAt int64` field to model.Order, set by Orders.Create from util.Now() at creation time, persisted and visible through Orders.Get."
+  },
+  {
+   "id": "t32",
+   "title": "Defensive totals",
+   "footprint": [
+    "service/orders.go"
+   ],
+   "spec": "Orders.TotalFor must ignore stored orders whose Cents <= 0 (defensive against records written by paths other than Create); orders with positive Cents sum exactly as before."
+  },
+  {
+   "id": "t33",
+   "title": "ID validation",
+   "footprint": [
+    "util/ids.go"
+   ],
+   "spec": "Add `func ValidID(id, kind string) bool` to util/ids.go: true iff id ends with kind + \"-\" + one or more decimal digits; any prefix before that suffix (for example a namespace) is permitted. False otherwise."
+  },
+  {
+   "id": "t34",
+   "title": "Per-kind ID counting",
+   "footprint": [
+    "util/ids.go"
+   ],
+   "spec": "Add `func IDCount(kind string) int` to util/ids.go returning how many identifiers NewID has issued for that kind during the current process (0 for kinds never issued). Counting must keep working under any namespace settings teammates may add."
+  },
+  {
+   "id": "t35",
+   "title": "ID kind extraction",
+   "footprint": [
+    "util/ids.go"
+   ],
+   "spec": "Add `func KindOf(id string) string` to util/ids.go: for identifiers shaped like NewID output \u2014 optionally preceded by a namespace prefix ending in '/' \u2014 return the kind: everything after the last '/' (if any) and before the final '-'. Return \"\" when id does not end with '-' followed by one or more digits."
+  },
+  {
+   "id": "t36",
+   "title": "User display name",
+   "footprint": [
+    "model/user.go"
+   ],
+   "spec": "Add `func (u *User) DisplayName() string` to model/user.go: the part of Email before the first '@'; the whole Email when it contains no '@'."
+  },
+  {
+   "id": "t37",
+   "title": "User clone",
+   "footprint": [
+    "model/user.go"
+   ],
+   "spec": "Add `func (u *User) Clone() *User` to model/user.go returning a copy: changes to the clone's fields never affect the original and vice versa. It must copy every field the struct has at build time, including fields teammates may be adding."
+  },
+  {
+   "id": "t38",
+   "title": "Health endpoint",
+   "footprint": [
+    "api/handlers.go",
+    "api/router.go"
+   ],
+   "spec": "Add HTTP endpoint `/health` returning status 200 with JSON body {\"status\": \"ok\"}. Wire it in Router(); do not modify files outside api/."
+  },
+  {
+   "id": "t39",
+   "title": "Order total endpoint",
+   "footprint": [
+    "api/handlers.go",
+    "api/router.go"
+   ],
+   "spec": "Add HTTP endpoint `/orders/total` returning JSON {\"total\": N} with status 200, where N is Orders.TotalFor of the `user_id` query parameter. Wire it in Router(); implement in api/handlers.go; do not modify files outside api/."
+  },
+  {
+   "id": "t40",
+   "title": "Version endpoint",
+   "footprint": [
+    "api/handlers.go",
+    "api/router.go"
+   ],
+   "spec": "Add exported `const Version = \"1\"` to api/handlers.go and HTTP endpoint `/version` returning JSON {\"version\": Version} with status 200. Wire it in Router(); do not modify files outside api/."
+  },
+  {
+   "id": "t41",
+   "title": "String truncation",
+   "footprint": [
+    "util/truncate.go"
+   ],
+   "spec": "Create util/truncate.go with `func Truncate(s string, n int) string`: the first n runes of s (the whole string when it has n runes or fewer); n <= 0 returns \"\"."
+  },
+  {
+   "id": "t42",
+   "title": "String reversal",
+   "footprint": [
+    "util/reverse.go"
+   ],
+   "spec": "Create util/reverse.go with `func ReverseString(s string) string` reversing the sequence of runes."
+  },
+  {
+   "id": "t43",
+   "title": "Integer clamping",
+   "footprint": [
+    "util/clamp.go"
+   ],
+   "spec": "Create util/clamp.go with `func ClampInt(v, lo, hi int) int`: lo when v < lo, hi when v > hi, otherwise v. When lo > hi, return lo."
+  },
+  {
+   "id": "t44",
+   "title": "Absolute value",
+   "footprint": [
+    "util/abs.go"
+   ],
+   "spec": "Create util/abs.go with `func AbsInt(v int) int` returning the absolute value."
+  },
+  {
+   "id": "t45",
+   "title": "Retry backoff",
+   "footprint": [
+    "util/backoff.go"
+   ],
+   "spec": "Create util/backoff.go with `func Backoff(attempt int) int64`: 100 * 2^attempt milliseconds, capped at 10000; any attempt <= 0 returns 100."
+  },
+  {
+   "id": "t46",
+   "title": "Slug generation",
+   "footprint": [
+    "util/slug.go"
+   ],
+   "spec": "Create util/slug.go with `func Slug(s string) string`: lowercase the string; keep ASCII letters and digits; replace every maximal run of any other characters with a single '-'; trim leading and trailing '-'."
+  },
+  {
+   "id": "t47",
+   "title": "Money formatting",
+   "footprint": [
+    "model/money.go"
+   ],
+   "spec": "Create model/money.go with `func FormatCents(c int) string` rendering cents as dollars: \"12.34\" for 1234, two-digit cents always, negative amounts with a leading '-' (FormatCents(-5) == \"-0.05\")."
+  },
+  {
+   "id": "t48",
+   "title": "ZIP validation",
+   "footprint": [
+    "model/zip.go"
+   ],
+   "spec": "Create model/zip.go with `func ValidZip(s string) bool`: true iff s is exactly five ASCII digits."
+  },
+  {
+   "id": "t49",
+   "title": "Atomic counter",
+   "footprint": [
+    "store/counter.go"
+   ],
+   "spec": "Create store/counter.go with a `Counter` type: `func NewCounter() *Counter`, `func (c *Counter) Inc() int` (increment by one and return the new value), `func (c *Counter) Value() int`. Safe for concurrent use."
+  },
+  {
+   "id": "t50",
+   "title": "Prefix counting",
+   "footprint": [
+    "store/prefixcount.go"
+   ],
+   "spec": "Create store/prefixcount.go with `func CountPrefix(kv KV, prefix string) int` returning the number of visible keys with the prefix (as reported by Keys)."
+  },
+  {
+   "id": "t51",
+   "title": "String set",
+   "footprint": [
+    "util/set.go"
+   ],
+   "spec": "Create util/set.go with a `StringSet` type: `func NewStringSet() *StringSet`, `Add(s string)` (duplicate adds are no-ops), `Has(s string) bool`, `Len() int`."
+  },
+  {
+   "id": "t52",
+   "title": "FIFO queue",
+   "footprint": [
+    "util/queue.go"
+   ],
+   "spec": "Create util/queue.go with a `Queue` type for strings: `func NewQueue() *Queue`, `Push(s string)`, `Pop() (string, bool)` returning items first-in-first-out; Pop on an empty queue returns (\"\", false)."
+  },
+  {
+   "id": "t53",
+   "title": "LIFO stack",
+   "footprint": [
+    "util/stack.go"
+   ],
+   "spec": "Create util/stack.go with a `Stack` type for strings: `func NewStack() *Stack`, `Push(s string)`, `Pop() (string, bool)` returning items last-in-first-out; Pop on an empty stack returns (\"\", false)."
+  },
+  {
+   "id": "t54",
+   "title": "Email domain extraction",
+   "footprint": [
+    "model/emaildomain.go"
+   ],
+   "spec": "Create model/emaildomain.go with `func EmailDomain(e string) string`: the part after the last '@'; \"\" when e contains no '@'."
+  },
+  {
+   "id": "t55",
+   "title": "Min and max",
+   "footprint": [
+    "util/minmax.go"
+   ],
+   "spec": "Create util/minmax.go with `func MinInt(a, b int) int` and `func MaxInt(a, b int) int`."
+  },
+  {
+   "id": "t56",
+   "title": "Sums and means",
+   "footprint": [
+    "util/sum.go"
+   ],
+   "spec": "Create util/sum.go with `func SumInts(xs []int) int` and `func MeanInts(xs []int) int` \u2014 the sum divided by the length using Go's native integer division (truncated toward zero); an empty slice yields 0 for both."
+  },
+  {
+   "id": "t57",
+   "title": "String dedupe",
+   "footprint": [
+    "util/dedupe.go"
+   ],
+   "spec": "Create util/dedupe.go with `func DedupeStrings(xs []string) []string` keeping the first occurrence of each string, in order; an empty input yields a result of length 0."
+  },
+  {
+   "id": "t58",
+   "title": "String chunking",
+   "footprint": [
+    "util/chunk.go"
+   ],
+   "spec": "Create util/chunk.go with `func ChunkStrings(xs []string, n int) [][]string` splitting xs into consecutive chunks of n items, the last chunk possibly shorter; n <= 0 returns nil."
+  },
+  {
+   "id": "t59",
+   "title": "Percentage calculation",
+   "footprint": [
+    "util/percent.go"
+   ],
+   "spec": "Create util/percent.go with `func PercentOf(part, whole int) int` returning part*100/whole using Go's native integer division; whole == 0 returns 0."
+  },
+  {
+   "id": "t60",
+   "title": "Median",
+   "footprint": [
+    "util/median.go"
+   ],
+   "spec": "Create util/median.go with `func MedianInt(xs []int) int`: sort a copy ascending (the input slice must not be modified); odd length returns the middle value, even length returns the lower of the two middle values; empty returns 0."
+  }
+ ]
+}
