@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="340" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">Scale-up 1: agent spend per accepted ticket</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Total run spend divided by tickets accepted; per-run spend is near-identical ($3.68-3.90)</text>
+<text x="44.0" y="297.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">0</text>
+<line x1="52.0" y1="235.0" x2="684.0" y2="235.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="238.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">1</text>
+<line x1="52.0" y1="176.0" x2="684.0" y2="176.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="179.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">2</text>
+<line x1="52.0" y1="117.0" x2="684.0" y2="117.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="120.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">3</text>
+<line x1="52.0" y1="58.0" x2="684.0" y2="58.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="61.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">4</text>
+<line x1="52.0" y1="294.0" x2="684.0" y2="294.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="16.0" y="52.0" font-size="10.5" fill="#898781" text-anchor="start" font-weight="normal">USD per accepted ticket</text>
+<path d="M 185.0 294.0 L 185.0 73.9 Q 185.0 69.9 189.0 69.9 L 205.0 69.9 Q 209.0 69.9 209.0 73.9 L 209.0 294.0 Z" fill="#eb6834"/>
+<text x="197.0" y="64.9" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">$3.80</text>
+<path d="M 211.0 294.0 L 211.0 286.6 Q 211.0 282.6 215.0 282.6 L 231.0 282.6 Q 235.0 282.6 235.0 286.6 L 235.0 294.0 Z" fill="#2a78d6"/>
+<text x="223.0" y="277.6" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">$0.19</text>
+<text x="210.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">rep 1</text>
+<path d="M 501.0 294.0 L 501.0 280.4 Q 501.0 276.4 505.0 276.4 L 521.0 276.4 Q 525.0 276.4 525.0 280.4 L 525.0 294.0 Z" fill="#eb6834"/>
+<text x="513.0" y="271.4" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">$0.30</text>
+<path d="M 527.0 294.0 L 527.0 285.9 Q 527.0 281.9 531.0 281.9 L 547.0 281.9 Q 551.0 281.9 551.0 285.9 L 551.0 294.0 Z" fill="#2a78d6"/>
+<text x="539.0" y="276.9" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">$0.21</text>
+<text x="526.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">rep 2</text>
+<rect x="52.0" y="319.0" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="67.0" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">git_fleet</text>
+<rect x="142.4" y="319.0" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="157.4" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">nool_fleet</text>
+</svg>

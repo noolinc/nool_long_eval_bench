@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="340" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">B2: writes swept into another agent's commit (shared workspace)</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Percent of expected ops misattributed at N concurrent writers; nool 6.14.1, run 3</text>
+<text x="44.0" y="297.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">0</text>
+<line x1="52.0" y1="215.3" x2="684.0" y2="215.3" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="218.8" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">20</text>
+<line x1="52.0" y1="136.7" x2="684.0" y2="136.7" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="140.2" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">40</text>
+<line x1="52.0" y1="58.0" x2="684.0" y2="58.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="61.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">60</text>
+<line x1="52.0" y1="294.0" x2="684.0" y2="294.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="16.0" y="52.0" font-size="10.5" fill="#898781" text-anchor="start" font-weight="normal">% of ops misattributed</text>
+<path d="M 132.3 294.0 L 132.3 232.4 Q 132.3 228.4 136.3 228.4 L 152.3 228.4 Q 156.3 228.4 156.3 232.4 L 156.3 294.0 Z" fill="#eb6834"/>
+<text x="144.3" y="223.4" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">17%</text>
+<rect x="158.3" y="292.0" width="24.0" height="2" fill="#2a78d6"/>
+<text x="170.3" y="289.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">0%</text>
+<text x="157.3" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N = 2</text>
+<path d="M 343.0 294.0 L 343.0 114.4 Q 343.0 110.4 347.0 110.4 L 363.0 110.4 Q 367.0 110.4 367.0 114.4 L 367.0 294.0 Z" fill="#eb6834"/>
+<text x="355.0" y="105.4" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">47%</text>
+<rect x="369.0" y="292.0" width="24.0" height="2" fill="#2a78d6"/>
+<text x="381.0" y="289.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">0%</text>
+<text x="368.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N = 5</text>
+<path d="M 553.7 294.0 L 553.7 79.5 Q 553.7 75.5 557.7 75.5 L 573.7 75.5 Q 577.7 75.5 577.7 79.5 L 577.7 294.0 Z" fill="#eb6834"/>
+<text x="565.7" y="70.5" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">56%</text>
+<rect x="579.7" y="292.0" width="24.0" height="2" fill="#2a78d6"/>
+<text x="591.7" y="289.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">0%</text>
+<text x="578.7" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N = 15</text>
+<rect x="52.0" y="319.0" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="67.0" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">git</text>
+<rect x="104.1" y="319.0" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="119.1" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">nool</text>
+</svg>

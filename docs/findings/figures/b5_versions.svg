@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="340" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">B5: clean merges of 15 contended branches, by nool version</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Same-anchor scenario, 3 reps per version (values identical across reps); git baseline unchanged</text>
+<text x="44.0" y="297.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">0</text>
+<line x1="52.0" y1="215.3" x2="684.0" y2="215.3" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="218.8" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">5</text>
+<line x1="52.0" y1="136.7" x2="684.0" y2="136.7" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="140.2" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">10</text>
+<line x1="52.0" y1="58.0" x2="684.0" y2="58.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="61.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">15</text>
+<line x1="52.0" y1="294.0" x2="684.0" y2="294.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="16.0" y="52.0" font-size="10.5" fill="#898781" text-anchor="start" font-weight="normal">clean merges</text>
+<path d="M 132.3 294.0 L 132.3 282.3 Q 132.3 278.3 136.3 278.3 L 152.3 278.3 Q 156.3 278.3 156.3 282.3 L 156.3 294.0 Z" fill="#eb6834"/>
+<text x="144.3" y="273.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 158.3 294.0 L 158.3 282.3 Q 158.3 278.3 162.3 278.3 L 178.3 278.3 Q 182.3 278.3 182.3 282.3 L 182.3 294.0 Z" fill="#2a78d6"/>
+<text x="170.3" y="273.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<text x="157.3" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">6.13.0</text>
+<path d="M 343.0 294.0 L 343.0 282.3 Q 343.0 278.3 347.0 278.3 L 363.0 278.3 Q 367.0 278.3 367.0 282.3 L 367.0 294.0 Z" fill="#eb6834"/>
+<text x="355.0" y="273.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 369.0 294.0 L 369.0 282.3 Q 369.0 278.3 373.0 278.3 L 389.0 278.3 Q 393.0 278.3 393.0 282.3 L 393.0 294.0 Z" fill="#2a78d6"/>
+<text x="381.0" y="273.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<text x="368.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">6.14.0</text>
+<path d="M 553.7 294.0 L 553.7 282.3 Q 553.7 278.3 557.7 278.3 L 573.7 278.3 Q 577.7 278.3 577.7 282.3 L 577.7 294.0 Z" fill="#eb6834"/>
+<text x="565.7" y="273.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 579.7 294.0 L 579.7 62.0 Q 579.7 58.0 583.7 58.0 L 599.7 58.0 Q 603.7 58.0 603.7 62.0 L 603.7 294.0 Z" fill="#2a78d6"/>
+<text x="591.7" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">15</text>
+<text x="578.7" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">6.14.1</text>
+<rect x="52.0" y="319.0" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="67.0" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">git merge</text>
+<rect x="142.4" y="319.0" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="157.4" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">nool merge</text>
+</svg>

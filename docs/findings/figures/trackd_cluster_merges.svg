@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="340" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">Scale-up 1: clean merges per contention cluster (of 3)</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">A: same function (billing Invoice) · B: same handler file · C: same store file; per arm, rep 1 then rep 2</text>
+<text x="44.0" y="297.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">0</text>
+<line x1="52.0" y1="215.3" x2="684.0" y2="215.3" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="218.8" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">1</text>
+<line x1="52.0" y1="136.7" x2="684.0" y2="136.7" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="140.2" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">2</text>
+<line x1="52.0" y1="58.0" x2="684.0" y2="58.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="61.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">3</text>
+<line x1="52.0" y1="294.0" x2="684.0" y2="294.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="16.0" y="52.0" font-size="10.5" fill="#898781" text-anchor="start" font-weight="normal">clean merges</text>
+<path d="M 106.3 294.0 L 106.3 219.3 Q 106.3 215.3 110.3 215.3 L 126.3 215.3 Q 130.3 215.3 130.3 219.3 L 130.3 294.0 Z" fill="#eb6834"/>
+<text x="118.3" y="210.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 132.3 294.0 L 132.3 219.3 Q 132.3 215.3 136.3 215.3 L 152.3 215.3 Q 156.3 215.3 156.3 219.3 L 156.3 294.0 Z" fill="#eb6834"/>
+<text x="144.3" y="210.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 158.3 294.0 L 158.3 62.0 Q 158.3 58.0 162.3 58.0 L 178.3 58.0 Q 182.3 58.0 182.3 62.0 L 182.3 294.0 Z" fill="#2a78d6"/>
+<text x="170.3" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">3</text>
+<path d="M 184.3 294.0 L 184.3 62.0 Q 184.3 58.0 188.3 58.0 L 204.3 58.0 Q 208.3 58.0 208.3 62.0 L 208.3 294.0 Z" fill="#2a78d6"/>
+<text x="196.3" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">3</text>
+<text x="157.3" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">cluster A</text>
+<path d="M 317.0 294.0 L 317.0 219.3 Q 317.0 215.3 321.0 215.3 L 337.0 215.3 Q 341.0 215.3 341.0 219.3 L 341.0 294.0 Z" fill="#eb6834"/>
+<text x="329.0" y="210.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 343.0 294.0 L 343.0 219.3 Q 343.0 215.3 347.0 215.3 L 363.0 215.3 Q 367.0 215.3 367.0 219.3 L 367.0 294.0 Z" fill="#eb6834"/>
+<text x="355.0" y="210.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 369.0 294.0 L 369.0 62.0 Q 369.0 58.0 373.0 58.0 L 389.0 58.0 Q 393.0 58.0 393.0 62.0 L 393.0 294.0 Z" fill="#2a78d6"/>
+<text x="381.0" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">3</text>
+<path d="M 395.0 294.0 L 395.0 62.0 Q 395.0 58.0 399.0 58.0 L 415.0 58.0 Q 419.0 58.0 419.0 62.0 L 419.0 294.0 Z" fill="#2a78d6"/>
+<text x="407.0" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">3</text>
+<text x="368.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">cluster B</text>
+<path d="M 527.7 294.0 L 527.7 140.7 Q 527.7 136.7 531.7 136.7 L 547.7 136.7 Q 551.7 136.7 551.7 140.7 L 551.7 294.0 Z" fill="#eb6834"/>
+<text x="539.7" y="131.7" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">2</text>
+<path d="M 553.7 294.0 L 553.7 219.3 Q 553.7 215.3 557.7 215.3 L 573.7 215.3 Q 577.7 215.3 577.7 219.3 L 577.7 294.0 Z" fill="#eb6834"/>
+<text x="565.7" y="210.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 579.7 294.0 L 579.7 62.0 Q 579.7 58.0 583.7 58.0 L 599.7 58.0 Q 603.7 58.0 603.7 62.0 L 603.7 294.0 Z" fill="#2a78d6"/>
+<text x="591.7" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">3</text>
+<path d="M 605.7 294.0 L 605.7 62.0 Q 605.7 58.0 609.7 58.0 L 625.7 58.0 Q 629.7 58.0 629.7 62.0 L 629.7 294.0 Z" fill="#2a78d6"/>
+<text x="617.7" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">3</text>
+<text x="578.7" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">cluster C</text>
+<rect x="52.0" y="319.0" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="67.0" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">git_fleet</text>
+<rect x="142.4" y="319.0" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="157.4" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">nool_fleet</text>
+</svg>

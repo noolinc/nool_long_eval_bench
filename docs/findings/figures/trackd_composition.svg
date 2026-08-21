@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="272" viewBox="0 0 700 272" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="272" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">Scale-up 1: outcome of the 20-ticket backlog, per run</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Classes ordered by severity (light to dark); counts labeled where they fit</text>
+<text x="88.0" y="77.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal">git rep 1</text>
+<path d="M 96.0 62.0 L 123.4 62.0 Q 123.4 62.0 123.4 62.0 L 123.4 84.0 Q 123.4 84.0 123.4 84.0 L 96.0 84.0 Z" fill="#86b6ef"/>
+<text x="109.7" y="77.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1</text>
+<path d="M 125.4 62.0 L 299.8 62.0 Q 299.8 62.0 299.8 62.0 L 299.8 84.0 Q 299.8 84.0 299.8 84.0 L 125.4 84.0 Z" fill="#1c5cab"/>
+<text x="212.6" y="77.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">6</text>
+<path d="M 301.8 62.0 L 678.0 62.0 Q 682.0 62.0 682.0 66.0 L 682.0 80.0 Q 682.0 84.0 678.0 84.0 L 301.8 84.0 Z" fill="#0d366b"/>
+<text x="491.9" y="77.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">13</text>
+<text x="88.0" y="121.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal">git rep 2</text>
+<path d="M 96.0 106.0 L 476.2 106.0 Q 476.2 106.0 476.2 106.0 L 476.2 128.0 Q 476.2 128.0 476.2 128.0 L 96.0 128.0 Z" fill="#86b6ef"/>
+<text x="286.1" y="121.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">13</text>
+<path d="M 478.2 106.0 L 678.0 106.0 Q 682.0 106.0 682.0 110.0 L 682.0 124.0 Q 682.0 128.0 678.0 128.0 L 478.2 128.0 Z" fill="#1c5cab"/>
+<text x="580.1" y="121.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">7</text>
+<text x="88.0" y="165.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal">nool rep 1</text>
+<path d="M 96.0 150.0 L 652.6 150.0 Q 652.6 150.0 652.6 150.0 L 652.6 172.0 Q 652.6 172.0 652.6 172.0 L 96.0 172.0 Z" fill="#86b6ef"/>
+<text x="374.3" y="165.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">19</text>
+<path d="M 654.6 150.0 L 678.0 150.0 Q 682.0 150.0 682.0 154.0 L 682.0 168.0 Q 682.0 172.0 678.0 172.0 L 654.6 172.0 Z" fill="#3987e5"/>
+<text x="668.3" y="165.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">1</text>
+<text x="88.0" y="209.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal">nool rep 2</text>
+<path d="M 96.0 194.0 L 652.6 194.0 Q 652.6 194.0 652.6 194.0 L 652.6 216.0 Q 652.6 216.0 652.6 216.0 L 96.0 216.0 Z" fill="#86b6ef"/>
+<text x="374.3" y="209.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">19</text>
+<path d="M 654.6 194.0 L 678.0 194.0 Q 682.0 194.0 682.0 198.0 L 682.0 212.0 Q 682.0 216.0 678.0 216.0 L 654.6 216.0 Z" fill="#3987e5"/>
+<text x="668.3" y="209.0" font-size="11" fill="#ffffff" text-anchor="middle" font-weight="normal">1</text>
+<rect x="16.0" y="233.0" width="10" height="10" rx="2" fill="#86b6ef"/>
+<text x="31.0" y="242.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Accepted</text>
+<rect x="100.0" y="233.0" width="10" height="10" rx="2" fill="#3987e5"/>
+<text x="115.0" y="242.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Integrated, acceptance failed (test unmet)</text>
+<rect x="16.0" y="251.0" width="10" height="10" rx="2" fill="#1c5cab"/>
+<text x="31.0" y="260.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Merge conflict, not integrated</text>
+<rect x="240.4" y="251.0" width="10" height="10" rx="2" fill="#0d366b"/>
+<text x="255.4" y="260.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Integrated, acceptance failed (main build broken)</text>
+</svg>
