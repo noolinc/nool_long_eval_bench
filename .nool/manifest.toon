@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Setup audit: nool merge driver scoped to ledger artifacts only, ruling out harness misconfiguration for B5; land completed scale-up git-arm record
-knot_id: daaf6709f01ab4c0d49e00e9024be038c1bd571f49398428255d4e1a64b58e0c
-solidified_at: 1787262639884
+intent: Run 3 Track B (nool 6.14.1, CLI 2.1.238): B5 contended merges now 15/15 clean via new MergeReconcile union stage; B3 pluck preserves descendants 5/5; B7 bisect names true culprit; B4 test-breaking gap unchanged; latency costs up ~2x. b5 detector repaired for 6.14.1 wording (passed->checked) + merge_reconcile_unions metric. Run 2 (6.14.0) micro results snapshotted to results/replications/run2_micro_2026-08-20/
+knot_id: 89d215e003d1f477d423ad57f6a1956ea76a5324a4caa895491ddd9098e6c0bf
+solidified_at: 1787285563305
 thread: main

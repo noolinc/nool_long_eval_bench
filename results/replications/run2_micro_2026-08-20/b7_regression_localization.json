@@ -1,10 +1,10 @@
 {
  "benchmark": "b7_regression_localization",
  "provenance": {
-  "timestamp_utc": "2026-08-21T04:04:51.459221+00:00",
+  "timestamp_utc": "2026-08-20T19:14:37.235534+00:00",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 6.14.1",
+  "nool_version": "nool 6.14.0",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -18,22 +18,22 @@
  "arms": {
   "git": {
    "culprit_found": true,
-   "wall_ms": 3258.2,
+   "wall_ms": 2392.0,
    "bisect_steps": 3,
    "exit_code": 0
   },
   "nool": {
-   "culprit_found": true,
-   "wall_ms": 2345.0,
-   "bisect_steps_reported": 0,
+   "culprit_found": false,
+   "wall_ms": 1237.3,
+   "bisect_steps_reported": 3,
    "exit_code": 0,
-   "knot_named": "0946a104a525453e",
-   "knot_named_intent": "landing 7: add Extra7",
+   "knot_named": "1c113a4906accfa3",
+   "knot_named_intent": "landing 1: add Extra1",
    "truth_intent": "landing 7",
    "output_tail": [
-    "  \ud83d\udc1b First bad Knot: 0946a104a525453e",
+    "  \ud83d\udc1b First bad Knot: 1c113a4906accfa3",
     "  Intent: \"Mutation @ lib.go\"",
-    "  Time: 2026-08-21 04:04:45 UTC",
+    "  Time: 2026-08-20 19:14:32 UTC",
     "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
    ]
   }

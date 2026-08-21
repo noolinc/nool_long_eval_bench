@@ -79,7 +79,12 @@ def merge_all(ws, arm):
             code, out, _ = run(["nool", "merge", f"agent_{i}", "--compact"], ws)
         ms = (time.monotonic() - t0) * 1000.0
         conflicted = tree_conflicted(ws)
-        semantic_pass = bool(re.search(r"Semantic convergence .* passed", out)) \
+        # 6.13/6.14.0 print "Semantic convergence ... passed"; 6.14.1 reworded
+        # to "Semantic convergence checked (...)". Match both.
+        semantic_pass = bool(re.search(
+            r"Semantic convergence .*passed|Semantic convergence checked",
+            out)) if arm == "nool" else None
+        reconciled = bool(re.search(r"\[MergeReconcile\] Unioned", out)) \
             if arm == "nool" else None
         if conflicted and code == 0:
             exit_code_lies += 1
@@ -89,7 +94,8 @@ def merge_all(ws, arm):
                 run(["git", "checkout", "-f", "main"], ws)
         latencies.append(ms)
         per_branch.append({"branch": i, "clean": not conflicted,
-                           "exit_code": code, "semantic_layer_pass": semantic_pass})
+                           "exit_code": code, "semantic_layer_pass": semantic_pass,
+                           "merge_reconcile_union": reconciled})
     return per_branch, latencies, exit_code_lies
 
 
@@ -117,6 +123,8 @@ def run_cell(root, scenario, arm, rep):
         cell["semantic_layer_passes"] = sum(1 for s in sem if s)
         cell["semantic_pass_but_file_conflict"] = sum(
             1 for b in per_branch if b["semantic_layer_pass"] and not b["clean"])
+        cell["merge_reconcile_unions"] = sum(
+            1 for b in per_branch if b["merge_reconcile_union"])
     return cell
 
 
