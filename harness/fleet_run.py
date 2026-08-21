@@ -75,6 +75,23 @@ def health(ws):
 # so serialize it; agent work itself stays fully concurrent.
 _WORKTREE_ADD_LOCK = threading.Lock()
 
+# N=25 (scale-up 2, design spec) reproducibly exhausted operator-machine RAM
+# within ~9s: ThreadPoolExecutor(max_workers=25) launches that many Claude
+# Code CLI subprocesses in one instant burst. Throttling launch cadence
+# (not the treatment — applies identically to every arm, since every arm
+# routes through this function) spreads the ramp-up instead of spiking it.
+_LAUNCH_LOCK = threading.Lock()
+_LAST_LAUNCH = [0.0]
+LAUNCH_STAGGER_S = 1.5
+
+
+def _throttle_launch():
+    with _LAUNCH_LOCK:
+        wait = _LAST_LAUNCH[0] + LAUNCH_STAGGER_S - time.monotonic()
+        if wait > 0:
+            time.sleep(wait)
+        _LAST_LAUNCH[0] = time.monotonic()
+
 
 def agent_ticket(ws, parent, ticket, model, run_id):
     wt = Path(parent) / f"wt_{ticket['id']}"
@@ -85,6 +102,7 @@ def agent_ticket(ws, parent, ticket, model, run_id):
                            spec=ticket["spec"])
     TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
     tpath = TRANSCRIPTS / f"{run_id}_{ticket['id']}.jsonl"
+    _throttle_launch()
     res = claude_adapter.run(wt, prompt, model, max_turns=30, timeout_s=600,
                              transcript_path=tpath, env=ENV)
     sh(["git", "add", "-A"], wt)

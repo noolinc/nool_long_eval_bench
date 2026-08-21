@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Update Phase 1 fleet-study paper with scale-up 2 findings: corpus-integrity incident and fix (new incident report), N=25 infrastructure-ceiling censoring (new section 5.5), N=20 off-ladder exploratory results (nool 60/60 both reps zero conflicts vs git 39/60 and 40/60 with roughly 20-21 merge conflicts per rep), and the antigravity adapter trial noted as non-comparison raw data; updates abstract, contributions list, evidence map, and P1 roadmap status accordingly
-knot_id: f34a626b26f9facdeaf2684dfec2b94000587463cb315a3392ac45bf047e44f7
-solidified_at: 1787332061159
+intent: Add launch-cadence throttle to fleet_run.py agent_ticket(): a 1.5s minimum interval between subprocess launches, fixing the N=25 instant-memory-burst wall (37% to 0.4% free within ~9s) found while attempting the pre-registered scale-up 2 ladder. Applies identically to every arm through the shared agent_ticket() path -- not the measured treatment.
+knot_id: 69138ed158e3dbfc0d323be3cce92202cea321e9719a1cea40639a08e34ea5bc
+solidified_at: 1787333728883
 thread: main
