@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Add launch-cadence throttle to fleet_run.py agent_ticket(): a 1.5s minimum interval between subprocess launches, fixing the N=25 instant-memory-burst wall (37% to 0.4% free within ~9s) found while attempting the pre-registered scale-up 2 ladder. Applies identically to every arm through the shared agent_ticket() path -- not the measured treatment.
-knot_id: 69138ed158e3dbfc0d323be3cce92202cea321e9719a1cea40639a08e34ea5bc
-solidified_at: 1787333728883
+intent: Land N=25 git_fleet rep-1 corpus-v3 run record: 41/60 accepted, wall 257s, cost $10.61. Pre-registered scale-up 2 ladder point, first successful attempt after adding the 1.5s launch-cadence stagger to fleet_run.py.
+knot_id: d07f6075e5e169550dea3393ade74eccdbd29d647d1e7edcbf65e75c2a3e826b
+solidified_at: 1787335790196
 thread: main
