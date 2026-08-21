@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Run 3 Track C grid (nool 6.14.1, CLI 2.1.238, claude-sonnet-5): 20 runs, 18/20 hidden-test pass — singles 5/5 both arms, multi_git 4/5 (r4: agent left empty zz_smoke_test.go, build broke), multi_nool 4/5 (r2: inter-agent interface mismatch, same mode as run 1's failure). Median turns/tokens stable vs runs 1-2; no arm separation on any metric
-knot_id: 946e65b5acb02d048185d2fd3d800a106b6f8916422bd81147608aa6d32df156
-solidified_at: 1787288444750
+intent: Run 3 Track D pilot replication (nool 6.14.1, 5 workers, corpus v1): both arms 8/8 accepted, 8/8 clean merges — replicates pilot no-contention result cross-version
+knot_id: 7625ba41f89dbe9e08964dad3498893cf262ad10d1698d9e6dbc27854e458e93
+solidified_at: 1787289345687
 thread: main
