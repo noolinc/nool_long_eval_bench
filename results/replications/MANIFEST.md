@@ -40,3 +40,20 @@ B7 bisect names first post-good knot instead of culprit: identical.
 B3 pluck destroys later unrelated work (both timeline variants): identical.
 B4 parseable test-breaking change accepted through propose + deferred
 validation: identical.
+
+## Run 3 scale-up 1 (2026-08-21, nool 6.14.1, CLI 2.1.238, claude-sonnet-5)
+
+Track D at N=10 workers, corpus v2 (20 tickets, function-level contention
+clusters A/B/C). Primary comparison, all on nool 6.14.1 with serialized
+worktree creation and the fixed dispatch gate:
+git_fleet 9a6eb70f (1/20 accepted; t17 clean-merge broke build, voiding 13
+landed tickets), git_fleet 803f2288 (13/20; 7 cluster conflicts);
+nool_fleet cb7ccf72 and 2a51582f (both 19/20, 20/20 clean merges, main
+green; shared t2 failure is a pilot-era acceptance-test tolerance artifact
+that fires only when all of cluster A lands).
+Labeled variants excluded from the primary comparison: nool_fleet 16e2e1b0
+(18/20, ran with the same-batch dispatch-gate hole), git_fleet 70dff997
+(15/20, collected on nool 6.14.0 before the version bump).
+Lost runs, no records: one git rep to a concurrent-worktree-add race, one
+to operator-machine memory exhaustion; later runs sequential under a
+memory watchdog. Raw records: results/trackc/fleet_runs.jsonl.

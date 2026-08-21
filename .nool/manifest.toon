@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Scale-up 1 complete (2a51582f nool rep 2, 10w corpus v2, 6.14.1): 19/20 accepted, 20/20 clean merges, main green; both nool reps fail only t2 (agent-quality). Final: git 1/20+13/20 vs nool 19/20+19/20; per-cluster git 2nd/3rd merges conflict, nool composes 3/3
-knot_id: 93af6d41b7f6f0a5834868a3a0743ee9d952c1f3c44d571769a3db8c966e3ea2
-solidified_at: 1787290480176
+intent: Report scale-up 1: paper §5.4 with per-mode git failures, gate/corpus deviations, updated abstract + evidence map (C2 split, C4 first real-agent point, C5 first separation), P1 progress note; manifest run 3 block
+knot_id: d73c6a3ab99caa18933d6e02bb94dc58f5c5e3f7074e8fc5a16a6603fedec3e4
+solidified_at: 1787290676890
 thread: main

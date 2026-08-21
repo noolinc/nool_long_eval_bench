@@ -6,7 +6,7 @@
 
 ## Abstract
 
-Enterprises considering fleets of autonomous coding agents need evidence for an outcome claim: that without a coordination layer, sufficiently agentic development becomes measurably unsafe or expensive, and that a coordination layer materially reduces those failures. We present a pre-registered benchmark suite comparing Nool — a semantic-agentic version-control and coordination system — against plain git across three instrument families: seven deterministic mechanism benchmarks (B1–B7), a 2×2 LLM-in-the-loop product experiment (single/multi agent × git/nool; N=5 per cell, one pinned model), and a fleet-operations pilot (5 concurrent real agents, 8-ticket backlog with designed contention). All outcome scoring is on final-system state (hidden acceptance tests, main-branch health), never on tool warnings. Phase 1 results are mixed and instructive: nool provides measured wins in concurrent-write attribution (90/90 ops attributed 1:1 vs 64% commingled under git at 15 writers), context-retrieval economy (163 vs 660 bytes to a correct hit), and syntax-level commit gating; it currently provides no measured advantage in file-level merge outcomes (identical to git across three scenarios despite its semantic layer correctly classifying changes as commutable), fails to preserve unrelated later work during selective undo, and mislocalizes regressions in its bisect tool. The 2×2 product experiment shows no arm separation at pilot power. We contribute the claim framework, the instruments, honest bounds that current mechanism behavior places on the enterprise claims, and a costed roadmap for the three decisive proofs: fleet correctness at high concurrency, longitudinal institutional memory, and deterministic governance.
+Enterprises considering fleets of autonomous coding agents need evidence for an outcome claim: that without a coordination layer, sufficiently agentic development becomes measurably unsafe or expensive, and that a coordination layer materially reduces those failures. We present a pre-registered benchmark suite comparing Nool — a semantic-agentic version-control and coordination system — against plain git across three instrument families: seven deterministic mechanism benchmarks (B1–B7), a 2×2 LLM-in-the-loop product experiment (single/multi agent × git/nool; N=5 per cell, one pinned model), and a fleet-operations pilot (5 concurrent real agents, 8-ticket backlog with designed contention). All outcome scoring is on final-system state (hidden acceptance tests, main-branch health), never on tool warnings. Phase 1 results are mixed and instructive: nool provides measured wins in concurrent-write attribution (90/90 ops attributed 1:1 vs 64% commingled under git at 15 writers), context-retrieval economy (163 vs 660 bytes to a correct hit), and syntax-level commit gating; it currently provides no measured advantage in file-level merge outcomes (identical to git across three scenarios despite its semantic layer correctly classifying changes as commutable), fails to preserve unrelated later work during selective undo, and mislocalizes regressions in its bisect tool. The 2×2 product experiment shows no arm separation at pilot power. A pre-registered scale-up of the fleet benchmark — 10 agents, 20 tickets with function-level contention clusters — then produces the first decisive separation: the uncoordinated git arm accepted 13/20 and 1/20 (in the latter rep a textually-clean merge silently broke the build, voiding 13 landed tickets), while the nool arm's footprint-gated dispatch accepted 19/20 in both reps with zero integration failures, at equal agent spend and +40–70% wall time. We contribute the claim framework, the instruments, honest bounds that current mechanism behavior places on the enterprise claims, and a costed roadmap for the three decisive proofs: fleet correctness at high concurrency, longitudinal institutional memory, and deterministic governance.
 
 ## 1. Introduction
 
@@ -110,18 +110,82 @@ no arm separation. The fleet pilot repeated both arms at 8/8 with zero
 conflicts; nool's gating overhead was +10 s (run 1) and +3 s (run 2).
 Conditions for both runs are indexed in `results/replications/MANIFEST.md`.
 
+### 5.4 Scale-up 1 — function-level contention (10 agents, 20 tickets)
+
+The pilot's escalation path was pre-registered before any scale data
+(design spec, scale-up 1, 2026-08-20): corpus v2 keeps the 8 pilot tickets
+and adds 12 whose contention is at function level — cluster A (t9–t11)
+modifies the same function body (`service/billing.go` Invoice, the regime
+where B5 shows textual merge fails), cluster B (t12–t14) functions in the
+same handler file, cluster C (t15–t17) the same store file — at N=10
+workers, 2 reps per arm, same pinned model (claude-sonnet-5, nool 6.14.1,
+CLI 2.1.238). Prediction: the git arm suffers integration conflicts on
+each cluster's 2nd/3rd merges; the nool arm's gated dispatch serializes
+clusters so later members branch from integrated state and compose.
+
+| Metric (per rep) | git_fleet r1 | git_fleet r2 | nool_fleet r1 | nool_fleet r2 |
+|---|---|---|---|---|
+| Tickets accepted | **1/20** | **13/20** | **19/20** | **19/20** |
+| Clean merges | 14/20 | 13/20 | 20/20 | 20/20 |
+| Final main health | **build broken** | green | green | green |
+| Wall time | 100 s | 106 s | 143 s | 179 s |
+| Agent spend | $3.80 | $3.87 | $3.68 | $3.90 |
+| Spend on failed integrations | $1.40 | $1.57 | $0 | $0 |
+
+The prediction held in both halves, and the git arm failed in two distinct
+modes. Mode one, predicted: cluster members conflict at the merge queue —
+across the two git reps, cluster A cleanly merged 1/3 and 1/3, cluster B
+1/3 and 1/3, cluster C 3/3 then 1/3; every conflict was a 2nd/3rd member
+of a cluster (plus t20). Mode two, not predicted but more damaging: in git
+rep 1, t17's merge was textually clean yet broke the build, and because
+acceptance is scored on final main state, every ticket whose test imports
+the poisoned package failed — 13 previously-landed tickets were voided and
+only the fully-independent t19 survived, an 18-ticket loss from one
+absorbed merge. This is the fleet-scale version of run 1's "clean merge,
+broken integration" single observation, and it makes the git arm's outcome
+distribution bimodal: either contention losses only (13/20) or
+near-total loss (1/20).
+
+The nool arm composed every cluster: 20/20 clean merges in both reps,
+main green after every merge, 9/9 cluster tickets accepted in both reps.
+The cost is serialization: wall time +40–70% over git (143 s and 179 s vs
+100–106 s) at equal agent spend. Cost per accepted change: nool $0.19 and
+$0.21 vs git $3.80 and $0.30.
+
+Both nool reps failed the same ticket, t2 — and this is a corpus artifact
+worth recording: t2's pilot-era acceptance test hard-codes an invoice
+total that assumes base tax semantics, and cluster A's t10 adds a
+processing fee to Invoice. The artifact only fires when all of cluster A
+lands, i.e. it exclusively penalizes the arm that integrates contended
+work successfully; scored as failures per protocol, not rescored. Zero of
+the nool arm's non-acceptances are integration failures.
+
+Deviations, all recorded in the run ledger: concurrent `git worktree add`
+setup raced under 10 workers and killed one git rep before any outcome was
+recorded — spend lost, no data; creation is now serialized in both arms.
+The first nool rep ran with a harness dispatch-gate bug — tickets admitted
+in the same scheduling batch did not gate each other, so t9 raced t10 and
+t12 raced t13 from a shared base and both conflicted (18/20 accepted); it
+is kept in the data as a labeled variant, understates the nool arm, and is
+excluded from the primary comparison. A prior 10-worker git rep collected
+on nool 6.14.0 before the version bump (15/20 accepted, same per-cluster
+conflict pattern) is reported as a prior-version observation. One earlier
+git rep was lost to operator-machine memory exhaustion before any record
+was written; all subsequent runs executed sequentially under a memory
+watchdog.
+
 ## 6. Evidence map: claims versus current evidence
 
 | Claim | Status | Basis |
 |---|---|---|
 | C1 correctness | **Untested at power** | Track C shows parity at N=5 on one task; Track D pilot adds contention |
-| C2 non-interference | **Bounded negative** | B5: merge outcomes ≡ git; B2 attribution win is real but upstream of merge |
+| C2 non-interference | **Split: protocol positive, mechanism negative** | B5: file merge ≡ git, unchanged; scale-up 1: footprint-gated dispatch yields 0 integration failures vs git's 6–7 conflicts plus one build-poisoning per two reps |
 | C3 decision survival | **Untested** | Track E designed; D2 handoff designed |
-| C4 safe concurrency | **Mechanism-level only** | B2 to N=15 scripted; real-agent scaling unrun |
-| C5 cost per accepted change | **Untested at power** | overhead measured (B1); fleet cost accounting in place |
+| C4 safe concurrency | **First real-agent point** | B2 to N=15 scripted; scale-up 1 at N=10: nool acceptance 19/20 both reps while git degrades to 13/20 and 1/20 |
+| C5 cost per accepted change | **First separation, one scale point** | scale-up 1: $0.19–0.21 (nool) vs $0.30–3.80 (git) per accepted change at equal per-run spend; wall +40–70% |
 | P3 deterministic governance | **Bounded negative at default config** | B4; Track F designed to test configured enforcement incl. raw-git bypass |
 
-The honest present-tense summary: nool's measured advantages are attribution integrity under concurrency, token-economical context retrieval, and syntax-level commit gating; its headline coordination advantages are not yet realized in the shipped merge, undo, and bisect paths, which the suite documents precisely enough to re-test after product fixes. Goalposts are fixed by pre-registration; the bounds move only if the product does.
+The honest present-tense summary: nool's measured advantages are attribution integrity under concurrency, token-economical context retrieval, syntax-level commit gating, and — as of scale-up 1 — fleet non-interference through footprint-gated dispatch, the first of its headline coordination claims to be realized in measurement. The separation is protocol-level, not mechanism-level: the same runs confirm the merge itself remains textual (the B5 bound is unchanged; the git arm's failures include a clean-merge that silently broke main), and the undo and bisect paths remain as bounded. Goalposts are fixed by pre-registration; the bounds move only if the product does.
 
 ## 7. Threats to validity
 
@@ -133,7 +197,7 @@ The honest present-tense summary: nool's measured advantages are attribution int
 
 ## 8. Roadmap and power analysis for the decisive proofs
 
-**P1 — Fleet correctness at scale.** Scale Track D: N ∈ {5, 25, 50} workers, 50–200 tickets over a vendored ~50 kLOC service, overlap ratio as a controlled factor, ≥3 reps per point. Estimated LLM cost at observed per-ticket spend (~$0.2): $200–800 per concurrency point per arm. Decision rule (pre-registered before scale-up): C4 supported if nool's acceptance rate at N=50 is within CI of its N=5 rate while git's declines.
+**P1 — Fleet correctness at scale.** Scale Track D: N ∈ {5, 25, 50} workers, 50–200 tickets over a vendored ~50 kLOC service, overlap ratio as a controlled factor, ≥3 reps per point. Estimated LLM cost at observed per-ticket spend (~$0.2): $200–800 per concurrency point per arm. Decision rule (pre-registered before scale-up): C4 supported if nool's acceptance rate at N=50 is within CI of its N=5 rate while git's declines. First point collected (§5.4): at N=10 with function-level contention, nool holds 19/20 while git falls to 13/20 and 1/20 — direction consistent with C4; the N=25/50 points and a hardened corpus (the t2 tolerance artifact fixed, more tickets per hot file) are next.
 **P2 — Longitudinal memory (Track E).** 100+ sequential tasks with scheduled decision injections; slope comparison on correctness and constraint adherence. SlopCodeBench adaptation runs alongside as the published-instrument anchor. Est. $150–400 per arm per rep.
 **P3 — Deterministic governance (Track F).** Governance configured via nool's own scaffolding; prohibited-change battery where violation is the easiest route; adversarial conditions include fresh sessions and the raw-git bypass. Mostly deterministic scoring; LLM cost bounded (~$50 per battery). B4 predicts default-config gaps; the benchmark quantifies enforcement before and after configuration and product fixes.
 
