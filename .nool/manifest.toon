@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land N=25 git_fleet rep-1 corpus-v3 run record: 41/60 accepted, wall 257s, cost $10.61. Pre-registered scale-up 2 ladder point, first successful attempt after adding the 1.5s launch-cadence stagger to fleet_run.py.
-knot_id: d07f6075e5e169550dea3393ade74eccdbd29d647d1e7edcbf65e75c2a3e826b
-solidified_at: 1787335790196
+intent: Land N=25 git_fleet rep-2 corpus-v3 run record: 40/60 accepted, wall 132s, cost $9.74. Completes the git_fleet half of the pre-registered N=25 point.
+knot_id: 2c47ebfe4abf7a4cdbf487f683a44bde4e495935fba9254269c69cf785699704
+solidified_at: 1787335979086
 thread: main
