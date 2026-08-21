@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Quarantine invalidated nool_fleet rep-2 N=25 run (fleet_nool_fleet_f65e40dd): operator Claude session usage limit fired mid-run at 21:00 UTC, causing 19/60 agents to receive immediate rate-limit rejections instead of doing work. Not an arm outcome -- raw record preserved verbatim here for transparency, excluded from results/trackc/fleet_runs.jsonl and the paper. Will rerun nool_fleet rep 2 cleanly now that the limit has reset.
-knot_id: 72b05b4562f569a81e7f4988ed85efd4a9936b02380f3b7a0e1b48fedc9acdde
-solidified_at: 1787355531991
+intent: Land clean N=25 nool_fleet rep-2 corpus-v3 run record: 60/60 accepted, wall 308s, cost $6.94, zero errors/timeouts/conflicts. Rerun after the first rep-2 attempt (fleet_nool_fleet_f65e40dd) was quarantined for a mid-run rate-limit event. Completes the pre-registered scale-up 2 N=25 point: git_fleet 41/60 and 40/60, nool_fleet 60/60 and 60/60.
+knot_id: ab02d17aaa76f2e5cd216e93003aec7d1d844a76fe54452f6b23c9cedb0e4a0c
+solidified_at: 1787355918320
 thread: main
