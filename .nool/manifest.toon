@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Fix nool-arm dispatch gate hole: busy set ignored same-batch admissions, so wave-1 cluster members (t9|t10, t12|t13) raced from one base; batch members now gate each other
-knot_id: 6bcb0eb5327c500cc581bb156e1df1da031e27d2dab5b671ae7aefcd709fe45b
-solidified_at: 1787290023784
+intent: Scale-up 1 git rep 2 (803f2288, 10w corpus v2, 6.14.1): 13/20 accepted, 7 integration conflicts all on cluster 2nd/3rd merges (A:t10,t11 B:t12,t13 C:t16,t17 +t20), final health green — matches pre-registered git-arm prediction
+knot_id: 453e9a5ced13603ddb76018a63996a80c79e1b2de97f3edd85daa345f616cc11
+solidified_at: 1787290108768
 thread: main
