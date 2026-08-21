@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Corpus v3: 60 tickets (20 v2.2 carryover + 40 new: 20 contended deepening 8 hot surfaces incl. 5-ticket Invoice-body and Create-body clusters, 20 disjoint fillers); all new accept tests property-based and neighbor-tolerant; committed validation harness proves every test green per-cluster and with all 60 implemented at once; t3 test hardened (distinct emails vs t28 duplicate rejection, caught by the harness)
-knot_id: 3ff14f87436fa15b60522c712d60dfd45e46061c8a082ca7fa54bc6b8d4cfeb0
-solidified_at: 1787311548095
+intent: Pre-register scale-up 2 concurrency ladder: N in {10,25,35,50} on corpus v3, 2 reps/arm, guarded attempts under RAM watchdog, predictions and C4 decision rule fixed before any v3/N>10 data
+knot_id: ecf31aeae17ef1253a56a8239e668d9c33a9436d5d327b9d95bf15c4cedadaa3
+solidified_at: 1787311578140
 thread: main

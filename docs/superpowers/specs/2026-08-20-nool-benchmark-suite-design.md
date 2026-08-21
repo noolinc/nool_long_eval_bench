@@ -457,6 +457,50 @@ crossed with plain and full-cluster-A Invoice semantics). No further
 N=10 reruns on the 20-ticket corpus: the scale-up 2 ladder's low-N anchor
 on corpus v3 (below) carries the corrected test forward.
 
+**Scale-up 2 — concurrency ladder (pre-registered 2026-08-21, before any
+corpus v3 or N>10 data).** Corpus v3: 60 tickets = the 20 v2.2 tickets
+plus 40 new (t21-t60): 20 contended tickets deepening eight hot surfaces
+(billing Invoice body grows to a 5-ticket same-function cluster; users
+Create body 5 including t6; api reaches 10 tickets across handlers/router
+with four Router-wide behaviors; store 6; orders 6; util/ids 4;
+model/user 4) and 20 independent single-file fillers. All new acceptance
+tests are property-based and neighbor-tolerant; a committed harness
+(tasks/fleet_service/validation_v3/) proves every acceptance test green
+against combined reference implementations per cluster AND with all 60
+tickets implemented simultaneously, smoke included — the check both t2
+artifacts would have failed. One carryover test (t3) was hardened for
+neighbor tolerance (distinct emails); no ticket specs changed.
+- Ladder: N in {10, 25, 35, 50} workers, corpus v3 throughout, 2 reps per
+  arm per point, claude-sonnet-5 pinned, nool 6.14.1, runs strictly
+  sequential under the RAM watchdog (abort at <8% free memory on two
+  consecutive samples). N=10 anchors the ladder (corpus differs from
+  scale-up 1, so the anchor is re-measured). Points run lowest-N first.
+- Guarded attempts: a higher point runs only if the previous point
+  completed without a watchdog abort. An aborted run is recorded and
+  reported as an infrastructure limit of the 16 GB operator machine —
+  never as an arm outcome — and remaining runs at and above that N are
+  skipped. At the observed 0.4-0.65 GB RSS per headless worker, N=25 is
+  expected marginal and N=50 is expected to exceed local RAM; the guarded
+  ladder measures where the ceiling actually is. Estimated spend at the
+  observed ~$0.19/ticket: ~$11-12 per run, ~$90-190 for the ladder
+  depending on how far it climbs.
+- Predictions (falsifiable): (1) nool acceptance stays within +/-2 tickets
+  of its own anchor rate at every completed point, with zero
+  integration-conflict failures (any failures are agent-quality); (2) git
+  acceptance declines with N — at N>=25, git accepts <=45/60 per rep, and
+  at least one git rep across the ladder shows a clean-merge
+  build-poisoning event like scale-up 1's t17; (3) nool wall time grows
+  with N faster than git's (serialized hot clusters) but nool cost per
+  accepted ticket stays at or below git's at every completed point.
+- Metrics: as scale-up 1, plus per-N acceptance curves per arm and, per
+  run, the watchdog log's minimum free-memory reading as the concurrency
+  cost record.
+- Decision rule (C4): supported if, at the highest completed N, nool's
+  acceptance is within +/-2 tickets of its anchor while git's has declined
+  by >=5 tickets from git's anchor; unsupported if nool declines
+  comparably to git; points censored by the watchdog are reported as
+  infrastructure-censored, not evidence in either direction.
+
 ## 8b. Track C follow-up condition: structured task flow (Tier 2, designed)
 
 Nool's task system (`task create/pick/start/qa/finish`, acceptance criteria,
