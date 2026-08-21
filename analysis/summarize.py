@@ -156,8 +156,56 @@ def trackc():
                  "tok_out", "usd", "err"])
 
 
+# Corpus v2 contention clusters (design spec §8a, scale-up 1): A = same
+# function body (service/billing.go Invoice), B = same handler file,
+# C = same store file. v1 runs have none of these tickets.
+CLUSTERS = {"A": ["t9", "t10", "t11"], "B": ["t12", "t13", "t14"],
+            "C": ["t15", "t16", "t17"]}
+
+
+def trackd():
+    p = RESULTS / "trackc" / "fleet_runs.jsonl"
+    if not p.exists():
+        return
+    runs = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
+    print("== Track D fleet runs ==")
+    rows = []
+    for r in runs:
+        acc = r.get("acceptance", {})
+        integ = r.get("integration", [])
+        by_ticket = {i["ticket"]: i for i in integ}
+        wasted = round(sum((r["agents"].get(t, {}).get("cost_usd") or 0)
+                           for t, i in by_ticket.items() if not i["clean"]), 4)
+        rows.append([r["run_id"][:32], r.get("nool_version", "?").replace("nool ", ""),
+                     r.get("corpus", "v1"), r["n_workers"],
+                     f"{sum(acc.values())}/{len(acc)}" if acc else "-",
+                     f"{sum(1 for i in integ if i['clean'])}/{len(integ)}" if integ else "-",
+                     round(r.get("wall_ms", 0) / 1000), r.get("cost_usd", "-"),
+                     wasted])
+    table(rows, ["run", "nool", "corpus", "wrk", "accepted", "clean_merges",
+                 "wall_s", "usd", "wasted_usd"])
+
+    v2 = [r for r in runs if r.get("corpus") == "v2"]
+    if not v2:
+        return
+    print("== Track D per-cluster outcomes (corpus v2) ==")
+    rows = []
+    for r in v2:
+        acc = r.get("acceptance", {})
+        by_ticket = {i["ticket"]: i for i in r.get("integration", [])}
+        for cname, tids in CLUSTERS.items():
+            merged = sum(1 for t in tids if by_ticket.get(t, {}).get("clean"))
+            passed = sum(1 for t in tids if acc.get(t))
+            wasted = round(sum((r["agents"].get(t, {}).get("cost_usd") or 0)
+                               for t in tids
+                               if not by_ticket.get(t, {}).get("clean")), 4)
+            rows.append([r["run_id"][:32], cname, f"{merged}/{len(tids)}",
+                         f"{passed}/{len(tids)}", wasted])
+    table(rows, ["run", "cluster", "clean_merges", "accepted", "wasted_usd"])
+
+
 def main():
-    for f in (b1, b2, b3, b4, b5, b6, b7, trackc):
+    for f in (b1, b2, b3, b4, b5, b6, b7, trackc, trackd):
         f()
 
 
