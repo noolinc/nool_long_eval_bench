@@ -69,10 +69,18 @@ def health(ws):
     return {"build_ok": b == 0, "smoke_ok": t == 0}
 
 
+# Concurrent `git worktree add` on one repo races on .git/worktrees admin
+# metadata (observed: "failed to read .git/worktrees/wt_t8/commondir" killing
+# a 20-agent run). Creation is ~100ms and not part of the measured treatment,
+# so serialize it; agent work itself stays fully concurrent.
+_WORKTREE_ADD_LOCK = threading.Lock()
+
+
 def agent_ticket(ws, parent, ticket, model, run_id):
     wt = Path(parent) / f"wt_{ticket['id']}"
-    sh(["git", "worktree", "add", "-q", "-b", f"ticket_{ticket['id']}",
-        str(wt), "main"], ws, check=True)
+    with _WORKTREE_ADD_LOCK:
+        sh(["git", "worktree", "add", "-q", "-b", f"ticket_{ticket['id']}",
+            str(wt), "main"], ws, check=True)
     prompt = PROMPT.format(tid=ticket["id"], title=ticket["title"],
                            spec=ticket["spec"])
     TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
