@@ -30,11 +30,6 @@ func (a *App) handleUserGet(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, u)
 }
 
-func (a *App) handleUserCount(w http.ResponseWriter, r *http.Request) {
-	keys := a.Users.S.Keys("user/")
-	writeJSON(w, http.StatusOK, map[string]int{"count": len(keys)})
-}
-
 func (a *App) handleOrderCreate(w http.ResponseWriter, r *http.Request) {
 	ord, err := a.Orders.Create(r.URL.Query().Get("user_id"), atoi(r.URL.Query().Get("cents")))
 	if err != nil {

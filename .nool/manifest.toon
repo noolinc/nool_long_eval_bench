@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Ticket t3 — User count endpoint
-knot_id: 532ab0847c511a6372675da223beaa5883221a8db7436380853379f0f7afe68d
-solidified_at: 1787317616322
+intent: Corpus integrity fix: revert starter/ contamination — restore api/handlers.go and store/memstore.go to the bd52883 (scale-up 2 pre-registration) pristine baseline; also removes two stray empty test files (handlers_test.go, memstore_test.go). These were partial/no-op ticket solutions (t2, t3, t15, t16, t19) landed directly against the live corpus by an earlier session instead of through the isolated fleet-run workspace, contaminating the starter template that every fleet worker copies. No ticket specs changed.
+knot_id: 07d9419620efea00497623fd7561251893d894883fbd143c6913f5468bc17ebc
+solidified_at: 1787328608858
 thread: main

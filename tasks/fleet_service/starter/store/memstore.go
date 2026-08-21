@@ -45,10 +45,3 @@ func (m *Mem) Keys(prefix string) []string {
 	sort.Strings(out)
 	return out
 }
-
-func (m *Mem) Len() int {
-	m.mu.RLock()
-	defer m.mu.RUnlock()
-	return len(m.data)
-}
-
