@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-register scale-up 1 confirmation (corpus v2.1): N=10, 2 reps/arm, claude-sonnet-5, nool 6.14.1; predictions nool 20/20 per rep, git bimodal <=13/20 — registered before any v2.1 data
-knot_id: d83b2548fdf87bda97300e4b2790875d3737fb547c29996531510401be471906
-solidified_at: 1787309618820
+intent: Scale-up 1 confirmation quartet on corpus v2.1 (10w, 6.14.1, claude-sonnet-5): git 12/20+13/20 (bimodal good mode, health green), nool 19/20+18/20; t2 failed all 4 runs both arms — v2.1 property test pins floor(s*(100-p)/100), agents implement s-floor(s*p/100); prediction nool 20/20 falsified by test artifact, correction to v2.2 follows
+knot_id: 6c4439e297c2d6ed70498d5db68be0d20e20a21d5e99ea285bae1626902db54a
+solidified_at: 1787310555401
 thread: main
