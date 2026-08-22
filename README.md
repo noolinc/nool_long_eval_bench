@@ -97,9 +97,11 @@ recorded per run.
 | `harness/` | Track C — LLM-in-the-loop 2×2 experiment harness; Track D fleet runner (`fleet_run.py`) |
 | `tasks/` | Track C/D task catalogs (spec + starter + hidden held-out tests; fleet ticket corpora) |
 | `results/trackc/` | Raw LLM-run records: 2×2 grid (`runs.jsonl`) and fleet runs (`fleet_runs.jsonl`) |
+| `results/trackc/transcripts_manifest.jsonl` | SHA-256 manifest of every raw transcript (transcripts themselves are gitignored; verify with `make check-transcripts`) |
 | `results/replications/` | Per-version Track B snapshots + `MANIFEST.md` indexing every run's conditions |
-| `analysis/summarize.py` | Renders all committed results as tables. Numbers only — no conclusions in code |
+| `analysis/summarize.py` | Renders all committed results as tables, incl. run-level cross-rep inference (exact permutation Mann-Whitney per corpus/N/model cell, underpowered cells labeled). Numbers only — no conclusions in code |
 | `analysis/make_figures.py` | Regenerates every figure in `docs/findings/` from the raw JSON |
+| `Makefile` / `Dockerfile` | One-command replication (`make trackB`, `tier1`, `trackC`) and containerized execution (spec §8) |
 | `docs/findings/` | Findings report with figures; `docs/paper/` holds the academic write-up |
 
 Pre-suite pilot material (manual runs, no provenance — **not evidence**) was
@@ -179,9 +181,16 @@ SlopCodeBench) are Tier 2 — see the spec.
 ## Threats to validity
 
 Disclosed in the spec (§7) and repeated here: this is a vendor-run
-evaluation, pre-registered to mitigate that; LLM cells at small N are
-labeled underpowered; execution is currently local rather than containerized
-(recorded in every provenance block); the fleet arms' gating attribution
+evaluation, pre-registered to mitigate that (spec hash pinned and
+tamper-evident: `docs/superpowers/specs/PRE_REGISTRATION.sha256.md`;
+external timestamping still recommended before paper-grade claims); LLM
+cells at small N are labeled underpowered — `analysis/summarize.py` now
+prints the run-level inference table with per-cell power labels rather
+than leaving power implicit; execution for all collected results was
+local rather than containerized (recorded in every provenance block) —
+the §8 container path now exists (`make docker-build`, `make
+docker-trackB`) and future runs should use it so image IDs enter
+provenance; the fleet arms' gating attribution
 and baseline-policy limits are documented in the paper (§5.6) with
 pre-registered ablation arms (spec §8c). Running nool arms: the free tier
 (2,000 knots per project, 30 days) covers a full replication — a 60-ticket

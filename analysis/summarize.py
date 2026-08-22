@@ -264,8 +264,146 @@ def trackd_quality():
                  "ser_premium"])
 
 
+def _fisher_exact(a, b, c, d):
+    """Two-sided Fisher exact p-value for [[a,b],[c,d]]. Pure stdlib."""
+    import math
+    def lg(n):
+        return math.lgamma(n + 1)
+    r1, r2, c1, c2, n = a + b, c + d, a + c, b + d, a + b + c + d
+
+    def prob(x):
+        return math.exp(lg(r1) + lg(r2) + lg(c1) + lg(c2)
+                        - lg(n) - lg(x) - lg(r1 - x) - lg(c1 - x) - lg(c2 - r1 + x))
+    p_obs = prob(a)
+    total = 0.0
+    for x in range(max(0, c1 - r2), min(r1, c1) + 1):
+        px = prob(x)
+        if px <= p_obs * (1 + 1e-9):
+            total += px
+    return min(1.0, total)
+
+
+def _mannwhitney(xs, ys):
+    """Mann-Whitney U for xs vs ys. Exact permutation enumeration when the
+    assignment space is small (as it always is at current rep counts),
+    normal approximation otherwise. Returns (U, p_two_sided)."""
+    import itertools
+    import math
+    xs, ys = sorted(xs), sorted(ys)
+    n, m = len(xs), len(ys)
+    if not n or not m:
+        return None, None
+    pooled = [(v, 0 if i < n else 1) for i, v in enumerate(xs + ys)]
+    pooled_vals = sorted(range(len(pooled)), key=lambda i: pooled[i][0])
+    rank = [0.0] * len(pooled)
+    i = 0
+    while i < len(pooled_vals):
+        j = i
+        while j < len(pooled_vals) and pooled[pooled_vals[j]][0] == pooled[pooled_vals[i]][0]:
+            j += 1
+        avg = (i + 1 + j) / 2
+        for k in range(i, j):
+            rank[pooled_vals[k]] = avg
+        i = j
+    u_obs = sum(rank[i] for i in range(n)) - n * (n + 1) / 2
+
+    def u_of(assign):
+        xr = sum(rank[i] for i in range(len(assign)) if assign[i])
+        return xr - n * (n + 1) / 2
+
+    if n + m <= 18:
+        count = total_le = 0
+        extreme = abs(u_obs - n * m / 2)
+        for assign in itertools.combinations(range(n + m), n):
+            mask = [False] * (n + m)
+            for i in assign:
+                mask[i] = True
+            u = u_of(mask)
+            count += 1
+            if abs(u - n * m / 2) >= extreme - 1e-9:
+                total_le += 1
+        return u_obs, total_le / count
+    mu = n * m / 2
+    sd = math.sqrt(n * m * (n + m + 1) / 12)
+    z = (u_obs - mu) / sd
+    p = math.erfc(abs(z) / math.sqrt(2))
+    return u_obs, p
+
+
+MIN_REPS_FOR_INFERENCE = 5
+
+
+def trackd_inference():
+    """Cross-rep arm inference for Track D (spec §3.7 statistics).
+
+    Unit of inference is the RUN (Wilson caveat above). For each corpus/N
+    cell with data from both arms: Mann-Whitney U on per-run accepted counts,
+    wall time, and cost per accepted ticket. Every cell with fewer than
+    MIN_REPS_FOR_INFERENCE reps per arm is explicitly labeled UNDERPOWERED;
+    p-values are still printed so effect direction and magnitude are readable,
+    per the spec's 'no p-value theater' rule.
+    """
+    p = RESULTS / "trackc" / "fleet_runs.jsonl"
+    if not p.exists():
+        return
+    runs = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
+    runs = [r for r in runs if r.get("acceptance") and r.get("integration")]
+    cells = {}
+    for r in runs:
+        key = (r.get("corpus", "v1"), r["n_workers"],
+               r.get("model", "?"))
+        cells.setdefault(key, {}).setdefault(r["arm"], []).append(r)
+
+    print("== Track D cross-rep arm inference (unit = run) ==")
+    print("p-values from exact permutation Mann-Whitney where computable;")
+    print("cells below %d reps/arm are labeled UNDERPOWERED regardless of"
+          % MIN_REPS_FOR_INFERENCE)
+    print("any p-value. Pooled-ticket tests are deliberately omitted:")
+    print("tickets within a run are not independent (cascade failures).")
+    print("Cells never mix models; git_fleet vs nool_fleet only.\n")
+    rows = []
+    for (corpus, n_workers, model), arms in sorted(cells.items()):
+        g = arms.get("git_fleet", [])
+        nl = arms.get("nool_fleet", [])
+        if not g or not nl:
+            continue
+        underpowered = (len(g) < MIN_REPS_FOR_INFERENCE
+                        or len(nl) < MIN_REPS_FOR_INFERENCE)
+        tag = "UNDERPOWERED" if underpowered else ""
+        acc = {a: [sum(r["acceptance"].values()) for r in rs]
+               for a, rs in (("git", g), ("nool", nl))}
+        wall = {a: [r.get("wall_ms") for r in rs] for a, rs in
+                (("git", g), ("nool", nl))}
+        cost = {a: [] for a in acc}
+        for lbl, rs in (("git", g), ("nool", nl)):
+            for r in rs:
+                k = sum(r["acceptance"].values())
+                if k and r.get("cost_usd"):
+                    cost[lbl].append(r["cost_usd"] / k)
+        _, p_acc = _mannwhitney(acc["git"], acc["nool"])
+        _, p_wall = _mannwhitney(wall["git"], wall["nool"])
+        _, p_cost = (_mannwhitney(cost["git"], cost["nool"])
+                     if all(cost.values()) else (None, None))
+
+        def fmt(vs):
+            vs = sorted(v for v in vs if v is not None)
+            return ",".join(str(round(v, 2)) for v in vs) or "-"
+
+        rows.append([f"{corpus}/N={n_workers}", model,
+                     f"{len(g)}v{len(nl)}",
+                     fmt(acc["git"]), fmt(acc["nool"]),
+                     round(p_acc, 4) if p_acc is not None else "-",
+                     round(p_wall, 4) if p_wall is not None else "-",
+                     round(p_cost, 4) if p_cost is not None else "-",
+                     tag])
+    table(rows, ["corpus/N", "model", "reps(g|n)", "acc_git/reps",
+                 "acc_nool/reps", "p_acc", "p_wall", "p_cost/usd_acc",
+                 "power"])
+
+
 def main():
-    for f in (b1, b2, b3, b4, b5, b6, b7, trackc, trackd, trackd_quality):
+    for f in (b1, b2, b3, b4, b5, b6, b7, trackc, trackd, trackd_quality,
+              trackd_inference):
         f()
 
 
