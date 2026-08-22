@@ -40,6 +40,8 @@ corpus hash (tasks/fleet_service/STARTER_SHA256).
 import argparse
 import hashlib
 import json
+import os
+import random
 import re
 import shutil
 import subprocess
@@ -61,6 +63,91 @@ ADAPTERS = {"claude": claude_adapter, "opencode": opencode_adapter}
 REPO = Path(__file__).resolve().parent.parent
 TASK = REPO / "tasks" / "fleet_service"
 STARTER_PIN = TASK / "STARTER_SHA256"
+GOV = REPO / "harness" / "governance"
+
+# Symmetric secret-scanning gate (industry CI practice, gitleaks-style).
+# Applied identically to EVERY arm at integration: a hit is recorded in all
+# arms and additionally rejects the merge in CI-gated arms. Patterns are
+# deliberately conservative (known credential formats only) to keep the
+# false-positive rate near zero for this corpus.
+SECRET_PATTERNS = [
+    ("aws_access_key_id", re.compile(r"AKIA[0-9A-Z]{16}")),
+    ("github_pat", re.compile(r"github_pat_[A-Za-z0-9_]{20,}")),
+    ("github_classic_pat", re.compile(r"ghp_[A-Za-z0-9]{20,}")),
+    ("openai_api_key", re.compile(r"sk-[A-Za-z0-9_-]{20,}")),
+    ("slack_token", re.compile(r"xox[baprs]-[A-Za-z0-9-]{10,}")),
+    ("private_key_header", re.compile(
+        r"-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----")),
+]
+
+
+def secret_scan(ws, pre_rev):
+    """Scan everything a merge is about to add (diff pre..working tree)."""
+    _, diff = sh(["git", "diff", pre_rev, "--"], ws)
+    hits = []
+    for label, pat in SECRET_PATTERNS:
+        if pat.search(diff):
+            hits.append(label)
+    return {"clean": not hits, "hits": hits}
+
+
+def evolution_summary(rec, tickets, ws):
+    """Safe-software-evolution metrics computed from run records + final
+    main. All values are derived from recorded observations; nothing here
+    re-runs agents or scores tests (that is rec['acceptance']).
+
+    attribution_purity: for each accepted ticket, the fraction of its
+    declared footprint files whose last non-merge commit on main belongs
+    to that ticket (subject carries the ticket id). 1.0 means every file
+    the ticket owned was landed by that ticket's own work; low values mean
+    another writer's commit swept the file in — an attribution defect.
+    """
+    integ = {i["ticket"]: i for i in rec["integration"]}
+    accepted = [t["id"] for t in tickets if rec["acceptance"].get(t["id"])]
+    conflicts = sum(1 for i in rec["integration"] if not i["clean"])
+    merge_errors = sum(1 for i in rec["integration"]
+                       if i["clean"] and i["exit_code"] != 0)
+    queue_rejected = sum(1 for i in rec["integration"] if i.get("queue_rejected"))
+    broken_main = sum(1 for i in rec["integration"]
+                      if i.get("post_merge_health")
+                      and not (i["post_merge_health"]["build_ok"]
+                               and i["post_merge_health"]["smoke_ok"]))
+    wasted = {tid: rec["agents"].get(tid, {}) for tid in
+              [t["id"] for t in tickets if not rec["acceptance"].get(t["id"])]}
+    purity = {}
+    by_id = {t["id"]: t for t in tickets}
+    for tid in accepted:
+        files = by_id[tid].get("footprint") or []
+        ok = 0
+        for f in files:
+            _, subs = sh(["git", "log", "--format=%s", "--non-merges",
+                          "--", f], ws)
+            lines = [l for l in subs.splitlines() if l.strip()]
+            if lines and all(tid in l or not any(
+                    t2["id"] in l for t2 in tickets) for l in lines):
+                ok += 1
+        purity[tid] = round(ok / len(files), 3) if files else None
+    gov = {"announcements": sum(len(v) for v in rec.get("gating", {}).values()),
+           "releases_recorded": len(rec.get("releases", {}))}
+    return {
+        "accepted": len(accepted),
+        "conflicts": conflicts,
+        "merge_errors": merge_errors,
+        "queue_rejected": queue_rejected,
+        "broken_main_merges": broken_main,
+        "secret_hits": sorted({h for i in rec["integration"]
+                               if i.get("secret_scan")
+                               for h in i["secret_scan"]["hits"]}),
+        "wasted_cost_usd": round(sum((a.get("cost_usd") or 0)
+                                     for a in wasted.values()), 4),
+        "wasted_wall_ms": round(sum((a.get("wall_ms") or 0)
+                                    for a in wasted.values()), 1),
+        "attribution_purity": purity,
+        "mean_attribution_purity": round(sum(v for v in purity.values()
+                                             if v is not None)
+                                         / len(purity), 3) if purity else None,
+        "governance_events": gov,
+    }
 
 ARMS = {
     "git_fleet":       {"dispatch": "parallel",  "ci_gate": False, "merge": "git",  "nool_ws": False},
@@ -116,11 +203,17 @@ def check_starter_pin(allow_unpinned):
 
 
 def setup_ws(arm, parent):
-    """Workspace contract: every arm starts from a fresh copy of the pinned
-    starter with a real git repo (`git init` + base commit). Nool arms
-    additionally initialize the ledger on top of that repo (`nool init`
-    requires an existing worktree), then verify the ledger answers before
-    any agent touches the workspace."""
+    """Workspace contract.
+
+    Every arm starts from a fresh copy of the pinned starter as a real git
+    repo (`git init` + base commit). Both arms then receive the IDENTICAL
+    industry-standard governance documentation (ci.yml required checks,
+    CODEOWNERS, POLICY.md, .pre-commit-config.yaml) — the rules are held
+    constant; only the enforcement substrate differs. Nool arms
+    additionally `nool init` on top of that repo, apply the governed
+    profile (harness/governance/nool_governed.toml), and hard-fail unless
+    `nool verify --all` accepts the profile.
+    """
     ws = Path(parent) / "main_ws"
     shutil.copytree(TASK / "starter", ws)
     if (ws / ".nool").exists():
@@ -130,13 +223,30 @@ def setup_ws(arm, parent):
                 ["git", "config", "user.name", "Bench"],
                 ["git", "add", "-A"], ["git", "commit", "-qm", "base service"]):
         sh(cmd, ws, check=True)
+    # Identical policy documentation for every arm (constant across arms).
+    gh = ws / ".github" / "workflows"
+    gh.mkdir(parents=True)
+    shutil.copy(GOV / "industry_git" / "ci.yml", gh / "ci.yml")
+    shutil.copy(GOV / "industry_git" / "CODEOWNERS", ws / "CODEOWNERS")
+    shutil.copy(GOV / "industry_git" / "POLICY.md", ws / "POLICY.md")
+    shutil.copy(GOV / "industry_git" / ".pre-commit-config.yaml",
+                ws / ".pre-commit-config.yaml")
+    profile_sha = None
     if ARMS[arm]["nool_ws"]:
         code, out = sh(["nool", "init"], ws, timeout=120)
         if code != 0:
             raise RuntimeError(out)
+        prof = GOV / "nool_governed.toml"
+        shutil.copy(prof, ws / "nool.toml")
+        profile_sha = hashlib.sha256(prof.read_bytes()).hexdigest()
         c, s = sh(["nool", "status", "--json"], ws, timeout=120)
         if c != 0:
             raise RuntimeError(f"nool ledger not live after init:\n{s}")
+        v, vout = sh(["nool", "verify", "--all", "--compact"], ws, timeout=300)
+        if v != 0:
+            raise RuntimeError(f"governance profile failed verify:\n{vout}")
+        sh(["git", "add", "-A"], ws)
+        sh(["git", "commit", "-qm", "governed substrate"], ws)
     else:
         # The git control arm must have no coordination substrate at all.
         # Deliberately NOT probed with `nool status`: invoking the CLI can
@@ -144,7 +254,7 @@ def setup_ws(arm, parent):
         # contaminate the arm we are asserting is clean.
         if (ws / ".nool").exists():
             raise RuntimeError("unexpected .nool ledger in git control arm")
-    return ws
+    return ws, profile_sha
 
 
 def health(ws):
@@ -177,7 +287,22 @@ def _throttle_launch():
         _LAST_LAUNCH[0] = time.monotonic()
 
 
-def agent_ticket(ws, parent, ticket, model, run_id, adapter):
+def agent_env(arm):
+    """Agent-visible environment. Control-arm agents must not see the
+    treatment substrate on PATH: 'the version-control workflow available in
+    this repository' is git-only there, and a nool binary in reach invites
+    off-protocol auto-init inside untracked worktrees (observed 2026-08-22).
+    Nool arms keep the full PATH."""
+    env = dict(ENV)
+    if not ARMS[arm]["nool_ws"] and env.get("PATH"):
+        # Drop every PATH entry that would put a `nool` binary in reach.
+        parts = [p for p in env["PATH"].split(os.pathsep)
+                 if p and not (Path(p) / "nool").exists()]
+        env["PATH"] = os.pathsep.join(parts)
+    return env
+
+
+def agent_ticket(ws, parent, ticket, model, run_id, adapter, arm):
     wt = Path(parent) / f"wt_{ticket['id']}"
     with _WORKTREE_ADD_LOCK:
         sh(["git", "worktree", "add", "-q", "-b", f"ticket_{ticket['id']}",
@@ -188,8 +313,11 @@ def agent_ticket(ws, parent, ticket, model, run_id, adapter):
     tpath = TRANSCRIPTS / f"{run_id}_{ticket['id']}.jsonl"
     _throttle_launch()
     res = adapter.run(wt, prompt, model, max_turns=30, timeout_s=600,
-                      transcript_path=tpath, env=ENV)
+                      transcript_path=tpath, env=agent_env(arm))
     sh(["git", "add", "-A"], wt)
+    # VCS-internal state is never authored work: keep auto-created nool
+    # ledgers out of ticket branches so they cannot collide at merge time.
+    sh(["git", "reset", "-q", "--", ".nool"], wt)
     sh(["git", "commit", "-qm", f"{ticket['id']} leftovers"], wt)
     print(f"[{run_id}] {ticket['id']} agent done "
           f"{res['wall_ms']/1000:.0f}s turns={res.get('num_turns')} "
@@ -215,18 +343,27 @@ def integrate(ws, arm, ticket, run_id=""):
         print(f"[{run_id}] {ticket['id']} merge CONFLICT (aborted)", flush=True)
         return {"ticket": ticket["id"], "clean": False, "exit_code": code,
                 "queue_rejected": False, "post_merge_health": None,
-                "merge_tail": merge_tail}
+                "secret_scan": None, "merge_tail": merge_tail}
+    scan = secret_scan(ws, pre)
     h = health(ws)
-    rejected = ARMS[arm]["ci_gate"] and not (h["build_ok"] and h["smoke_ok"])
+    rejected = ARMS[arm]["ci_gate"] and not (
+        h["build_ok"] and h["smoke_ok"] and scan["clean"])
     if rejected:
         # CI-gated queue: a red merge does not land. Reset to the exact
         # pre-merge commit (not ORIG_HEAD, which is stale on no-op merges).
         sh(["git", "reset", "--hard", pre], ws, check=True)
     tag = ("QUEUE-REJECTED" if rejected else
            "landed" if code == 0 else f"MERGE-ERROR exit={code}")
+    if not scan["clean"]:
+        tag += f" SECRETS={','.join(scan['hits'])}"
     print(f"[{run_id}] {ticket['id']} merge {tag} "
           f"build={'ok' if h['build_ok'] else 'FAIL'} "
-          f"smoke={'ok' if h['smoke_ok'] else 'FAIL'}", flush=True)
+          f"smoke={'ok' if h['smoke_ok'] else 'FAIL'} "
+          f"secrets={'clean' if scan['clean'] else 'HIT'}", flush=True)
+    return {"ticket": ticket["id"], "clean": True, "exit_code": code,
+            "queue_rejected": rejected,
+            "post_merge_health": h, "secret_scan": scan,
+            "merge_tail": merge_tail}
     return {"ticket": ticket["id"], "clean": True, "exit_code": code,
             "queue_rejected": rejected, "post_merge_health": h,
             "merge_tail": merge_tail}
@@ -307,7 +444,7 @@ def run_parallel(rec, ws, parent, tickets, model, run_id, n_workers, arm,
     import concurrent.futures as cf
     with cf.ThreadPoolExecutor(max_workers=n_workers) as ex:
         futs = {ex.submit(agent_ticket, ws, parent, t, model, run_id,
-                          adapter): t
+                          adapter, arm): t
                 for t in tickets}
         for f in futs:
             rec["agents"][futs[f]["id"]] = f.result()
@@ -324,7 +461,7 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
     done = set()
 
     def worker(t, gate):
-        res = agent_ticket(ws, parent, t, model, run_id, adapter)
+        res = agent_ticket(ws, parent, t, model, run_id, adapter, arm)
         with lock:
             rec["agents"][t["id"]] = res
             rec["integration"].append(integrate(ws, arm, t, run_id))
@@ -382,7 +519,7 @@ def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
     last_refused = {}        # ticket id -> epoch of last refused announce
 
     def worker(t, aid):
-        res = agent_ticket(ws, parent, t, model, run_id, adapter)
+        res = agent_ticket(ws, parent, t, model, run_id, adapter, arm)
         with lock:
             rec["agents"][t["id"]] = res
             rec["integration"].append(integrate(ws, arm, t, run_id))
@@ -437,7 +574,8 @@ def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
 
 
 def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
-              allow_unpinned=False, harness="claude", limit=None):
+              allow_unpinned=False, harness="claude", limit=None,
+              seed=None):
     if arm not in ARMS:
         raise SystemExit(f"unknown arm {arm!r}; valid: {', '.join(ARMS)}")
     adapter = ADAPTERS[harness]
@@ -452,13 +590,20 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
         print(f"[{run_id}] NOTE pipeline-validation slice: first {limit} "
               "tickets only; do not pool with full-corpus results", flush=True)
     parent = tempfile.mkdtemp(prefix=run_id + "_")
-    ws = setup_ws(arm, parent)
+    ws, gov_profile_sha = setup_ws(arm, parent)
+    rng = random.Random(seed)
+    order = list(range(len(tickets)))
+    rng.shuffle(order)
+    tickets = [tickets[i] for i in order]
+    print(f"[{run_id}] ticket order shuffled with seed={seed}", flush=True)
     ver = lambda c: subprocess.run(c, capture_output=True, text=True,
                                    timeout=15).stdout.strip().splitlines()[0]
     rec = {"run_id": run_id, "arm": arm, "arm_policy": ARMS[arm],
            "harness": harness, "model": model, "n_workers": n_workers,
            "corpus": corpus.get("corpus", "v1"), "tickets_file": tickets_file,
            "ticket_limit": limit,
+           "shuffle_seed": seed,
+           "governance_profile_sha": gov_profile_sha,
            "starter_sha": sha,
            "started_utc": datetime.now(timezone.utc).isoformat(),
            "preflight": adapter.preflight(),
@@ -488,6 +633,7 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
                 rec["nool_knots"] = None
         rec["cost_usd"] = round(sum((a.get("cost_usd") or 0)
                                     for a in rec["agents"].values()), 4)
+        rec["evolution"] = evolution_summary(rec, tickets, ws)
         rec["finished_utc"] = datetime.now(timezone.utc).isoformat()
     finally:
         # Crash-safe: the throwaway workspace must never outlive the run
@@ -515,6 +661,9 @@ def main():
                     help="use only the first K tickets (pipeline validation "
                          "runs; records are marked and must not be pooled "
                          "with full-corpus results)")
+    ap.add_argument("--seed", type=int, default=None,
+                    help="seed for per-run ticket-order shuffle (recorded "
+                         "in provenance; random if omitted)")
     ap.add_argument("--allow-unpinned-starter", action="store_true",
                     help="run even if the starter tree hash does not match "
                          "tasks/fleet_service/STARTER_SHA256")
@@ -523,7 +672,8 @@ def main():
         for arm in args.arms.split(","):
             run_fleet(arm, args.model, args.workers, args.tickets,
                       allow_unpinned=args.allow_unpinned_starter,
-                      harness=args.harness, limit=args.limit)
+                      harness=args.harness, limit=args.limit,
+                      seed=args.seed)
 
 
 if __name__ == "__main__":

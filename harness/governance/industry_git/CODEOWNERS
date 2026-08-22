@@ -1,0 +1,10 @@
+# Ownership (industry: CODEOWNERS)
+#
+# Changes to these paths require review by the owning role before landing.
+# In this benchmark the reviewer roles are enforced by the coordination
+# substrate under test, not by a hosted review UI.
+
+*                       @fleet-service/maintainers
+service/billing.go      @fleet-service/billing-owners
+service/users.go        @fleet-service/identity-owners
+model/                  @fleet-service/maintainers

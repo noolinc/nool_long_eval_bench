@@ -1,0 +1,24 @@
+# Required checks (industry: branch protection on `main`)
+#
+# This workflow declares the verification contract for `main`. In a hosted
+# setup these are "required status checks" enforced by branch protection;
+# in this benchmark the identical build+vet+test gate is enforced locally by
+# the merge queue (see POLICY.md and the harness's gated arms).
+
+name: ci
+on: [push, pull_request]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: vet
+        run: go vet ./...
+      - name: build
+        run: go build ./...
+      - name: unit tests
+        run: go test ./...

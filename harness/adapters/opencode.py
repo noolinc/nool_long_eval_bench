@@ -22,6 +22,31 @@ from pathlib import Path
 
 NAME = "opencode"
 
+# Permission surface mirrored from adapters/claude.ALLOWED_TOOLS so both
+# harnesses expose agents an equivalent tool policy: file tools unrestricted,
+# shell restricted to the benchmark's VCS/toolchain commands, no network
+# fetching. Written as project-level config for each session and removed
+# afterwards so it never enters a ticket branch.
+ALLOWED_BASH = [
+    "go build *", "go test *", "go vet *", "gofmt *", "git *", "nool *",
+]
+
+
+def _permission_config(workdir):
+    cfg_dir = Path(workdir) / ".opencode"
+    cfg_dir.mkdir(exist_ok=True)
+    path = cfg_dir / "opencode.json"
+    path.write_text(json.dumps({
+        "$schema": "https://opencode.ai/config.json",
+        "permission": {
+            "edit": "allow",
+            "webfetch": "deny",
+            "bash": {p: "allow" for p in ALLOWED_BASH}
+            | {"*": "ask"},
+        },
+    }, indent=1))
+    return path
+
 
 def preflight():
     v = subprocess.run(["opencode", "--version"], capture_output=True,
@@ -46,22 +71,31 @@ def run(workdir, prompt_text, model, max_turns, timeout_s, transcript_path,
         "--dir", str(workdir),
     ]
     run_env = dict(env, XDG_CONFIG_HOME=isolated_cfg, PWD=str(workdir))
-    t0 = time.monotonic()
+    perm_path = _permission_config(workdir)
     try:
-        p = subprocess.run(cmd, cwd=str(workdir), env=run_env,
-                           timeout=timeout_s, stdout=subprocess.PIPE,
-                           stderr=subprocess.PIPE, text=True)
-        timed_out = False
-        raw = p.stdout
-        stderr_tail = p.stderr[-2000:]
-        exit_code = p.returncode
-    except subprocess.TimeoutExpired as e:
-        timed_out = True
-        raw = (e.stdout or b"").decode() if isinstance(e.stdout, bytes) \
-            else (e.stdout or "")
-        stderr_tail = ""
-        exit_code = None
-    wall_ms = (time.monotonic() - t0) * 1000.0
+        t0 = time.monotonic()
+        try:
+            p = subprocess.run(cmd, cwd=str(workdir), env=run_env,
+                               timeout=timeout_s, stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE, text=True)
+            timed_out = False
+            raw = p.stdout
+            stderr_tail = p.stderr[-2000:]
+            exit_code = p.returncode
+        except subprocess.TimeoutExpired as e:
+            timed_out = True
+            raw = (e.stdout or b"").decode() if isinstance(e.stdout, bytes) \
+                else (e.stdout or "")
+            stderr_tail = ""
+            exit_code = None
+        wall_ms = (time.monotonic() - t0) * 1000.0
+    finally:
+        # Never let harness config enter the ticket branch.
+        try:
+            perm_path.unlink()
+            perm_path.parent.rmdir()
+        except OSError:
+            pass
 
     Path(transcript_path).write_text(raw)
 

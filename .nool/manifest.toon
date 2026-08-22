@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Add opencode harness adapter (Ox Alpha Free) to Track D fleet benchmark with isolation hardening
-knot_id: 7245eb4ba5a02f3f50e0918bbc82ebe9d91a614b51d7b67c1fffbc29a81bb1c8
-solidified_at: 1787432812854
+intent: Governed fleet benchmark v2: DSL/WASM policy packs, symmetric secret gate, seeded order, adapter permission parity, evolution metrics
+knot_id: 11bec969a9252bf0988d54de8b767fa368877ca5e56223fa437e3e894fc6703f
+solidified_at: 1787435498237
 thread: main

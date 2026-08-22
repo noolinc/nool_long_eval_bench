@@ -1,0 +1,63 @@
+# Governance profile for the nool treatment arms of the fleet benchmark.
+#
+# Every section below is verified against the pinned CLI: the sections and
+# keys are exactly those emitted by `nool init` / `nool config
+# init-governance` for this version, and setup_ws() runs `nool verify
+# --all` after writing this file, failing the run if the profile does not
+# parse. The profile hash is recorded in every run record.
+#
+# Deliberately NOT included: policies/*.yaml Aram DSL rule files. Their
+# schema (DslRuleFile) is not documented in the fetched docs or CLI help,
+# and we refuse to ship policy code whose semantics we cannot verify.
+# Secret scanning is therefore implemented as a symmetric harness-level
+# gate (see fleet_run.secret_scan) applied identically to every arm —
+# mirroring the gitleaks/trufflehog CI stage used in industry practice.
+# Posture: observe-first (invariants warn); blocking reserved for the
+# blast airlock, steering checkpoints, and the shared secret gate.
+
+[gating]
+fail_fast = true
+wasm_policy_failure = "block"
+blast_block_threshold = 30
+
+[trust]
+enabled = false
+
+[steer]
+enabled = true
+
+# CISO approval required before pushes touching security-sensitive surfaces.
+# The fleet service deliberately contains billing code so this can fire.
+[[steer.points]]
+point = "pre-push"
+role = "ciso"
+[[steer.points.triggers]]
+signal = "sensitive_path"
+paths = ["auth", "crypto", "identity", "billing", "signature", "secret"]
+
+# Architect approval on sharp coupling jumps before solidify.
+[[steer.points]]
+point = "pre-solidify"
+role = "architect"
+[[steer.points.triggers]]
+signal = "coupling_slope_gt"
+value = 0.3
+
+# Advisory invariants: agents see the signal without hard style blocks;
+# the measured gates remain conflicts, health, secrets, steering.
+[invariants]
+disabled = false
+rules = []
+
+# Aram gate: loads the DSL policy packs from policies/ (secret scanning).
+# Without this section no policy directory is consulted at all.
+[aram]
+policies_path = "policies/"
+fuel_limit = 1000000000
+memory_limit = 16777216
+strict_floats = true
+
+[doctor]
+release_branch_patterns = ["release/*", "hotfix/*"]
+expect_release_on_release_branch = true
+stale_task_days = 21
