@@ -1,0 +1,558 @@
+{
+ "provenance": {
+  "timestamp_utc": "2026-08-22T11:12:14.882545+00:00",
+  "go_version": "go version go1.26.2 darwin/arm64"
+ },
+ "base": {
+  "t1": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t2": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t3": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t4": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t5": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t6": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t7": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t8": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t9": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t10": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t11": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t12": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t13": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t14": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t15": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t16": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t17": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t18": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t19": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t20": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t21": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t22": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t23": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t24": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t25": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t26": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t27": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t28": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t29": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t30": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t31": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t32": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t33": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t34": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t35": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t36": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t37": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t38": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t39": {
+   "fails_as_required": true,
+   "mode": "test_failure"
+  },
+  "t40": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t41": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t42": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t43": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t44": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t45": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t46": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t47": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t48": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t49": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t50": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t51": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t52": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t53": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t54": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t55": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t56": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t57": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t58": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t59": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  },
+  "t60": {
+   "fails_as_required": true,
+   "mode": "build_error"
+  }
+ },
+ "complement": {
+  "billing": {
+   "excluded": [
+    "billing",
+    "orders"
+   ],
+   "builds": true,
+   "tickets": {
+    "t2": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t9": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t10": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t11": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t21": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t22": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    }
+   }
+  },
+  "users": {
+   "excluded": [
+    "orders",
+    "users"
+   ],
+   "builds": true,
+   "tickets": {
+    "t1": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t6": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t20": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t27": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t28": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t29": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t36": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t37": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    }
+   }
+  },
+  "orders": {
+   "excluded": [
+    "orders"
+   ],
+   "builds": true,
+   "tickets": {
+    "t5": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t18": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t30": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t31": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t32": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    }
+   }
+  },
+  "store": {
+   "excluded": [
+    "store"
+   ],
+   "builds": true,
+   "tickets": {
+    "t4": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t15": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t16": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t17": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t25": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t26": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    }
+   }
+  },
+  "api": {
+   "excluded": [
+    "api"
+   ],
+   "builds": true,
+   "tickets": {
+    "t3": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t7": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t12": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t13": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t14": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t23": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t24": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t38": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t39": {
+     "fails_as_required": true,
+     "mode": "test_failure"
+    },
+    "t40": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    }
+   }
+  },
+  "ids": {
+   "excluded": [
+    "ids"
+   ],
+   "builds": true,
+   "tickets": {
+    "t8": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t33": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t34": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t35": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    }
+   }
+  },
+  "clock": {
+   "excluded": [
+    "clock"
+   ],
+   "builds": true,
+   "tickets": {
+    "t19": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    }
+   }
+  },
+  "fillers": {
+   "excluded": [
+    "fillers"
+   ],
+   "builds": true,
+   "tickets": {
+    "t41": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t42": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t43": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t44": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t45": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t46": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t47": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t48": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t49": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t50": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t51": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t52": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t53": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t54": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t55": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t56": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t57": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t58": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t59": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    },
+    "t60": {
+     "fails_as_required": true,
+     "mode": "build_error"
+    }
+   }
+  }
+ },
+ "violations": [],
+ "not_evaluable": []
+}

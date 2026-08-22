@@ -1,23 +1,46 @@
 #!/usr/bin/env python3
-"""Track D — Fleet Operations Benchmark (pre-registered in the design spec §8a).
+"""Track D — Fleet Operations Benchmark (pre-registered in the design spec §8a;
+arm-decomposition study pre-registered §8c, 2026-08-22).
 
-N real agents process a ticket backlog against one shared codebase.
+N real agents process a ticket backlog against one shared codebase. Five arms
+decompose dispatch policy, integration policy, and coordination source:
 
-  git_fleet : uncoordinated baseline — every ticket dispatched in parallel;
-              integration is a sequential `git merge` queue in ticket order.
-  nool_fleet: coordinated — tickets registered as nool tasks; dispatch is
-              GATED by `nool announce intent` + `nool discover conflicts`
-              over each ticket's declared footprint (held while a
-              conflicting ticket is in flight); integration is
-              `nool merge` on completion.
+  git_fleet       : uncoordinated baseline — every ticket dispatched in
+                    parallel; integration is a sequential blind `git merge`
+                    queue in ticket order (conflicts aborted, never resolved).
+  git_gated_queue : same parallel dispatch, but the merge queue is CI-gated —
+                    a merge whose post-merge build or smoke tests fail is
+                    reverted and recorded as queue-rejected (models the
+                    standard test-gated merge queue).
+  git_scheduled   : footprint-gated dispatch (harness scheduler over the
+                    corpus's declared footprints — identical logic to
+                    nool_fleet's scheduler) with plain `git merge` on
+                    completion and no nool anywhere. Ablation arm: isolates
+                    the scheduling policy from the product.
+  nool_fleet      : footprint-gated dispatch by the SAME harness scheduler;
+                    integration is `nool merge` on completion. NOTE (audit
+                    2026-08-22): the hold/admit decision here is computed by
+                    the harness from declared footprints; `nool announce` /
+                    `nool discover conflicts` are invoked at admission and
+                    recorded, but their verdicts are advisory-only and do not
+                    gate. Kept unchanged for continuity with collected data.
+  nool_gated      : dispatch gated by nool itself — admission requires a
+                    successful `nool announce intent` over the ticket's
+                    footprint (nool refuses overlapping announcements with a
+                    coordination-conflict error); the lease is released after
+                    integration. Integration is `nool merge` on completion.
 
-Identical prompts, model, worker count, and worktree isolation in both arms.
+Identical prompts, model, worker count, and worktree isolation in every arm.
 Main-branch health (build + smoke tests) is recorded after every merge;
 ticket acceptance is scored against hidden per-ticket tests at the end.
+Before every run the starter tree is hashed and checked against the pinned
+corpus hash (tasks/fleet_service/STARTER_SHA256).
 """
 
 import argparse
+import hashlib
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -34,6 +57,19 @@ from run_experiment import ENV, RESULTS, TRANSCRIPTS, sh  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 TASK = REPO / "tasks" / "fleet_service"
+STARTER_PIN = TASK / "STARTER_SHA256"
+
+ARMS = {
+    "git_fleet":       {"dispatch": "parallel",  "ci_gate": False, "merge": "git",  "nool_ws": False},
+    "git_gated_queue": {"dispatch": "parallel",  "ci_gate": True,  "merge": "git",  "nool_ws": False},
+    "git_scheduled":   {"dispatch": "footprint", "ci_gate": False, "merge": "git",  "nool_ws": False},
+    "nool_fleet":      {"dispatch": "footprint", "ci_gate": False, "merge": "nool", "nool_ws": True},
+    "nool_gated":      {"dispatch": "lease",     "ci_gate": False, "merge": "nool", "nool_ws": True},
+}
+
+# Covers the agent timeout (600 s) plus integration; a leaked lease expires
+# on its own after this rather than blocking the run forever.
+LEASE_DURATION_MS = 900000
 
 PROMPT = """You are working in a Go service repository (module bench/fleetsvc).
 Implement the following ticket. Modify only what the ticket requires.
@@ -48,6 +84,34 @@ this repository, then stop.
 """
 
 
+def starter_sha():
+    """Deterministic content hash of the starter tree (paths + bytes)."""
+    h = hashlib.sha256()
+    root = TASK / "starter"
+    for p in sorted(root.rglob("*")):
+        if p.is_file():
+            h.update(str(p.relative_to(root)).encode())
+            h.update(b"\0")
+            h.update(p.read_bytes())
+            h.update(b"\0")
+    return h.hexdigest()
+
+
+def check_starter_pin(allow_unpinned):
+    sha = starter_sha()
+    if STARTER_PIN.exists():
+        pinned = STARTER_PIN.read_text().split()[0]
+        if sha != pinned and not allow_unpinned:
+            raise RuntimeError(
+                f"starter tree hash {sha} != pinned {pinned} "
+                f"({STARTER_PIN}); corpus may be contaminated — diff "
+                "tasks/fleet_service/starter against the pre-registration "
+                "commit, or pass --allow-unpinned-starter to override.")
+    elif not allow_unpinned:
+        raise RuntimeError(f"{STARTER_PIN} missing; refusing to run unpinned.")
+    return sha
+
+
 def setup_ws(arm, parent):
     ws = Path(parent) / "main_ws"
     shutil.copytree(TASK / "starter", ws)
@@ -56,7 +120,7 @@ def setup_ws(arm, parent):
                 ["git", "config", "user.name", "Bench"],
                 ["git", "add", "-A"], ["git", "commit", "-qm", "base service"]):
         sh(cmd, ws, check=True)
-    if arm == "nool_fleet":
+    if ARMS[arm]["nool_ws"]:
         code, out = sh(["nool", "init"], ws, timeout=120)
         if code != 0:
             raise RuntimeError(out)
@@ -112,7 +176,9 @@ def agent_ticket(ws, parent, ticket, model, run_id):
 
 def integrate(ws, arm, ticket):
     branch = f"ticket_{ticket['id']}"
-    if arm == "nool_fleet":
+    _, pre = sh(["git", "rev-parse", "HEAD"], ws)
+    pre = pre.strip()
+    if ARMS[arm]["merge"] == "nool":
         code, out = sh(["nool", "merge", branch, "--compact"], ws, timeout=300)
     else:
         code, out = sh(["git", "merge", "-q", "--no-edit", branch], ws, timeout=300)
@@ -121,8 +187,16 @@ def integrate(ws, arm, ticket):
                      for l in status.splitlines())
     if conflicted:
         sh(["git", "merge", "--abort"], ws)
-    return {"ticket": ticket["id"], "clean": not conflicted, "exit_code": code,
-            "post_merge_health": health(ws) if not conflicted else None}
+        return {"ticket": ticket["id"], "clean": False, "exit_code": code,
+                "queue_rejected": False, "post_merge_health": None}
+    h = health(ws)
+    rejected = ARMS[arm]["ci_gate"] and not (h["build_ok"] and h["smoke_ok"])
+    if rejected:
+        # CI-gated queue: a red merge does not land. Reset to the exact
+        # pre-merge commit (not ORIG_HEAD, which is stale on no-op merges).
+        sh(["git", "reset", "--hard", pre], ws, check=True)
+    return {"ticket": ticket["id"], "clean": True, "exit_code": code,
+            "queue_rejected": rejected, "post_merge_health": h}
 
 
 def score(ws, tickets):
@@ -137,7 +211,13 @@ def score(ws, tickets):
 
 
 def nool_gate(ws, ticket):
-    """Announce this ticket's footprint; report nool's conflict verdict."""
+    """Advisory-only record of nool's announce/discover output at admission.
+
+    Audit note (2026-08-22): these verdicts never gated dispatch, and
+    `discover conflicts` reports no conflicts even against an active
+    overlapping lease (the refusal lives in `announce intent`, exit 3).
+    Kept so nool_fleet records stay schema-identical to collected data.
+    """
     fp = ",".join(ticket["footprint"])
     a_code, a_out = sh(["nool", "announce", "intent", "--intent",
                         f"ticket {ticket['id']}: {ticket['title']}",
@@ -148,7 +228,128 @@ def nool_gate(ws, ticket):
             "discover_tail": d_out.strip().splitlines()[-2:]}
 
 
-def run_fleet(arm, model, n_workers, tickets_file="tickets.json"):
+def run_parallel(rec, ws, parent, tickets, model, run_id, n_workers, arm):
+    import concurrent.futures as cf
+    with cf.ThreadPoolExecutor(max_workers=n_workers) as ex:
+        futs = {ex.submit(agent_ticket, ws, parent, t, model, run_id): t
+                for t in tickets}
+        for f in futs:
+            rec["agents"][futs[f]["id"]] = f.result()
+    for t in tickets:  # sequential merge queue, ticket order
+        rec["integration"].append(integrate(ws, arm, t))
+
+
+def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm):
+    """Harness scheduler: hold a ticket while any in-flight ticket's declared
+    footprint intersects its own. The oracle-footprint policy arm."""
+    lock = threading.Lock()
+    inflight = {}          # ticket id -> footprint set
+    done = set()
+
+    def worker(t):
+        res = agent_ticket(ws, parent, t, model, run_id)
+        with lock:
+            rec["agents"][t["id"]] = res
+            rec["integration"].append(integrate(ws, arm, t))
+            del inflight[t["id"]]
+            done.add(t["id"])
+
+    threads = []
+    pending = list(tickets)
+    while pending or inflight:
+        with lock:
+            busy = set().union(*inflight.values()) if inflight else set()
+            ready = []
+            for t in pending:
+                if set(t["footprint"]) & busy:
+                    continue
+                if len(inflight) + len(ready) >= n_workers:
+                    break
+                ready.append(t)
+                # Tickets admitted in the same batch must gate each other
+                # too — busy alone let the whole first wave dispatch from
+                # one base, racing cluster members (observed t9 vs t10,
+                # t12 vs t13 same-batch conflicts).
+                busy |= set(t["footprint"])
+            for t in ready:
+                if arm == "nool_fleet":
+                    rec["gating"].setdefault(t["id"], []).append(nool_gate(ws, t))
+                inflight[t["id"]] = set(t["footprint"])
+                pending.remove(t)
+                th = threading.Thread(target=worker, args=(t,))
+                th.start()
+                threads.append(th)
+        time.sleep(2)
+    for th in threads:
+        th.join()
+
+
+def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm):
+    """nool-native scheduler: admission requires `nool announce intent` to
+    succeed (nool refuses overlapping leases, exit 3); the lease is released
+    after integration. The harness contributes only worker-slot capacity."""
+    lock = threading.Lock()
+    inflight = {}            # ticket id -> announcement id (or None)
+    release_epoch = [0]
+    last_refused = {}        # ticket id -> epoch of last refused announce
+
+    def worker(t, aid):
+        res = agent_ticket(ws, parent, t, model, run_id)
+        with lock:
+            rec["agents"][t["id"]] = res
+            rec["integration"].append(integrate(ws, arm, t))
+            rel = ["nool", "announce", "release"]
+            rel += [aid] if aid else ["--all"]
+            rel += ["--agent-id", f"agent_{t['id']}", "--compact"]
+            r_code, r_out = sh(rel, ws, timeout=120)
+            rec["releases"][t["id"]] = {"exit": r_code,
+                                        "tail": r_out.strip().splitlines()[-1:]}
+            release_epoch[0] += 1
+            del inflight[t["id"]]
+
+    threads = []
+    pending = list(tickets)
+    while pending or inflight:
+        with lock:
+            epoch = release_epoch[0]
+            for t in list(pending):
+                if len(inflight) >= n_workers:
+                    break
+                # A refused ticket re-attempts only after some lease was
+                # released (or when nothing is in flight — covers lease
+                # expiry after a failed release).
+                if last_refused.get(t["id"]) == epoch and inflight:
+                    continue
+                fp = ",".join(t["footprint"])
+                code, out = sh(["nool", "announce", "intent", "--intent",
+                                f"ticket {t['id']}: {t['title']}",
+                                "--target-nodes", fp,
+                                "--agent-id", f"agent_{t['id']}",
+                                "--estimated-duration-ms", str(LEASE_DURATION_MS),
+                                "--compact"], ws, timeout=120)
+                rec["gating"].setdefault(t["id"], []).append(
+                    {"announce_exit": code,
+                     "tail": out.strip().splitlines()[-1:]})
+                if code == 0:
+                    m = re.search(r"Announcement ID: (\S+)", out)
+                    aid = m.group(1) if m else None
+                    inflight[t["id"]] = aid
+                    pending.remove(t)
+                    th = threading.Thread(target=worker, args=(t, aid))
+                    th.start()
+                    threads.append(th)
+                else:
+                    last_refused[t["id"]] = epoch
+        time.sleep(2)
+    for th in threads:
+        th.join()
+
+
+def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
+              allow_unpinned=False):
+    if arm not in ARMS:
+        raise SystemExit(f"unknown arm {arm!r}; valid: {', '.join(ARMS)}")
+    sha = check_starter_pin(allow_unpinned)
     run_id = f"fleet_{arm}_{uuid.uuid4().hex[:8]}"
     corpus = json.loads((TASK / tickets_file).read_text())
     tickets = corpus["tickets"]
@@ -156,73 +357,29 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json"):
     ws = setup_ws(arm, parent)
     ver = lambda c: subprocess.run(c, capture_output=True, text=True,
                                    timeout=15).stdout.strip().splitlines()[0]
-    rec = {"run_id": run_id, "arm": arm, "model": model, "n_workers": n_workers,
+    rec = {"run_id": run_id, "arm": arm, "arm_policy": ARMS[arm],
+           "model": model, "n_workers": n_workers,
            "corpus": corpus.get("corpus", "v1"), "tickets_file": tickets_file,
+           "starter_sha": sha,
            "started_utc": datetime.now(timezone.utc).isoformat(),
            "preflight": claude_adapter.preflight(),
            "nool_version": ver(["nool", "--version"]),
            "git_version": ver(["git", "--version"]),
            "go_version": ver(["go", "version"]),
-           "agents": {}, "integration": [], "gating": {}}
+           "agents": {}, "integration": [], "gating": {}, "releases": {}}
     t0 = time.monotonic()
 
-    if arm == "git_fleet":
-        import concurrent.futures as cf
-        with cf.ThreadPoolExecutor(max_workers=n_workers) as ex:
-            futs = {ex.submit(agent_ticket, ws, parent, t, model, run_id): t
-                    for t in tickets}
-            for f in futs:
-                rec["agents"][futs[f]["id"]] = f.result()
-        for t in tickets:  # sequential merge queue, ticket order
-            rec["integration"].append(integrate(ws, arm, t))
-    else:
-        lock = threading.Lock()
-        inflight = {}          # ticket id -> footprint set
-        done = set()
-        results = {}
-
-        def worker(t):
-            res = agent_ticket(ws, parent, t, model, run_id)
-            with lock:
-                rec["agents"][t["id"]] = res
-                rec["integration"].append(integrate(ws, arm, t))
-                del inflight[t["id"]]
-                done.add(t["id"])
-
-        threads = []
-        pending = list(tickets)
-        while pending or inflight:
-            with lock:
-                busy = set().union(*inflight.values()) if inflight else set()
-                ready = []
-                for t in pending:
-                    if set(t["footprint"]) & busy:
-                        continue
-                    if len(inflight) + len(ready) >= n_workers:
-                        break
-                    ready.append(t)
-                    # Tickets admitted in the same batch must gate each other
-                    # too — busy alone let the whole first wave dispatch from
-                    # one base, racing cluster members (observed t9 vs t10,
-                    # t12 vs t13 same-batch conflicts).
-                    busy |= set(t["footprint"])
-                for t in ready:
-                    rec["gating"].setdefault(t["id"], []).append(nool_gate(ws, t))
-                    inflight[t["id"]] = set(t["footprint"])
-                    pending.remove(t)
-                    th = threading.Thread(target=worker, args=(t,))
-                    th.start()
-                    threads.append(th)
-            time.sleep(2)
-        for th in threads:
-            th.join()
+    dispatch = {"parallel": run_parallel,
+                "footprint": run_footprint_gated,
+                "lease": run_lease_gated}[ARMS[arm]["dispatch"]]
+    dispatch(rec, ws, parent, tickets, model, run_id, n_workers, arm)
 
     rec["wall_ms"] = round((time.monotonic() - t0) * 1000.0, 1)
     rec["acceptance"] = score(ws, tickets)
     rec["final_health"] = health(ws)
     _, glog = sh(["git", "log", "--oneline"], ws)
     rec["git_commits_on_main"] = len(glog.splitlines())
-    if arm == "nool_fleet":
+    if ARMS[arm]["nool_ws"]:
         code, nlog = sh(["nool", "log", "--json"], ws)
         try:
             rec["nool_knots"] = len(json.loads(nlog))
@@ -244,14 +401,19 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json"):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", required=True)
-    ap.add_argument("--arms", default="git_fleet,nool_fleet")
+    ap.add_argument("--arms", default="git_fleet,nool_fleet",
+                    help=f"comma list from: {', '.join(ARMS)}")
     ap.add_argument("--workers", type=int, default=5)
     ap.add_argument("--tickets", default="tickets.json")
     ap.add_argument("--reps", type=int, default=1)
+    ap.add_argument("--allow-unpinned-starter", action="store_true",
+                    help="run even if the starter tree hash does not match "
+                         "tasks/fleet_service/STARTER_SHA256")
     args = ap.parse_args()
     for _ in range(args.reps):
         for arm in args.arms.split(","):
-            run_fleet(arm, args.model, args.workers, args.tickets)
+            run_fleet(arm, args.model, args.workers, args.tickets,
+                      allow_unpinned=args.allow_unpinned_starter)
 
 
 if __name__ == "__main__":

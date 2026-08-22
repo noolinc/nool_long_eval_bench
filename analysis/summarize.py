@@ -82,11 +82,14 @@ def b4():
     if not d:
         return
     print("== B4 guardrails ==")
+    # Schema moved from one nool arm to nool_governed/nool_fast when both
+    # governance paths were measured; render whichever keys are present.
+    nool_arms = sorted(k for k in next(iter(d["cases"].values())) if k != "git")
     rows = []
     for case, arms in d["cases"].items():
         rows.append([case, "accepted" if arms["git"]["accepted"] else "rejected",
-                     arms["nool"]["stage"]])
-    table(rows, ["case", "git", "nool"])
+                     *(arms[k]["stage"] for k in nool_arms)])
+    table(rows, ["case", "git", *nool_arms])
 
 
 def b5():
@@ -204,8 +207,65 @@ def trackd():
     table(rows, ["run", "cluster", "clean_merges", "accepted", "wasted_usd"])
 
 
+def _wilson(k, n, z=1.96):
+    """95% Wilson score interval for a binomial proportion."""
+    import math
+    if not n:
+        return (0.0, 1.0)
+    p = k / n
+    d = 1 + z * z / n
+    c = (p + z * z / (2 * n)) / d
+    h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n)) / d
+    return (round(c - h, 3), round(c + h, 3))
+
+
+def trackd_quality():
+    """Attribution-relevant decomposition of fleet runs (audit 2026-08-22).
+
+    landed        = merge clean AND not rejected by a CI-gated queue.
+    acc|landed    = acceptance conditional on the ticket's work reaching main
+                    (separates agent quality from integration policy).
+    cascade       = landed but not accepted (build/test poisoning reached it).
+    acc_no_land   = accepted despite NOT landing — a corpus artifact signal
+                    (the t21 class: a neighbor's change satisfies the test).
+    ser_premium   = run wall time / longest single agent (the serialization
+                    cost of gated dispatch; ~1 means no serialization).
+    Wilson CIs treat tickets as independent, which cascade failures violate;
+    the run, not the ticket, is the unit of inference across reps.
+    """
+    p = RESULTS / "trackc" / "fleet_runs.jsonl"
+    if not p.exists():
+        return
+    runs = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
+    runs = [r for r in runs if r.get("acceptance") and r.get("integration")]
+    print("== Track D fleet quality decomposition ==")
+    rows = []
+    for r in runs:
+        acc = r["acceptance"]
+        by_ticket = {i["ticket"]: i for i in r["integration"]}
+        landed = {t for t, i in by_ticket.items()
+                  if i["clean"] and not i.get("queue_rejected")}
+        accepted = {t for t, v in acc.items() if v}
+        conflicts = sum(1 for i in r["integration"] if not i["clean"])
+        q_rej = sum(1 for i in r["integration"] if i.get("queue_rejected"))
+        cascade = len(landed - accepted)
+        acc_no_land = sorted(accepted - landed)
+        cond = f"{len(accepted & landed)}/{len(landed)}" if landed else "-"
+        walls = [a.get("wall_ms") or 0 for a in r["agents"].values()]
+        prem = (round(r["wall_ms"] / max(walls), 2)
+                if walls and max(walls) else "-")
+        k, n = len(accepted), len(acc)
+        lo, hi = _wilson(k, n)
+        rows.append([r["run_id"][:28], r.get("corpus", "v1"), r["n_workers"],
+                     f"{k}/{n}", f"[{lo},{hi}]", conflicts, q_rej, cascade,
+                     cond, ",".join(acc_no_land) or "-", prem])
+    table(rows, ["run", "corpus", "wrk", "accepted", "wilson95", "conflict",
+                 "q_rej", "cascade", "acc|landed", "acc_no_land",
+                 "ser_premium"])
+
+
 def main():
-    for f in (b1, b2, b3, b4, b5, b6, b7, trackc, trackd):
+    for f in (b1, b2, b3, b4, b5, b6, b7, trackc, trackd, trackd_quality):
         f()
 
 

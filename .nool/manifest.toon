@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Update docs with scale-up 2 (N=20/25/35) results: README findings-at-a-glance and current-status sections rewritten around the concurrency ladder; findings report gets a new section 6 (scale-up 2 ladder table + narrative), F8 summary finding, and renumbered interpretation (7) / reproduction (8) sections referencing the new data; new trackd_ladder.svg figure (analysis/make_figures.py: fig_ladder) plots mean acceptance rate by N across N=10/20/25/35, showing nool flat at 95-100% while git's rate is volatile and its worst-case failure mode worsens with N
-knot_id: 91e838d9ed92d12bd82c3dfa374317ec888404ea66e9bb666ef1c9ddef7aa834
-solidified_at: 1787357909908
+intent: Track D arm-decomposition implementation: add git_gated_queue (CI-gated merge queue), git_scheduled (scheduler ablation), nool_gated (lease-refusal dispatch) arms; enforce starter-tree hash pin per run; negative corpus validation (base + cross-cluster complement, all green) with results; summarize.py fleet quality decomposition (conditional acceptance, cascade, accepted-without-landing, Wilson CIs) and B4 schema fix
+knot_id: e3407957f6e08a1c8e6fb1794638787a180dac65ea2d73c287ec70f8bb84da0b
+solidified_at: 1787397485755
 thread: main
