@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Close rigor-audit gaps: run-level cross-rep inference (exact permutation Mann-Whitney, per-cell power labels) in summarize.py; committed SHA-256 transcript manifest + checker; Makefile/Dockerfile one-command and containerized replication per spec section 8; pre-registration hash pinning
-knot_id: 707e72d2d23a1596e410d21ec50226421ac6fa86a2a654571ae786b21df91758
-solidified_at: 1787437090713
+intent: Quarantine 2 token-limit-contaminated git_gated_queue rerun attempts (spec 8c reps 3-4, 2026-08-22 16:09/16:11): 429 rate_limit confirmed in transcripts, zero-cost tickets clustered, records preserved verbatim in invalidated_2026-08-23_token-limit-midrun with NOTE; removed from fleet_runs.jsonl
+knot_id: 67340e6c49088f8c1cafc9b1c0e4687a44e5a90c12a4cad6e9bc5814c80e2a56
+solidified_at: 1787437512947
 thread: main

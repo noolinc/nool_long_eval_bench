@@ -1,0 +1,1719 @@
+{
+ "run_id": "fleet_git_gated_queue_d15731ef",
+ "arm": "git_gated_queue",
+ "arm_policy": {
+  "dispatch": "parallel",
+  "ci_gate": true,
+  "merge": "git",
+  "nool_ws": false
+ },
+ "model": "claude-sonnet-5",
+ "n_workers": 35,
+ "corpus": "v3",
+ "tickets_file": "tickets_v3.json",
+ "starter_sha": "08bb4e8a42c75a494358b27b90abd837a4dbf652228e0b68373d70b033e353a7",
+ "started_utc": "2026-08-22T16:09:22.504977+00:00",
+ "preflight": {
+  "adapter": "claude",
+  "cli_version": "2.1.240 (Claude Code)"
+ },
+ "nool_version": "nool 6.14.1",
+ "git_version": "git version 2.50.1 (Apple Git-155)",
+ "go_version": "go version go1.26.2 darwin/arm64",
+ "agents": {
+  "t1": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 11409.9,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 4,
+   "tool_calls": 3,
+   "tokens_in": 4,
+   "tokens_out": 811,
+   "cache_read_tokens": 47313,
+   "cache_creation_tokens": 11301,
+   "cost_usd": 0.0638846,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t1.jsonl"
+  },
+  "t2": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 13770.6,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 5,
+   "tool_calls": 4,
+   "tokens_in": 4,
+   "tokens_out": 1063,
+   "cache_read_tokens": 47377,
+   "cache_creation_tokens": 11649,
+   "cost_usd": 0.0678584,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t2.jsonl"
+  },
+  "t3": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 13676.9,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 5,
+   "tool_calls": 4,
+   "tokens_in": 6,
+   "tokens_out": 531,
+   "cache_read_tokens": 76420,
+   "cache_creation_tokens": 11930,
+   "cost_usd": 0.069436,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t3.jsonl"
+  },
+  "t4": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 16406.6,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 8,
+   "tool_calls": 7,
+   "tokens_in": 8,
+   "tokens_out": 1015,
+   "cache_read_tokens": 105891,
+   "cache_creation_tokens": 12133,
+   "cost_usd": 0.08099519999999999,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t4.jsonl"
+  },
+  "t5": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 6540.3,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 2,
+   "tool_calls": 1,
+   "tokens_in": 2,
+   "tokens_out": 106,
+   "cache_read_tokens": 18404,
+   "cache_creation_tokens": 10499,
+   "cost_usd": 0.047833799999999996,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t5.jsonl"
+  },
+  "t6": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 6947.7,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 2,
+   "tool_calls": 1,
+   "tokens_in": 2,
+   "tokens_out": 137,
+   "cache_read_tokens": 18404,
+   "cache_creation_tokens": 10508,
+   "cost_usd": 0.0481718,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t6.jsonl"
+  },
+  "t7": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3285.3,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0.0010949999999999998,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t7.jsonl"
+  },
+  "t8": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3360.7,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t8.jsonl"
+  },
+  "t9": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3368.2,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t9.jsonl"
+  },
+  "t10": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3544.8,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t10.jsonl"
+  },
+  "t11": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3149.7,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t11.jsonl"
+  },
+  "t12": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3297.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t12.jsonl"
+  },
+  "t13": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3241.8,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t13.jsonl"
+  },
+  "t14": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3590.2,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t14.jsonl"
+  },
+  "t15": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3290.9,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t15.jsonl"
+  },
+  "t16": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3109.6,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t16.jsonl"
+  },
+  "t17": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3485.8,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t17.jsonl"
+  },
+  "t18": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3183.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t18.jsonl"
+  },
+  "t19": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3465.8,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t19.jsonl"
+  },
+  "t20": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3332.4,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t20.jsonl"
+  },
+  "t21": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3231.4,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t21.jsonl"
+  },
+  "t22": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3647.8,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t22.jsonl"
+  },
+  "t23": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3342.4,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t23.jsonl"
+  },
+  "t24": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3209.8,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t24.jsonl"
+  },
+  "t25": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3511.0,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t25.jsonl"
+  },
+  "t26": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 1955.3,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t26.jsonl"
+  },
+  "t27": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3526.1,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t27.jsonl"
+  },
+  "t28": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3389.0,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t28.jsonl"
+  },
+  "t29": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3535.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t29.jsonl"
+  },
+  "t30": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3218.0,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t30.jsonl"
+  },
+  "t31": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3227.4,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t31.jsonl"
+  },
+  "t32": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3299.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t32.jsonl"
+  },
+  "t33": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3250.8,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t33.jsonl"
+  },
+  "t34": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3458.6,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t34.jsonl"
+  },
+  "t35": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3592.3,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t35.jsonl"
+  },
+  "t36": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3769.9,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t36.jsonl"
+  },
+  "t37": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3726.7,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t37.jsonl"
+  },
+  "t38": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3674.6,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t38.jsonl"
+  },
+  "t39": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 1804.9,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t39.jsonl"
+  },
+  "t40": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3399.4,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t40.jsonl"
+  },
+  "t41": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3303.1,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t41.jsonl"
+  },
+  "t42": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3386.7,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t42.jsonl"
+  },
+  "t43": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3645.6,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t43.jsonl"
+  },
+  "t44": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3552.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t44.jsonl"
+  },
+  "t45": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3184.9,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t45.jsonl"
+  },
+  "t46": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3308.4,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t46.jsonl"
+  },
+  "t47": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3354.4,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t47.jsonl"
+  },
+  "t48": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3240.1,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t48.jsonl"
+  },
+  "t49": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3533.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t49.jsonl"
+  },
+  "t50": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3770.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t50.jsonl"
+  },
+  "t51": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3412.2,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t51.jsonl"
+  },
+  "t52": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3435.3,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t52.jsonl"
+  },
+  "t53": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3229.2,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t53.jsonl"
+  },
+  "t54": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3333.0,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t54.jsonl"
+  },
+  "t55": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3479.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t55.jsonl"
+  },
+  "t56": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3251.9,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t56.jsonl"
+  },
+  "t57": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3395.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t57.jsonl"
+  },
+  "t58": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3276.7,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t58.jsonl"
+  },
+  "t59": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 1954.9,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t59.jsonl"
+  },
+  "t60": {
+   "adapter": "claude",
+   "exit_code": 1,
+   "timed_out": false,
+   "wall_ms": 3176.5,
+   "stderr_tail": "",
+   "model_reported": "claude-sonnet-5",
+   "num_turns": 1,
+   "tool_calls": null,
+   "tokens_in": 0,
+   "tokens_out": 0,
+   "cache_read_tokens": 0,
+   "cache_creation_tokens": 0,
+   "cost_usd": 0,
+   "is_error": true,
+   "transcript": "results/trackc/transcripts/fleet_git_gated_queue_d15731ef_t60.jsonl"
+  }
+ },
+ "integration": [
+  {
+   "ticket": "t1",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t2",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t3",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t4",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t5",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t6",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t7",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t8",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t9",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t10",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t11",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t12",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t13",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t14",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t15",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t16",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t17",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t18",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t19",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t20",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t21",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t22",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t23",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t24",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t25",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t26",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t27",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t28",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t29",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t30",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t31",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t32",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t33",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t34",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t35",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t36",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t37",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t38",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t39",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t40",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t41",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t42",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t43",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t44",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t45",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t46",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t47",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t48",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t49",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t50",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t51",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t52",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t53",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t54",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t55",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t56",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t57",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t58",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t59",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  },
+  {
+   "ticket": "t60",
+   "clean": true,
+   "exit_code": 0,
+   "queue_rejected": false,
+   "post_merge_health": {
+    "build_ok": true,
+    "smoke_ok": true
+   }
+  }
+ ],
+ "gating": {},
+ "releases": {},
+ "wall_ms": 113588.5,
+ "acceptance": {
+  "t1": true,
+  "t2": true,
+  "t3": false,
+  "t4": false,
+  "t5": false,
+  "t6": false,
+  "t7": false,
+  "t8": false,
+  "t9": false,
+  "t10": false,
+  "t11": false,
+  "t12": false,
+  "t13": false,
+  "t14": false,
+  "t15": false,
+  "t16": false,
+  "t17": false,
+  "t18": false,
+  "t19": false,
+  "t20": false,
+  "t21": false,
+  "t22": false,
+  "t23": false,
+  "t24": false,
+  "t25": false,
+  "t26": false,
+  "t27": false,
+  "t28": false,
+  "t29": false,
+  "t30": false,
+  "t31": false,
+  "t32": false,
+  "t33": false,
+  "t34": false,
+  "t35": false,
+  "t36": false,
+  "t37": false,
+  "t38": false,
+  "t39": false,
+  "t40": false,
+  "t41": false,
+  "t42": false,
+  "t43": false,
+  "t44": false,
+  "t45": false,
+  "t46": false,
+  "t47": false,
+  "t48": false,
+  "t49": false,
+  "t50": false,
+  "t51": false,
+  "t52": false,
+  "t53": false,
+  "t54": false,
+  "t55": false,
+  "t56": false,
+  "t57": false,
+  "t58": false,
+  "t59": false,
+  "t60": false
+ },
+ "final_health": {
+  "build_ok": true,
+  "smoke_ok": true
+ },
+ "git_commits_on_main": 4,
+ "cost_usd": 0.3793,
+ "finished_utc": "2026-08-22T16:11:38.740113+00:00"
+}
