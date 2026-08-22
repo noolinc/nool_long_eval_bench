@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land N=35 nool_fleet rep-1 corpus-v3 run record: 60/60 accepted, wall 312s, cost $6.81, zero conflicts, zero errors.
-knot_id: a6bf059b24c9b0f08919d4a4b0988b5085e04293e0e11f2e25e4c4cf5106d48a
-solidified_at: 1787356968138
+intent: Land N=35 nool_fleet rep-2 corpus-v3 run record: 60/60 accepted, wall 349s, cost $6.94, zero conflicts, zero errors. Completes the N=35 point: git_fleet 37/60 (smoke_ok=false) and 20/60 (build_ok=false, full poisoning) vs nool_fleet 60/60 and 60/60.
+knot_id: 8434a741cca96c0a9513f99f87da7236cb499efbd5256cb642a7f23c5de76193
+solidified_at: 1787357381921
 thread: main
