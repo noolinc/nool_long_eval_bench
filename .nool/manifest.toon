@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Rigor workarounds: (1) fail-fast rate-limit guard in fleet_run.py — transcript 429/rate_limit scan aborts the batch before any corrupted record is written, verified against known-contaminated and clean transcripts; (2) scoring-time accepted-without-landing artifact flag in run records; (3) stratified exact permutation test across cells in summarize.py pooling all same-model cells within-cell-exchangeably; (4) incident index in replication MANIFEST
-knot_id: 98628ef7f171b80affde2b1bba25ead52da040c8c7b797fbbe89dca720063a06
-solidified_at: 1787437869249
-thread: main
+intent: Autonomous lift of 466 features from legacy codebase
+knot_id: 8d6e3da5d65afb0dd1efcb845cc307f51d0e4d645df3e5faca46d59bd6641d8a
+solidified_at: 1787442218382
+thread: 
