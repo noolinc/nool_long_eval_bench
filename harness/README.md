@@ -44,10 +44,21 @@ batch without this was invalidated — see
 Any new adapter must document the equivalent isolation mechanism for its CLI
 before its data is analyzed.
 
-Implemented: `claude` (Claude Code CLI, stream-json accounting).
+Implemented: `claude` (Claude Code CLI, stream-json accounting) and
+`opencode` (opencode CLI ≥1.18, `run --format json` event accounting).
 To add gemini/codex/pi: implement the same contract with that CLI's
 headless mode and native usage accounting, then register it in
 `run_experiment.py:ADAPTERS`.
+
+**opencode isolation mechanism:** user-level configuration is excluded by
+pointing `XDG_CONFIG_HOME` at a throwaway directory for each session
+(global agents/plugins/skills live under `~/.config/opencode`; auth lives
+under the data dir and is unaffected). Project/workspace-level `.opencode`
+config stays enabled. Two opencode-specific correctness notes recorded
+2026-08-22: (a) opencode resolves its workspace from `--dir`/`$PWD` rather
+than the process cwd — the adapter pins both to the ticket worktree;
+(b) `max_turns` has no CLI equivalent, so the wall-clock timeout is the
+only turn bound and `num_turns` is reported from observed step events.
 
 ## Multi-agent protocol
 

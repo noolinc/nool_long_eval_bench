@@ -29,13 +29,14 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from adapters import claude as claude_adapter  # noqa: E402
+from adapters import opencode as opencode_adapter  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 TASKS = REPO / "tasks"
 RESULTS = REPO / "results" / "trackc"
 TRANSCRIPTS = RESULTS / "transcripts"
 
-ADAPTERS = {"claude": claude_adapter}
+ADAPTERS = {"claude": claude_adapter, "opencode": opencode_adapter}
 CELLS = ["single_git", "single_nool", "multi_git", "multi_nool"]
 
 ENV = dict(os.environ, NOOL_NO_DAEMON="1", GIT_TERMINAL_PROMPT="0")

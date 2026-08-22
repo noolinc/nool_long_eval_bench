@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land quarantine files individually (directory-path propose created a stray empty-file/tree conflict)
-knot_id: f1f1996ab82c5d11d778eeedb37117f6901e31c4f212ef121df213c1c78e5ad5
-solidified_at: 1787414881257
+intent: Add opencode harness adapter (Ox Alpha Free) to Track D fleet benchmark with isolation hardening
+knot_id: 7245eb4ba5a02f3f50e0918bbc82ebe9d91a614b51d7b67c1fffbc29a81bb1c8
+solidified_at: 1787432812854
 thread: main
