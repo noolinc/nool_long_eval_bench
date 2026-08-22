@@ -515,6 +515,115 @@ nool arm the task board. Measured: coordination outcomes (duplicate work,
 interface mismatches at integration), token cost of task-context retrieval,
 and lease/announce conflicts if agents overlap.
 
+## 8c. Track D — arm-decomposition study (pre-registered 2026-08-22, before any arm-B/C/D data)
+
+**Implementation audit (2026-08-22), disclosed as a deviation from §8a's
+description.** A code audit of `harness/fleet_run.py` against §8a found the
+`nool_fleet` arm's dispatch gating was computed by the harness, not by nool:
+admission is a Python set-intersection over each ticket's corpus-declared
+footprint; `nool announce intent` and `nool discover conflicts` run only
+AFTER admission is decided and their output is recorded but never consulted.
+All recorded `discover` verdicts across every collected run are the identical
+no-conflict boilerplate. Tickets were never registered as nool tasks, despite
+§8a saying so. A CLI probe further established that nool's actual
+coordination primitive is the announcement itself: an `announce intent`
+whose target nodes overlap an active lease is REFUSED with exit code 3 and
+"Coordination conflict", while `discover conflicts` reports no conflicts
+even against an active overlapping lease. Consequences, pre-registered
+before any new data: (1) all collected fleet results are re-described as
+measuring the footprint-gated dispatch POLICY under oracle (corpus-declared)
+footprints, with product attribution an open question; (2) the arms below
+decompose the effect. Collected data is retained unchanged; the `nool_fleet`
+arm's harness code is frozen as-is for continuity.
+
+**A second structural observation, also disclosed:** in the `git_fleet` arm
+every agent branches from the same base commit and all merges run after all
+agents finish, so the merge queue's inputs are statistically independent of
+N. Observed corpus-v3 conflict counts confirm this: 21-22 at N=20, 20-21 at
+N=25, 21-22 at N=35. C4's "git declines with N" reading is therefore not
+supported by the ladder's design; what varies with N in the collected data
+is stochastic build-poisoning severity at 2 reps per point. C4 evidence
+wording is downgraded to "separation holds at every measured N" until a
+design in which N mechanically varies contention exposure exists.
+
+**Negative corpus validation (added, run 2026-08-22, deterministic).**
+`tasks/fleet_service/validation_v3/validate_negative.py` proves every
+acceptance test FAILS on the plain starter (60/60) and FAILS when every
+other cluster's reference implementation is applied while its own stays at
+starter (all clusters green; complement workspaces verified to build).
+Within-cluster leave-one-out — the t21 class, where a cluster-mate's change
+satisfies a conflicted ticket's test — is NOT covered (requires per-ticket
+decomposed references; deferred to corpus v3.1) and is instead detected
+empirically: `analysis/summarize.py` now flags accepted-without-landing
+tickets per run (currently exactly t21, both git N=20 reps and both N=25
+reps).
+
+**New arms** (harness `fleet_run.py`; prompts, model, worker slots,
+worktree isolation, launch stagger, and scoring identical to §8a arms):
+- `git_gated_queue`: parallel dispatch as `git_fleet`; the sequential merge
+  queue becomes CI-gated — after each textually-clean merge the harness
+  runs build+smoke and, on red, resets main to the pre-merge commit and
+  records the ticket as queue-rejected. Models the industry-standard
+  test-gated merge queue; isolates how much of `git_fleet`'s loss is the
+  blind queue rather than git.
+- `git_scheduled`: footprint-gated dispatch using the IDENTICAL harness
+  scheduler as `nool_fleet` (oracle footprints, same admission logic, same
+  same-batch gating), integration by plain `git merge`, no nool anywhere.
+  The attribution ablation: any `nool_fleet` advantage over this arm is
+  product; any `git_scheduled` advantage over `git_fleet` is policy.
+- `nool_gated`: dispatch gated by nool itself — at each scheduling tick a
+  pending ticket is admitted iff `nool announce intent --target-nodes
+  <footprint> --agent-id agent_<tid>` succeeds (exit 0); refusals (exit 3)
+  hold the ticket, re-attempted after a lease release. The lease is
+  released (`nool announce release`) after integration; integration is
+  `nool merge`. Every announce attempt and release is recorded. Footprints
+  remain corpus-declared in this arm (footprint-source robustness is a
+  separate, later condition).
+- Starter-tree integrity is now machine-enforced: every run hashes
+  `tasks/fleet_service/starter` and refuses to start on mismatch with the
+  pinned `tasks/fleet_service/STARTER_SHA256` (audit trail from the
+  corpus-contamination incident).
+
+**Protocol.** Corpus v3, claude-sonnet-5 pinned, N=35 (the highest
+completed ladder point), sequential runs with the launch stagger; 5 reps
+per new arm, plus 3 additional `nool_fleet` reps to reach 5 at N=35.
+Estimated spend at observed ~$7/run: ~$125-130 total.
+
+**Predictions (falsifiable, recorded before any data):**
+1. `git_gated_queue` accepts 60 minus its conflict count (expected 38-41
+   per rep) with ZERO cascade failures and final health green in every
+   rep — i.e., the CI gate fully eliminates the build-poisoning mode.
+2. `git_scheduled` accepts >=58/60 per rep with zero integration
+   conflicts — statistically indistinguishable from `nool_fleet`.
+3. `nool_gated` matches `nool_fleet` within +/-2 tickets with zero
+   conflicts; its gating log shows real refusals (exit 3) for cluster
+   tickets, and its wall time exceeds `nool_fleet`'s by the announce
+   overhead (recorded per attempt).
+4. Conditional acceptance (accepted given landed) stays at ~100% in every
+   arm — the arms differ in what lands, not in agent code quality.
+
+**Decision rule (attribution).** The §8a/§5.5 separation is attributed to
+the coordination POLICY if prediction 2 holds. nool's product contribution
+is then the delta between `nool_gated` and `git_scheduled` (native leasing
+vs harness logic: correctness of refusals, overhead, and operational
+convenience), NOT the headline acceptance delta vs `git_fleet`. If
+prediction 2 fails (git_scheduled materially below nool_fleet), the product
+retains outcome-level credit and the failure mode is documented. If
+prediction 1 fails, the poisoning mode is deeper than queue policy and the
+`git_fleet` baseline stands closer to fair. Claims C2/C4/C5 are re-worded
+against whichever branch obtains; goalposts above are fixed now.
+
+**Replication access (updates §8's license dependency).** Nool's free tier
+— 2,000 knots per project for 30 days — covers full replication: measured
+consumption is 62 knots per 60-ticket fleet run and ~90 for the largest
+Track B cell; a complete suite replication is ~1,200-1,500 knots. To
+confirm before the README cites it as the official path: whether throwaway
+benchmark workspaces each count as a project, free-tier feature parity
+(--fast, ghost-run validation, announce/discover/release, MergeReconcile,
+pluck, bisect, query, hooks), and absence of tier-specific latency or
+throttling (B1/B2 measure latency). Remaining replicator cost is LLM spend
+(~$7-10 per fleet run), already disclosed.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —

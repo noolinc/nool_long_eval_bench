@@ -20,17 +20,26 @@ recorded per run.
 
 ![Concurrency ladder: mean acceptance rate by N](docs/findings/figures/trackd_ladder.svg)
 
-- **Fleet contention scales, and the separation strengthens with N.**
-  Pre-registered concurrency ladder, function-level contention, corpus v3
-  (60 tickets) at N=25 and N=35 workers: nool's footprint-gated dispatch
-  held 60/60 accepted with zero merge conflicts across all four reps.
-  git's uncoordinated fleet degraded with N — 41/60 and 40/60 at N=25,
-  then 37/60 and **20/60** at N=35, the latter a full build-poisoning
-  event (a textually-clean merge broke the build, voiding 18 tickets
-  beyond its own 22 conflicts) — replicating and worsening the failure
-  mode first seen at the N=10 pilot scale-up (1/20 and 13/20 accepted;
-  19/20 and 19/20 for nool). Spend per accepted ticket stays lower for
-  nool at every point measured ($0.11–0.21 vs $0.18–3.80 for git).
+- **Footprint-gated dispatch eliminates fleet contention failures at every
+  measured N.** Pre-registered concurrency ladder, function-level
+  contention, corpus v3 (60 tickets) at N=25 and N=35 workers: the gated
+  arm held 60/60 accepted with zero merge conflicts across all four reps.
+  The ungated git baseline lost roughly a third of tickets to merge
+  conflicts at every N (flat 20–22 conflicts at N=20/25/35), and at N=35
+  additionally hit build-poisoning — 37/60 and **20/60**, the latter a
+  textually-clean merge breaking the build and voiding 18 further tickets.
+  Spend per accepted ticket stays lower for the gated arm at every point
+  measured ($0.11–0.21 vs $0.18–3.80 for git).
+- **Attribution audit (2026-08-22, paper §5.6):** the gating in all
+  collected fleet runs was computed by the harness from corpus-declared
+  footprints — nool's own conflict verdicts were advisory and never
+  consulted — so the separation above is established for the dispatch
+  *policy*, not yet the product. Conditional on a ticket's work landing on
+  main, acceptance is ~100% in both arms: the agents write equally good
+  code, and the whole gap is integration policy. Three ablation arms are
+  pre-registered with fixed predictions (spec §8c): a CI-gated git merge
+  queue, git under the identical scheduler, and dispatch gated by nool's
+  own lease refusals.
 - **Mechanisms moved with the product:** on 6.14.1, contended merges
   converge 15/15 (were 1/15, = git, on ≤6.14.0), selective undo preserves
   later unrelated work 5/5 (was 0/5), and bisect names the true culprit.
@@ -123,19 +132,25 @@ Track C grid run three times (19/20, 20/20, 18/20; no arm separation).
 Track D fleet: pilot plus pre-registered scale-up 1 complete (first arm
 separation — see the findings report); scale-up 2's pre-registered
 concurrency ladder (N ∈ {10, 25, 35, 50}) has N=25 and N=35 complete on
-the hardened corpus v3, plus an off-ladder N=20 point — separation
-strengthens with N; remaining: a claude-sonnet-5 N=10/v3 anchor and N=50.
-External benchmark adaptations (CooperBench, SlopCodeBench) are Tier 2 —
-see the spec.
+the hardened corpus v3, plus an off-ladder N=20 point — separation holds
+at every measured N (see the attribution audit above for what "with N"
+can and cannot mean under this design). Remaining: the §8c
+arm-decomposition study (git_gated_queue / git_scheduled / nool_gated,
+pre-registered 2026-08-22, not yet run), a claude-sonnet-5 N=10/v3
+anchor, and N=50. External benchmark adaptations (CooperBench,
+SlopCodeBench) are Tier 2 — see the spec.
 
 ## Threats to validity
 
 Disclosed in the spec (§7) and repeated here: this is a vendor-run
 evaluation, pre-registered to mitigate that; LLM cells at small N are
 labeled underpowered; execution is currently local rather than containerized
-(recorded in every provenance block); running nool arms requires a nool
-license — external validators need the no-cost evaluation route described in
-the spec (§8).
+(recorded in every provenance block); the fleet arms' gating attribution
+and baseline-policy limits are documented in the paper (§5.6) with
+pre-registered ablation arms (spec §8c). Running nool arms: the free tier
+(2,000 knots per project, 30 days) covers a full replication — a 60-ticket
+fleet run consumes 62 knots, the whole suite ~1,200–1,500 — so the only
+replication cost is LLM spend (~$7–10 per fleet run, disclosed per run).
 
 ## License
 
