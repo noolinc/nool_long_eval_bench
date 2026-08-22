@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-register spec 8c arm-decomposition study (predictions + decision rules fixed before data); paper: 5.6 implementation audit (harness-side oracle gating, advisory discover verdicts, CI-gate baseline gap, N-invariance of git integration), corrected Track D description, C2/C4 evidence rewording, threats additions, free-tier replication path; README: attribution audit summary and replication cost
-knot_id: 70fe9e1b3987eb6ca110366a3fea5eb9e3bf7a9d46ecb53c5c1f297077f7bf96
-solidified_at: 1787397498140
+intent: Smoke-test results: git_gated_queue arm (1/1 rep) on 8-ticket v1 corpus
+knot_id: 07e2638d9fc5d0bd8dae3646c2c7a4e3106f31090a2a06728689f76ce8dddec9
+solidified_at: 1787398160070
 thread: main
