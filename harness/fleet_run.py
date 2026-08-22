@@ -60,6 +60,39 @@ from run_experiment import ENV, RESULTS, TRANSCRIPTS, sh  # noqa: E402
 
 ADAPTERS = {"claude": claude_adapter, "opencode": opencode_adapter}
 
+# Fail-fast guard against provider-limit contamination (incidents of
+# 2026-08-21, 2026-08-22, 2026-08-23): a batch that keeps running after the
+# account hits its usage limit produces walls of instant-rejection agents
+# that look like arm outcomes. Detection is transcript-based (authoritative
+# 429/rate_limit markers), so it works for any adapter including free-tier
+# ones whose cost_usd is legitimately 0.
+_RATE_LIMIT_MARKERS = (
+    '"api_error_status": 429',
+    '"error": "rate_limit"',
+    'rate_limit_event',
+    'session limit',
+)
+
+
+class RateLimitAbort(RuntimeError):
+    pass
+
+
+_ABORT = threading.Event()
+
+
+def transcript_rate_limited(tpath):
+    try:
+        with open(tpath, "rb") as f:
+            f.seek(0, 2)
+            size = f.tell()
+            f.seek(max(0, size - 65536))
+            tail = f.read().decode("utf-8", errors="replace").lower()
+    except OSError:
+        return False
+    return any(m.lower() in tail for m in _RATE_LIMIT_MARKERS)
+
+
 REPO = Path(__file__).resolve().parent.parent
 TASK = REPO / "tasks" / "fleet_service"
 STARTER_PIN = TASK / "STARTER_SHA256"
@@ -314,6 +347,15 @@ def agent_ticket(ws, parent, ticket, model, run_id, adapter, arm):
     _throttle_launch()
     res = adapter.run(wt, prompt, model, max_turns=30, timeout_s=600,
                       transcript_path=tpath, env=agent_env(arm))
+    if _ABORT.is_set() or transcript_rate_limited(tpath):
+        # Stop the batch before it writes a corrupted record: a 429 wall is
+        # provider state, not an arm outcome (see invalidated_2026-08-2*
+        # NOTEs). The partial record is intentionally NOT appended.
+        _ABORT.set()
+        raise RateLimitAbort(
+            f"{ticket['id']}: rate-limit signature in transcript "
+            f"(or batch already aborted) — fix account headroom and rerun; "
+            f"no fleet_runs.jsonl record written for this run")
     sh(["git", "add", "-A"], wt)
     # VCS-internal state is never authored work: keep auto-created nool
     # ledgers out of ticket branches so they cannot collide at merge time.
@@ -448,6 +490,9 @@ def run_parallel(rec, ws, parent, tickets, model, run_id, n_workers, arm,
                 for t in tickets}
         for f in futs:
             rec["agents"][futs[f]["id"]] = f.result()
+            # f.result() re-raises RateLimitAbort from agent_ticket; the
+            # remaining futures observe _ABORT after their current agent
+            # and abort the same way on collection below.
     for t in tickets:  # sequential merge queue, ticket order
         rec["integration"].append(integrate(ws, arm, t, run_id))
 
@@ -461,7 +506,10 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
     done = set()
 
     def worker(t, gate):
-        res = agent_ticket(ws, parent, t, model, run_id, adapter, arm)
+        try:
+            res = agent_ticket(ws, parent, t, model, run_id, adapter, arm)
+        except RateLimitAbort:
+            return          # _ABORT is set; the batch aborts after join
         with lock:
             rec["agents"][t["id"]] = res
             rec["integration"].append(integrate(ws, arm, t, run_id))
@@ -475,6 +523,8 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
     threads = []
     pending = list(tickets)
     while pending or inflight:
+        if _ABORT.is_set() and not inflight:
+            break
         with lock:
             busy = set().union(*inflight.values()) if inflight else set()
             ready = []
@@ -506,6 +556,8 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
         time.sleep(2)
     for th in threads:
         th.join()
+    if _ABORT.is_set():
+        raise RateLimitAbort("batch aborted: provider rate limit detected")
 
 
 def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
@@ -519,7 +571,10 @@ def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
     last_refused = {}        # ticket id -> epoch of last refused announce
 
     def worker(t, aid):
-        res = agent_ticket(ws, parent, t, model, run_id, adapter, arm)
+        try:
+            res = agent_ticket(ws, parent, t, model, run_id, adapter, arm)
+        except RateLimitAbort:
+            return          # _ABORT is set; the batch aborts after join
         with lock:
             rec["agents"][t["id"]] = res
             rec["integration"].append(integrate(ws, arm, t, run_id))
@@ -535,6 +590,8 @@ def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
     threads = []
     pending = list(tickets)
     while pending or inflight:
+        if _ABORT.is_set() and not inflight:
+            break
         with lock:
             epoch = release_epoch[0]
             for t in list(pending):
@@ -571,6 +628,8 @@ def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
         time.sleep(2)
     for th in threads:
         th.join()
+    if _ABORT.is_set():
+        raise RateLimitAbort("batch aborted: provider rate limit detected")
 
 
 def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
@@ -613,6 +672,7 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
            "go_version": ver(["go", "version"]),
            "agents": {}, "integration": [], "gating": {}, "releases": {}}
     t0 = time.monotonic()
+    _ABORT.clear()
     try:
         dispatch = {"parallel": run_parallel,
                     "footprint": run_footprint_gated,
@@ -622,6 +682,18 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
 
         rec["wall_ms"] = round((time.monotonic() - t0) * 1000.0, 1)
         rec["acceptance"] = score(ws, tickets)
+        # Scoring-time corpus-artifact flag (the t21 class): a ticket whose
+        # hidden test passes although its work never landed was satisfied by
+        # a neighbor's change. Detected here so it is part of the record,
+        # not just post-hoc analysis (spec §8c negative-validation limit).
+        landed = {i["ticket"] for i in rec["integration"]
+                  if i["clean"] and not i.get("queue_rejected")}
+        accepted = {t for t, v in rec["acceptance"].items() if v}
+        suspect = sorted(accepted - landed)
+        if suspect:
+            rec["acceptance_artifact_suspect"] = suspect
+            print(f"[{run_id}] WARNING accepted-without-landing "
+                  f"(corpus artifact class): {','.join(suspect)}", flush=True)
         rec["final_health"] = health(ws)
         _, glog = sh(["git", "log", "--oneline"], ws)
         rec["git_commits_on_main"] = len(glog.splitlines())

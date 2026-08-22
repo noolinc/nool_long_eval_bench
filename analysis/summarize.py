@@ -401,9 +401,80 @@ def trackd_inference():
                  "power"])
 
 
+def trackd_stratified_inference():
+    """Stratified exact permutation test across all same-model cells.
+
+    Workaround for the 2-reps-per-cell power ceiling: cells (corpus, N)
+    differ, but under H0 arms are exchangeable WITHIN each cell. Permuting
+    arm labels inside every stratum jointly and enumerating the full
+    product space gives an exact stratified p-value for 'nool accepts more
+    than git' that pools all cells without assuming homogeneity between
+    them — the standard response to 'no single cell is powered'.
+
+    Statistic: sum over cells of (mean_git - mean_nool) accepted counts;
+    two-sided p = P(|stat| >= |observed|) over all within-cell relabelings.
+    Still run-level; still labeled with its rep count.
+    """
+    import itertools
+    p = RESULTS / "trackc" / "fleet_runs.jsonl"
+    if not p.exists():
+        return
+    runs = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
+    runs = [r for r in runs if r.get("acceptance") and r.get("integration")]
+    models = sorted({r.get("model", "?") for r in runs})
+    for model in models:
+        cells = {}
+        for r in runs:
+            if r.get("model", "?") != model:
+                continue
+            g_or_n = {"git_fleet": "g", "nool_fleet": "n"}.get(r["arm"])
+            if not g_or_n:
+                continue
+            cells.setdefault((r.get("corpus", "v1"), r["n_workers"]),
+                             {"g": [], "n": []})[g_or_n].append(
+                                 sum(r["acceptance"].values()))
+        usable = {k: v for k, v in cells.items() if v["g"] and v["n"]}
+        if len(usable) < 2:
+            continue
+
+        strata = []
+        for key, v in sorted(usable.items()):
+            pooled = v["g"] + v["n"]
+            ng = len(v["g"])
+            obs = sum(pooled[:ng]) / ng - sum(pooled[ng:]) / len(v["n"])
+            strata.append((key, pooled, ng, obs))
+        obs_total = sum(s[3] for s in strata)
+
+        combos = [list(itertools.combinations(range(len(pooled)), ng))
+                  for _, pooled, ng, _ in strata]
+        space = itertools.product(*combos)
+        extreme = 0
+        total = 0
+        for choice in space:
+            stat = 0.0
+            for (key, pooled, ng, obs), idxs in zip(strata, choice):
+                idxs = set(idxs)
+                gs = [v for i, v in enumerate(pooled) if i in idxs]
+                ns = [v for i, v in enumerate(pooled) if i not in idxs]
+                stat += sum(gs) / ng - sum(ns) / len(ns)
+            total += 1
+            if abs(stat) >= abs(obs_total) - 1e-9:
+                extreme += 1
+        print(f"== Stratified exact permutation ({model}) ==")
+        print("(observed sum < 0 means nool_fleet accepts more than "
+              "git_fleet across cells)")
+        print("cells:", ", ".join(
+            f"{key[0]}/N={key[1]}({ng}v{len(pooled) - ng})"
+            for (key, pooled, ng, obs) in strata))
+        print(f"relabeling space: {total:,}; observed mean-difference sum: "
+              f"{obs_total:+.1f}")
+        print(f"exact two-sided stratified p = {extreme}/{total:,} = "
+              f"{extreme / total:.5f}\n")
+
+
 def main():
     for f in (b1, b2, b3, b4, b5, b6, b7, trackc, trackd, trackd_quality,
-              trackd_inference):
+              trackd_inference, trackd_stratified_inference):
         f()
 
 

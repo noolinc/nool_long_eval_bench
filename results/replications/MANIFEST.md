@@ -94,3 +94,18 @@ the rounding check to admit both readings, validated green against the
 2x2 matrix of floor reading x plain / full-cluster-A Invoice. nool
 fd169904's t10 failure is agent-quality (serialized dispatch, clean
 merge, semantic miss). Raw: results/trackc/fleet_runs.jsonl.
+
+## Incident index
+
+- `results/trackc/invalidated_2026-08-20_user-config-contamination/` —
+  early batch without adapter environment isolation.
+- `results/trackc/invalidated_2026-08-21_rate-limit-midrun/` — provider
+  limit reset mid-run; rest of batch completed clean.
+- `results/trackc/invalidated_2026-08-22_session-limit-midrun/` — session
+  limit never reset mid-batch; spec 8c reps 3(partial)-5 excluded.
+- `results/trackc/invalidated_2026-08-23_token-limit-midrun/` — first
+  rerun attempt of the outstanding 8c runs hit the limit again;
+  2 git_gated_queue records excluded. Recurrence is now machine-guarded:
+  `harness/fleet_run.py` scans every agent transcript for 429/rate-limit
+  signatures and aborts the batch before any record is written
+  (`RateLimitAbort`).
