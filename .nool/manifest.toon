@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-registered arm-decomposition study (spec 8c): 2 reps landed so far — git_gated_queue 39/60 (x2), git_scheduled 60/60, nool_gated 60/60, corpus v3 N=35
-knot_id: 8993ce91d9da2d0a5695b541fdeabe46279f8788cb05b1083a81eed6f66b5645
-solidified_at: 1787399443738
+intent: README: add benchmark-comparison matrix (SWE-bench, SlopCodeBench, SWE-EVO, CooperBench) positioning why this suite isolates VCS-as-treatment
+knot_id: ea2c5b4473ecf944b9a5f5edf07aec410868c13039657c29d1ed9f75b2ccf926
+solidified_at: 1787399563237
 thread: main

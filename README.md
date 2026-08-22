@@ -10,6 +10,42 @@ improves coding-agent outcomes versus plain git, across agent harnesses
 hypotheses H1–H7 and the analysis plan were committed before any Tier 1 data
 was collected. Read it before the numbers.
 
+## Why this suite, not an existing benchmark
+
+Several published benchmarks already grade coding-agent output — the
+obvious question is why not just run one of those. None of them put the
+**VCS/coordination layer itself** on trial: they vary the model or the
+task while the repo is written to by one agent at a time (or, in
+CooperBench's case, a fixed N=2 with the coordination mechanism held
+constant). This suite fixes the tasks and the agent count and varies
+**git vs nool** as the treatment, scaled up across a concurrency ladder —
+the one axis none of the below can speak to.
+
+| Benchmark | Agents | Unit under test | Concurrent writers to one repo | Independent variable | Scale |
+|---|---|---|---|---|---|
+| SWE-bench (+ Verified / Lite) | 1 | GitHub issue → patch | No | model/agent | 2,294 tasks, 12 Python repos |
+| SlopCodeBench | 1 | agent re-extends its own prior solution across checkpoints | No | model/agent, long-horizon only | 20 problems × 93 checkpoints |
+| SWE-EVO | 1 | multi-file feature evolution from real release notes | No | model/agent | 48 tasks, 7 repos, avg 21 files/task |
+| CooperBench | 2 (fixed) | two features landed on one shared repo concurrently | Yes — real merge-conflict risk | task difficulty / model; coordination mechanism (git + Redis messaging) held fixed | ~600 tasks, 12 repos, 4 languages (arXiv:2601.13295) |
+| **nool_benchmarks (this suite)** | N=10–50 (concurrency ladder) | ticket-level changes dispatched across a shared corpus | Yes — merge conflicts / build-poisoning / attribution ARE the metrics | **VCS/coordination substrate: git vs nool**; tasks and agent count held fixed | 60-ticket corpus v3; N=25 and N=35 measured to date, N=50 pre-registered |
+
+CooperBench is the closest existing analog — the only one of the four with
+real concurrent-writer risk — which is why it's already planned as a Tier 2
+adaptation (Track A1, spec §5) rather than something this suite ignores.
+The relationship is an inversion, not a duplication: CooperBench fixes the
+coordination mechanism and varies task difficulty at N=2; this suite fixes
+the tasks and varies the coordination mechanism at fleet scale. SlopCodeBench
+(Track A2) and SWE-EVO (Track A3) are single-agent and contribute nothing on
+the concurrency axis, but are still adapted for their own axes (long-horizon
+degradation, multi-file evolution) rather than duplicated by Track D.
+
+*Note on the CooperBench figure above:* the paper (arXiv:2601.13295) reports
+~600 tasks across 12 repos / 4 languages; a public adapter repository for the
+same benchmark lists smaller subset counts (199 features / 30 tasks / 652
+feature pairs). The paper figure is cited as canonical here — confirm
+directly against the benchmark's own source before the Track A1 integration
+relies on either number.
+
 ## Findings at a glance (runs 1–3 + fleet scale-up 1 and 2, 2026-08-20/22)
 
 Full report with figures and provenance:
