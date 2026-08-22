@@ -10,7 +10,7 @@ improves coding-agent outcomes versus plain git, across agent harnesses
 hypotheses H1–H7 and the analysis plan were committed before any Tier 1 data
 was collected. Read it before the numbers.
 
-## Findings at a glance (runs 1–3 + fleet scale-up 1, 2026-08-20/21)
+## Findings at a glance (runs 1–3 + fleet scale-up 1 and 2, 2026-08-20/22)
 
 Full report with figures and provenance:
 [`docs/findings/2026-08-21-findings.md`](docs/findings/2026-08-21-findings.md) ·
@@ -18,15 +18,19 @@ academic write-up: `docs/paper/2026-08-nool-fleet-study.md`. One pinned
 model (claude-sonnet-5) throughout; product versions 6.13.0 → 6.14.1
 recorded per run.
 
-![Scale-up 1: tickets accepted per run](docs/findings/figures/trackd_acceptance.svg)
+![Concurrency ladder: mean acceptance rate by N](docs/findings/figures/trackd_ladder.svg)
 
-- **Fleet contention (pre-registered scale-up, 10 agents, 20 tickets,
-  function-level contention):** uncoordinated git fleet accepted 1/20 and
-  13/20 (in the 1/20 rep a textually-clean merge silently broke the build,
-  voiding 13 landed tickets); nool's footprint-gated dispatch accepted
-  19/20 in both reps with 20/20 clean merges and a green main throughout,
-  at equal agent spend and +40–70% wall time. Spend per accepted ticket:
-  $0.19–0.21 vs $0.30–3.80.
+- **Fleet contention scales, and the separation strengthens with N.**
+  Pre-registered concurrency ladder, function-level contention, corpus v3
+  (60 tickets) at N=25 and N=35 workers: nool's footprint-gated dispatch
+  held 60/60 accepted with zero merge conflicts across all four reps.
+  git's uncoordinated fleet degraded with N — 41/60 and 40/60 at N=25,
+  then 37/60 and **20/60** at N=35, the latter a full build-poisoning
+  event (a textually-clean merge broke the build, voiding 18 tickets
+  beyond its own 22 conflicts) — replicating and worsening the failure
+  mode first seen at the N=10 pilot scale-up (1/20 and 13/20 accepted;
+  19/20 and 19/20 for nool). Spend per accepted ticket stays lower for
+  nool at every point measured ($0.11–0.21 vs $0.18–3.80 for git).
 - **Mechanisms moved with the product:** on 6.14.1, contended merges
   converge 15/15 (were 1/15, = git, on ≤6.14.0), selective undo preserves
   later unrelated work 5/5 (was 0/5), and bisect names the true culprit.
@@ -117,9 +121,12 @@ Current status: Track B complete on three product versions (6.13.0,
 6.14.0, 6.14.1) with per-version snapshots under `results/replications/`.
 Track C grid run three times (19/20, 20/20, 18/20; no arm separation).
 Track D fleet: pilot plus pre-registered scale-up 1 complete (first arm
-separation — see the findings report); next pre-registered step is the P1
-concurrency ladder. External benchmark adaptations (CooperBench,
-SlopCodeBench) are Tier 2 — see the spec.
+separation — see the findings report); scale-up 2's pre-registered
+concurrency ladder (N ∈ {10, 25, 35, 50}) has N=25 and N=35 complete on
+the hardened corpus v3, plus an off-ladder N=20 point — separation
+strengthens with N; remaining: a claude-sonnet-5 N=10/v3 anchor and N=50.
+External benchmark adaptations (CooperBench, SlopCodeBench) are Tier 2 —
+see the spec.
 
 ## Threats to validity
 

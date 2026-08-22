@@ -237,6 +237,36 @@ def fig_cost(recs):
         value_fmt=lambda v: f"${v:.2f}")
 
 
+LADDER = [
+    ("N=10 (v2)", 20, ("fleet_git_fleet_9a6eb70f", "fleet_git_fleet_803f2288"),
+                       ("fleet_nool_fleet_cb7ccf72", "fleet_nool_fleet_2a51582f")),
+    ("N=20 (v3)", 60, ("fleet_git_fleet_37f30954", "fleet_git_fleet_99caf2f1"),
+                       ("fleet_nool_fleet_15da1d64", "fleet_nool_fleet_77ba01c2")),
+    ("N=25 (v3)", 60, ("fleet_git_fleet_71ab28f3", "fleet_git_fleet_a7499905"),
+                       ("fleet_nool_fleet_ca131262", "fleet_nool_fleet_4800a387")),
+    ("N=35 (v3)", 60, ("fleet_git_fleet_a281c84e", "fleet_git_fleet_89ec7e04"),
+                       ("fleet_nool_fleet_9c5490e1", "fleet_nool_fleet_c5712d86")),
+]
+
+
+def fig_ladder(recs):
+    def rate(rids, denom):
+        return 100.0 * sum(sum(recs[rid]["acceptance"].values())
+                           for rid in rids) / (len(rids) * denom)
+    groups = [g for g, *_ in LADDER]
+    git_vals = [rate(g_ids, denom) for _, denom, g_ids, _ in LADDER]
+    nool_vals = [rate(n_ids, denom) for _, denom, _, n_ids in LADDER]
+    grouped_columns(
+        "trackd_ladder.svg",
+        "Concurrency ladder: mean ticket-acceptance rate by N",
+        "Mean of 2 reps/arm/point; N=10 is corpus v2 (20 tickets, scale-up 1), N=20/25/35 are corpus v3 (60 tickets, scale-up 2) -- not one scaled corpus, see caption",
+        groups,
+        [("git_fleet", GIT, git_vals), ("nool_fleet", NOOL, nool_vals)],
+        ymax=100, yticks=[0, 25, 50, 75, 100],
+        ylabel="% tickets accepted (mean of 2 reps)",
+        value_fmt=lambda v: f"{v:.0f}%")
+
+
 def fig_b5():
     data = []
     for tag, p in (("6.13.0", "results/replications/run1_micro_2026-08-20"),
@@ -310,6 +340,7 @@ def main():
     fig_composition(recs)
     fig_clusters(recs)
     fig_cost(recs)
+    fig_ladder(recs)
     fig_b5()
     fig_b2()
     fig_b6()

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="340" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">Concurrency ladder: mean ticket-acceptance rate by N</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Mean of 2 reps/arm/point; N=10 is corpus v2 (20 tickets, scale-up 1), N=20/25/35 are corpus v3 (60 tickets, scale-up 2) -- not one scaled corpus, see caption</text>
+<text x="44.0" y="297.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">0</text>
+<line x1="52.0" y1="235.0" x2="684.0" y2="235.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="238.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">25</text>
+<line x1="52.0" y1="176.0" x2="684.0" y2="176.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="179.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">50</text>
+<line x1="52.0" y1="117.0" x2="684.0" y2="117.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="120.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">75</text>
+<line x1="52.0" y1="58.0" x2="684.0" y2="58.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="61.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">100</text>
+<line x1="52.0" y1="294.0" x2="684.0" y2="294.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="16.0" y="52.0" font-size="10.5" fill="#898781" text-anchor="start" font-weight="normal">% tickets accepted (mean of 2 reps)</text>
+<path d="M 106.0 294.0 L 106.0 215.4 Q 106.0 211.4 110.0 211.4 L 126.0 211.4 Q 130.0 211.4 130.0 215.4 L 130.0 294.0 Z" fill="#eb6834"/>
+<text x="118.0" y="206.4" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">35%</text>
+<path d="M 132.0 294.0 L 132.0 73.8 Q 132.0 69.8 136.0 69.8 L 152.0 69.8 Q 156.0 69.8 156.0 73.8 L 156.0 294.0 Z" fill="#2a78d6"/>
+<text x="144.0" y="64.8" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">95%</text>
+<text x="131.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N=10 (v2)</text>
+<path d="M 264.0 294.0 L 264.0 142.6 Q 264.0 138.6 268.0 138.6 L 284.0 138.6 Q 288.0 138.6 288.0 142.6 L 288.0 294.0 Z" fill="#eb6834"/>
+<text x="276.0" y="133.6" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">66%</text>
+<path d="M 290.0 294.0 L 290.0 62.0 Q 290.0 58.0 294.0 58.0 L 310.0 58.0 Q 314.0 58.0 314.0 62.0 L 314.0 294.0 Z" fill="#2a78d6"/>
+<text x="302.0" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">100%</text>
+<text x="289.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N=20 (v3)</text>
+<path d="M 422.0 294.0 L 422.0 138.7 Q 422.0 134.7 426.0 134.7 L 442.0 134.7 Q 446.0 134.7 446.0 138.7 L 446.0 294.0 Z" fill="#eb6834"/>
+<text x="434.0" y="129.7" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">68%</text>
+<path d="M 448.0 294.0 L 448.0 62.0 Q 448.0 58.0 452.0 58.0 L 468.0 58.0 Q 472.0 58.0 472.0 62.0 L 472.0 294.0 Z" fill="#2a78d6"/>
+<text x="460.0" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">100%</text>
+<text x="447.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N=25 (v3)</text>
+<path d="M 580.0 294.0 L 580.0 185.9 Q 580.0 181.9 584.0 181.9 L 600.0 181.9 Q 604.0 181.9 604.0 185.9 L 604.0 294.0 Z" fill="#eb6834"/>
+<text x="592.0" y="176.9" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">48%</text>
+<path d="M 606.0 294.0 L 606.0 62.0 Q 606.0 58.0 610.0 58.0 L 626.0 58.0 Q 630.0 58.0 630.0 62.0 L 630.0 294.0 Z" fill="#2a78d6"/>
+<text x="618.0" y="53.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">100%</text>
+<text x="605.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N=35 (v3)</text>
+<rect x="52.0" y="319.0" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="67.0" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">git_fleet</text>
+<rect x="142.4" y="319.0" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="157.4" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">nool_fleet</text>
+</svg>
