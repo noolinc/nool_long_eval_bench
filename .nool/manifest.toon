@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Smoke-test results: git_gated_queue arm (1/1 rep) on 8-ticket v1 corpus
-knot_id: 07e2638d9fc5d0bd8dae3646c2c7a4e3106f31090a2a06728689f76ce8dddec9
-solidified_at: 1787398160070
+intent: Smoke-test results: git_scheduled + nool_gated arms (1/1 rep) on 8-ticket v1 corpus, all 3 new arms clean 8/8
+knot_id: 403746045056fdf27623fdd73c9b9ef90b425ddead8bbdc314dea8e99ac56cc3
+solidified_at: 1787398260335
 thread: main
