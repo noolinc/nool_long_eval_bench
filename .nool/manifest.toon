@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Smoke-test results: git_scheduled + nool_gated arms (1/1 rep) on 8-ticket v1 corpus, all 3 new arms clean 8/8
-knot_id: 403746045056fdf27623fdd73c9b9ef90b425ddead8bbdc314dea8e99ac56cc3
-solidified_at: 1787398260335
+intent: Pre-registered arm-decomposition study (spec 8c): 2 reps landed so far — git_gated_queue 39/60 (x2), git_scheduled 60/60, nool_gated 60/60, corpus v3 N=35
+knot_id: 8993ce91d9da2d0a5695b541fdeabe46279f8788cb05b1083a81eed6f66b5645
+solidified_at: 1787399443738
 thread: main
