@@ -1,0 +1,1719 @@
+{
+  "run_id": "fleet_git_scheduled_d8053317",
+  "arm": "git_scheduled",
+  "arm_policy": {
+    "dispatch": "footprint",
+    "ci_gate": false,
+    "merge": "git",
+    "nool_ws": false
+  },
+  "model": "claude-sonnet-5",
+  "n_workers": 35,
+  "corpus": "v3",
+  "tickets_file": "tickets_v3.json",
+  "starter_sha": "08bb4e8a42c75a494358b27b90abd837a4dbf652228e0b68373d70b033e353a7",
+  "started_utc": "2026-08-22T12:04:35.186275+00:00",
+  "preflight": {
+    "adapter": "claude",
+    "cli_version": "2.1.239 (Claude Code)"
+  },
+  "nool_version": "nool 6.14.1",
+  "git_version": "git version 2.50.1 (Apple Git-155)",
+  "go_version": "go version go1.26.2 darwin/arm64",
+  "agents": {
+    "t1": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 20138.8,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 12,
+      "tokens_out": 1293,
+      "cache_read_tokens": 169197,
+      "cache_creation_tokens": 12963,
+      "cost_usd": 0.09974539999999998,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t1.jsonl"
+    },
+    "t19": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 16439.6,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 12,
+      "tokens_out": 782,
+      "cache_read_tokens": 165563,
+      "cache_creation_tokens": 11843,
+      "cost_usd": 0.08939160000000002,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t19.jsonl"
+    },
+    "t2": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 23572.3,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 8,
+      "tool_calls": 7,
+      "tokens_in": 12,
+      "tokens_out": 1404,
+      "cache_read_tokens": 171404,
+      "cache_creation_tokens": 13364,
+      "cost_usd": 0.10294980000000001,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t2.jsonl"
+    },
+    "t3": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 25559.5,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 12,
+      "tool_calls": 11,
+      "tokens_in": 14,
+      "tokens_out": 1722,
+      "cache_read_tokens": 208471,
+      "cache_creation_tokens": 15850,
+      "cost_usd": 0.1234522,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t3.jsonl"
+    },
+    "t41": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 19821.2,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 8,
+      "tool_calls": 7,
+      "tokens_in": 16,
+      "tokens_out": 982,
+      "cache_read_tokens": 225632,
+      "cache_creation_tokens": 12245,
+      "cost_usd": 0.10505139999999999,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t41.jsonl"
+    },
+    "t42": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 18609.4,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 8,
+      "tool_calls": 7,
+      "tokens_in": 16,
+      "tokens_out": 837,
+      "cache_read_tokens": 225379,
+      "cache_creation_tokens": 12141,
+      "cost_usd": 0.10311179999999999,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t42.jsonl"
+    },
+    "t33": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 22737.5,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 12,
+      "tokens_out": 1580,
+      "cache_read_tokens": 168110,
+      "cache_creation_tokens": 13207,
+      "cost_usd": 0.10336,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t33.jsonl"
+    },
+    "t43": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 19242.3,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 919,
+      "cache_read_tokens": 196140,
+      "cache_creation_tokens": 12182,
+      "cost_usd": 0.09826400000000002,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t43.jsonl"
+    },
+    "t44": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 19022.5,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 809,
+      "cache_read_tokens": 195694,
+      "cache_creation_tokens": 12024,
+      "cost_usd": 0.09641380000000001,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t44.jsonl"
+    },
+    "t45": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 20178.6,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 8,
+      "tool_calls": 7,
+      "tokens_in": 16,
+      "tokens_out": 1008,
+      "cache_read_tokens": 225377,
+      "cache_creation_tokens": 12205,
+      "cost_usd": 0.10509940000000001,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t45.jsonl"
+    },
+    "t47": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 18232.1,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 882,
+      "cache_read_tokens": 195490,
+      "cache_creation_tokens": 12040,
+      "cost_usd": 0.09719399999999999,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t47.jsonl"
+    },
+    "t48": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 17327.6,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 755,
+      "cache_read_tokens": 195096,
+      "cache_creation_tokens": 11853,
+      "cost_usd": 0.0950642,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t48.jsonl"
+    },
+    "t49": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 16580.5,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 12,
+      "tokens_out": 827,
+      "cache_read_tokens": 165784,
+      "cache_creation_tokens": 11839,
+      "cost_usd": 0.0898978,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t49.jsonl"
+    },
+    "t4": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 35967.0,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 14,
+      "tool_calls": 13,
+      "tokens_in": 22,
+      "tokens_out": 2751,
+      "cache_read_tokens": 332468,
+      "cache_creation_tokens": 16172,
+      "cost_usd": 0.1598546,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t4.jsonl"
+    },
+    "t50": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 18520.2,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 9,
+      "tool_calls": 8,
+      "tokens_in": 14,
+      "tokens_out": 1040,
+      "cache_read_tokens": 200355,
+      "cache_creation_tokens": 13159,
+      "cost_usd": 0.104207,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t50.jsonl"
+    },
+    "t52": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 16835.6,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 12,
+      "tokens_out": 784,
+      "cache_read_tokens": 165777,
+      "cache_creation_tokens": 11806,
+      "cost_usd": 0.0893464,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t52.jsonl"
+    },
+    "t46": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 26805.3,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 991,
+      "cache_read_tokens": 196651,
+      "cache_creation_tokens": 12281,
+      "cost_usd": 0.0994722,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t46.jsonl"
+    },
+    "t53": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 18469.4,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 845,
+      "cache_read_tokens": 195658,
+      "cache_creation_tokens": 11996,
+      "cost_usd": 0.09668660000000001,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t53.jsonl"
+    },
+    "t51": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 22078.0,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 912,
+      "cache_read_tokens": 195062,
+      "cache_creation_tokens": 12150,
+      "cost_usd": 0.09785039999999999,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t51.jsonl"
+    },
+    "t54": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 18142.3,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 781,
+      "cache_read_tokens": 195219,
+      "cache_creation_tokens": 11881,
+      "cost_usd": 0.09547279999999998,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t54.jsonl"
+    },
+    "t59": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 13473.2,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 5,
+      "tool_calls": 4,
+      "tokens_in": 10,
+      "tokens_out": 561,
+      "cache_read_tokens": 134541,
+      "cache_creation_tokens": 11624,
+      "cost_usd": 0.0801102,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t59.jsonl"
+    },
+    "t57": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 18917.7,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 969,
+      "cache_read_tokens": 196206,
+      "cache_creation_tokens": 12211,
+      "cost_usd": 0.0988812,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t57.jsonl"
+    },
+    "t56": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 20714.1,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 8,
+      "tool_calls": 7,
+      "tokens_in": 16,
+      "tokens_out": 1050,
+      "cache_read_tokens": 226075,
+      "cache_creation_tokens": 12367,
+      "cost_usd": 0.10633799999999999,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t56.jsonl"
+    },
+    "t60": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 15456.9,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 12,
+      "tokens_out": 709,
+      "cache_read_tokens": 164640,
+      "cache_creation_tokens": 11833,
+      "cost_usd": 0.08847100000000001,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t60.jsonl"
+    },
+    "t55": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 23342.9,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 14,
+      "tokens_out": 780,
+      "cache_read_tokens": 195749,
+      "cache_creation_tokens": 11995,
+      "cost_usd": 0.0960338,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t55.jsonl"
+    },
+    "t6": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 21630.8,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 10,
+      "tool_calls": 9,
+      "tokens_in": 16,
+      "tokens_out": 1370,
+      "cache_read_tokens": 231248,
+      "cache_creation_tokens": 13967,
+      "cost_usd": 0.1169296,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t6.jsonl"
+    },
+    "t58": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 26186.1,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 8,
+      "tool_calls": 7,
+      "tokens_in": 16,
+      "tokens_out": 1053,
+      "cache_read_tokens": 226164,
+      "cache_creation_tokens": 12369,
+      "cost_usd": 0.10635680000000002,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t58.jsonl"
+    },
+    "t5": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 21602.6,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 10,
+      "tool_calls": 9,
+      "tokens_in": 14,
+      "tokens_out": 1267,
+      "cache_read_tokens": 201713,
+      "cache_creation_tokens": 13659,
+      "cost_usd": 0.1087696,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t5.jsonl"
+    },
+    "t7": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 25910.3,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 10,
+      "tool_calls": 9,
+      "tokens_in": 18,
+      "tokens_out": 1578,
+      "cache_read_tokens": 268031,
+      "cache_creation_tokens": 15145,
+      "cost_usd": 0.13109719999999997,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t7.jsonl"
+    },
+    "t15": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 24599.4,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 9,
+      "tool_calls": 8,
+      "tokens_in": 18,
+      "tokens_out": 1201,
+      "cache_read_tokens": 261250,
+      "cache_creation_tokens": 13402,
+      "cost_usd": 0.118977,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t15.jsonl"
+    },
+    "t9": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 32797.5,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 10,
+      "tool_calls": 9,
+      "tokens_in": 18,
+      "tokens_out": 1583,
+      "cache_read_tokens": 265218,
+      "cache_creation_tokens": 14568,
+      "cost_usd": 0.1282596,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t9.jsonl"
+    },
+    "t34": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 31548.7,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 9,
+      "tool_calls": 8,
+      "tokens_in": 16,
+      "tokens_out": 2060,
+      "cache_read_tokens": 234004,
+      "cache_creation_tokens": 14574,
+      "cost_usd": 0.1268478,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t34.jsonl"
+    },
+    "t36": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 17349.3,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 12,
+      "tokens_out": 863,
+      "cache_read_tokens": 167107,
+      "cache_creation_tokens": 12120,
+      "cost_usd": 0.0916314,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t36.jsonl"
+    },
+    "t18": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 20083.1,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 9,
+      "tool_calls": 8,
+      "tokens_in": 16,
+      "tokens_out": 962,
+      "cache_read_tokens": 229818,
+      "cache_creation_tokens": 13109,
+      "cost_usd": 0.10913360000000001,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t18.jsonl"
+    },
+    "t16": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 17292.7,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 12,
+      "tokens_out": 604,
+      "cache_read_tokens": 167932,
+      "cache_creation_tokens": 12526,
+      "cost_usd": 0.0908164,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t16.jsonl"
+    },
+    "t12": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 26391.4,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 12,
+      "tool_calls": 11,
+      "tokens_in": 20,
+      "tokens_out": 1736,
+      "cache_read_tokens": 293466,
+      "cache_creation_tokens": 14456,
+      "cost_usd": 0.13502120000000004,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t12.jsonl"
+    },
+    "t17": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 12642.4,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 4,
+      "tool_calls": 3,
+      "tokens_in": 6,
+      "tokens_out": 845,
+      "cache_read_tokens": 76620,
+      "cache_creation_tokens": 11910,
+      "cost_usd": 0.072542,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t17.jsonl"
+    },
+    "t20": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 41517.7,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 16,
+      "tool_calls": 15,
+      "tokens_in": 30,
+      "tokens_out": 2723,
+      "cache_read_tokens": 483013,
+      "cache_creation_tokens": 19073,
+      "cost_usd": 0.20124460000000002,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t20.jsonl"
+    },
+    "t30": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 17513.8,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 10,
+      "tokens_out": 1201,
+      "cache_read_tokens": 137323,
+      "cache_creation_tokens": 12630,
+      "cost_usd": 0.0911016,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t30.jsonl"
+    },
+    "t35": {
+      "adapter": "claude",
+      "exit_code": 0,
+      "timed_out": false,
+      "wall_ms": 29207.3,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 6,
+      "tool_calls": 5,
+      "tokens_in": 12,
+      "tokens_out": 1483,
+      "cache_read_tokens": 170827,
+      "cache_creation_tokens": 13577,
+      "cost_usd": 0.10447240000000002,
+      "is_error": false,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t35.jsonl"
+    },
+    "t27": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3184.5,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t27.jsonl"
+    },
+    "t31": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3174.8,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t31.jsonl"
+    },
+    "t25": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 6682.1,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 2,
+      "tool_calls": 1,
+      "tokens_in": 2,
+      "tokens_out": 141,
+      "cache_read_tokens": 18404,
+      "cache_creation_tokens": 10612,
+      "cost_usd": 0.047542799999999996,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t25.jsonl"
+    },
+    "t10": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 36182.6,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 9,
+      "tool_calls": 8,
+      "tokens_in": 16,
+      "tokens_out": 2396,
+      "cache_read_tokens": 227246,
+      "cache_creation_tokens": 14385,
+      "cost_usd": 0.1280572,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t10.jsonl"
+    },
+    "t8": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3247.4,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t8.jsonl"
+    },
+    "t37": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 31765.1,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 7,
+      "tool_calls": 6,
+      "tokens_in": 10,
+      "tokens_out": 1866,
+      "cache_read_tokens": 138146,
+      "cache_creation_tokens": 12753,
+      "cost_usd": 0.09841019999999999,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t37.jsonl"
+    },
+    "t11": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3404.5,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t11.jsonl"
+    },
+    "t13": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 19062.1,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 5,
+      "tool_calls": 4,
+      "tokens_in": 6,
+      "tokens_out": 1516,
+      "cache_read_tokens": 76496,
+      "cache_creation_tokens": 12334,
+      "cost_usd": 0.0808752,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t13.jsonl"
+    },
+    "t26": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3644.3,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t26.jsonl"
+    },
+    "t32": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3314.8,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t32.jsonl"
+    },
+    "t28": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3334.7,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t28.jsonl"
+    },
+    "t14": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 1853.7,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t14.jsonl"
+    },
+    "t21": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3596.5,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t21.jsonl"
+    },
+    "t29": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3226.8,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t29.jsonl"
+    },
+    "t22": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3315.9,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t22.jsonl"
+    },
+    "t23": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 1914.4,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t23.jsonl"
+    },
+    "t24": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3195.2,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t24.jsonl"
+    },
+    "t38": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3585.7,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t38.jsonl"
+    },
+    "t39": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3351.4,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t39.jsonl"
+    },
+    "t40": {
+      "adapter": "claude",
+      "exit_code": 1,
+      "timed_out": false,
+      "wall_ms": 3431.1,
+      "stderr_tail": "",
+      "model_reported": "claude-sonnet-5",
+      "num_turns": 1,
+      "tool_calls": null,
+      "tokens_in": 0,
+      "tokens_out": 0,
+      "cache_read_tokens": 0,
+      "cache_creation_tokens": 0,
+      "cost_usd": 0,
+      "is_error": true,
+      "transcript": "results/trackc/transcripts/fleet_git_scheduled_d8053317_t40.jsonl"
+    }
+  },
+  "integration": [
+    {
+      "ticket": "t1",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t19",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t2",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t3",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t41",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t42",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t33",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t43",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t44",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t45",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t47",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t48",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t49",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t4",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t50",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t52",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t46",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t53",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t51",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t54",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t59",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t57",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t56",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t60",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t55",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t6",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t58",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t5",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t7",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t15",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t9",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t34",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t36",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t18",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t16",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t12",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t17",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": true,
+        "smoke_ok": true
+      }
+    },
+    {
+      "ticket": "t20",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t30",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t35",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t27",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t31",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t25",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t10",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t8",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t37",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t11",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t13",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t26",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t32",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t28",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t14",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t21",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t29",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t22",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t23",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t24",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t38",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t39",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    },
+    {
+      "ticket": "t40",
+      "clean": true,
+      "exit_code": 0,
+      "queue_rejected": false,
+      "post_merge_health": {
+        "build_ok": false,
+        "smoke_ok": false
+      }
+    }
+  ],
+  "gating": {},
+  "releases": {},
+  "wall_ms": 143536.0,
+  "acceptance": {
+    "t1": false,
+    "t2": false,
+    "t3": false,
+    "t4": true,
+    "t5": false,
+    "t6": false,
+    "t7": false,
+    "t8": false,
+    "t9": false,
+    "t10": false,
+    "t11": false,
+    "t12": false,
+    "t13": false,
+    "t14": false,
+    "t15": true,
+    "t16": true,
+    "t17": true,
+    "t18": false,
+    "t19": true,
+    "t20": false,
+    "t21": false,
+    "t22": false,
+    "t23": false,
+    "t24": false,
+    "t25": false,
+    "t26": false,
+    "t27": false,
+    "t28": false,
+    "t29": false,
+    "t30": false,
+    "t31": false,
+    "t32": false,
+    "t33": true,
+    "t34": true,
+    "t35": true,
+    "t36": true,
+    "t37": false,
+    "t38": false,
+    "t39": false,
+    "t40": false,
+    "t41": true,
+    "t42": true,
+    "t43": true,
+    "t44": true,
+    "t45": true,
+    "t46": true,
+    "t47": true,
+    "t48": true,
+    "t49": true,
+    "t50": true,
+    "t51": true,
+    "t52": true,
+    "t53": true,
+    "t54": true,
+    "t55": true,
+    "t56": true,
+    "t57": true,
+    "t58": true,
+    "t59": true,
+    "t60": true
+  },
+  "final_health": {
+    "build_ok": false,
+    "smoke_ok": false
+  },
+  "git_commits_on_main": 82,
+  "cost_usd": 4.6098,
+  "finished_utc": "2026-08-22T12:07:18.549349+00:00"
+}
