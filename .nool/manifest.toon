@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land N=35 nool_fleet rep-2 corpus-v3 run record: 60/60 accepted, wall 349s, cost $6.94, zero conflicts, zero errors. Completes the N=35 point: git_fleet 37/60 (smoke_ok=false) and 20/60 (build_ok=false, full poisoning) vs nool_fleet 60/60 and 60/60.
-knot_id: 8434a741cca96c0a9513f99f87da7236cb499efbd5256cb642a7f23c5de76193
-solidified_at: 1787357381921
+intent: Update fleet-study paper with the completed pre-registered N=35 point: git_fleet 37/60 with smoke_ok=false (3 clean-merge test failures) and 20/60 with build_ok=false (full build-poisoning, 18 cascading failures) vs nool_fleet 60/60 both reps with zero conflicts -- replicates scale-up 1's bimodal git build-poisoning failure mode at higher N and increasing severity. Updates abstract, section 5.5 (new N=35 subsection), evidence map C2/C4 rows, and P1 roadmap status
+knot_id: 329986bec3cac3eafba78d13be1128d537353f800079b2ddf06ef8d913cffee8
+solidified_at: 1787357470145
 thread: main
