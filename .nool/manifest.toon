@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land N=35 git_fleet rep-2 corpus-v3 run record: 20/60 accepted, wall 126s, cost $6.78. 22 failures are merge conflicts on contended clusters; 18 additional failures (t1-9, t14-15, t17-18, t30, t32, t38, t49-50) are cascading failures from a final build_ok=False -- the merged main branch does not compile, so acceptance tests fail regardless of whether their own ticket landed cleanly. Replicates scale-up 1's bimodal git failure mode (contention-only losses vs near-total build-poisoning loss) at N=35/corpus v3, and rep 1's smaller smoke_ok=False event looks like the same underlying failure mode at lower severity.
-knot_id: f3e8d37ed75574db434f785ea94a9232c968c2721b939ad9f6282853b308ceb4
-solidified_at: 1787356590337
+intent: Land N=35 nool_fleet rep-1 corpus-v3 run record: 60/60 accepted, wall 312s, cost $6.81, zero conflicts, zero errors.
+knot_id: a6bf059b24c9b0f08919d4a4b0988b5085e04293e0e11f2e25e4c4cf5106d48a
+solidified_at: 1787356968138
 thread: main
