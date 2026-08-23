@@ -1,0 +1,10 @@
+inv_id: POL-DOCTOR-001
+title: "Ensure intent description present at release"
+scope:
+  type: global
+kind: behavioral
+severity: high
+mode: blocking
+stages: ["doctor"]
+requires:
+  - intent_present: true
