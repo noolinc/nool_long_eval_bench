@@ -16,13 +16,13 @@
 <rect x="158.3" y="292.0" width="24.0" height="2" fill="#2a78d6"/>
 <text x="170.3" y="289.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">0%</text>
 <text x="157.3" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N = 2</text>
-<path d="M 343.0 294.0 L 343.0 114.4 Q 343.0 110.4 347.0 110.4 L 363.0 110.4 Q 367.0 110.4 367.0 114.4 L 367.0 294.0 Z" fill="#eb6834"/>
-<text x="355.0" y="105.4" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">47%</text>
+<path d="M 343.0 294.0 L 343.0 127.6 Q 343.0 123.6 347.0 123.6 L 363.0 123.6 Q 367.0 123.6 367.0 127.6 L 367.0 294.0 Z" fill="#eb6834"/>
+<text x="355.0" y="118.6" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">43%</text>
 <rect x="369.0" y="292.0" width="24.0" height="2" fill="#2a78d6"/>
 <text x="381.0" y="289.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">0%</text>
 <text x="368.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N = 5</text>
-<path d="M 553.7 294.0 L 553.7 79.5 Q 553.7 75.5 557.7 75.5 L 573.7 75.5 Q 577.7 75.5 577.7 79.5 L 577.7 294.0 Z" fill="#eb6834"/>
-<text x="565.7" y="70.5" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">56%</text>
+<path d="M 553.7 294.0 L 553.7 44.5 Q 553.7 40.5 557.7 40.5 L 573.7 40.5 Q 577.7 40.5 577.7 44.5 L 577.7 294.0 Z" fill="#eb6834"/>
+<text x="565.7" y="35.5" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">64%</text>
 <rect x="579.7" y="292.0" width="24.0" height="2" fill="#2a78d6"/>
 <text x="591.7" y="289.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">0%</text>
 <text x="578.7" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">N = 15</text>
