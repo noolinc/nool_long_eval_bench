@@ -1,7 +1,7 @@
 {
  "benchmark": "b2_concurrency",
  "provenance": {
-  "timestamp_utc": "2026-08-23T11:29:22.964795+00:00",
+  "timestamp_utc": "2026-08-23T11:35:30.365466+00:00",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "machine": "arm64",
   "nool_version": "nool 6.14.2",
@@ -23,61 +23,61 @@
  },
  "cells": {
   "git_n2": {
-   "wall_time_ms": 375.9,
+   "wall_time_ms": 457.2,
    "ops_expected": 12,
    "ops_landed": 12,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 5,
-   "total_retries": 4,
+   "ops_swept_into_other_commit": 2,
+   "total_retries": 5,
    "op_latency": {
     "n": 12,
-    "median_ms": 29.78,
-    "p10_ms": 12.29,
-    "p90_ms": 34.47,
-    "min_ms": 12.29,
-    "max_ms": 36.08
+    "median_ms": 30.84,
+    "p10_ms": 25.43,
+    "p90_ms": 35.48,
+    "min_ms": 25.43,
+    "max_ms": 36.43
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 7
+   "history_entries_added": 10
   },
   "git_n5": {
-   "wall_time_ms": 917.6,
+   "wall_time_ms": 811.9,
    "ops_expected": 30,
    "ops_landed": 30,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 18,
-   "total_retries": 34,
+   "ops_swept_into_other_commit": 13,
+   "total_retries": 26,
    "op_latency": {
     "n": 30,
-    "median_ms": 26.1,
-    "p10_ms": 12.95,
-    "p90_ms": 33.88,
-    "min_ms": 11.82,
-    "max_ms": 36.12
+    "median_ms": 30.81,
+    "p10_ms": 24.04,
+    "p90_ms": 34.28,
+    "min_ms": 14.61,
+    "max_ms": 39.29
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 12
+   "history_entries_added": 17
   },
   "git_n15": {
-   "wall_time_ms": 1031.6,
+   "wall_time_ms": 1352.7,
    "ops_expected": 90,
    "ops_landed": 90,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 60,
-   "total_retries": 85,
+   "ops_swept_into_other_commit": 58,
+   "total_retries": 103,
    "op_latency": {
     "n": 90,
-    "median_ms": 33.83,
-    "p10_ms": 21.76,
-    "p90_ms": 45.45,
-    "min_ms": 12.02,
-    "max_ms": 50.29
+    "median_ms": 33.97,
+    "p10_ms": 25.17,
+    "p90_ms": 46.84,
+    "min_ms": 12.62,
+    "max_ms": 61.91
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 30
+   "history_entries_added": 32
   },
   "nool_n2": {
-   "wall_time_ms": 735.5,
+   "wall_time_ms": 750.3,
    "ops_expected": 12,
    "ops_landed": 12,
    "writers_gave_up": 0,
@@ -85,17 +85,17 @@
    "total_retries": 0,
    "op_latency": {
     "n": 12,
-    "median_ms": 108.2,
-    "p10_ms": 89.03,
-    "p90_ms": 143.49,
-    "min_ms": 89.03,
-    "max_ms": 160.37
+    "median_ms": 109.34,
+    "p10_ms": 79.2,
+    "p90_ms": 148.15,
+    "min_ms": 79.2,
+    "max_ms": 222.06
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 12
   },
   "nool_n5": {
-   "wall_time_ms": 1435.3,
+   "wall_time_ms": 1423.9,
    "ops_expected": 30,
    "ops_landed": 30,
    "writers_gave_up": 0,
@@ -103,17 +103,17 @@
    "total_retries": 0,
    "op_latency": {
     "n": 30,
-    "median_ms": 130.14,
-    "p10_ms": 103.76,
-    "p90_ms": 428.91,
-    "min_ms": 79.44,
-    "max_ms": 488.49
+    "median_ms": 167.71,
+    "p10_ms": 106.26,
+    "p90_ms": 382.18,
+    "min_ms": 81.85,
+    "max_ms": 567.59
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 30
   },
   "nool_n15": {
-   "wall_time_ms": 3929.2,
+   "wall_time_ms": 3935.0,
    "ops_expected": 90,
    "ops_landed": 90,
    "writers_gave_up": 0,
@@ -121,11 +121,11 @@
    "total_retries": 0,
    "op_latency": {
     "n": 90,
-    "median_ms": 392.28,
-    "p10_ms": 178.35,
-    "p90_ms": 973.63,
-    "min_ms": 109.61,
-    "max_ms": 2408.22
+    "median_ms": 404.3,
+    "p10_ms": 160.1,
+    "p90_ms": 1053.17,
+    "min_ms": 105.42,
+    "max_ms": 2682.22
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 90
