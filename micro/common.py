@@ -46,6 +46,11 @@ def make_workspace(parent, name, nool=False):
         code, out, _ = run(["nool", "init"], ws)
         if code != 0:
             raise RuntimeError(f"nool init failed in {ws}:\n{out}")
+        # Create minimal go.mod so nool's integrity driver can locate project root
+        # for Go projects (required in 6.14.x; absent in benchmarks' temp repos).
+        go_mod = ws / "go.mod"
+        if not go_mod.exists():
+            go_mod.write_text("module bench\ngo 1.21\n")
     return ws
 
 

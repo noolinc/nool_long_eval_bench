@@ -1,10 +1,10 @@
 {
  "benchmark": "b4_guardrails",
  "provenance": {
-  "timestamp_utc": "2026-08-23T01:55:57.525496+00:00",
+  "timestamp_utc": "2026-08-23T11:15:23.076151+00:00",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 6.14.1",
+  "nool_version": "nool 6.14.2",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -25,7 +25,7 @@
     "propose_tail": [
      "  [Pre-check] \u2705 In-process parse OK (go)",
      "  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...",
-     "  [Reify] \u2705 Full validation passed. Hash: b91ac4922ec3fad4f462bba7c65420ad779455d42ecb6ecefa05ea5328e6ad00"
+     "  [Reify] \u2705 Full validation passed. Hash: 44f00a60b9ac59dd0e84ce0b209abe54a71812c069fc5c208a217e01e0bd6ebd"
     ],
     "validate_tail": []
    },
@@ -57,7 +57,7 @@
     "validate_exit": 0,
     "propose_tail": [
      "  [Reify] \ud83d\udce6 Detected compiled language '.go'. Enabling project-level reification...",
-     "  [Reify] \ud83d\udccd Project root detected: ",
+     "  [Reify] \ud83d\udccd Project root detected: .",
      "Error: Precheck failed: Go syntax error: parse failed"
     ],
     "validate_tail": []
@@ -68,7 +68,7 @@
     "validate_exit": 0,
     "propose_tail": [
      "  [Reify] \ud83d\udce6 Detected compiled language '.go'. Enabling project-level reification...",
-     "  [Reify] \ud83d\udccd Project root detected: ",
+     "  [Reify] \ud83d\udccd Project root detected: .",
      "Error: Precheck failed: Go syntax error: parse failed"
     ],
     "validate_tail": [
@@ -91,7 +91,7 @@
     "propose_tail": [
      "  \u2500\u2500\u2500 95 B of driver output folded to 94 B (1.1% less; --verbose for raw) \u2500\u2500\u2500",
      "",
-     "Error: Reification failed for '.go'. Output hash: 4f3fedad1c810275d871b1594120756cf019cfadb1329f43435e7763cf21f1c3"
+     "Error: Reification failed for '.go'. Output hash: dc739b15df5b958fe53f1b0be33fb281a906078cb8d4fd36549be842a96e5b59"
     ],
     "validate_tail": []
    },
