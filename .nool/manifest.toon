@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: N=10/v3 git_gated_queue ladder point (2 reps, claude-sonnet-5): 40/60 and 39/60 accepted -- consistent with the established git-conflict pattern at N=20/25/35
-knot_id: 5441c8d4f40b97e78d95fc06257bab1681b8235fec646d27d7406d22376f31e2
-solidified_at: 1787743051784
+intent: N=10/v3 git_scheduled ladder point (2 reps, claude-sonnet-5): 60/60 both reps, zero conflicts -- matches the established pattern of the scheduler-equipped git arm performing as well as nool arms
+knot_id: 582e19b68ece3c00acdb994cdc5dffc4326558aab673d83f627a65cc8a370b43
+solidified_at: 1787743776463
 thread: main
