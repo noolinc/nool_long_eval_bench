@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: N=10/v3 nool_gated ladder point (2 reps, claude-sonnet-5): 60/60 both reps, zero conflicts -- completes the full N=10/v3 ladder point across all 6 arms (git_fleet, nool_fleet, nool_try, git_gated_queue, git_scheduled, nool_gated)
-knot_id: 2ea69a77c57f2b8f64cc69eaa2c94a30aacf86e955f2155267a9125a9fd36eb9
-solidified_at: 1787744618441
+intent: N=25/v3 nool_try ladder point (1 rep, claude-sonnet-5): 60/60 accepted, zero conflicts -- matches nool_fleet/nool_gated's established zero-conflict pattern at N=25. A second rep hung near the end (57/60 through, zero live subprocess, no progress for 7+ min -- same signature as earlier hangs, root cause not yet identified for this specific occurrence since prior fixes were already in place) and was killed rather than landed; only this clean rep is recorded
+knot_id: 6d612ceba301efa313e645e739e50401e499f4291916850eadd25bedb1b6adf4
+solidified_at: 1787760384614
 thread: main
