@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Micro-benchmarks updated for nool 7.0.0: B1-B7 full rerun (b6/b7 script fixes carried over: b6 zero-pads helper names to avoid symbol-prefix collisions, b7 lands via --fast); figures regenerated. Flags a new debug-bisect regression: first-bad-knot answer now names a synthetic 'Attest ... integrity-driver' checkpoint knot absent from nool log, not a real landing (was: correct-but-wrong-real-knot in 6.13-6.14)
-knot_id: dea076c8513e8254e0d3d6492a29ca905349fcf436cb3d7581498cd081c13730
-solidified_at: 1787708557253
+intent: Fix B7's bisect interpretation for nool 7.0.0's attestation-knot indirection: the integrity-driver mints an unconditional per-landing syntax-attestation knot invisible to nool log but not excluded from debug bisect's search space, so 'First bad Knot' can name a wrapper knot with no resolvable intent. b7_regression_localization.py now unwraps 'Attest ... for <prefix>' to the real knot it attests and judges correctness against that; summarize.py's B7 table surfaces the resolved intent and via_attestation prefix. Corrected result: nool resolves to landing 6 (off-by-one before the true landing 7 culprit), not a total miss
+knot_id: a019d5b2204d3831866f443ee62e53673c04a4846028635dec114ee463f3f017
+solidified_at: 1787709115300
 thread: main

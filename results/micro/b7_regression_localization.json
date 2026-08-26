@@ -1,7 +1,7 @@
 {
  "benchmark": "b7_regression_localization",
  "provenance": {
-  "timestamp_utc": "2026-08-26T01:39:05.875997+00:00",
+  "timestamp_utc": "2026-08-26T01:51:10.006124+00:00",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "machine": "arm64",
   "nool_version": "nool 7.0.0",
@@ -18,22 +18,24 @@
  "arms": {
   "git": {
    "culprit_found": true,
-   "wall_ms": 2081.0,
+   "wall_ms": 2382.6,
    "bisect_steps": 3,
    "exit_code": 0
   },
   "nool": {
    "culprit_found": false,
-   "wall_ms": 1159.3,
+   "wall_ms": 1310.7,
    "bisect_steps_reported": 0,
    "exit_code": 0,
-   "knot_named": "c59eec4f1ded3123",
+   "knot_named": "92680092a9406964",
    "knot_named_intent": null,
+   "attested_for": "371d7b42",
+   "resolved_intent": "landing 6: add Extra6",
    "truth_intent": "landing 7",
    "output_tail": [
-    "  \ud83d\udc1b First bad Knot: c59eec4f1ded3123",
-    "  Intent: \"Attest    syntax Pass (Check) by integrity-driver for 035620bd\"",
-    "  Time: 2026-08-26 01:39:02 UTC",
+    "  \ud83d\udc1b First bad Knot: 92680092a9406964",
+    "  Intent: \"Attest    syntax Pass (Check) by integrity-driver for 371d7b42\"",
+    "  Time: 2026-08-26 01:51:06 UTC",
     "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
    ]
   }

@@ -130,10 +130,11 @@ def b7():
     print("== B7 regression localization ==")
     rows = []
     for arm, v in d["arms"].items():
-        rows.append([arm, v.get("culprit_found"),
-                     v.get("knot_named_intent", "-"), v.get("wall_ms"),
-                     v.get("bisect_steps", v.get("bisect_steps_reported"))])
-    table(rows, ["arm", "correct", "named", "wall_ms", "steps"])
+        named = v.get("knot_named_intent") or v.get("resolved_intent") or "-"
+        rows.append([arm, v.get("culprit_found"), named, v.get("wall_ms"),
+                     v.get("bisect_steps", v.get("bisect_steps_reported")),
+                     v.get("attested_for", "-")])
+    table(rows, ["arm", "correct", "named", "wall_ms", "steps", "via_attestation"])
 
 
 def trackc():

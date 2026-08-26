@@ -98,22 +98,41 @@ def nool_arm(root):
                     if f"landing {BAD_INDEX}:" in k["intent"])
     bad_id = next(k["id"] for k in knots_old_first
                   if f"landing {K}:" in k["intent"])
-    # --bad must be explicit: the HEAD default resolves outside knot-id space
-    # in nool 6.13 and reports "No knots found between good and bad".
+    # --bad must be explicit: relying on the HEAD default is undocumented
+    # behavior we haven't retested on 7.0.0 (6.13 errored "No knots found
+    # between good and bad" on it; --help now documents a HEAD default).
     t0 = time.monotonic()
     code, out, _ = run(["nool", "debug", "bisect", "--good", good_id,
                         "--bad", bad_id,
                         "--test", "go test ./...", "--compact"], ws, timeout=600)
     ms = (time.monotonic() - t0) * 1000.0
-    found = truth_id[:8] in out or truth_id in out
     steps = len(re.findall(r"(?i)testing knot|step ", out))
     m = re.search(r"First bad Knot: ([0-9a-f]+)", out)
     named = m.group(1) if m else None
     named_intent = next((k["intent"] for k in knots_old_first
                          if named and k["id"].startswith(named)), None)
+    # nool 7.0.0: every landing also mints an unconditional integrity-driver
+    # syntax attestation knot ("Attest ... for <prefix>"), invisible to
+    # `nool log` but not excluded from bisect's own search space -- its
+    # final "First bad Knot" answer can BE one of these wrapper knots
+    # rather than a real landing. Unwrap it: resolve "<prefix>" back to the
+    # real knot it attests, and judge correctness against that; falls back
+    # to the raw named knot when there is no wrapper (pre-7.0.0 behavior).
+    attested_for = resolved_intent = None
+    if named_intent is None and named is not None:
+        wrap_m = re.search(r"integrity-driver for ([0-9a-f]+)", out)
+        if wrap_m:
+            attested_for = wrap_m.group(1)
+            resolved = next((k for k in knots_old_first
+                             if k["id"].startswith(attested_for)), None)
+            if resolved:
+                resolved_intent = resolved["intent"]
+    effective_intent = resolved_intent or named_intent
+    found = effective_intent is not None and f"landing {BAD_INDEX}:" in effective_intent
     return {"culprit_found": found, "wall_ms": round(ms, 1),
             "bisect_steps_reported": steps, "exit_code": code,
             "knot_named": named, "knot_named_intent": named_intent,
+            "attested_for": attested_for, "resolved_intent": resolved_intent,
             "truth_intent": f"landing {BAD_INDEX}",
             "output_tail": out.strip().splitlines()[-4:]}
 
