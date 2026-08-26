@@ -114,8 +114,13 @@ def transcript_rate_limited(tpath):
     identically since `agent_ticket`/`agent_ticket_try` share this check).
     A free-text 'session limit' marker was dropped for the same reason: it
     matches ordinary English about application sessions/limits, which this
-    corpus's own tickets discuss (user sessions, TTLs). Only a
-    `rate_limit_event` whose own status is not "allowed" counts."""
+    corpus's own tickets discuss (user sessions, TTLs). A status not
+    literally "allowed" is not enough either — verified 2026-08-26 (after
+    heavy same-day API usage): "allowed_warning" is a real, common status
+    ("still allowed, here's a heads-up your utilization is climbing"), and
+    an exact-match check treated it as a throttling incident, aborting a
+    whole batch before a single ticket finished. Only a status that does
+    NOT start with "allowed" counts as a real signal."""
     try:
         with open(tpath, "rb") as f:
             f.seek(0, 2)
@@ -136,7 +141,7 @@ def transcript_rate_limited(tpath):
             continue
         if ev.get("type") == "rate_limit_event":
             status = (ev.get("rate_limit_info") or {}).get("status")
-            if status and status != "allowed":
+            if status and not status.startswith("allowed"):
                 return True
     return False
 
