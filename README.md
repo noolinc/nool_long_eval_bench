@@ -46,12 +46,12 @@ feature pairs). The paper figure is cited as canonical here — confirm
 directly against the benchmark's own source before the Track A1 integration
 relies on either number.
 
-## Findings at a glance (runs 1–3 + fleet scale-up 1 and 2, 2026-08-20/22)
+## Findings at a glance (runs 1–3 + fleet scale-up 1 and 2 + nool 7.0.0, 2026-08-20/26)
 
 Full report with figures and provenance:
 [`docs/findings/2026-08-21-findings.md`](docs/findings/2026-08-21-findings.md) ·
 academic write-up: `docs/paper/2026-08-nool-fleet-study.md`. One pinned
-model (claude-sonnet-5) throughout; product versions 6.13.0 → 6.14.1
+model (claude-sonnet-5) throughout; product versions 6.13.0 → 6.14.1 → 7.0.0
 recorded per run.
 
 ![Concurrency ladder: mean acceptance rate by N](docs/findings/figures/trackd_ladder.svg)
@@ -66,22 +66,41 @@ recorded per run.
   textually-clean merge breaking the build and voiding 18 further tickets.
   Spend per accepted ticket stays lower for the gated arm at every point
   measured ($0.11–0.21 vs $0.18–3.80 for git).
-- **Attribution audit (2026-08-22, paper §5.6):** the gating in all
-  collected fleet runs was computed by the harness from corpus-declared
+- **Attribution audit (2026-08-22, paper §5.6):** the gating in the
+  original fleet runs was computed by the harness from corpus-declared
   footprints — nool's own conflict verdicts were advisory and never
-  consulted — so the separation above is established for the dispatch
-  *policy*, not yet the product. Conditional on a ticket's work landing on
-  main, acceptance is ~100% in both arms: the agents write equally good
-  code, and the whole gap is integration policy. Three ablation arms are
-  pre-registered with fixed predictions (spec §8c): a CI-gated git merge
-  queue, git under the identical scheduler, and dispatch gated by nool's
-  own lease refusals.
-- **Mechanisms moved with the product:** on 6.14.1, contended merges
+  consulted — so that separation was established for the dispatch
+  *policy*, not the product per se. Three ablation arms addressing this
+  are now implemented and run (spec §8c): `git_scheduled` (git under the
+  identical scheduler), `git_gated_queue` (a CI-gated git merge queue),
+  and `nool_gated` (dispatch gated by nool's own real lease refusals via
+  `announce intent`) — see the 2026-08-26 update below. Conditional on a
+  ticket's work landing on main, acceptance is ~100% across arms: the
+  agents write equally good code either way.
+- **nool 7.0.0 (2026-08-26): a sixth arm, `nool_try`, using nool's native
+  per-agent lifecycle (`try new` → `propose --try-branch` → `try
+  promote`, real `announce intent` gating throughout) instead of a git
+  branch merged in by the harness.** At N=10 (60-ticket corpus, real
+  contention clusters), all four coordinated arms — `nool_try`,
+  `nool_gated`, `nool_fleet`, `git_scheduled` — held **zero conflicts**;
+  the two uncoordinated arms (`git_fleet`, `git_gated_queue`) lost the
+  usual ~35% to merge conflicts. `git_scheduled` matching the nool arms
+  again supports the attribution-audit reading above: the separation
+  tracks coordination *policy*, not the tool. Building this arm also
+  surfaced four real nool 7.0.0 bugs (a lease-overlap check, a
+  config-replacement break, a lease-release scoping bug, and a bisect
+  regression that can name an untraceable synthetic knot) — each found,
+  reproduced standalone, reported to the vendor via nool's own knowledge
+  ledger, and worked around; full detail in the findings report §6a.
+- **Mechanisms moved with the product** on 6.14.1: contended merges
   converge 15/15 (were 1/15, = git, on ≤6.14.0), selective undo preserves
-  later unrelated work 5/5 (was 0/5), and bisect names the true culprit.
-  B4 clarified: the **default governed path rejects** test-breaking changes
-  (full semantic validation); the **`--fast` relaxed path accepts** them as
-  an explicit risk-control knob. Landing latency stays roughly 7–10× git.
+  later unrelated work 5/5 (was 0/5), and bisect named the true culprit.
+  **On 7.0.0, bisect regressed**: it can name a synthetic "integrity-driver
+  attestation" knot untraceable to any real landing (§6a) — worse than
+  6.13–6.14's "names a real-but-wrong knot." B4 clarified: the **default
+  governed path rejects** test-breaking changes (full semantic
+  validation); the **`--fast` relaxed path accepts** them as an explicit
+  risk-control knob. Landing latency stays roughly 7–10× git.
 - **Standing wins:** perfect write attribution under shared-workspace
   concurrency (git sweeps up to 56% of ops at N=15); context retrieval in
   163–408 bytes vs 660 for grep+read at small scale.
@@ -164,19 +183,27 @@ harness's own accounting — estimated metrics are banned; anything a harness
 does not expose is reported as null. See `harness/README.md` for the adapter
 contract if you are adding gemini/codex/pi.
 
-Current status: Track B complete on three product versions (6.13.0,
-6.14.0, 6.14.1) with per-version snapshots under `results/replications/`.
-Track C grid run three times (19/20, 20/20, 18/20; no arm separation).
-Track D fleet: pilot plus pre-registered scale-up 1 complete (first arm
-separation — see the findings report); scale-up 2's pre-registered
-concurrency ladder (N ∈ {10, 25, 35, 50}) has N=25 and N=35 complete on
-the hardened corpus v3, plus an off-ladder N=20 point — separation holds
-at every measured N (see the attribution audit above for what "with N"
-can and cannot mean under this design). Remaining: the §8c
-arm-decomposition study (git_gated_queue / git_scheduled / nool_gated,
-pre-registered 2026-08-22, not yet run), a claude-sonnet-5 N=10/v3
-anchor, and N=50. External benchmark adaptations (CooperBench,
-SlopCodeBench) are Tier 2 — see the spec.
+Current status: Track B complete on four product versions (6.13.0,
+6.14.0, 6.14.1, 7.0.0) with per-version snapshots under
+`results/replications/`. Track C grid run three times (19/20, 20/20,
+18/20; no arm separation). Track D fleet: pilot plus pre-registered
+scale-up 1 complete (first arm separation — see the findings report);
+scale-up 2's pre-registered concurrency ladder (N ∈ {10, 25, 35, 50}) has
+N=10 (v3 anchor, nool 7.0.0), N=25, and N=35 complete on the hardened
+corpus v3 for git_fleet/nool_fleet, plus an off-ladder N=20 point —
+separation holds at every measured N (see the attribution audit above for
+what "with N" can and cannot mean under this design). The §8c
+arm-decomposition study (git_gated_queue / git_scheduled / nool_gated) is
+implemented and run: smoke-tested clean on the 8-ticket v1 corpus and at
+N=10/v3, with `git_scheduled` matching the nool arms and confirming the
+policy-not-tool reading (§6a of the findings report). A sixth arm,
+`nool_try` (nool 7.0.0's native per-agent try-lifecycle, added
+2026-08-26), is run at N=10/v3 (60/60 both reps) and one clean N=25/v3
+rep. Remaining: the §8c arms and `nool_try` at N=25/N=35 scale beyond the
+single points measured so far, and N=50 for any arm — deferred, flagged
+as a real memory-exhaustion risk on the 16GB development machine used for
+this study. External benchmark adaptations (CooperBench, SlopCodeBench)
+are Tier 2 — see the spec.
 
 ## Threats to validity
 
