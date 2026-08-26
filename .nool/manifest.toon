@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Harness fix: both loop-based dispatchers (_lease_gated_dispatch, run_footprint_gated) leaked their inflight entry when a worker died on any exception other than RateLimitAbort (observed 2026-08-27, nool_try N=35: wedged nool release call after promote raised TimeoutExpired; admission loop then skipped refused tickets forever at ~0% CPU). Workers now catch agent-phase and integrate-phase exceptions, record them in the run record, and always release the admission lease + advance the epoch + drop inflight in a finally block. Killed run fleet_nool_try_7e2b4da7 (45/60 transcripts, never recorded) was discarded, not landed. Likely explains the undiagnosed 2026-08-26 N=25 57/60 hang.
-knot_id: fc1c452f2fc4220dac5fd290ac4652f62e392a0d542628980d0a489e9f98b2af
-solidified_at: 1787785031647
+intent: Land nool_try N=35/v3 rep 1/2 (nool 7.0.1 tranche, post-dispatcher-fix): 60/60 accepted, zero conflicts, final health green, wall 334s, $7.27. First attempt (fleet_nool_try_7e2b4da7) live-locked on the inflight-leak harness bug (fixed in b9071ee7) at 45/60 transcripts and was killed+discarded, never landed.
+knot_id: c986ad0cb75354c5ab82f6450534a80b3e7b1d4101d383465d5727b74bd47ce7
+solidified_at: 1787785443605
 thread: main
