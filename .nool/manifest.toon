@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Ablation arms smoke test (v1 8-ticket corpus, claude-sonnet-5, 1 rep each): git_gated_queue 8/8, git_scheduled 8/8, nool_gated 8/8 -- all zero conflicts, confirming all three §8c arms still work correctly with today's fixed harness (PATH shim fix, safe-release fix). One nool_gated attempt hit a genuine account rate-limit rejection mid-run (5-hour window at 100% utilization) and correctly aborted rather than producing a misleading partial result -- not landed, discarded; retried successfully after the window's nominal reset time passed
-knot_id: 0d29428a78bcd53f06b5971b7064bc57707a234b22081b7af04bfeb59f4072bf
-solidified_at: 1787741286327
+intent: N=10/v3 nool_try ladder point (2 reps, claude-sonnet-5): 60/60 and 60/60 accepted, zero conflicts -- clean rerun after fixing the --all --agent-id lease-release bug and the allowed_warning false positive. Confirms nool_try matches nool_fleet/nool_gated's zero-conflict pattern at this N once the harness's own coordination bugs are fixed
+knot_id: 7c19b115bfa2247a589255d989782fb94473d1751ef2af854e6d30aae2c82fd5
+solidified_at: 1787742484566
 thread: main
