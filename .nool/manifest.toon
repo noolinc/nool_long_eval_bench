@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Fix transcript_rate_limited's status check: an exact 'status != allowed' comparison treated 'allowed_warning' (a real, common status meaning still-allowed-but-utilization-climbing) as a throttling incident, crashing an N=10/v3 nool_try rerun before a single ticket finished. Discovered because same-day heavy real-agent usage across many benchmark runs pushed the account's 5-hour window to 93-94% utilization with overage unavailable, which is exactly when 'allowed_warning' starts appearing. Changed to a startswith('allowed') check so both 'allowed' and 'allowed_warning' pass; only a genuinely non-allowed status (denied/blocked/etc.) now triggers RateLimitAbort
-knot_id: fae154a85c4bd1e20aaf60b8f8a80e9a70b81cc47410333b126318c60fce2284
-solidified_at: 1787719339931
+intent: Ablation arms smoke test (v1 8-ticket corpus, claude-sonnet-5, 1 rep each): git_gated_queue 8/8, git_scheduled 8/8, nool_gated 8/8 -- all zero conflicts, confirming all three §8c arms still work correctly with today's fixed harness (PATH shim fix, safe-release fix). One nool_gated attempt hit a genuine account rate-limit rejection mid-run (5-hour window at 100% utilization) and correctly aborted rather than producing a misleading partial result -- not landed, discarded; retried successfully after the window's nominal reset time passed
+knot_id: 0d29428a78bcd53f06b5971b7064bc57707a234b22081b7af04bfeb59f4072bf
+solidified_at: 1787741286327
 thread: main
