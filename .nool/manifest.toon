@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land nool_gated N=35/v3 rep 2/3 (nool 7.0.1 tranche): 60/60 accepted, zero conflicts
-knot_id: 2abde4bf5c87e33e4d09b74b73a1d732b5097c9f4e0c081ec86b069f9f728bd5
-solidified_at: 1787764080206
+intent: Land nool_gated N=35/v3 rep 3/3 (nool 7.0.1 tranche): 59/60 accepted -- t29 hit a real SQLite 'database is locked' error during nool merge, recorded via nool learn a496b82d
+knot_id: 6dfdf5a62c05692fb99621a0c36527e68177efe67c64825b336cbb1e805a1028
+solidified_at: 1787764703435
 thread: main
