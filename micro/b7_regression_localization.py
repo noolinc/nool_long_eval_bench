@@ -54,7 +54,7 @@ def land(ws, arm, msg):
     if arm == "git":
         code, out, _ = git_commit_all(ws, msg)
     else:
-        code, out, _ = nool_land(ws, msg)
+        code, out, _ = nool_land(ws, msg, fast=True)
     if code != 0:
         raise RuntimeError(f"land failed: {msg}\n{out}")
 

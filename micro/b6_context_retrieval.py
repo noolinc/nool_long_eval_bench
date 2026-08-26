@@ -35,8 +35,8 @@ def build_repo(root):
         body = [f"package app\n"]
         for g in range(FUNCS_PER_FILE):
             body.append(
-                f"\n// Helper{i}x{g} does bookkeeping for subsystem {i}.\n"
-                f"func Helper{i}x{g}(n int) int {{ return n + {i * 10 + g} }}\n")
+                f"\n// Helper{i:02d}x{g} does bookkeeping for subsystem {i}.\n"
+                f"func Helper{i:02d}x{g}(n int) int {{ return n + {i * 10 + g} }}\n")
         (ws / name).write_text("".join(body))
         code, out, _ = nool_land(ws, f"add subsystem {i} helpers")
         if code != 0:

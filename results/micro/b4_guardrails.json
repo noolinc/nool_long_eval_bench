@@ -1,10 +1,10 @@
 {
  "benchmark": "b4_guardrails",
  "provenance": {
-  "timestamp_utc": "2026-08-23T11:43:25.834075+00:00",
+  "timestamp_utc": "2026-08-26T01:38:15.299436+00:00",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 6.14.2",
+  "nool_version": "nool 7.0.0",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -25,7 +25,7 @@
     "propose_tail": [
      "  [Pre-check] \u2705 In-process parse OK (go)",
      "  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...",
-     "  [Reify] \u2705 Full validation passed. Hash: fedb1248c9076244536ecc03f1276c24d6341533b155b758706fad0ff11721cb"
+     "  [Reify] \u2705 Full validation passed. Hash: 472b078da33e0a7a34750bd0fc8322293b16d92bd9941f3fe95338980b5282ee"
     ],
     "validate_tail": []
    },
@@ -40,7 +40,7 @@
     ],
     "validate_tail": [
      "",
-     "  2/2 Knot(s) validated.",
+     "  5/5 Knot(s) validated.",
      "  \u2705 Project integrity OK \u2014 deferred validation settled."
     ]
    }
@@ -89,9 +89,9 @@
     "propose_exit": 2,
     "validate_exit": 0,
     "propose_tail": [
-     "  \u2500\u2500\u2500 95 B of driver output folded to 94 B (1.1% less; --verbose for raw) \u2500\u2500\u2500",
+     "  \u2500\u2500\u2500 115 B of driver output folded to 114 B (0.9% less; --verbose for raw) \u2500\u2500\u2500",
      "",
-     "Error: Reification failed for '.go'. Output hash: 7a97cbb8bc20fba8ea52952fe46bc765e382fa1cd9c75c4ca37129995202afd4"
+     "Error: Reification failed for '.go'. Output hash: 9cfb8e8f42654d7094020872bc358acc05194adee28d5d0df9d685f89a2b3c0a"
     ],
     "validate_tail": []
    },
@@ -106,7 +106,7 @@
     ],
     "validate_tail": [
      "",
-     "  2/2 Knot(s) validated.",
+     "  5/5 Knot(s) validated.",
      "  \u2705 Project integrity OK \u2014 deferred validation settled."
     ]
    }
