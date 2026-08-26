@@ -90,8 +90,6 @@ ADAPTERS = {"claude": claude_adapter, "opencode": opencode_adapter}
 _RATE_LIMIT_MARKERS = (
     '"api_error_status": 429',
     '"error": "rate_limit"',
-    'rate_limit_event',
-    'session limit',
 )
 
 
@@ -103,15 +101,44 @@ _ABORT = threading.Event()
 
 
 def transcript_rate_limited(tpath):
+    """True only for an ACTUAL throttling signal.
+
+    The Claude Code CLI now emits a `rate_limit_event` line on ordinary
+    successful sessions too — routine usage telemetry, `status: "allowed"`
+    — not an incident. Naive substring matching on the event's mere
+    presence (the original implementation) false-positives on every run
+    that reaches this line, aborting the ticket and — for the loop-based
+    dispatch functions — leaking its `inflight` entry forever, since the
+    cleanup that would remove it never runs (verified 2026-08-26: this is
+    exactly what hung the nool_try smoke test, and would affect every arm
+    identically since `agent_ticket`/`agent_ticket_try` share this check).
+    A free-text 'session limit' marker was dropped for the same reason: it
+    matches ordinary English about application sessions/limits, which this
+    corpus's own tickets discuss (user sessions, TTLs). Only a
+    `rate_limit_event` whose own status is not "allowed" counts."""
     try:
         with open(tpath, "rb") as f:
             f.seek(0, 2)
             size = f.tell()
             f.seek(max(0, size - 65536))
-            tail = f.read().decode("utf-8", errors="replace").lower()
+            tail = f.read().decode("utf-8", errors="replace")
     except OSError:
         return False
-    return any(m.lower() in tail for m in _RATE_LIMIT_MARKERS)
+    lower = tail.lower()
+    if any(m.lower() in lower for m in _RATE_LIMIT_MARKERS):
+        return True
+    for line in tail.splitlines():
+        if '"rate_limit_event"' not in line:
+            continue
+        try:
+            ev = json.loads(line.strip())
+        except json.JSONDecodeError:
+            continue
+        if ev.get("type") == "rate_limit_event":
+            status = (ev.get("rate_limit_info") or {}).get("status")
+            if status and status != "allowed":
+                return True
+    return False
 
 
 REPO = Path(__file__).resolve().parent.parent
@@ -226,6 +253,28 @@ Ticket {tid} — {title}
 Verify with `go build ./...` and `go test ./...` (the existing tests must
 stay green). Land your work with the version-control workflow available in
 this repository, then stop.
+"""
+
+# nool_try's harness-side landing (`nool propose --try-branch --all`) only
+# picks up UNCOMMITTED working-tree changes, matching how `nool propose
+# --all` works everywhere else in this codebase. Every other arm's PROMPT
+# tells the agent to land its own work via a real commit, which the
+# harness then folds in (`git merge`/`nool merge` on that branch); for
+# nool_try that same instruction is actively wrong -- a real agent that
+# commits (verified 2026-08-26, every ticket tried) leaves the working
+# tree clean, so propose finds "No Git worktree changes" and the ticket is
+# rejected before promote ever runs, regardless of code quality.
+PROMPT_TRY = """You are working in a Go service repository (module bench/fleetsvc).
+Implement the following ticket. Modify only what the ticket requires.
+
+Ticket {tid} — {title}
+
+{spec}
+
+Verify with `go build ./...` and `go test ./...` (the existing tests must
+stay green). Do not run git or any other version-control commands — leave
+your changes as uncommitted edits in the working tree and stop; landing is
+handled outside this session.
 """
 
 
@@ -556,7 +605,16 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
         try:
             res = agent_ticket(ws, parent, t, model, run_id, adapter, arm)
         except RateLimitAbort:
-            return          # _ABORT is set; the batch aborts after join
+            # Without removing this ticket from `inflight`, the busy-set
+            # calculation below keeps its footprint blocked forever and
+            # the admission loop spins with nothing left it can dispatch
+            # (verified 2026-08-26: a false-positive rate-limit detection
+            # hung the sibling nool_try dispatch loop exactly this way).
+            with lock:
+                if gate is not None:
+                    release_lease(ws, t, gate)
+                inflight.pop(t["id"], None)
+            return
         with lock:
             rec["agents"][t["id"]] = res
             rec["integration"].append(integrate(ws, arm, t, run_id))
@@ -569,13 +627,16 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
 
     threads = []
     pending = list(tickets)
-    while pending or inflight:
-        if _ABORT.is_set() and not inflight:
-            break
+    # Once aborted, `pending` is frozen (nothing new gets admitted below)
+    # so it must drop out of the loop condition too, or the loop spins
+    # forever waiting for undispatched tickets that will never dispatch.
+    while (pending and not _ABORT.is_set()) or inflight:
         with lock:
             busy = set().union(*inflight.values()) if inflight else set()
             ready = []
-            for t in pending:
+            # Once aborted, stop dispatching new work — only drain what's
+            # already in flight.
+            for t in ([] if _ABORT.is_set() else pending):
                 if set(t["footprint"]) & busy:
                     continue
                 if len(inflight) + len(ready) >= n_workers:
@@ -628,8 +689,8 @@ def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
                            f"already holds the admission lease:\n{out}")
     wt = Path(ws) / ".nool" / "try" / name
     stray_nool = wt / ".nool"
-    prompt = PROMPT.format(tid=ticket["id"], title=ticket["title"],
-                           spec=ticket["spec"])
+    prompt = PROMPT_TRY.format(tid=ticket["id"], title=ticket["title"],
+                               spec=ticket["spec"])
     TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
     tpath = TRANSCRIPTS / f"{run_id}_{ticket['id']}.jsonl"
     _throttle_launch()
@@ -734,7 +795,21 @@ def _lease_gated_dispatch(rec, ws, tickets, run_id, n_workers, agent_fn,
         try:
             res = agent_fn(t, agent_id)
         except RateLimitAbort:
-            return          # _ABORT is set; the batch aborts after join
+            # A RateLimitAbort ticket never reaches the release below —
+            # without this, its `inflight` entry leaks forever and the
+            # admission loop spins with nothing left to do (verified
+            # 2026-08-26: a false-positive rate-limit detection hung the
+            # nool_try smoke test this way for 40+ minutes with zero CPU,
+            # since the loop's `_ABORT.is_set() and not inflight` exit
+            # never becomes true). Release best-effort and remove it so
+            # the batch can actually terminate.
+            with lock:
+                rel = ["nool", "announce", "release"]
+                rel += [announcement_id] if announcement_id else ["--all"]
+                rel += ["--agent-id", agent_id, "--compact"]
+                sh(rel, ws, timeout=120)
+                inflight.pop(t["id"], None)
+            return
         with lock:
             rec["agents"][t["id"]] = res
             rec["integration"].append(integrate_fn(t, agent_id))
@@ -749,12 +824,16 @@ def _lease_gated_dispatch(rec, ws, tickets, run_id, n_workers, agent_fn,
 
     threads = []
     pending = list(tickets)
-    while pending or inflight:
-        if _ABORT.is_set() and not inflight:
-            break
+    # Once aborted, `pending` is frozen (nothing new gets admitted below)
+    # so it must drop out of the loop condition too, or the loop spins
+    # forever waiting for undispatched tickets that will never dispatch.
+    while (pending and not _ABORT.is_set()) or inflight:
         with lock:
             epoch = release_epoch[0]
-            for t in list(pending):
+            # Once aborted, stop dispatching new work — only drain what's
+            # already in flight (each worker's own RateLimitAbort handling
+            # will empty `inflight`, letting this loop exit naturally).
+            for t in ([] if _ABORT.is_set() else list(pending)):
                 if len(inflight) >= n_workers:
                     break
                 # A refused ticket re-attempts only after some lease was
