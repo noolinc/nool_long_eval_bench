@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Grant Editor contract, valid 365 day(s)
-knot_id: 18b0b83d981f5c9e8cfb506d421e456dd5ac0f39ce57bd9ba730b2c1710070b2
-solidified_at: 1787711049396
-thread: 
+intent: Add nool_try fleet arm (Track D): isolation and landing via nool's native try lifecycle (try new --worktree -> propose --try-branch --all -> try promote) instead of manual git worktree add + nool merge. Admission gates on the proven announce intent --target-nodes mechanism (same as nool_gated), not try new --nodes -- found and recorded (nool learn 0b394986) that its multi-file lease overlap check is string-exact, not set-based (a.go,b.go and b.go,a.go both granted exclusive to different agents). Also found and worked around a second nool 7.0.0 bug (nool learn aae51745): wholesale-replacing nool.toml with a governance profile drops the default [bridge]/[try] sections, breaking try new --worktree with a misleading git-worktree HEAD error; setup_ws() now re-appends them for this arm. Fixed a lease leak on rejected propose (propose --try-branch takes its own lease independent of the admission lease; discard alone doesn't release it). Refactored run_lease_gated's admission loop into a shared _lease_gated_dispatch used by both nool_gated (unchanged behavior, verified equivalent) and the new run_try_gated. Verified end-to-end with a fake no-LLM-cost adapter against the real starter corpus and governed profile: 20-way concurrent try-new-worktree race-free, gating correctly refuses overlapping footprints, promote lands commutatively even when main has advanced via a disjoint concurrent ticket, rejection path (syntax-broken and no-op tickets) cleans up branches and leases with none leaked. Not yet run with a real LLM harness -- that is a separate costed decision
+knot_id: ff4b36c0ac409e502fa919fc14bc4be6520b6907d998434eb8ad8109238e7636
+solidified_at: 1787711067532
+thread: main

@@ -29,6 +29,27 @@ decompose dispatch policy, integration policy, and coordination source:
                     footprint (nool refuses overlapping announcements with a
                     coordination-conflict error); the lease is released after
                     integration. Integration is `nool merge` on completion.
+  nool_try        : same admission gate as nool_gated (`announce intent`),
+                    but isolation and landing go through nool's native
+                    `try` lifecycle instead of a plain git branch + `nool
+                    merge`: `nool try new --worktree` materializes the
+                    agent's workspace, `nool propose --try-branch --all` +
+                    `nool try promote` lands it. Two things this measures
+                    that nool_gated does not: (1) `try new --worktree` is
+                    verified race-free under concurrent dispatch (2026-08-26,
+                    20-way test) without the manual `_WORKTREE_ADD_LOCK`
+                    serialization the other arms need; (2) `try promote`
+                    runs a full build+test Ghost-Run inline before landing,
+                    so a test-breaking ticket is rejected outright rather
+                    than landing via a textual `nool merge` and being
+                    caught only by post_merge_health. NOTE: gating
+                    deliberately does NOT use `nool try new --nodes` for
+                    the lease — verified same-day that its multi-file
+                    overlap check is string-exact rather than set-based
+                    ("a.go,b.go" and "b.go,a.go" both granted "exclusive"
+                    to different agents), unlike `announce intent
+                    --target-nodes`, which correctly catches both
+                    reordered and partial-overlap scopes.
 
 Identical prompts, model, worker count, and worktree isolation in every arm.
 Main-branch health (build + smoke tests) is recorded after every merge;
@@ -188,6 +209,7 @@ ARMS = {
     "git_scheduled":   {"dispatch": "footprint", "ci_gate": False, "merge": "git",  "nool_ws": False},
     "nool_fleet":      {"dispatch": "footprint", "ci_gate": False, "merge": "nool", "nool_ws": True},
     "nool_gated":      {"dispatch": "lease",     "ci_gate": False, "merge": "nool", "nool_ws": True},
+    "nool_try":        {"dispatch": "try",       "ci_gate": False, "merge": "try",  "nool_ws": True},
 }
 
 # Covers the agent timeout (600 s) plus integration; a leaked lease expires
@@ -272,6 +294,31 @@ def setup_ws(arm, parent):
         prof = GOV / "nool_governed.toml"
         shutil.copy(prof, ws / "nool.toml")
         profile_sha = hashlib.sha256(prof.read_bytes()).hexdigest()
+        if arm == "nool_try":
+            # nool 7.0.0: replacing the init-generated nool.toml wholesale
+            # drops its default [bridge]/[try] sections, and `nool try new
+            # --worktree` then fails with a misleading "git worktree add
+            # ... invalid reference: HEAD" (verified 2026-08-26 bisection:
+            # reproduces with ANY nool.toml missing these two sections —
+            # not specific to governance semantics; every individual
+            # section of nool_governed.toml reproduces it once [try]/
+            # [bridge] are absent). Re-append the exact defaults `nool
+            # init` writes so this arm's isolation mechanism keeps
+            # working. profile_sha above still hashes the pure governance
+            # file, unaffected by this append; other arms never call
+            # `try` and are left untouched.
+            with open(ws / "nool.toml", "a") as f:
+                f.write(
+                    "\n[bridge]\n"
+                    'git_mirror_path = ".nool/git_mirror/"\n'
+                    "sync_on_solidify = true\n"
+                    "auto_push_remotes = []\n"
+                    "use_host_repo = true\n"
+                    'transport = "git"\n'
+                    "\n[try]\n"
+                    'mode = "shared"\n'
+                    "max_worktrees = 64\n"
+                    "lease_ttl_ms = 1800000\n")
         c, s = sh(["nool", "status", "--json"], ws, timeout=120)
         if c != 0:
             raise RuntimeError(f"nool ledger not live after init:\n{s}")
@@ -560,27 +607,140 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
         raise RateLimitAbort("batch aborted: provider rate limit detected")
 
 
-def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
-                    adapter):
-    """nool-native scheduler: admission requires `nool announce intent` to
-    succeed (nool refuses overlapping leases, exit 3); the lease is released
-    after integration. The harness contributes only worker-slot capacity."""
+def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
+                     agent_id):
+    """Isolation for the nool_try arm: `nool try new --worktree` instead of
+    a manual `git worktree add`. Verified 2026-08-26 race-free under 20-way
+    concurrent dispatch (ThreadPoolExecutor, disjoint per-ticket nodes) —
+    the exact failure class `_WORKTREE_ADD_LOCK` above serializes for raw
+    `git worktree add`. `--nodes` is deliberately omitted: admission gating
+    for this arm is done by the caller via `announce intent` (see
+    _lease_gated_dispatch); `try new --nodes`'s own lease uses string-exact
+    matching on multi-file scopes and does not reliably catch overlap (see
+    the module docstring)."""
+    name = ticket["id"]
+    code, out = sh(["nool", "try", "new", name, "--worktree",
+                    "--agent-id", agent_id, "--intent",
+                    f"ticket {ticket['id']}: {ticket['title']}",
+                    "--compact"], ws, timeout=60)
+    if code != 0:
+        raise RuntimeError(f"try new {name} failed even though this ticket "
+                           f"already holds the admission lease:\n{out}")
+    wt = Path(ws) / ".nool" / "try" / name
+    stray_nool = wt / ".nool"
+    prompt = PROMPT.format(tid=ticket["id"], title=ticket["title"],
+                           spec=ticket["spec"])
+    TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
+    tpath = TRANSCRIPTS / f"{run_id}_{ticket['id']}.jsonl"
+    _throttle_launch()
+    res = adapter.run(wt, prompt, model, max_turns=30, timeout_s=600,
+                      transcript_path=tpath, env=agent_env(arm))
+    if _ABORT.is_set() or transcript_rate_limited(tpath):
+        _ABORT.set()
+        raise RateLimitAbort(
+            f"{ticket['id']}: rate-limit signature in transcript "
+            f"(or batch already aborted) — fix account headroom and rerun; "
+            f"no fleet_runs.jsonl record written for this run")
+    if stray_nool.exists():  # e.g. an agent running `nool init` by mistake
+        shutil.rmtree(stray_nool, ignore_errors=True)
+    print(f"[{run_id}] {ticket['id']} agent done "
+          f"{res['wall_ms']/1000:.0f}s turns={res.get('num_turns')} "
+          f"tools={res.get('tool_calls')} timed_out={res['timed_out']}",
+          flush=True)
+    return {**res, "transcript": str(tpath.relative_to(REPO))}, name
+
+
+def _discard_and_release(ws, name, agent_id):
+    """Cleanup for a rejected try-branch. `nool propose --try-branch`
+    takes out its own lease under the branch's agent id independent of the
+    admission lease from `announce intent` (verified 2026-08-26: a
+    precheck-rejected propose still leaves this lease active) — a plain
+    `try discard` does not release it, and a leaked lease would wrongly
+    block later tickets touching the same files for the rest of the run.
+    Release broadly by agent id (matches `release_lease()`'s existing
+    nool_fleet convention) in addition to discarding the branch. Harmless
+    but not silent: `_lease_gated_dispatch`'s own end-of-ticket release
+    runs afterward regardless and will find nothing left for a rejected
+    ticket, recording a benign exit-1 "No active announcement matches"
+    in `rec["releases"]` — that is double-release noise, not a real
+    failure; the lease itself is gone either way (verified 2026-08-26)."""
+    sh(["nool", "try", "discard", name, "--compact"], ws, timeout=60)
+    sh(["nool", "announce", "release", "--all", "--agent-id", agent_id,
+        "--compact"], ws, timeout=60)
+
+
+def integrate_try(ws, ticket, run_id, name, agent_id):
+    """Integration for the nool_try arm: `nool propose --try-branch --all`
+    (runs an AST precheck immediately — syntax-broken exits 2, nothing
+    stashed) then `nool try promote` (runs a full build+test Ghost-Run
+    before landing — a test-breaking-but-parseable ticket exits non-zero
+    and nothing lands). Materially different from nool_gated/nool_fleet's
+    `nool merge`, which does not run tests before landing (only
+    post_merge_health, recorded but not gating for this arm, does).
+    Verified 2026-08-26: promote lands cleanly even when main has advanced
+    past the branch's base via a disjoint concurrent ticket's promote
+    (commutative landing, no explicit rebase needed) — the scenario this
+    arm's lease-gated dispatch is designed to produce."""
+    _, pre = sh(["git", "rev-parse", "HEAD"], ws)
+    pre = pre.strip()
+    p_code, p_out = sh(["nool", "propose", "--try-branch", name, "--all",
+                        "--intent", f"ticket {ticket['id']}: {ticket['title']}",
+                        "--solidify", "--compact"], ws, timeout=300)
+    if p_code != 0:
+        _discard_and_release(ws, name, agent_id)
+        print(f"[{run_id}] {ticket['id']} try-propose REJECTED (precheck)",
+              flush=True)
+        return {"ticket": ticket["id"], "clean": True, "exit_code": p_code,
+                "queue_rejected": True, "post_merge_health": None,
+                "secret_scan": None,
+                "merge_tail": p_out.strip().splitlines()[-8:]}
+    m_code, m_out = sh(["nool", "try", "promote", name, "--compact"], ws,
+                       timeout=300)
+    merge_tail = m_out.strip().splitlines()[-8:]
+    if m_code != 0:
+        _discard_and_release(ws, name, agent_id)
+        print(f"[{run_id}] {ticket['id']} try-promote REJECTED (validation)",
+              flush=True)
+        return {"ticket": ticket["id"], "clean": True, "exit_code": m_code,
+                "queue_rejected": True, "post_merge_health": None,
+                "secret_scan": None, "merge_tail": merge_tail}
+    scan = secret_scan(ws, pre)
+    h = health(ws)
+    print(f"[{run_id}] {ticket['id']} promoted "
+          f"build={'ok' if h['build_ok'] else 'FAIL'} "
+          f"smoke={'ok' if h['smoke_ok'] else 'FAIL'} "
+          f"secrets={'clean' if scan['clean'] else 'HIT'}", flush=True)
+    return {"ticket": ticket["id"], "clean": True, "exit_code": m_code,
+            "queue_rejected": False, "post_merge_health": h,
+            "secret_scan": scan, "merge_tail": merge_tail}
+
+
+def _lease_gated_dispatch(rec, ws, tickets, run_id, n_workers, agent_fn,
+                          integrate_fn):
+    """Shared nool-native admission loop: gate on `announce intent` (nool
+    refuses overlapping leases, exit 3), release after `integrate_fn`
+    finishes. `agent_fn(t, agent_id)` does the isolated agent work (runs
+    outside the lock — different tickets' worktrees are independent);
+    `integrate_fn(t, agent_id)` lands the result against the shared `ws`
+    (runs inside the lock — serialized, matching every other arm's
+    integration step). nool_gated and nool_try share this loop and differ
+    only in what `agent_fn`/`integrate_fn` do."""
     lock = threading.Lock()
     inflight = {}            # ticket id -> announcement id (or None)
     release_epoch = [0]
     last_refused = {}        # ticket id -> epoch of last refused announce
 
-    def worker(t, aid):
+    def worker(t, announcement_id, agent_id):
         try:
-            res = agent_ticket(ws, parent, t, model, run_id, adapter, arm)
+            res = agent_fn(t, agent_id)
         except RateLimitAbort:
             return          # _ABORT is set; the batch aborts after join
         with lock:
             rec["agents"][t["id"]] = res
-            rec["integration"].append(integrate(ws, arm, t, run_id))
+            rec["integration"].append(integrate_fn(t, agent_id))
             rel = ["nool", "announce", "release"]
-            rel += [aid] if aid else ["--all"]
-            rel += ["--agent-id", f"agent_{t['id']}", "--compact"]
+            rel += [announcement_id] if announcement_id else ["--all"]
+            rel += ["--agent-id", agent_id, "--compact"]
             r_code, r_out = sh(rel, ws, timeout=120)
             rec["releases"][t["id"]] = {"exit": r_code,
                                         "tail": r_out.strip().splitlines()[-1:]}
@@ -602,11 +762,12 @@ def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
                 # expiry after a failed release).
                 if last_refused.get(t["id"]) == epoch and inflight:
                     continue
+                agent_id = f"agent_{t['id']}"
                 fp = ",".join(t["footprint"])
                 code, out = sh(["nool", "announce", "intent", "--intent",
                                 f"ticket {t['id']}: {t['title']}",
                                 "--target-nodes", fp,
-                                "--agent-id", f"agent_{t['id']}",
+                                "--agent-id", agent_id,
                                 "--estimated-duration-ms", str(LEASE_DURATION_MS),
                                 "--compact"], ws, timeout=120)
                 rec["gating"].setdefault(t["id"], []).append(
@@ -614,13 +775,14 @@ def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
                      "tail": out.strip().splitlines()[-1:]})
                 if code == 0:
                     m = re.search(r"Announcement ID: (\S+)", out)
-                    aid = m.group(1) if m else None
-                    inflight[t["id"]] = aid
+                    announcement_id = m.group(1) if m else None
+                    inflight[t["id"]] = announcement_id
                     pending.remove(t)
                     print(f"[{run_id}] {t['id']} leased "
                           f"({len(inflight)}/{n_workers} in flight, "
                           f"{len(pending)} queued)", flush=True)
-                    th = threading.Thread(target=worker, args=(t, aid))
+                    th = threading.Thread(target=worker,
+                                          args=(t, announcement_id, agent_id))
                     th.start()
                     threads.append(th)
                 else:
@@ -630,6 +792,41 @@ def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
         th.join()
     if _ABORT.is_set():
         raise RateLimitAbort("batch aborted: provider rate limit detected")
+
+
+def run_lease_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
+                    adapter):
+    """nool_gated: isolation via a plain git branch (`agent_ticket`),
+    landing via `nool merge`. See `_lease_gated_dispatch` for the shared
+    admission loop and `run_try_gated` for the try-branch variant."""
+    def agent_fn(t, agent_id):
+        return agent_ticket(ws, parent, t, model, run_id, adapter, arm)
+
+    def integrate_fn(t, agent_id):
+        return integrate(ws, arm, t, run_id)
+
+    _lease_gated_dispatch(rec, ws, tickets, run_id, n_workers, agent_fn,
+                         integrate_fn)
+
+
+def run_try_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
+                  adapter):
+    """nool_try: isolation via `nool try new --worktree`, landing via
+    `nool propose --try-branch --all` + `nool try promote`. See
+    `_lease_gated_dispatch` for the shared admission loop."""
+    names = {}
+
+    def agent_fn(t, agent_id):
+        res, name = agent_ticket_try(ws, parent, t, model, run_id, adapter,
+                                     arm, agent_id)
+        names[t["id"]] = name
+        return res
+
+    def integrate_fn(t, agent_id):
+        return integrate_try(ws, t, run_id, names[t["id"]], agent_id)
+
+    _lease_gated_dispatch(rec, ws, tickets, run_id, n_workers, agent_fn,
+                         integrate_fn)
 
 
 def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
@@ -676,7 +873,8 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
     try:
         dispatch = {"parallel": run_parallel,
                     "footprint": run_footprint_gated,
-                    "lease": run_lease_gated}[ARMS[arm]["dispatch"]]
+                    "lease": run_lease_gated,
+                    "try": run_try_gated}[ARMS[arm]["dispatch"]]
         dispatch(rec, ws, parent, tickets, model, run_id, n_workers, arm,
                  adapter)
 
