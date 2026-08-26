@@ -787,6 +787,18 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
                 "secret_scan": None, "merge_tail": merge_tail}
     scan = secret_scan(ws, pre)
     h = health(ws)
+    # `propose --try-branch` takes its own lease independent of the
+    # admission lease (see _discard_and_release); on a successful promote
+    # nothing released it. Verified 2026-08-26 (N=10/v3, real contention
+    # clusters): the leaked lease outlived the try-branch's own worktree
+    # (already removed by promote) and blocked a same-footprint cluster
+    # mate's later, entirely legitimate propose with a "Coordination
+    # conflict" — a real acceptance-rate hit (50/60 in one rep), not
+    # corpus contention working as intended. `_lease_gated_dispatch`'s own
+    # end-of-ticket release covers the admission lease; this covers
+    # propose's extra one.
+    sh(["nool", "announce", "release", "--all", "--agent-id", agent_id,
+        "--compact"], ws, timeout=60)
     print(f"[{run_id}] {ticket['id']} promoted "
           f"build={'ok' if h['build_ok'] else 'FAIL'} "
           f"smoke={'ok' if h['smoke_ok'] else 'FAIL'} "

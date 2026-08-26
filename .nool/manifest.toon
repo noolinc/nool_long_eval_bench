@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: N=10/v3 nool_fleet ladder point (2 reps, claude-sonnet-5): 60/60 and 59/60 accepted, zero merge conflicts both reps (the single miss on rep 2 was a genuine hidden-test failure on t10's implementation, not a merge/infra issue) -- matches the established zero-conflict pattern at N=20/25/35
-knot_id: a81900435b27e4da283043becfeb558899e5e073137df6968f36c56f520698fe
-solidified_at: 1787717617409
+intent: Fix a real lease leak in the nool_try arm: nool propose --try-branch takes out its own lease independent of the harness's admission lease (already known -- _discard_and_release cleans it up on rejection), but nothing released it on a SUCCESSFUL promote. Discovered running the N=10/v3 ladder point with real cluster contention (corpus v3's up-to-5-ticket same-footprint clusters, which the smaller v1 8-ticket smoke corpus never exercises): rep 1 landed only 50/60 -- 6 of the 10 misses were 'Coordination conflict' rejections where a ticket properly admitted on its own declared footprint got refused by propose because an EARLIER, ALREADY-PROMOTED cluster-mate's leaked propose-lease on that same file was still outstanding. Fixed by releasing --all --agent-id after a successful promote too, mirroring the rejection path. The confounded 50/60 result was never landed (still in the working tree) and is discarded in favor of a clean rerun with this fix
+knot_id: 901c6f28d1c5fa9f2c54ee4590c549742ca4988a696ec08a2bbaee3db20ec760
+solidified_at: 1787718447258
 thread: main
