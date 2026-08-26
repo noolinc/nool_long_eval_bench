@@ -741,7 +741,10 @@ def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
     name = ticket["id"]
     code, out = sh(["nool", "try", "new", name, "--worktree",
                     "--agent-id", agent_id, "--intent",
-                    f"ticket {ticket['id']}: {ticket['title']}",
+                    # distinct from the admission intent ("ticket tN: ...")
+                    # and the propose intent ("land ticket tN: ...") — see
+                    # _propose_intent for why captions must not collide
+                    f"try {ticket['id']}: {ticket['title']}",
                     "--compact"], ws, timeout=60)
     if code != 0:
         raise RuntimeError(f"try new {name} failed even though this ticket "
@@ -771,7 +774,17 @@ def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
 
 
 def _propose_intent(ticket):
-    return f"ticket {ticket['id']}: {ticket['title']}"
+    # "land " prefix is load-bearing: this string must NOT be a substring
+    # match for the admission announce's intent ("ticket tN: ...") or the
+    # try-new intent ("try tN: ..."), because _release_propose_lease finds
+    # the propose-internal lease by substring-matching this intent in
+    # `announce status` output and releases the FIRST hit. With all three
+    # lease captions identical (pre-2026-08-27), it released whichever
+    # lease listed first — often the admission lease — leaving the propose
+    # lease squatting for its full TTL and starving every pending ticket
+    # that shared its footprint (observed: nool_try N=35 rep 2, 4 tickets
+    # blocked ~20 min behind rejected tickets' orphaned leases).
+    return f"land ticket {ticket['id']}: {ticket['title']}"
 
 
 def _release_propose_lease(ws, ticket):

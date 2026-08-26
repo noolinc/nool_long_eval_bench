@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land nool_try N=35/v3 rep 1/2 (nool 7.0.1 tranche, post-dispatcher-fix): 60/60 accepted, zero conflicts, final health green, wall 334s, $7.27. First attempt (fleet_nool_try_7e2b4da7) live-locked on the inflight-leak harness bug (fixed in b9071ee7) at 45/60 transcripts and was killed+discarded, never landed.
-knot_id: c986ad0cb75354c5ab82f6450534a80b3e7b1d4101d383465d5727b74bd47ce7
-solidified_at: 1787785443605
+intent: Harness fix (nool_try arm): admission announce, try new, and propose --try-branch all captioned their leases with the identical string 'ticket tN: title', so _release_propose_lease's substring match released whichever lease listed first — often the admission lease — leaving the propose lease squatting its full 30-min TTL and starving pending same-footprint tickets (observed nool_try N=35 rep 2: 4 tickets blocked ~20 min behind t1/t7's orphaned leases; run killed+discarded, never landed). propose intent now 'land ticket tN: ...', try-new intent 'try tN: ...'; admission unchanged.
+knot_id: 6a40823ee457b22b776b68191d69b6b16b3cba14ee805422493437727536d566
+solidified_at: 1787786487008
 thread: main
