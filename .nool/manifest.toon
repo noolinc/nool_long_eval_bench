@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: N=10/v3 nool_try ladder point (2 reps, claude-sonnet-5): 60/60 and 60/60 accepted, zero conflicts -- clean rerun after fixing the --all --agent-id lease-release bug and the allowed_warning false positive. Confirms nool_try matches nool_fleet/nool_gated's zero-conflict pattern at this N once the harness's own coordination bugs are fixed
-knot_id: 7c19b115bfa2247a589255d989782fb94473d1751ef2af854e6d30aae2c82fd5
-solidified_at: 1787742484566
+intent: N=10/v3 git_gated_queue ladder point (2 reps, claude-sonnet-5): 40/60 and 39/60 accepted -- consistent with the established git-conflict pattern at N=20/25/35
+knot_id: 5441c8d4f40b97e78d95fc06257bab1681b8235fec646d27d7406d22376f31e2
+solidified_at: 1787743051784
 thread: main
