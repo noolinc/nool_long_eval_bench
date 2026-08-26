@@ -731,23 +731,45 @@ def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
     return {**res, "transcript": str(tpath.relative_to(REPO))}, name
 
 
-def _discard_and_release(ws, name, agent_id):
-    """Cleanup for a rejected try-branch. `nool propose --try-branch`
-    takes out its own lease under the branch's agent id independent of the
-    admission lease from `announce intent` (verified 2026-08-26: a
-    precheck-rejected propose still leaves this lease active) — a plain
-    `try discard` does not release it, and a leaked lease would wrongly
-    block later tickets touching the same files for the rest of the run.
-    Release broadly by agent id (matches `release_lease()`'s existing
-    nool_fleet convention) in addition to discarding the branch. Harmless
-    but not silent: `_lease_gated_dispatch`'s own end-of-ticket release
-    runs afterward regardless and will find nothing left for a rejected
-    ticket, recording a benign exit-1 "No active announcement matches"
-    in `rec["releases"]` — that is double-release noise, not a real
-    failure; the lease itself is gone either way (verified 2026-08-26)."""
+def _propose_intent(ticket):
+    return f"ticket {ticket['id']}: {ticket['title']}"
+
+
+def _release_propose_lease(ws, ticket):
+    """`nool propose --try-branch` takes out its own lease, independent of
+    the harness's admission lease, keyed under our own --intent string.
+    `nool announce release --all --agent-id <id>` looks like it should
+    scope to one agent -- its own --help text says "Release every active
+    lease you own" -- but verified 2026-08-26 (N=10/v3 real run) it does
+    NOT: --agent-id is accepted but never filters, so --all releases
+    EVERY active lease in the coordination store, including other
+    concurrently in-flight tickets' admission leases. That is what
+    produced the N=10/v3 "Coordination conflict" scatter across unrelated
+    ticket pairs, not a leak -- confirmed by direct repro: two leases
+    announced under distinct agent ids, `release --all --agent-id
+    <one>` released both. The only safe release is by the lease's own
+    specific announcement ID, which propose's own output never prints, so
+    look it up via `announce status` (our --intent string is unique per
+    ticket) and release only that one."""
+    intent = _propose_intent(ticket)
+    code, out = sh(["nool", "announce", "status", "--compact"], ws, timeout=60)
+    if code != 0:
+        return
+    lines = out.splitlines()
+    for i, line in enumerate(lines):
+        m = re.match(r"\s*([0-9a-f]{6,})\s+agent\s", line)
+        if m and i + 1 < len(lines) and intent in lines[i + 1]:
+            sh(["nool", "announce", "release", m.group(1), "--compact"],
+               ws, timeout=60)
+
+
+def _discard_and_release(ws, ticket, name):
+    """Cleanup for a rejected try-branch: discard the branch, then release
+    the propose-internal lease precisely (see _release_propose_lease) --
+    a plain `try discard` does not release it, and it must never be
+    released via `--all`."""
     sh(["nool", "try", "discard", name, "--compact"], ws, timeout=60)
-    sh(["nool", "announce", "release", "--all", "--agent-id", agent_id,
-        "--compact"], ws, timeout=60)
+    _release_propose_lease(ws, ticket)
 
 
 def integrate_try(ws, ticket, run_id, name, agent_id):
@@ -765,10 +787,10 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
     _, pre = sh(["git", "rev-parse", "HEAD"], ws)
     pre = pre.strip()
     p_code, p_out = sh(["nool", "propose", "--try-branch", name, "--all",
-                        "--intent", f"ticket {ticket['id']}: {ticket['title']}",
+                        "--intent", _propose_intent(ticket),
                         "--solidify", "--compact"], ws, timeout=300)
     if p_code != 0:
-        _discard_and_release(ws, name, agent_id)
+        _discard_and_release(ws, ticket, name)
         print(f"[{run_id}] {ticket['id']} try-propose REJECTED (precheck)",
               flush=True)
         return {"ticket": ticket["id"], "clean": True, "exit_code": p_code,
@@ -779,7 +801,7 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
                        timeout=300)
     merge_tail = m_out.strip().splitlines()[-8:]
     if m_code != 0:
-        _discard_and_release(ws, name, agent_id)
+        _discard_and_release(ws, ticket, name)
         print(f"[{run_id}] {ticket['id']} try-promote REJECTED (validation)",
               flush=True)
         return {"ticket": ticket["id"], "clean": True, "exit_code": m_code,
@@ -788,17 +810,10 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
     scan = secret_scan(ws, pre)
     h = health(ws)
     # `propose --try-branch` takes its own lease independent of the
-    # admission lease (see _discard_and_release); on a successful promote
-    # nothing released it. Verified 2026-08-26 (N=10/v3, real contention
-    # clusters): the leaked lease outlived the try-branch's own worktree
-    # (already removed by promote) and blocked a same-footprint cluster
-    # mate's later, entirely legitimate propose with a "Coordination
-    # conflict" — a real acceptance-rate hit (50/60 in one rep), not
-    # corpus contention working as intended. `_lease_gated_dispatch`'s own
-    # end-of-ticket release covers the admission lease; this covers
-    # propose's extra one.
-    sh(["nool", "announce", "release", "--all", "--agent-id", agent_id,
-        "--compact"], ws, timeout=60)
+    # admission lease; on a successful promote nothing released it. See
+    # _release_propose_lease for why this must be a precise, by-ID
+    # release rather than `--all`.
+    _release_propose_lease(ws, ticket)
     print(f"[{run_id}] {ticket['id']} promoted "
           f"build={'ok' if h['build_ok'] else 'FAIL'} "
           f"smoke={'ok' if h['smoke_ok'] else 'FAIL'} "
