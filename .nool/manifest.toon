@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land nool_try N=35/v3 rep 2/2 (nool 7.0.1 tranche, post-intent-disambiguation fix d7659ead): 60/60 accepted, zero conflicts, zero rejections, final health green, wall 334s, $6.85. First attempt (fleet_nool_try_fe5cb614) killed+discarded per operator decision: 4 tickets starved ~20 min behind rejected tickets' orphaned propose leases (the caption-collision bug the fix addresses); never landed.
-knot_id: 9a9c9ea31437b037c76abb291b9daa6569e5c4090ae0d1ea06011d1499eda972
-solidified_at: 1787786912621
+intent: Findings report §6b + README: nool 7.0.1 ladder-completion tranche — nool_gated and nool_fleet complete §8c's 5/5 reps at N=35 (59-60/60, zero conflicts), nool_try measured 2 reps each at N=25/N=35; three single-ticket misses diagnosed (footprint drift t30; SQLite 517 store contention t29/t25); two harness bugs fixed (dispatcher inflight leak — retro-explains the §6a N=25 hang — and nool_try lease-caption collision); 7.0.1 retest: 3 of 4 7.0.0 bugs fixed, nool.toml [bridge]/[try] one remains; open items updated (git-side §8c reps deferred per operator decision, N=50).
+knot_id: 25f215e05fd6c5f7bf55718086c347866c2af73d3d3739bf4e4320e353d1f8a4
+solidified_at: 1787787063236
 thread: main

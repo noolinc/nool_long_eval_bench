@@ -197,13 +197,18 @@ arm-decomposition study (git_gated_queue / git_scheduled / nool_gated) is
 implemented and run: smoke-tested clean on the 8-ticket v1 corpus and at
 N=10/v3, with `git_scheduled` matching the nool arms and confirming the
 policy-not-tool reading (§6a of the findings report). A sixth arm,
-`nool_try` (nool 7.0.0's native per-agent try-lifecycle, added
-2026-08-26), is run at N=10/v3 (60/60 both reps) and one clean N=25/v3
-rep. Remaining: the §8c arms and `nool_try` at N=25/N=35 scale beyond the
-single points measured so far, and N=50 for any arm — deferred, flagged
-as a real memory-exhaustion risk on the 16GB development machine used for
-this study. External benchmark adaptations (CooperBench, SlopCodeBench)
-are Tier 2 — see the spec.
+`nool_try` (nool 7.0.x's native per-agent try-lifecycle, added
+2026-08-26), is measured at N=10, N=25, and N=35 on v3 (59–60/60 every
+rep, 2 reps per point). The nool-side §8c targets at N=35 are complete —
+`nool_gated` and `nool_fleet` both at 5/5 reps (59–60/60, zero conflicts;
+nool 7.0.1 tranche, findings §6b, including two single-ticket
+`SQLite error 517` merge losses attributed to nool-internal store
+contention). Remaining: the git-side §8c reps at N=35 (`git_gated_queue`
+3/5, `git_scheduled` 2/5 — deferred per operator decision, as both arms'
+integration inputs are N-invariant by design), and N=50 for any arm —
+deferred, flagged as a real memory-exhaustion risk on the 16GB
+development machine used for this study. External benchmark adaptations
+(CooperBench, SlopCodeBench) are Tier 2 — see the spec.
 
 ## Threats to validity
 
