@@ -416,6 +416,29 @@ def _throttle_launch():
         _LAST_LAUNCH[0] = time.monotonic()
 
 
+_NOOL_SHIM_DIR = None
+
+
+def _nool_shim_dir():
+    """A directory holding a `nool` stub that always fails, prepended onto
+    control-arm PATH so it shadows the real binary. The previous approach
+    dropped every PATH entry that contained a `nool` binary -- verified
+    2026-08-26: on this machine `claude` itself lives in the same
+    ~/.local/bin as `nool`, so that approach silently made `claude`
+    unresolvable too (every control-arm run failed at launch with
+    FileNotFoundError: 'claude', discovered only when actually running the
+    claude-sonnet-5 N=10/v3 ladder point). A shim ahead of the real PATH
+    hides only `nool`; every other co-located tool still resolves."""
+    global _NOOL_SHIM_DIR
+    if _NOOL_SHIM_DIR is None:
+        d = Path(tempfile.mkdtemp(prefix="nool_shim_"))
+        stub = d / "nool"
+        stub.write_text("#!/bin/sh\necho 'nool: command not found' >&2\nexit 127\n")
+        stub.chmod(0o755)
+        _NOOL_SHIM_DIR = d
+    return _NOOL_SHIM_DIR
+
+
 def agent_env(arm):
     """Agent-visible environment. Control-arm agents must not see the
     treatment substrate on PATH: 'the version-control workflow available in
@@ -424,10 +447,7 @@ def agent_env(arm):
     Nool arms keep the full PATH."""
     env = dict(ENV)
     if not ARMS[arm]["nool_ws"] and env.get("PATH"):
-        # Drop every PATH entry that would put a `nool` binary in reach.
-        parts = [p for p in env["PATH"].split(os.pathsep)
-                 if p and not (Path(p) / "nool").exists()]
-        env["PATH"] = os.pathsep.join(parts)
+        env["PATH"] = f"{_nool_shim_dir()}{os.pathsep}{env['PATH']}"
     return env
 
 
