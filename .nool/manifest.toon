@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land nool_fleet N=35/v3 rep 4/5 (nool 7.0.1 tranche, §8c +3 series): 60/60 accepted, zero conflicts, final health green, wall 315s, $8.20
-knot_id: fd8d78c9b07adaec0d757afb3a32a6f3b1894a8279d714b2ecf8d17ca2788052
-solidified_at: 1787783494291
+intent: Land nool_fleet N=35/v3 rep 5/5 (nool 7.0.1 tranche, §8c +3 series): 59/60 accepted, zero coordination conflicts, t25 lost to a nool-internal 'database is locked' SQLite 517 on merge (clean converge, health green — new failure class, see learn ledger), wall 410s, $8.85
+knot_id: 2f7db72c6c7626fbae8f93365dda5d75dff792dd288d04aea05a4bb7ff31c041
+solidified_at: 1787783986280
 thread: main
