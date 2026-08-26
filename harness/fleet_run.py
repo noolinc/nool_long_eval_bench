@@ -640,15 +640,49 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
                     release_lease(ws, t, gate)
                 inflight.pop(t["id"], None)
             return
-        with lock:
-            rec["agents"][t["id"]] = res
-            rec["integration"].append(integrate(ws, arm, t, run_id))
-            if gate is not None:
-                # Release the admission lease immediately: leaked leases
-                # (TTL up to an hour) would bleed into any subsequent run.
-                rec["releases"][t["id"]] = release_lease(ws, t, gate)
-            del inflight[t["id"]]
-            done.add(t["id"])
+        except Exception as e:
+            # Same leak family as the RateLimitAbort branch above but for
+            # ANY worker crash (see _lease_gated_dispatch, 2026-08-27): a
+            # leaked inflight entry keeps this ticket's footprint in the
+            # busy set forever and starves every overlapping ticket.
+            with lock:
+                rec["agents"][t["id"]] = {
+                    "error": f"worker exception: {type(e).__name__}: {e}"}
+                if gate is not None:
+                    try:
+                        rec["releases"][t["id"]] = release_lease(ws, t, gate)
+                    except Exception as rel_e:
+                        rec["releases"][t["id"]] = {"exit": None,
+                                                    "tail": [repr(rel_e)]}
+                inflight.pop(t["id"], None)
+            return
+        try:
+            with lock:
+                rec["agents"][t["id"]] = res
+                rec["integration"].append(integrate(ws, arm, t, run_id))
+        except Exception as e:
+            with lock:
+                rec["integration"].append({
+                    "ticket": t["id"], "clean": False, "exit_code": None,
+                    "queue_rejected": False, "post_merge_health": None,
+                    "secret_scan": None,
+                    "merge_tail": [f"worker exception: "
+                                   f"{type(e).__name__}: {e}"]})
+        finally:
+            with lock:
+                if t["id"] in inflight:
+                    if gate is not None:
+                        # Release the admission lease immediately: leaked
+                        # leases (TTL up to an hour) would bleed into any
+                        # subsequent run.
+                        try:
+                            rec["releases"][t["id"]] = release_lease(ws, t,
+                                                                     gate)
+                        except Exception as rel_e:
+                            rec["releases"][t["id"]] = {"exit": None,
+                                                        "tail": [repr(rel_e)]}
+                    inflight.pop(t["id"], None)
+                    done.add(t["id"])
 
     threads = []
     pending = list(tickets)
@@ -844,35 +878,58 @@ def _lease_gated_dispatch(rec, ws, tickets, run_id, n_workers, agent_fn,
     last_refused = {}        # ticket id -> epoch of last refused announce
 
     def worker(t, announcement_id, agent_id):
-        try:
-            res = agent_fn(t, agent_id)
-        except RateLimitAbort:
-            # A RateLimitAbort ticket never reaches the release below —
-            # without this, its `inflight` entry leaks forever and the
-            # admission loop spins with nothing left to do (verified
-            # 2026-08-26: a false-positive rate-limit detection hung the
-            # nool_try smoke test this way for 40+ minutes with zero CPU,
-            # since the loop's `_ABORT.is_set() and not inflight` exit
-            # never becomes true). Release best-effort and remove it so
-            # the batch can actually terminate.
-            with lock:
-                rel = ["nool", "announce", "release"]
-                rel += [announcement_id] if announcement_id else ["--all"]
-                rel += ["--agent-id", agent_id, "--compact"]
-                sh(rel, ws, timeout=120)
-                inflight.pop(t["id"], None)
-            return
-        with lock:
-            rec["agents"][t["id"]] = res
-            rec["integration"].append(integrate_fn(t, agent_id))
+        def _cleanup_locked():
+            # Must run on EVERY worker outcome (success, rejection, crash):
+            # release the admission lease, advance the epoch so refused
+            # tickets re-attempt, drop the inflight entry. A worker that
+            # died with an uncaught exception (observed 2026-08-27, N=35
+            # nool_try: a wedged nool call blew past sh()'s timeout and
+            # raised TimeoutExpired) used to leak `inflight`; the admission
+            # loop then skipped every refused ticket forever (epoch never
+            # advances while inflight is non-empty) — a silent live-lock at
+            # ~0% CPU with zero subprocesses. Same family as the 2026-08-26
+            # RateLimitAbort leak, different trigger.
             rel = ["nool", "announce", "release"]
             rel += [announcement_id] if announcement_id else ["--all"]
             rel += ["--agent-id", agent_id, "--compact"]
-            r_code, r_out = sh(rel, ws, timeout=120)
-            rec["releases"][t["id"]] = {"exit": r_code,
-                                        "tail": r_out.strip().splitlines()[-1:]}
+            try:
+                r_code, r_out = sh(rel, ws, timeout=120)
+                rec["releases"][t["id"]] = {
+                    "exit": r_code, "tail": r_out.strip().splitlines()[-1:]}
+            except Exception as e:
+                rec["releases"][t["id"]] = {
+                    "exit": None, "tail": [f"release failed: {e!r}"]}
             release_epoch[0] += 1
-            del inflight[t["id"]]
+            inflight.pop(t["id"], None)
+
+        try:
+            res = agent_fn(t, agent_id)
+        except RateLimitAbort:
+            with lock:
+                _cleanup_locked()
+            return
+        except Exception as e:
+            with lock:
+                rec["agents"][t["id"]] = {
+                    "error": f"worker exception: {type(e).__name__}: {e}"}
+                _cleanup_locked()
+            return
+        try:
+            with lock:
+                rec["agents"][t["id"]] = res
+                rec["integration"].append(integrate_fn(t, agent_id))
+        except Exception as e:
+            with lock:
+                rec["integration"].append({
+                    "ticket": t["id"], "clean": False, "exit_code": None,
+                    "queue_rejected": False, "post_merge_health": None,
+                    "secret_scan": None,
+                    "merge_tail": [f"worker exception: "
+                                   f"{type(e).__name__}: {e}"]})
+        finally:
+            with lock:
+                if t["id"] in inflight:
+                    _cleanup_locked()
 
     threads = []
     pending = list(tickets)
