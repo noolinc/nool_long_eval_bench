@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Land nool_fleet N=35/v3 rep 3/5 (nool 7.0.1 tranche, §8c +3 series): 60/60 accepted, zero conflicts, final health green, wall 326s, $8.41
-knot_id: 9f05460976dedec293288cfe889d29772527f7141204d0256e3b6f6341186e2f
-solidified_at: 1787783104127
+intent: Land nool_fleet N=35/v3 rep 4/5 (nool 7.0.1 tranche, §8c +3 series): 60/60 accepted, zero conflicts, final health green, wall 315s, $8.20
+knot_id: fd8d78c9b07adaec0d757afb3a32a6f3b1894a8279d714b2ecf8d17ca2788052
+solidified_at: 1787783494291
 thread: main
