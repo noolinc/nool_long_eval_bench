@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Update findings report and README with today's nool 7.0.0 rerun and nool_try arm: new §6a in the findings report covers the nool 7.0.0 upgrade, the try-lifecycle nool_try arm's design, four real nool 7.0.0 bugs found and worked around (try-nodes lease-overlap string matching, try+custom-config breakage, announce-release --all/--agent-id scoping, and a debug-bisect regression naming an untraceable synthetic attestation knot -- all four recorded in nool's own learn ledger), and the completed N=10/v3 ladder point across all 6 arms (nool_try/nool_gated/nool_fleet/git_scheduled all zero-conflict, git_fleet/git_gated_queue at the established ~35% merge-conflict rate) plus one clean N=25/v3 nool_try rep. README's findings-at-a-glance and current-status sections updated to match, including correcting the now-outdated 'bisect names the true culprit' claim (true on 6.14.1, regressed on 7.0.0)
-knot_id: 58543b68c352112b11d37dab576379f5b6e6989e666e8f4ad72cd609409d99b0
-solidified_at: 1787760625123
+intent: Land nool_gated N=35/v3 rep (nool 7.0.0 tranche): 60/60 accepted, zero conflicts
+knot_id: 6db0c9cb0d453370679fe63eb1e12892f12d512e943fc9bf66427ae840fddd49
+solidified_at: 1787763708658
 thread: main
