@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Findings §6c + README: document corpus v3.1 discovery and the resulting scope-reduced N=35/v3.1 matched point; original v3 git-side §8c gap remains open
-knot_id: c7c872530eb0b4ed6a2ab56a50a9b0fda88e4a06d3dd1a0272b49f10c6b44e7e
-solidified_at: 1787804249226
+intent: Pre-register §8d: footprint-source robustness study (nool_gated vs git_scheduled, N=20, light/heavy fp-noise + matched zero-noise anchor, 16 runs, before any 8d data)
+knot_id: 2314e024e104a60e5ba4db54e24d3417cc1b5f6572535569c5c839e3cb16a44e
+solidified_at: 1787804606586
 thread: main

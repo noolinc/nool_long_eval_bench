@@ -624,6 +624,100 @@ pluck, bisect, query, hooks), and absence of tier-specific latency or
 throttling (B1/B2 measure latency). Remaining replicator cost is LLM spend
 (~$7-10 per fleet run), already disclosed.
 
+## 8d. Track D — footprint-source robustness (pre-registered 2026-08-27, before any 8d data)
+
+§8c's `nool_gated`/`git_scheduled` arms both gate on a corpus-declared
+(oracle) footprint; §8c explicitly deferred the question of what happens
+when that footprint is wrong (line ~578: "footprint-source robustness is
+a separate, later condition"). Two prior observations motivate testing it
+now rather than later: (1) real-agent footprint drift already happened
+once, uncontrolled — findings §6b's `t30` (`nool_gated`, N=25): an agent
+edited a file outside its declared footprint, triggering a genuine
+propose-stage refusal; (2) the harness already implements a controlled
+noise mechanism (`fleet_run.py --fp-noise-drop P --fp-noise-add Q
+--fp-noise-seed S`, `harness/README.md`) that has never been exercised
+for evidence — zero `fleet_runs.jsonl` records carry `footprint_noise`
+data as of this writing.
+
+**Mechanism (already implemented, no new harness code required).** Before
+dispatch, each ticket's declared footprint independently drops each file
+with probability `fp_drop`, then with probability `fp_add` appends one
+spurious file drawn from the corpus-wide footprint universe. Perturbation
+is recorded per-ticket (`footprint_noise` field) for exact
+reproducibility. Both arms under test receive the *identical* perturbed
+footprint for admission gating — the noise models an imperfect footprint
+source, not an information asymmetry between arms. What differs is what
+each arm does after a bad admission decision: `git_scheduled` integrates
+with a blind `git merge` (no recovery once past scheduling); `nool_gated`
+integrates with `nool merge`, which may still surface a real overlap at
+merge time via nool's own conflict machinery even after the (equally
+noisy) admission gate let it through.
+
+**Scope.** `nool_gated` vs `git_scheduled`, corpus = whatever
+`tasks/fleet_service/tickets_v3.json` currently declares (`v3.1` as of
+2026-08-27 — see findings §6c), N=20 (revised up from an initial N=10
+choice: N is worker concurrency, not ticket count, so cost is flat across
+N while higher concurrency gives noise-induced bad admissions more
+in-flight tickets to actually collide with). Two noise cells, 3 reps per
+arm per cell:
+
+| Cell | fp_drop | fp_add | Models |
+|---|---|---|---|
+| light | 0.1 | 0.1 | minor footprint miss/over-declaration |
+| heavy | 0.3 | 0.3 | materially unreliable footprint source |
+
+**Zero-noise anchor, included in this pre-registration (not previously
+collected):** no existing `claude-sonnet-5` zero-noise data exists for
+`nool_gated`/`git_scheduled` at N=20 specifically — the closest prior
+point is N=10/v3 (`nool_gated` 60/60 both reps, `git_scheduled` 60/60
+both reps; README "Current status", findings §6a/6b), which does not
+transfer since N itself differs, not just noise. 2 reps per arm at
+`fp_drop=0, fp_add=0`, N=20, same corpus, are added to this
+pre-registration as the matched baseline predictions 1-2 are judged
+against. This anchor is also the first `claude-sonnet-5` N=20 data point
+for these two arms on any corpus (the existing off-ladder N=20 point,
+README "Current status", covers `git_fleet`/`nool_fleet` only, plus a
+weak single-rep opencode trial for this pair).
+
+16 runs total: 4 zero-noise (2 arms x 2 reps) + 12 noise (2 arms x 2
+noise cells x 3 reps). Estimated spend at observed ~$7-9/run (cost is
+driven by the fixed 60-ticket corpus, not by worker count N): ~$120-140.
+
+**Predictions (falsifiable, recorded before any data):**
+1. Both arms' accept rate declines monotonically from the zero-noise
+   anchor as noise increases (light > heavy in degradation) — the
+   mechanism should visibly bite, not be absorbed silently.
+2. `git_scheduled`'s accept-rate decline at heavy noise is larger than
+   `nool_gated`'s. Rationale: `nool_gated`'s `nool merge` step is a
+   second opportunity to catch a true overlap that a corrupted admission
+   gate let through; `git_scheduled`'s blind `git merge` has no such
+   backstop once scheduling is fooled.
+3. Conditional acceptance (accepted given landed, per `harness/README.md`
+   §"Fleet protocol") stays near 100% in both arms at every noise level —
+   any effect is on what integrates, not on code quality once integrated.
+4. `nool_gated`'s gating log shows a measurable rate of exit-3 refusals
+   correlated with `fp_add`-injected spurious files (nool refusing a
+   ticket over a footprint entry that was never real) — a distinct,
+   nool-specific failure mode (false-positive contention) not observable
+   in `git_scheduled`, which has no equivalent live refusal signal.
+
+**Decision rule.** If prediction 2 holds, footprint-source robustness is
+a genuine, measured product advantage for `nool_gated` over the
+identically-gated `git_scheduled` baseline — the first evidence in this
+suite that nool's contribution is not fully explained by the
+policy-not-tool reading of §6a/§8c. If prediction 2 fails (equal or
+worse degradation for `nool_gated`), the policy-not-tool reading extends
+to this axis too: both arms are equally exposed to a corrupted footprint
+source, and nool's real merge-time machinery provides no additional
+robustness over blind git merge. Either outcome is reported; goalposts
+above are fixed now, before any 8d data exists.
+
+**Follow-up, explicitly out of scope for 8d-i:** 8d-ii — replacing the
+oracle-plus-noise footprint with a real inference step (static analysis,
+an LLM-predicted footprint, or nool's own semantic footprint machinery,
+if any) rather than perturbing a known-correct declaration. This requires
+new harness code and is not pre-registered here.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —
