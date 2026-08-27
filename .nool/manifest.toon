@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Findings §6e + README: §8d rep 2 combined 2-rep read -- prediction 2 now holds at both noise levels, heavy noise shows identical 58-vs-55 split in both reps
-knot_id: 4dec367ce846b3f5ca607e277d3db5334d6daacda894e7788af907efbfbd99ba
-solidified_at: 1787835553850
+intent: Correct prediction-4 framing: refusal-log correlation is measurable with existing fields, was computed per-ticket across all 4 noise-cell runs, and is a genuine null/inconsistent result -- not an instrumentation gap
+knot_id: 6c0b93cdb48ef041a37071291c6fd131b3412ccba01a4895a400b345d8edec15
+solidified_at: 1787835819988
 thread: main

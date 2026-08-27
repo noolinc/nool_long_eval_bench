@@ -260,8 +260,11 @@ independent reps — the cleanest separation in this sub-study.
 observation across both reps (never behind), consistent with nool
 retaining more of its coordination advantage as footprint quality
 degrades. One pre-registered prediction (refusal-log correlation with
-injected noise) proved unmeasurable with current instrumentation
-regardless of rep count. Rep 1's zero-noise `git_scheduled` run also hit
+injected noise) was measured via a per-ticket cut across all four
+noise-cell runs and came back null/inconsistent — spurious-add tickets
+were refused more often than untouched tickets in 2 of 4 runs and less
+often in the other 2, at small bucket sizes. Rep 1's zero-noise
+`git_scheduled` run also hit
 an uncaught, noise-unrelated build-poisoning event that did not recur in
 rep 2 — an isolated occurrence, not a standing defect, but a reminder
 that accepted-ticket counts and final-main-health are not the same
