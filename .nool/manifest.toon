@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Record open mechanism question + §8e roadmap redirect: deprioritize N=50, scale §8d to 5 reps, intent-quality battery with honest buildability assessment, prioritize agent-discovered-footprint experiment
-knot_id: 412eac5de0f68895d99a5bcee0f498ded192781da4999e908f87ba5bf7031af9
-solidified_at: 1787841190174
+intent: Pre-register §8e-i reps 3-5 seeds and prediction (before this data)
+knot_id: 090553b702f4229b333ae3f35a695fd4214fd2754b6de485ac736877e25208d0
+solidified_at: 1787841533675
 thread: main

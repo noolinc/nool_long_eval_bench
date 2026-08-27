@@ -820,8 +820,19 @@ runs: 2 arms x 3 noise levels x 3 reps) would bring every cell to n=5,
 clearing this suite's own convention for a minimally powered read and
 directly answering the request to make the existing result "difficult
 to dismiss" before adding new uncertainty types. Estimated cost at
-observed ~$8–9/run: ~$150. Not run; awaiting operator confirmation
-given the standing weekly-quota constraint.
+observed ~$8–9/run: ~$150.
+
+**Pre-registered 2026-08-27, before this data**: reps 3–5, new
+independent `fp-noise-seed` values shared between the two arms within
+each rep (light: 5001/5002/5003; heavy: 6001/6002/6003; very-heavy:
+7001/7002/7003), same N=20/v3.1/`nool_gated`-vs-`git_scheduled` setup as
+reps 1–2. Prediction: the mean gap at each noise level (currently 3.3pp
+light, 5.0pp heavy, 6.7pp very-heavy at n=2) stays positive and
+ordered — `nool_gated` mean acceptance at or above `git_scheduled`'s at
+every level, gap non-decreasing across light→heavy→very-heavy — once
+averaged over 5 reps instead of 2. A reversal at any level, or the gap
+collapsing toward zero, would weaken §6f/§6g's reading materially more
+than a single-rep fluctuation would.
 
 ### 8e-ii. An intent-quality degradation battery (proposed; buildability varies by condition)
 
