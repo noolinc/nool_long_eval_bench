@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-register §8e-i reps 3-5 seeds and prediction (before this data)
-knot_id: 090553b702f4229b333ae3f35a695fd4214fd2754b6de485ac736877e25208d0
-solidified_at: 1787841533675
+intent: §8e-i light-noise reps 3-4 results appended: nool_gated 57/60, 58/60; git_scheduled 59/60
+knot_id: 4fea148d202fe134eb649f204189a3f24877e22c550dd56829dd33dd4f9e6e57
+solidified_at: 1787843953032
 thread: main
