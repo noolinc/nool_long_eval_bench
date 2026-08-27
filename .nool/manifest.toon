@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Findings §6f + README: re-rank §8d findings, root-cause the zero-noise poisoning event to known cluster-A/t10 billing.go corpus artifact, demote wall-time/throughput to qualified secondary observations
-knot_id: f3f8f947539064a8d5aabb9d5aea7e9131198565ce0e65d52acb44f06d5ea871
-solidified_at: 1787836897654
+intent: Pre-register §8d-i very-heavy noise cell (0.5/0.5, 2 reps/arm, before this cell's data)
+knot_id: 1543ad722a9e8074d4339fb1b9850d8fe2deca49e957e2f180bd5d67462a23d8
+solidified_at: 1787837489426
 thread: main

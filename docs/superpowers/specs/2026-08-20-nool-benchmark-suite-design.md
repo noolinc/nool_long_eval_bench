@@ -703,6 +703,24 @@ this must be disclosed alongside any updated reading — but it does let
 predictions 1-2 be checked against a second, independent draw instead of
 resting on one.
 
+**8d-i, very-heavy cell (pre-registered 2026-08-27, before this cell's
+data).** Rep 1+2 (§6d-§6f) found the degradation curve holding cleanly
+through `fp_drop=0.3, fp_add=0.3` (heavy): `nool_gated` 58/60 both reps,
+`git_scheduled` 55/60 both reps. A third noise level, `fp_drop=0.5,
+fp_add=0.5` ("very heavy" — half of every ticket's declared footprint is
+wrong), extends the curve one step further: 2 reps per arm, N=20, same
+corpus, new independent seeds (3001 for rep 1, 3002 for rep 2, shared
+between the two arms within each rep as in every prior cell). 4 runs
+(2 arms x 2 reps), ~$32-36 more. **Prediction (falsifiable, before this
+cell's data):** the degradation curve continues in the same direction —
+`git_scheduled`'s accept rate falls further below `nool_gated`'s than at
+heavy noise (i.e., the gap widens, not narrows or reverses). If the gap
+narrows or `git_scheduled` overtakes `nool_gated` at this noise level,
+the "advantage widens with noise" reading from §6f is falsified and the
+heavy-noise result should be treated as a local, not general, pattern.
+Still n=2/cell — this remains a provisional read, same caveats as every
+other §8d-i cell.
+
 **Predictions (falsifiable, recorded before any data; read as directional
 given n=1/cell, not statistically confirmatory):**
 1. Both arms' accept rate declines monotonically from the zero-noise
