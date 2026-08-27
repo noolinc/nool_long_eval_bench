@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Protocol-v4 study hardening: commit shared governance pre-divergence (fixes git-worktree visibility defect), git_retry/git_competitive arms, conditional acceptance + throughput twins, footprint-noise study, language-neutral corpus contract, scripted validation adapter (all 8 arms validated), corpus v3.1 LOO+mutation validation with hand-verified equivalence allowlist, t4/t36/t54 boundary-test strengthening
-knot_id: 163a896da544bd59c7b47a64dc6373be63713a2f83a5605812c45eca9ed260b1
-solidified_at: 1787797284545
+intent: tier1 run: Track B micro-benchmarks re-run + Track C redux_go 2x2 smoke cell (claude-sonnet-5, 1 rep)
+knot_id: a3d21c2ced7e0f61e71502d933327a9b7286fbe75f1db152bd71165d996ed32a
+solidified_at: 1787799625698
 thread: main

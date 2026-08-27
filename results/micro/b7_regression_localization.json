@@ -1,10 +1,10 @@
 {
  "benchmark": "b7_regression_localization",
  "provenance": {
-  "timestamp_utc": "2026-08-26T01:51:10.006124+00:00",
+  "timestamp_utc": "2026-08-27T02:49:45.684453+00:00",
   "platform": "macOS-26.5.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.0.0",
+  "nool_version": "nool 7.0.1",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -18,24 +18,24 @@
  "arms": {
   "git": {
    "culprit_found": true,
-   "wall_ms": 2382.6,
+   "wall_ms": 2107.3,
    "bisect_steps": 3,
    "exit_code": 0
   },
   "nool": {
    "culprit_found": false,
-   "wall_ms": 1310.7,
+   "wall_ms": 1249.0,
    "bisect_steps_reported": 0,
    "exit_code": 0,
-   "knot_named": "92680092a9406964",
+   "knot_named": "91ec3d46459e377f",
    "knot_named_intent": null,
-   "attested_for": "371d7b42",
+   "attested_for": "8bc96975",
    "resolved_intent": "landing 6: add Extra6",
    "truth_intent": "landing 7",
    "output_tail": [
-    "  \ud83d\udc1b First bad Knot: 92680092a9406964",
-    "  Intent: \"Attest    syntax Pass (Check) by integrity-driver for 371d7b42\"",
-    "  Time: 2026-08-26 01:51:06 UTC",
+    "  \ud83d\udc1b First bad Knot: 91ec3d46459e377f",
+    "  Intent: \"Attest    syntax Pass (Check) by integrity-driver for 8bc96975\"",
+    "  Time: 2026-08-27 02:49:42 UTC",
     "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
    ]
   }
