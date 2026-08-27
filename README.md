@@ -90,15 +90,19 @@ model (claude-sonnet-5) throughout; product versions 6.13.0 → 6.14.1 →
    `git_scheduled`, `nool_fleet`) keeps wasted spend near $0 by refusing
    the conflicting ticket before an agent ever starts on it.
 4. **Under footprint noise, nool currently degrades more slowly than an
-   oracle-scheduled git baseline (2 reps; suggestive, not conclusive).**
-   New 2026-08-27 sub-study (§8d, findings §6d–§6f): `nool_gated` vs
-   `git_scheduled` at N=20 with injected footprint noise. Under perfect
-   information both hit 60/60. As noise rises, `nool_gated` degrades to
-   58/60 (light) and 58/60 (heavy, identical in both independent reps);
-   `git_scheduled` degrades further, to 56/60 (light) and 55/60 (heavy),
-   with its conflict count rising faster (0→4→5 vs. 0→1→2). Still n=2 per
-   cell — a third cell (very-heavy, 0.5/0.5 noise) is in progress to
-   check whether the gap keeps widening or reverses.
+   oracle-scheduled git baseline, and the gap widens monotonically at
+   every noise level tested (2 reps/cell; suggestive, not conclusive).**
+   2026-08-27 sub-study (§8d, findings §6d–§6g): `nool_gated` vs
+   `git_scheduled` at N=20 across four noise levels. Both hit 60/60 under
+   perfect information; the accept-rate gap between them then opens at
+   every step — 0 (zero-noise) → 2 (light: 58 vs 56) → 3 (heavy: 58 vs
+   55) → **4** (very-heavy, 0.5/0.5: 53 vs 49) — with `git_scheduled`'s
+   conflict count also rising faster throughout (roughly doubling from
+   heavy to very-heavy, 5.5 vs `nool_gated`'s 4.5). The pre-registered
+   prediction (gap widens, not narrows or reverses) held at every
+   measured point. Still n=2/cell and correlational — the mechanism
+   (`nool merge`'s extra check vs. blind `git merge`) is the leading
+   hypothesis, not a directly observed cause.
 5. **Accepted-ticket counts can hide broken final-system states.** The
    same corpus cluster (`t2`/`t9`/`t10`/`t11`/`t21`/`t22`, all declaring
    `service/billing.go`) that caused scale-up 1's 1/20 git-arm collapse
@@ -268,17 +272,24 @@ fresh `nool_gated`/`nool_fleet` v3.1 reps (2 each, 59–60/60, zero
 conflicts) — directionally consistent with every other N=35 result.
 **2026-08-27, §8d footprint-source robustness** (`nool_gated` vs
 `git_scheduled` under injected footprint noise, N=20, corpus v3.1, 2
-reps/cell — still below this suite's "3+" bar but no longer a single
-draw). Re-ranked and root-caused in findings §6f after initial framing
-in §6d/§6e buried the strongest result under one needing heavy
-qualification. Strongest: the accept/conflict degradation curve, now
-replicated — zero-noise 60/60 both arms (0 conflicts each); light noise
-`nool_gated` 58/60 (1 conflict) vs `git_scheduled` 56/60 (4 conflicts);
-heavy noise `nool_gated` 58/60 (2 conflicts) vs `git_scheduled` 55/60
-(5 conflicts), with the heavy cell landing an *identical* 58-vs-55 split
-in both independent reps. `nool_gated` degrades more slowly than an
-oracle-scheduled git baseline as footprint quality drops — suggestive,
-not conclusive, at n=2. Also important, but traced away from §8d itself:
+reps/cell across 4 noise levels — still below this suite's "3+" bar but
+no longer a single draw). Re-ranked and root-caused in findings §6f
+after initial framing in §6d/§6e buried the strongest result under one
+needing heavy qualification. Strongest: the accept/conflict degradation
+curve, now replicated at every level with a monotonically widening gap
+(§6g) — zero-noise 60/60 both arms (0 conflicts each, gap 0); light
+noise `nool_gated` 58/60 (1 conflict) vs `git_scheduled` 56/60
+(4 conflicts, gap 2); heavy noise `nool_gated` 58/60 (2 conflicts) vs
+`git_scheduled` 55/60 (5 conflicts, gap 3), the heavy cell landing an
+*identical* 58-vs-55 split in both independent reps; very-heavy
+(0.5/0.5) `nool_gated` 53/60 (6 conflicts) vs `git_scheduled` 49/60
+(10.5 conflicts, gap 4) — the pre-registered prediction that the gap
+would widen, not narrow or reverse, held at every step. `nool_gated`
+degrades more slowly than an oracle-scheduled git baseline as footprint
+quality drops — suggestive, not conclusive, at n=2, and still
+correlational (the leading mechanism, `nool merge`'s extra check vs.
+blind `git merge`, is not directly observed). Also important, but traced
+away from §8d itself:
 rep 1's zero-noise `git_scheduled` run hit 16 broken-main events and a
 failed final smoke test despite 60/60 accepted; root cause is ticket
 **t10** ("Processing fee"), part of a known "cluster-A" contention
@@ -297,7 +308,7 @@ finishing sooner under noise reflects doing less successful work (a
 conflicting `git merge` aborts before the expensive build+smoke
 pipeline), not higher efficiency, and the same caveat applies to raw
 throughput. Full detail, root-cause tracing, and the corrected ranking
-in findings §6d-§6f; a third rep per cell remains the natural next step
+in findings §6d-§6g; a third rep per cell remains the natural next step
 if quota allows. External benchmark adaptations (CooperBench,
 SlopCodeBench) are Tier 2 — see the spec.
 
