@@ -268,8 +268,15 @@ often in the other 2, at small bucket sizes. Rep 1's zero-noise
 an uncaught, noise-unrelated build-poisoning event that did not recur in
 rep 2 — an isolated occurrence, not a standing defect, but a reminder
 that accepted-ticket counts and final-main-health are not the same
-measurement. Full detail and caveats in findings §6d/§6e; a third rep
-per cell remains the natural next step if quota allows. External
+measurement. An unplanned wall-time pattern also emerged: `nool_gated`'s
+wall time stayed tight across all six runs (316-372s) while
+`git_scheduled`'s ranged 271-589s and moved opposite to what "noise
+slows things down" predicts — its zero-noise reps were slowest, heavy
+noise fastest — most likely because a conflicting `git merge` aborts
+before the expensive build+smoke pipeline runs, so more conflicts under
+noise means proportionally less of that work per run. Full detail and
+caveats in findings §6d/§6e; a third rep per cell remains the natural
+next step if quota allows. External
 benchmark adaptations (CooperBench,
 SlopCodeBench) are Tier 2 — see the spec.
 
