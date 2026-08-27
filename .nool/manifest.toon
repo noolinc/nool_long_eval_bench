@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: §8d rep2 final result: heavy-noise git_scheduled 55/60 appended -- §8d-i now 2 reps/cell complete
-knot_id: 58e2e33518a4f1b97efe4408b287c527f1eb44299cd9c56fcb6aff9f77bbb5a3
-solidified_at: 1787835455697
+intent: Findings §6e + README: §8d rep 2 combined 2-rep read -- prediction 2 now holds at both noise levels, heavy noise shows identical 58-vs-55 split in both reps
+knot_id: 4dec367ce846b3f5ca607e277d3db5334d6daacda894e7788af907efbfbd99ba
+solidified_at: 1787835553850
 thread: main

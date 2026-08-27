@@ -248,21 +248,26 @@ mismatch was extended into its own scope-reduced N=35/v3.1 point —
 `git_scheduled` (3 reps, 60/59/59 of 60, zero conflicts) matched against
 fresh `nool_gated`/`nool_fleet` v3.1 reps (2 each, 59–60/60, zero
 conflicts) — directionally consistent with every other N=35 result.
-**2026-08-27, §8d first look**: footprint-source robustness
-(`nool_gated` vs `git_scheduled` under injected footprint noise, N=20,
-corpus v3.1, 1 rep/cell — UNDERPOWERED by design, scaled down under the
-weekly quota). Results: zero-noise 60/60 both arms; light noise (0.1
-drop/add) 57/60 both arms via different failure modes; heavy noise (0.3
-drop/add) `nool_gated` 58/60 vs `git_scheduled` 55/60 — directionally
-consistent with nool retaining more of its advantage as footprint quality
-degrades, but non-monotonic for `nool_gated` at n=1 and one pre-registered
-prediction (refusal-log correlation with injected noise) proved
-unmeasurable with current instrumentation. The zero-noise `git_scheduled`
-run also hit an uncaught, noise-unrelated build-poisoning event (findings
-§6d) — a reminder that accepted-ticket counts and final-main-health are
-not the same measurement. Full detail and caveats in findings §6d;
-3+-rep replication is the recommended next step before treating this as
-more than suggestive. External benchmark adaptations (CooperBench,
+**2026-08-27, §8d footprint-source robustness** (`nool_gated` vs
+`git_scheduled` under injected footprint noise, N=20, corpus v3.1, now
+2 reps/cell — still below this suite's "3+" bar but no longer a single
+draw). Combined results (mean of 2 reps): zero-noise 60/60 both arms;
+light noise (0.1 drop/add) `nool_gated` 58/60 vs `git_scheduled` 56/60;
+heavy noise (0.3 drop/add) `nool_gated` 58/60 vs `git_scheduled` 55/60,
+with the heavy-noise cell landing the *identical* 58-vs-55 split in both
+independent reps — the cleanest separation in this sub-study.
+`nool_gated` is at or ahead of `git_scheduled` in every noise-cell
+observation across both reps (never behind), consistent with nool
+retaining more of its coordination advantage as footprint quality
+degrades. One pre-registered prediction (refusal-log correlation with
+injected noise) proved unmeasurable with current instrumentation
+regardless of rep count. Rep 1's zero-noise `git_scheduled` run also hit
+an uncaught, noise-unrelated build-poisoning event that did not recur in
+rep 2 — an isolated occurrence, not a standing defect, but a reminder
+that accepted-ticket counts and final-main-health are not the same
+measurement. Full detail and caveats in findings §6d/§6e; a third rep
+per cell remains the natural next step if quota allows. External
+benchmark adaptations (CooperBench,
 SlopCodeBench) are Tier 2 — see the spec.
 
 ## Threats to validity
