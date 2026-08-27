@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: §8d rep2: zero-noise 60/60 both arms, light-noise nool_gated 59/60 vs git_scheduled 55/60, heavy-noise nool_gated 58/60 appended (git_scheduled heavy still running)
-knot_id: 8a093774e66a4f5fecf27a0e342246b7bf4b7f13d122b684be9bfb6f590ee97f
-solidified_at: 1787835422405
+intent: §8d rep2 final result: heavy-noise git_scheduled 55/60 appended -- §8d-i now 2 reps/cell complete
+knot_id: 58e2e33518a4f1b97efe4408b287c527f1eb44299cd9c56fcb6aff9f77bbb5a3
+solidified_at: 1787835455697
 thread: main
