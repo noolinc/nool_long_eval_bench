@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="340" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">§8d: mean ticket-acceptance rate as footprint noise increases</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">N=20 workers, corpus v3.1, 2 reps/cell; nool_gated vs git_scheduled under injected footprint noise (fp_drop=fp_add per cell: 0, 0.1, 0.3, 0.5)</text>
+<text x="44.0" y="297.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">0</text>
+<line x1="52.0" y1="235.0" x2="684.0" y2="235.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="238.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">25</text>
+<line x1="52.0" y1="176.0" x2="684.0" y2="176.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="179.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">50</text>
+<line x1="52.0" y1="117.0" x2="684.0" y2="117.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="120.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">75</text>
+<line x1="52.0" y1="58.0" x2="684.0" y2="58.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="61.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">100</text>
+<line x1="52.0" y1="294.0" x2="684.0" y2="294.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="16.0" y="52.0" font-size="10.5" fill="#898781" text-anchor="start" font-weight="normal">% tickets accepted (mean of 2 reps)</text>
+<text x="52.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">zero</text>
+<text x="262.7" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">light</text>
+<text x="473.3" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">heavy</text>
+<text x="684.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">very-heavy</text>
+<line x1="52.0" y1="58.0" x2="262.7" y2="73.7" stroke="#eb6834" stroke-width="2.5"/>
+<line x1="262.7" y1="73.7" x2="473.3" y2="77.7" stroke="#eb6834" stroke-width="2.5"/>
+<line x1="473.3" y1="77.7" x2="684.0" y2="101.3" stroke="#eb6834" stroke-width="2.5"/>
+<circle cx="52.0" cy="58.0" r="4" fill="#eb6834"/>
+<text x="52.0" y="48.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">100.0%</text>
+<circle cx="262.7" cy="73.7" r="4" fill="#eb6834"/>
+<text x="262.7" y="63.7" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">93.3%</text>
+<circle cx="473.3" cy="77.7" r="4" fill="#eb6834"/>
+<text x="473.3" y="67.7" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">91.7%</text>
+<circle cx="684.0" cy="101.3" r="4" fill="#eb6834"/>
+<text x="684.0" y="91.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">81.7%</text>
+<line x1="52.0" y1="58.0" x2="262.7" y2="65.9" stroke="#2a78d6" stroke-width="2.5"/>
+<line x1="262.7" y1="65.9" x2="473.3" y2="65.9" stroke="#2a78d6" stroke-width="2.5"/>
+<line x1="473.3" y1="65.9" x2="684.0" y2="85.5" stroke="#2a78d6" stroke-width="2.5"/>
+<circle cx="52.0" cy="58.0" r="4" fill="#2a78d6"/>
+<text x="52.0" y="48.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">100.0%</text>
+<circle cx="262.7" cy="65.9" r="4" fill="#2a78d6"/>
+<text x="262.7" y="55.9" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">96.7%</text>
+<circle cx="473.3" cy="65.9" r="4" fill="#2a78d6"/>
+<text x="473.3" y="55.9" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">96.7%</text>
+<circle cx="684.0" cy="85.5" r="4" fill="#2a78d6"/>
+<text x="684.0" y="75.5" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">88.3%</text>
+<rect x="52.0" y="319.0" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="67.0" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">git_scheduled</text>
+<rect x="167.9" y="319.0" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="182.9" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">nool_gated</text>
+</svg>

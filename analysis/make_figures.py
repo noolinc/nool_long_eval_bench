@@ -141,6 +141,137 @@ def grouped_columns(name, title, subtitle, groups, series, ymax, yticks,
     s.save(name)
 
 
+def line_series(name, title, subtitle, x_labels, series, ymax, yticks,
+                ylabel, value_fmt=lambda v: f"{v:g}", h=340, w=700):
+    """x_labels: ordered category labels (e.g. noise levels).
+    series: [(label, color, [values by x_label])]. One line + dot markers
+    + value labels per series; used for trends across an ordered axis
+    where a line reads more honestly than adjacent bars (e.g. a
+    degradation curve)."""
+    s = SVG(w, h)
+    s.text(16, 24, title, size=13, fill=INK, weight="600")
+    s.text(16, 41, subtitle, size=11, fill=INK2)
+    top, bottom, left, right = 58, h - 46, 52, w - 16
+    ph, pw = bottom - top, right - left
+    for t in yticks:
+        y = bottom - ph * t / ymax
+        if t > 0:
+            s.line(left, y, right, y)
+        s.text(left - 8, y + 3.5, f"{t:g}", size=10.5, fill=MUTED, anchor="end")
+    s.line(left, bottom, right, bottom, stroke=BASELINE)
+    s.text(16, top - 6, ylabel, size=10.5, fill=MUTED)
+    n = len(x_labels)
+    xs = [left + pw * i / (n - 1) for i in range(n)] if n > 1 else [left + pw / 2]
+    for xi, xl in enumerate(x_labels):
+        s.text(xs[xi], bottom + 17, xl, size=11, fill=INK2, anchor="middle")
+    for label, color, vals in series:
+        pts = [(xs[i], bottom - ph * v / ymax) for i, v in enumerate(vals)]
+        for (x1, y1), (x2, y2) in zip(pts, pts[1:]):
+            s.line(x1, y1, x2, y2, stroke=color, width=2.5)
+        for (x, y), v in zip(pts, vals):
+            s.parts.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="4" '
+                           f'fill="{color}"/>')
+            s.text(x, y - 10, value_fmt(v), size=11, fill=INK, anchor="middle")
+    s.legend(left, h - 12, [(lab, c) for lab, c, _ in series if lab])
+    s.save(name)
+
+
+NOISE_CELLS_8D = [
+    ("zero", ("fleet_nool_gated_f50ec0fe", "fleet_nool_gated_e4b89982"),
+             ("fleet_git_scheduled_976968d7", "fleet_git_scheduled_928d3ccb")),
+    ("light", ("fleet_nool_gated_92106c6e", "fleet_nool_gated_46b05974"),
+              ("fleet_git_scheduled_f377f205", "fleet_git_scheduled_e99f90df")),
+    ("heavy", ("fleet_nool_gated_9b8ae7be", "fleet_nool_gated_c5f44b1a"),
+              ("fleet_git_scheduled_d16cdf36", "fleet_git_scheduled_752dd08d")),
+    ("very-heavy", ("fleet_nool_gated_138ef09b", "fleet_nool_gated_fb380c1f"),
+                   ("fleet_git_scheduled_c097eb0c", "fleet_git_scheduled_026c16d0")),
+]
+
+
+def fig_8d_degradation(recs):
+    labels = [c for c, _, _ in NOISE_CELLS_8D]
+
+    def mean_rate(rids):
+        return 100.0 * sum(sum(recs[rid]["acceptance"].values())
+                           for rid in rids) / (len(rids) * 60)
+    nool_vals = [mean_rate(n_ids) for _, n_ids, _ in NOISE_CELLS_8D]
+    git_vals = [mean_rate(g_ids) for _, _, g_ids in NOISE_CELLS_8D]
+    line_series(
+        "trackd_8d_degradation.svg",
+        "§8d: mean ticket-acceptance rate as footprint noise increases",
+        "N=20 workers, corpus v3.1, 2 reps/cell; nool_gated vs git_scheduled under injected footprint noise (fp_drop=fp_add per cell: 0, 0.1, 0.3, 0.5)",
+        labels,
+        [("git_scheduled", GIT, git_vals), ("nool_gated", NOOL, nool_vals)],
+        ymax=100, yticks=[0, 25, 50, 75, 100],
+        ylabel="% tickets accepted (mean of 2 reps)",
+        value_fmt=lambda v: f"{v:.1f}%")
+
+
+def fig_8d_conflicts(recs):
+    labels = [c for c, _, _ in NOISE_CELLS_8D]
+
+    def mean_conflicts(rids):
+        evo = [recs[rid]["evolution"]["conflicts"] for rid in rids]
+        return sum(evo) / len(evo)
+    nool_vals = [mean_conflicts(n_ids) for _, n_ids, _ in NOISE_CELLS_8D]
+    git_vals = [mean_conflicts(g_ids) for _, _, g_ids in NOISE_CELLS_8D]
+    grouped_columns(
+        "trackd_8d_conflicts.svg",
+        "§8d: mean merge conflicts as footprint noise increases",
+        "Same runs as the degradation curve; conflicts are the mechanism behind the widening acceptance gap",
+        labels,
+        [("git_scheduled", GIT, git_vals), ("nool_gated", NOOL, nool_vals)],
+        ymax=12, yticks=[0, 3, 6, 9, 12], ylabel="mean conflicts (of 60 tickets)",
+        value_fmt=lambda v: f"{v:.1f}")
+
+
+def fig_8d_composition(recs):
+    """Very-heavy cell only: outcome breakdown per arm, same severity-ordered
+    stacked-bar convention as fig_composition (a pie chart would need equal
+    denominators to compare slice angles meaningfully and this suite's own
+    dataviz convention avoids them for that reason)."""
+    _, n_ids, g_ids = NOISE_CELLS_8D[-1]
+    rows = []
+    for label, rids, color in [("git_scheduled", g_ids, GIT),
+                               ("nool_gated", n_ids, NOOL)]:
+        acc = conf = other = 0
+        for rid in rids:
+            r = recs[rid]
+            acc += sum(r["acceptance"].values())
+            conf += r["evolution"]["conflicts"]
+            other += 60 - sum(r["acceptance"].values()) - r["evolution"]["conflicts"]
+        rows.append((label, [acc, conf, other], color))
+    classes = [("Accepted", ORDINAL[0]), ("Merge conflict", ORDINAL[2]),
+               ("Other (landed, not accepted)", ORDINAL[3])]
+    w, h = 700, 96 + 44 * len(rows)
+    s = SVG(w, h)
+    s.text(16, 24, "§8d very-heavy noise (0.5/0.5): outcome composition, 2 reps pooled",
+           size=13, fill=INK, weight="600")
+    s.text(16, 41, "Out of 120 ticket-attempts per arm (2 reps x 60 tickets); severity-ordered, light to dark",
+           size=11, fill=INK2)
+    left, right = 130, w - 16
+    denom = 120.0
+    scale = (right - left) / denom
+    y = 62
+    for label, counts, _ in rows:
+        s.text(left - 8, y + 15, label, size=11, fill=INK2, anchor="end")
+        x = left
+        total_w = sum(counts) * scale
+        for (cname, color), n in zip(classes, counts):
+            seg = n * scale - 2
+            if n > 0:
+                s.hbar(x, y, seg, 22, color,
+                       rounded_end=(x + n * scale >= left + total_w - 0.5))
+                if seg > 16:
+                    fill = INK if color == ORDINAL[0] else "#ffffff"
+                    s.text(x + seg / 2, y + 15, str(n), size=11, fill=fill,
+                           anchor="middle")
+            x += n * scale
+        y += 44
+    s.legend(16, h - 12, classes)
+    s.save("trackd_8d_composition.svg")
+
+
 def fleet_records():
     p = REPO / "results" / "trackc" / "fleet_runs.jsonl"
     return {r["run_id"]: r for r in map(json.loads, p.read_text().splitlines())}
@@ -344,6 +475,9 @@ def main():
     fig_b5()
     fig_b2()
     fig_b6()
+    fig_8d_degradation(recs)
+    fig_8d_conflicts(recs)
+    fig_8d_composition(recs)
 
 
 if __name__ == "__main__":

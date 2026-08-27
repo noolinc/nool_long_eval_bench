@@ -10,6 +10,48 @@ improves coding-agent outcomes versus plain git, across agent harnesses
 hypotheses H1–H7 and the analysis plan were committed before any Tier 1 data
 was collected. Read it before the numbers.
 
+## In plain terms
+
+Picture 20-60 AI coding agents all working on the same codebase at once,
+each fixing a different ticket. Two things can go wrong: two agents edit
+the same code and their changes collide (a "conflict"), or two changes
+each look fine on their own but break something when combined (silent
+"poisoning" — the build still passes, but a shared behavior is now
+wrong). This suite measures how often that happens under **plain git**
+versus **Nool**, a tool that tries to prevent it by having agents check
+in with each other before they start.
+
+The short version of what a week of testing found:
+
+- **When every agent knows exactly which files it's about to touch**,
+  Nool and a well-scheduled git setup perform about the same — both
+  land essentially 100% of tickets cleanly. Nool's edge isn't the
+  *coordination idea*, which git can also implement; it's specifically
+  useful when that plan turns out to be wrong.
+- **When agents' declared plans are unreliable** — they under-report or
+  over-report which files they'll touch, which happens for real
+  (agents genuinely go outside their stated scope sometimes) — Nool
+  held up better than the git baseline at every level of unreliability
+  tested, and the gap between them grew the worse the information got
+  (from a 0-point gap with perfect information to a 6.7-percentage-point
+  gap in the worst case tested). This is still an early result (2
+  repeated runs per condition, not enough for a strong claim yet), but
+  it points at *when* a coordination layer like this actually earns its
+  keep: not when plans are perfect, but when they aren't.
+- **A system can "pass" and still be broken.** In one run, every
+  individual ticket's own test passed (100% accepted) while the shared
+  codebase's overall test suite was silently failing — a reminder that
+  counting "how many tickets got accepted" isn't the same as checking
+  "is the result actually healthy."
+- Nool's mechanism-level tests also show real, measurable wins in
+  tracking who-changed-what under heavy concurrency and in undoing a bad
+  change without losing later good ones — alongside a real cost:
+  landing a change through Nool takes roughly 7-10x longer than through
+  plain git.
+
+Everything below is the full, unedited methodology and data behind those
+four bullets, written for readers who want to check the work.
+
 ## Why this suite, not an existing benchmark
 
 Several published benchmarks already grade coding-agent output — the
@@ -52,82 +94,103 @@ Full report with figures and provenance:
 [`docs/findings/2026-08-21-findings.md`](docs/findings/2026-08-21-findings.md) ·
 academic write-up: `docs/paper/2026-08-nool-fleet-study.md`. One pinned
 model (claude-sonnet-5) throughout; product versions 6.13.0 → 6.14.1 →
-7.0.0 → 7.0.1 recorded per run.
+7.0.0 → 7.0.1 recorded per run. Acceptance rate (% of tickets landed and
+passing their own test) is the headline number in every point below,
+with raw counts alongside for anyone checking the underlying data —
+rates are what carry over to a differently-sized corpus, counts don't.
 
 ![Concurrency ladder: mean acceptance rate by N](docs/findings/figures/trackd_ladder.svg)
 
-1. **Admission-time coordination prevents fleet contention.**
-   Pre-registered concurrency ladder, function-level contention, corpus
-   v3 (60 tickets) at N=25 and N=35: footprint-gated dispatch held 60/60
-   accepted with zero merge conflicts across all four reps, while
-   ungated git lost roughly a third of tickets to conflicts at every N
-   (flat 20–22 at N=20/25/35) and, at N=35, additionally hit
-   build-poisoning (37/60 and **20/60**, the latter a textually-clean
-   merge voiding 18 further tickets). Spend per accepted ticket stayed
-   lower for the gated arm at every point measured ($0.11–0.21 vs
-   $0.18–3.80 for git).
-2. **An ideal git scheduler matches nool under perfect footprints.** The
-   2026-08-22 attribution audit (paper §5.6) found the original gating
-   was computed by the harness from corpus-declared footprints — nool's
-   own conflict verdicts were advisory and never consulted — so the
-   separation in (1) was established for the dispatch *policy*, not the
-   product. Three ablation arms test this directly (spec §8c):
-   `git_scheduled` (git under the identical scheduler), `git_gated_queue`
-   (a CI-gated merge queue), `nool_gated` (dispatch gated by nool's real
-   `announce intent` refusals). At N=10 and again at N=35/v3.1
-   (2026-08-27, findings §6c), `git_scheduled` matches `nool_gated` and
-   `nool_fleet` — zero conflicts, effectively identical accept rates —
-   confirming the separation tracks coordination *policy*, not the tool,
-   whenever footprint information is accurate.
-3. **Integration-time gating is too late and wastes agent work.**
-   `git_fleet`'s ungated parallel dispatch lets every agent start
-   regardless of overlap, so conflicts are discovered only at merge —
-   $1.40–1.57 of each scale-up-1 run's spend (§2.3) produced work that
-   never integrated; `git_gated_queue`'s CI gate catches build-poisoning
-   but is checked after the same ungated dispatch, so it inherited the
-   same ~20/60 conflict rate and ~$3.3–3.4 of wasted spend per rep at
-   N=35 (2026-08-27 data). Admission-time gating (`nool_gated`,
-   `git_scheduled`, `nool_fleet`) keeps wasted spend near $0 by refusing
-   the conflicting ticket before an agent ever starts on it.
-4. **Under footprint noise, nool currently degrades more slowly than an
-   oracle-scheduled git baseline, and the gap widens monotonically at
-   every noise level tested (2 reps/cell; suggestive, not conclusive).**
-   2026-08-27 sub-study (§8d, findings §6d–§6g): `nool_gated` vs
-   `git_scheduled` at N=20 across four noise levels. Both hit 60/60 under
-   perfect information; the accept-rate gap between them then opens at
-   every step — 0 (zero-noise) → 2 (light: 58 vs 56) → 3 (heavy: 58 vs
-   55) → **4** (very-heavy, 0.5/0.5: 53 vs 49) — with `git_scheduled`'s
-   conflict count also rising faster throughout (roughly doubling from
-   heavy to very-heavy, 5.5 vs `nool_gated`'s 4.5). The pre-registered
-   prediction (gap widens, not narrows or reverses) held at every
-   measured point. Still n=2/cell and correlational — the mechanism
-   (`nool merge`'s extra check vs. blind `git merge`) is the leading
-   hypothesis, not a directly observed cause.
-5. **Accepted-ticket counts can hide broken final-system states.** The
-   same corpus cluster (`t2`/`t9`/`t10`/`t11`/`t21`/`t22`, all declaring
-   `service/billing.go`) that caused scale-up 1's 1/20 git-arm collapse
-   (§2.4) recurred in §8d's zero-noise `git_scheduled` anchor: 60/60
-   accepted, yet 16 broken-main events and a failed final smoke test
-   (§6f) — a corpus artifact, not a noise effect, but a standing
-   reminder that "accepted" and "final main is healthy" are different
-   measurements this suite tracks separately for exactly this reason.
-6. **Mechanism benchmarks (Track B) show attribution, recovery, and
-   governance advantages, alongside known latency and product defects.**
-   Perfect write attribution under shared-workspace concurrency (git
-   sweeps up to 56% of ops at N=15); context retrieval in 163–408 bytes
-   vs 660 for grep+read. On 6.14.1: contended merges converge 15/15 (were
-   1/15 on ≤6.14.0), selective undo preserves later unrelated work 5/5
-   (was 0/5), bisect names the true culprit. On 7.0.0, bisect regressed
-   (can name an untraceable synthetic knot, §6a) — 3 of 4 7.0.0 bugs
-   found this study were fixed in 7.0.1, one remains (`nool.toml`
-   `[bridge]`/`[try]` misconfiguration breaks `try new --worktree` with a
-   misleading error). B4: the default governed path rejects test-breaking
-   changes; the `--fast` relaxed path accepts them as an explicit,
-   attributable risk-control knob. Landing latency stays roughly 7–10×
-   git throughout.
-7. **No-contention workloads remain null.** Without designed contention
-   (2×2 grid, 5-worker pilot, v1 corpus) the arms do not separate on any
-   metric, in any run.
+1. **Having agents check in with each other before they start work
+   prevents pile-ups.** Across a range of fleet sizes (N=25 and N=35
+   agents working at once) on a 60-ticket workload: the coordinated
+   setup landed **100%** of tickets with zero conflicts, every time (4
+   of 4 runs). Plain, uncoordinated git lost roughly a third of tickets
+   to conflicts at every size (**62–68%** landed across the 4 runs), and
+   at the largest size (N=35) one of those two runs suffered a much
+   worse failure on top of the usual conflicts: its tickets still built
+   and looked fine individually, but a single bad merge silently broke
+   shared behavior and voided everything downstream of it, dragging
+   that run down to **33%** landed (20/60). Cost per
+   landed ticket was also lower for the coordinated setup throughout
+   ($0.11–0.21 vs $0.18–3.80 for git).
+2. **A well-built git scheduler can match Nool — when its information
+   is accurate.** An audit found that the win in (1) came from the
+   *idea* of checking in before starting work, not specifically from
+   Nool as a tool — a git-only scheduler running the identical
+   check-in logic (`git_scheduled`) matched Nool's own real
+   coordination arm (`nool_gated`) at every fleet size tested: both hit
+   **100%** landed with zero conflicts whenever agents' stated plans
+   were accurate. Nool's edge, if any, has to come from something
+   other than the coordination idea itself — which is exactly what (4)
+   below tests.
+3. **Catching problems only after work is already done wastes real
+   money.** A setup that lets every agent start immediately and only
+   checks for trouble at merge time throws away a meaningful share of
+   what it spent — **37–41%** of one scale-up's total spend
+   ($1.40–1.57 out of every ~$3.80 run) paid for work that never made
+   it in. Adding a stricter check *after* merging (a CI gate) catches
+   the silent-breakage failure mode from (1) but doesn't fix the
+   waste, since agents already started blind — it inherited the same
+   ~33% conflict rate and lost a similar **~38–40%** of its spend
+   per run to work that never landed. Checking in *before* starting
+   work (whether via Nool or a matching git scheduler) keeps wasted
+   spend near $0 by refusing the conflicting ticket up front.
+4. **When agents' stated plans are unreliable, Nool holds up better
+   than git — and the advantage grows the worse the plans get.** This
+   is the newest and most direct test of "why Nool instead of just a
+   good scheduler" (2026-08-27, findings §6d–§6h): the same two
+   check-in-based setups from (2), `nool_gated` and `git_scheduled`,
+   run again — but this time roughly one file in ten (light), one in
+   three (heavy), or one in two (very-heavy) is wrongly listed in each
+   ticket's stated plan, either omitted or made up. Both start at
+   **100%** landed with accurate plans; both slip as plans get worse,
+   but git slips further at every step:
+
+   | Plan accuracy | Nool | Git scheduler | Gap |
+   |---|---|---|---|
+   | Perfect | 100.0% | 100.0% | 0 pts |
+   | Light noise | 96.7% | 93.3% | 3.3 pts |
+   | Heavy noise | 96.7% | 91.7% | 5.0 pts |
+   | Very heavy noise | 88.3% | 81.7% | **6.7 pts** |
+
+   ![§8d: mean ticket-acceptance rate as footprint noise increases](docs/findings/figures/trackd_8d_degradation.svg)
+
+   The gap only ever widened, never narrowed or reversed, at every
+   level tested — exactly what was predicted in writing before this
+   data was collected. This is still an early result: only 2 repeated
+   runs per condition so far, and the likely mechanism (Nool catching
+   a real problem at merge time that a plan-based scheduler missed) is
+   the leading explanation, not something directly witnessed happening.
+5. **"It passed" isn't the same as "it works."** The same known trouble
+   spot from (1) — six tickets that all touch one shared billing file
+   and are designed to look fine individually while conflicting in
+   behavior — showed up again in one run: **100%** of tickets passed
+   their own individual tests, while the shared codebase's overall test
+   suite was silently broken the whole time. This wasn't caused by
+   anything in test (4) above (it happened with zero noise injected) —
+   it's a standing reminder that this suite always checks "did the
+   whole system end up healthy," not just "did each individual ticket
+   pass," because those two numbers can disagree.
+6. **Nool's smaller, isolated mechanism tests show real wins in some
+   areas and real costs in others.** Tracking who-changed-what stays
+   accurate under heavy concurrent editing (plain git misattributes up
+   to **56%** of operations at 15 simultaneous writers; Nool: **0%**).
+   Looking up relevant code context uses far less data (163–408 bytes
+   vs. 660 for a plain search-and-read). Recovering from a bad change
+   without losing later good work succeeded in every recent test
+   (**100%**, was **0%** on older versions); merges among many
+   contended branches also now converge cleanly every time (**100%**,
+   was **7%** = git-equivalent, on older versions). One tool
+   (bisect, for tracing which change caused a bug) got worse in the
+   newest version tested and is a known open issue. The costs: landing
+   a change through Nool takes roughly **7–10x** longer than through
+   plain git, and this study found and reported several real product
+   bugs along the way (most already fixed by the vendor).
+7. **Without any deliberate contention, nothing separates the two.**
+   Run agents on a workload with no designed overlap at all and Nool
+   and git perform identically on every metric measured, every time —
+   an honest null, not a hidden win.
 
 ## Layout
 

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="340" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">§8d: mean merge conflicts as footprint noise increases</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">Same runs as the degradation curve; conflicts are the mechanism behind the widening acceptance gap</text>
+<text x="44.0" y="297.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">0</text>
+<line x1="52.0" y1="235.0" x2="684.0" y2="235.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="238.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">3</text>
+<line x1="52.0" y1="176.0" x2="684.0" y2="176.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="179.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">6</text>
+<line x1="52.0" y1="117.0" x2="684.0" y2="117.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="120.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">9</text>
+<line x1="52.0" y1="58.0" x2="684.0" y2="58.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="61.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">12</text>
+<line x1="52.0" y1="294.0" x2="684.0" y2="294.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="16.0" y="52.0" font-size="10.5" fill="#898781" text-anchor="start" font-weight="normal">mean conflicts (of 60 tickets)</text>
+<rect x="106.0" y="292.0" width="24.0" height="2" fill="#eb6834"/>
+<text x="118.0" y="289.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">0.0</text>
+<rect x="132.0" y="292.0" width="24.0" height="2" fill="#2a78d6"/>
+<text x="144.0" y="289.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">0.0</text>
+<text x="131.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">zero</text>
+<path d="M 264.0 294.0 L 264.0 219.3 Q 264.0 215.3 268.0 215.3 L 284.0 215.3 Q 288.0 215.3 288.0 219.3 L 288.0 294.0 Z" fill="#eb6834"/>
+<text x="276.0" y="210.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">4.0</text>
+<path d="M 290.0 294.0 L 290.0 278.3 Q 290.0 274.3 294.0 274.3 L 310.0 274.3 Q 314.0 274.3 314.0 278.3 L 314.0 294.0 Z" fill="#2a78d6"/>
+<text x="302.0" y="269.3" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1.0</text>
+<text x="289.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">light</text>
+<path d="M 422.0 294.0 L 422.0 199.7 Q 422.0 195.7 426.0 195.7 L 442.0 195.7 Q 446.0 195.7 446.0 199.7 L 446.0 294.0 Z" fill="#eb6834"/>
+<text x="434.0" y="190.7" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">5.0</text>
+<path d="M 448.0 294.0 L 448.0 258.7 Q 448.0 254.7 452.0 254.7 L 468.0 254.7 Q 472.0 254.7 472.0 258.7 L 472.0 294.0 Z" fill="#2a78d6"/>
+<text x="460.0" y="249.7" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">2.0</text>
+<text x="447.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">heavy</text>
+<path d="M 580.0 294.0 L 580.0 91.5 Q 580.0 87.5 584.0 87.5 L 600.0 87.5 Q 604.0 87.5 604.0 91.5 L 604.0 294.0 Z" fill="#eb6834"/>
+<text x="592.0" y="82.5" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">10.5</text>
+<path d="M 606.0 294.0 L 606.0 180.0 Q 606.0 176.0 610.0 176.0 L 626.0 176.0 Q 630.0 176.0 630.0 180.0 L 630.0 294.0 Z" fill="#2a78d6"/>
+<text x="618.0" y="171.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">6.0</text>
+<text x="605.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">very-heavy</text>
+<rect x="52.0" y="319.0" width="10" height="10" rx="2" fill="#eb6834"/>
+<text x="67.0" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">git_scheduled</text>
+<rect x="167.9" y="319.0" width="10" height="10" rx="2" fill="#2a78d6"/>
+<text x="182.9" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">nool_gated</text>
+</svg>

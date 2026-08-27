@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Findings §6g + README: very-heavy noise cell complete -- degradation gap widens monotonically at every noise level, pre-registered prediction confirmed
-knot_id: 91f86b20932983be2852c5dbd3ec0d20e7da993693dd7c7a65225fba8a9db3c3
-solidified_at: 1787839353256
+intent: Add §8d charts; README general-audience rewrite with acceptance-rate-%% primary; findings report §6h; paper §5.7 + evidence-map/abstract updates; regenerate b2/b6 figures (expected re-run drift)
+knot_id: 39f708a6252b46d3147a24f979faf2da224ffd4f607ed993880a0bfcbaaa51b1
+solidified_at: 1787840045104
 thread: main
