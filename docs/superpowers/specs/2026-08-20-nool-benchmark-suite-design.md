@@ -688,6 +688,21 @@ plus a weak single-rep opencode trial for this pair).
 noise cells x 1 rep). Estimated spend at observed ~$7-9/run (cost is
 driven by the fixed 60-ticket corpus, not by worker count N): ~$45-55.
 
+**8d-i, rep 2 (pre-registered 2026-08-27, before rep-2 data; results
+below are rep 1 only).** Rep 1 (§6d) found prediction 1 non-monotonic for
+`nool_gated` and prediction 2 holding only directionally at heavy noise —
+both readings explicitly flagged as unsettled at n=1. A second rep per
+cell is added: same arms, N, corpus, and noise levels; new independent
+`fp-noise-seed` values for the noise cells (rep 1 used 1001/light,
+1002/heavy — rep 2 must use different seeds, shared between the two arms
+within a cell as before, so the perturbation is identical across arms but
+independent of rep 1's draw). 6 more runs (2 arms x 3 cells x 1 rep),
+~$45-55 more, bringing every cell to 2 reps. Two reps still does not meet
+the "3+" bar the spec's own convention treats as minimally powered, and
+this must be disclosed alongside any updated reading — but it does let
+predictions 1-2 be checked against a second, independent draw instead of
+resting on one.
+
 **Predictions (falsifiable, recorded before any data; read as directional
 given n=1/cell, not statistically confirmatory):**
 1. Both arms' accept rate declines monotonically from the zero-noise

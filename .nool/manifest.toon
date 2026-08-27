@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Findings §6d + README: §8d footprint-source robustness first look (n=1/cell, UNDERPOWERED), including prediction-4 instrumentation gap and unplanned zero-noise build-poisoning event
-knot_id: 5bfdf3626c5fd0d07c7278117ee51c1db1aa159ef15eda1e104097356956d8ba
-solidified_at: 1787831437156
+intent: Pre-register §8d-i rep 2 (before any rep-2 data): 6 more runs, new seeds for light/heavy noise cells, bringing every cell to 2 reps
+knot_id: c8c277ad4c9e3c7f152635c534ae73d739e1de7107e9d7920eb7771065ea57af
+solidified_at: 1787831671642
 thread: main
