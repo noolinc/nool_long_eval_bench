@@ -658,8 +658,12 @@ noisy) admission gate let it through.
 2026-08-27 — see findings §6c), N=20 (revised up from an initial N=10
 choice: N is worker concurrency, not ticket count, so cost is flat across
 N while higher concurrency gives noise-induced bad admissions more
-in-flight tickets to actually collide with). Two noise cells, 3 reps per
-arm per cell:
+in-flight tickets to actually collide with). Two noise cells, **1 rep per
+arm per cell** (reduced from an initial 3-rep design under an operator
+weekly-quota constraint — every cell below is consequently a single-rep,
+UNDERPOWERED first look by this suite's own convention, not a
+confirmatory measurement; scaling to 3+ reps is the natural next step if
+the direction looks interesting):
 
 | Cell | fp_drop | fp_add | Models |
 |---|---|---|---|
@@ -671,19 +675,21 @@ collected):** no existing `claude-sonnet-5` zero-noise data exists for
 `nool_gated`/`git_scheduled` at N=20 specifically — the closest prior
 point is N=10/v3 (`nool_gated` 60/60 both reps, `git_scheduled` 60/60
 both reps; README "Current status", findings §6a/6b), which does not
-transfer since N itself differs, not just noise. 2 reps per arm at
-`fp_drop=0, fp_add=0`, N=20, same corpus, are added to this
+transfer since N itself differs, not just noise. **1 rep per arm** at
+`fp_drop=0, fp_add=0`, N=20, same corpus, is added to this
 pre-registration as the matched baseline predictions 1-2 are judged
-against. This anchor is also the first `claude-sonnet-5` N=20 data point
-for these two arms on any corpus (the existing off-ladder N=20 point,
-README "Current status", covers `git_fleet`/`nool_fleet` only, plus a
-weak single-rep opencode trial for this pair).
+against (also reduced from an initial 2-rep design, same quota
+constraint). This anchor is also the first `claude-sonnet-5` N=20 data
+point for these two arms on any corpus (the existing off-ladder N=20
+point, README "Current status", covers `git_fleet`/`nool_fleet` only,
+plus a weak single-rep opencode trial for this pair).
 
-16 runs total: 4 zero-noise (2 arms x 2 reps) + 12 noise (2 arms x 2
-noise cells x 3 reps). Estimated spend at observed ~$7-9/run (cost is
-driven by the fixed 60-ticket corpus, not by worker count N): ~$120-140.
+**6 runs total**: 2 zero-noise (2 arms x 1 rep) + 4 noise (2 arms x 2
+noise cells x 1 rep). Estimated spend at observed ~$7-9/run (cost is
+driven by the fixed 60-ticket corpus, not by worker count N): ~$45-55.
 
-**Predictions (falsifiable, recorded before any data):**
+**Predictions (falsifiable, recorded before any data; read as directional
+given n=1/cell, not statistically confirmatory):**
 1. Both arms' accept rate declines monotonically from the zero-noise
    anchor as noise increases (light > heavy in degradation) — the
    mechanism should visibly bite, not be absorbed silently.
@@ -710,7 +716,10 @@ worse degradation for `nool_gated`), the policy-not-tool reading extends
 to this axis too: both arms are equally exposed to a corrupted footprint
 source, and nool's real merge-time machinery provides no additional
 robustness over blind git merge. Either outcome is reported; goalposts
-above are fixed now, before any 8d data exists.
+above are fixed now, before any 8d data exists. At n=1/cell this decision
+rule is provisional — a single rep flipping the other way on rerun would
+overturn it — and any 8d-i result must be labeled UNDERPOWERED and framed
+as motivating replication, not as settling the question.
 
 **Follow-up, explicitly out of scope for 8d-i:** 8d-ii — replacing the
 oracle-plus-noise footprint with a real inference step (static analysis,
