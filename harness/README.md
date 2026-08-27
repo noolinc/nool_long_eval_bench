@@ -69,3 +69,64 @@ commit with git; the arms differ only at integration (`git merge` vs
 exercise the full in-workspace workflow difference instead (nool init
 installs its agent hooks there). Scoring copies `hidden_tests/` in only
 after the agents are done: `go build ./...` then `go test ./...`.
+
+## Fleet protocol
+
+`fleet_run.py` records two acceptance values for every ticket. `acceptance`
+is the existing end-state result: its hidden test on final `main`.
+`acceptance_conditional` runs that same test at the exact commit where the
+ticket landed; `null` means the ticket never landed. The second metric is the
+score-attribution measure: a later poisoned merge cannot turn one event into
+many ticket failures.
+
+The `git_retry` arm is the ordinary git baseline plus exactly one automated
+conflict recovery pass. It first rebases the existing ticket branch on
+current `main`; if that conflicts, it starts one fresh agent attempt from
+current `main` and integrates it once. Further conflicts are losses. Its
+retry facts and any second agent cost are kept in the run record.
+
+`git_competitive` is the v4 primary control: it combines footprint scheduling,
+the CI/secret-gated queue, and that same single recovery pass. Under noisy
+footprints, missed overlaps can still collide and exercise recovery. This is
+the conventional workflow Nool must beat for a product-level claim.
+
+For footprint robustness, run a scheduling arm with `--fp-noise-drop P` and
+`--fp-noise-add Q` (both probabilities in `[0,1]`) plus a recorded
+`--fp-noise-seed`. The former independently removes declared files; the
+latter adds one unrelated corpus file to a ticket. `footprint_noise` stores
+the original and perturbed footprints per ticket. Results also include
+`throughput_accepted_per_min`, computed from end-state accepts and measured
+dispatch-to-completion wall time. The conditional rescoring pass is excluded
+from that timing.
+
+Corpus v3.1 marks eight behavioral tickets as `tier: "ambiguous"`: their
+prompts state observable outcomes while hidden tests define the contract,
+without dictating a new function signature or implementation. Select just
+that deployment-relevant tier with `--tier ambiguous`; older corpus files are
+implicitly `prescriptive`.
+
+For another language or imported benchmark, pass `--task-root tasks/<name>`.
+The task's corpus JSON defines argument-array `build`, `test`, and `accept`
+commands; the last contains `{ticket}`. The runner records those commands and
+the corpus's `repository`, `language`, `source_kind`, and
+`footprint_source`, plus the SHA-256 of
+the frozen protocol selected by `--protocol`. Validate new corpora with:
+
+```bash
+python3 harness/validate_protocol.py tasks/<name>/<tickets-file>.json
+```
+
+Shared CI, ownership, and policy documents are committed before arm setup so
+every agent worktree sees them. The built-in Go corpus keeps its original
+Go-specific policy; other languages receive a command-derived neutral policy.
+Files an imported starter already ships are kept as-is (never overwritten),
+so the treatment stays deterministic per corpus and identical across arms.
+
+`--harness scripted` runs the deterministic no-LLM adapter
+(`adapters/scripted.py`): real minimal solutions for the v1-corpus tickets,
+with t3/t7 built to conflict textually so the merge, CI-gate, lease, and
+retry paths are all reachable at zero cost. Its records go to
+`results/trackc/validation_runs.jsonl`, never `fleet_runs.jsonl` — they
+validate harness plumbing and are excluded from evidence by protocol rule
+(`exclude_scripted_adapter_from_evidence`). Every arm has at least one
+recorded scripted validation run.

@@ -1,0 +1,67 @@
+{
+  "protocol_id": "fleet-v4-cross-repository",
+  "status": "frozen",
+  "frozen_utc": "2026-08-27T00:00:00Z",
+  "purpose": "Compare coordination workflows, not coding models, across repositories and languages.",
+  "primary_unit": "run",
+  "minimum_repetitions_per_arm_cell": 10,
+  "primary_comparisons": [
+    ["git_competitive", "nool_gated"],
+    ["git_competitive", "nool_try"]
+  ],
+  "mechanism_comparisons": [
+    ["git_fleet", "nool_fleet"],
+    ["git_scheduled", "nool_gated"],
+    ["git_retry", "git_fleet"]
+  ],
+  "required_corpus_fields": [
+    "corpus",
+    "language",
+    "repository",
+    "source_kind",
+    "footprint_source",
+    "commands",
+    "tickets"
+  ],
+  "required_commands": ["build", "test", "accept"],
+  "required_metrics": [
+    "acceptance",
+    "acceptance_conditional",
+    "throughput_accepted_per_min",
+    "wall_ms",
+    "cost_usd",
+    "final_health",
+    "integration"
+  ],
+  "required_conditions": {
+    "footprint_noise": [
+      {"drop": 0.0, "add": 0.0},
+      {"drop": 0.1, "add": 0.1},
+      {"drop": 0.25, "add": 0.25}
+    ],
+    "ticket_tiers": ["prescriptive", "ambiguous"]
+  },
+  "target_languages": ["go", "typescript", "python", "java-or-rust"],
+  "analysis_rules": {
+    "never_pool_languages_before_reporting_per_language_effects": true,
+    "never_treat_tickets_as_independent_replicates": true,
+    "stratify_by": [
+      "repository",
+      "language",
+      "corpus",
+      "n_workers",
+      "model",
+      "harness",
+      "ticket_tier",
+      "footprint_source",
+      "footprint_noise"
+    ],
+    "exclude_scripted_adapter_from_evidence": true,
+    "report_all_attempted_runs": true
+  },
+  "external_replication_target": 2,
+  "notes": [
+    "External corpora must be imported without changing their task descriptions or acceptance criteria.",
+    "The repository does not claim external replication or target-language coverage until corresponding manifests and run records are committed."
+  ]
+}

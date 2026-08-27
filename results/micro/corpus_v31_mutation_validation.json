@@ -1,0 +1,482 @@
+{
+ "equivalent_allowlisted": {
+  "<-><=@service/billing.go:20": "min clamp: at amt==50 the branch assigns 50 to 50",
+  "<-><=@service/users.go:86": "sort comparator over unique user IDs: <= differs from < only on equal keys, which cannot occur",
+  "<-><=@util/abs.go:5": "at v==0 the branch returns -0 == 0",
+  "<-><=@util/clamp.go:8": "at v==lo the branch returns lo == v",
+  "<-><=@util/minmax.go:5": "at a==b MinInt returns either of two equal values",
+  "<-><=@util/reverse.go:6": "two-pointer loop: i==j adds only a self-swap",
+  "<=-><@util/truncate.go:5": "at n==0 the fallthrough returns r[:0] == \"\", same as the guard",
+  "<=-><@util/truncate.go:9": "at len(r)==n the fallthrough returns string(r[:n]) == s",
+  ">->>=@service/billing.go:23": "max cap: at amt==5000000 the branch assigns 5000000 to 5000000",
+  ">->>=@service/orders.go:66": "including zero-cent orders adds 0 to the total",
+  ">->>=@util/clamp.go:11": "at v==hi the branch returns hi == v",
+  ">->>=@util/clamp.go:5": "at lo==hi every path returns the same value",
+  ">->>=@util/minmax.go:12": "at a==b MaxInt returns either of two equal values"
+ },
+ "generated_utc": "2026-08-27T02:19:03.144424+00:00",
+ "tickets": {
+  "t1": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t10": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t11": {
+   "allowlisted": [],
+   "buildable": 1,
+   "killed_by_own": 1,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t12": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t13": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t14": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t15": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t16": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t17": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t18": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t19": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t2": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t20": {
+   "allowlisted": [
+    "<-><=@service/users.go:86"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t21": {
+   "allowlisted": [
+    "<-><=@service/billing.go:10"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t22": {
+   "allowlisted": [
+    ">->>=@service/billing.go:23"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t23": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t24": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t25": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t26": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t27": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t28": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t29": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t3": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t30": {
+   "allowlisted": [],
+   "buildable": 1,
+   "killed_by_own": 1,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t31": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t32": {
+   "allowlisted": [
+    ">->>=@service/orders.go:66"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t33": {
+   "allowlisted": [],
+   "buildable": 2,
+   "killed_by_own": 1,
+   "mutant_sites": 2,
+   "survivors": [
+    "<-><=@util/ids.go:34"
+   ]
+  },
+  "t34": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t35": {
+   "allowlisted": [],
+   "buildable": 3,
+   "killed_by_own": 1,
+   "mutant_sites": 3,
+   "survivors": [
+    ">=->>@util/ids.go:50",
+    "<=-><@util/ids.go:54"
+   ]
+  },
+  "t36": {
+   "allowlisted": [],
+   "buildable": 1,
+   "killed_by_own": 1,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t37": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t38": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t39": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t4": {
+   "allowlisted": [],
+   "buildable": 1,
+   "killed_by_own": 1,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t40": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t41": {
+   "allowlisted": [
+    "<=-><@util/truncate.go:5",
+    "<=-><@util/truncate.go:9"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 2,
+   "survivors": []
+  },
+  "t42": {
+   "allowlisted": [
+    "<-><=@util/reverse.go:6"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t43": {
+   "allowlisted": [
+    ">->>=@util/clamp.go:5",
+    "<-><=@util/clamp.go:8",
+    ">->>=@util/clamp.go:11"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 3,
+   "survivors": []
+  },
+  "t44": {
+   "allowlisted": [
+    "<-><=@util/abs.go:5"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t45": {
+   "allowlisted": [],
+   "buildable": 3,
+   "killed_by_own": 1,
+   "mutant_sites": 3,
+   "survivors": [
+    "<=-><@util/backoff.go:5",
+    ">=->>@util/backoff.go:11"
+   ]
+  },
+  "t46": {
+   "allowlisted": [],
+   "buildable": 5,
+   "killed_by_own": 2,
+   "mutant_sites": 5,
+   "survivors": [
+    "<=-><@util/slug.go:11",
+    ">=->>@util/slug.go:11",
+    "<=-><@util/slug.go:11"
+   ]
+  },
+  "t47": {
+   "allowlisted": [],
+   "buildable": 1,
+   "killed_by_own": 1,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t48": {
+   "allowlisted": [],
+   "buildable": 2,
+   "killed_by_own": 1,
+   "mutant_sites": 2,
+   "survivors": [
+    ">->>=@model/zip.go:9"
+   ]
+  },
+  "t49": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t5": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t50": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t51": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t52": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t53": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t54": {
+   "allowlisted": [],
+   "buildable": 1,
+   "killed_by_own": 1,
+   "mutant_sites": 1,
+   "survivors": []
+  },
+  "t55": {
+   "allowlisted": [
+    "<-><=@util/minmax.go:5",
+    ">->>=@util/minmax.go:12"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 2,
+   "survivors": []
+  },
+  "t56": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t57": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t58": {
+   "allowlisted": [],
+   "buildable": 2,
+   "killed_by_own": 2,
+   "mutant_sites": 3,
+   "survivors": []
+  },
+  "t59": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t6": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t60": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t7": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t8": {
+   "allowlisted": [],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 0,
+   "survivors": []
+  },
+  "t9": {
+   "allowlisted": [
+    "<-><=@service/billing.go:20"
+   ],
+   "buildable": 0,
+   "killed_by_own": 0,
+   "mutant_sites": 1,
+   "survivors": []
+  }
+ },
+ "unkillable_by_own_test": {
+  "<-><=@service/billing.go:10": "t21 negative guard: differs only at Invoice(0), whose correct value depends on whether t9/t10/t11 landed"
+ },
+ "violations": []
+}

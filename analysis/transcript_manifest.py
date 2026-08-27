@@ -38,7 +38,7 @@ def sha256(path):
 
 def referenced_transcripts():
     refs = set()
-    for name in ("runs.jsonl", "fleet_runs.jsonl"):
+    for name in ("runs.jsonl", "fleet_runs.jsonl", "validation_runs.jsonl"):
         p = REPO / "results" / "trackc" / name
         if not p.exists():
             continue

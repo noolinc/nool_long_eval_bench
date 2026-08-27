@@ -9,6 +9,23 @@ import json
 from pathlib import Path
 
 RESULTS = Path(__file__).resolve().parent.parent / "results"
+REPO = Path(__file__).resolve().parent.parent
+
+
+def _run_dimensions(r):
+    """Protocol-v4 strata; defaults preserve readability of legacy runs."""
+    noise = r.get("footprint_noise") or {}
+    return {
+        "repository": r.get("repository", "synthetic/fleet_service"),
+        "language": r.get("language", "go"),
+        "corpus": r.get("corpus", "v1"),
+        "workers": r.get("n_workers"),
+        "model": r.get("model", "?"),
+        "harness": r.get("harness") or "claude",
+        "tier": r.get("ticket_tier", "all"),
+        "footprint_source": r.get("footprint_source", "author-oracle"),
+        "noise": (noise.get("drop", 0.0), noise.get("add", 0.0)),
+    }
 
 
 def load(name):
@@ -180,14 +197,39 @@ def trackd():
         by_ticket = {i["ticket"]: i for i in integ}
         wasted = round(sum((r["agents"].get(t, {}).get("cost_usd") or 0)
                            for t, i in by_ticket.items() if not i["clean"]), 4)
+        # Conditional acceptance (§8d): pass-rate among tickets that landed
+        # — separates each ticket's own quality from later main damage.
+        # Records predating the metric show "-".
+        cond = r.get("acceptance_conditional")
+        if cond:
+            c_pass = sum(1 for v in cond.values() if v is True)
+            c_landed = sum(1 for v in cond.values() if v is not None)
+            cond_s = f"{c_pass}/{c_landed}"
+        else:
+            cond_s = "-"
+        # Throughput (§8d): accepted tickets per wall-clock minute, so the
+        # coordinated arms' serialization cost sits beside acceptance
+        # rather than in a footnote. Derived for old records.
+        tput = r.get("throughput_accepted_per_min")
+        if tput is None and acc and r.get("wall_ms"):
+            tput = round(sum(acc.values()) / (r["wall_ms"] / 60000.0), 2)
+        dims = _run_dimensions(r)
         rows.append([r["run_id"][:32], r.get("nool_version", "?").replace("nool ", ""),
-                     r.get("corpus", "v1"), r["n_workers"],
+                     dims["repository"], dims["language"], dims["corpus"],
+                     r["n_workers"],
+                     ("-" if not r.get("footprint_noise") else
+                      f"d{r['footprint_noise']['drop']:g}/a{r['footprint_noise']['add']:g}"),
                      f"{sum(acc.values())}/{len(acc)}" if acc else "-",
+                     cond_s,
                      f"{sum(1 for i in integ if i['clean'])}/{len(integ)}" if integ else "-",
-                     round(r.get("wall_ms", 0) / 1000), r.get("cost_usd", "-"),
+                     round(r.get("wall_ms", 0) / 1000),
+                     tput if tput is not None else "-",
+                     r.get("cost_usd", "-"),
                      wasted])
-    table(rows, ["run", "nool", "corpus", "wrk", "accepted", "clean_merges",
-                 "wall_s", "usd", "wasted_usd"])
+    table(rows, ["run", "nool", "repository", "lang", "corpus", "wrk",
+                 "fp_noise", "accepted", "cond_acc",
+                 "clean_merges", "wall_s", "acc_per_min", "usd",
+                 "wasted_usd"])
 
     v2 = [r for r in runs if r.get("corpus") == "v2"]
     if not v2:
@@ -251,7 +293,17 @@ def trackd_quality():
         q_rej = sum(1 for i in r["integration"] if i.get("queue_rejected"))
         cascade = len(landed - accepted)
         acc_no_land = sorted(accepted - landed)
-        cond = f"{len(accepted & landed)}/{len(landed)}" if landed else "-"
+        # Use the landing-commit test result when present.  Intersecting the
+        # final-state result with landed would re-introduce the cascade bias
+        # this metric exists to remove; retain the legacy derivation only for
+        # historical records that predate conditional scoring.
+        conditional = r.get("acceptance_conditional")
+        if conditional:
+            c_landed = sum(v is not None for v in conditional.values())
+            cond = (f"{sum(v is True for v in conditional.values())}/{c_landed}"
+                    if c_landed else "-")
+        else:
+            cond = f"{len(accepted & landed)}/{len(landed)}" if landed else "-"
         walls = [a.get("wall_ms") or 0 for a in r["agents"].values()]
         prem = (round(r["wall_ms"] / max(walls), 2)
                 if walls and max(walls) else "-")
@@ -417,6 +469,8 @@ def trackd_stratified_inference():
     Still run-level; still labeled with its rep count.
     """
     import itertools
+    import math
+    import random
     p = RESULTS / "trackc" / "fleet_runs.jsonl"
     if not p.exists():
         return
@@ -446,36 +500,126 @@ def trackd_stratified_inference():
             strata.append((key, pooled, ng, obs))
         obs_total = sum(s[3] for s in strata)
 
-        combos = [list(itertools.combinations(range(len(pooled)), ng))
-                  for _, pooled, ng, _ in strata]
-        space = itertools.product(*combos)
-        extreme = 0
-        total = 0
-        for choice in space:
+        assignment_count = math.prod(
+            math.comb(len(pooled), ng) for _, pooled, ng, _ in strata)
+
+        def statistic(choice):
             stat = 0.0
             for (key, pooled, ng, obs), idxs in zip(strata, choice):
                 idxs = set(idxs)
                 gs = [v for i, v in enumerate(pooled) if i in idxs]
                 ns = [v for i, v in enumerate(pooled) if i not in idxs]
                 stat += sum(gs) / ng - sum(ns) / len(ns)
+            return stat
+
+        exact_limit = 250_000
+        if assignment_count <= exact_limit:
+            combos = [itertools.combinations(range(len(pooled)), ng)
+                      for _, pooled, ng, _ in strata]
+            # combinations iterators cannot be replayed inside a product;
+            # materializing is safe under the explicit total-space bound.
+            space = itertools.product(*(list(c) for c in combos))
+            extreme = total = 0
+            for choice in space:
+                total += 1
+                if abs(statistic(choice)) >= abs(obs_total) - 1e-9:
+                    extreme += 1
+            method = "exact"
+        else:
+            # Fixed seed makes regenerated tables stable. Add-one correction
+            # avoids a zero p-value from a finite Monte Carlo sample.
+            rng = random.Random(20260827)
+            total = 100_000
+            extreme = 1
+            for _ in range(total):
+                choice = [rng.sample(range(len(pooled)), ng)
+                          for _, pooled, ng, _obs in strata]
+                if abs(statistic(choice)) >= abs(obs_total) - 1e-9:
+                    extreme += 1
             total += 1
-            if abs(stat) >= abs(obs_total) - 1e-9:
-                extreme += 1
-        print(f"== Stratified exact permutation ({model}) ==")
+            method = "monte-carlo"
+        print(f"== Stratified permutation ({model}) ==")
         print("(observed sum < 0 means nool_fleet accepts more than "
               "git_fleet across cells)")
         print("cells:", ", ".join(
             f"{key[0]}/N={key[1]}({ng}v{len(pooled) - ng})"
             for (key, pooled, ng, obs) in strata))
-        print(f"relabeling space: {total:,}; observed mean-difference sum: "
+        print(f"relabeling space: {assignment_count:,}; method: {method}; "
+              f"evaluated: {total:,}; observed mean-difference sum: "
               f"{obs_total:+.1f}")
-        print(f"exact two-sided stratified p = {extreme}/{total:,} = "
+        print(f"two-sided stratified p = {extreme}/{total:,} = "
               f"{extreme / total:.5f}\n")
+
+
+def trackd_protocol_inference():
+    """Frozen-v4 comparisons, stratified without cross-language pooling.
+
+    This is deliberately separate from the historical git_fleet/nool_fleet
+    table above. New primary evidence compares a competitive conventional
+    workflow with native nool arms and includes repository, language,
+    harness, tier, and footprint noise in the cell identity.
+    """
+    protocol_path = REPO / "protocols" / "fleet_v4.json"
+    runs_path = RESULTS / "trackc" / "fleet_runs.jsonl"
+    if not protocol_path.exists() or not runs_path.exists():
+        return
+    protocol = json.loads(protocol_path.read_text())
+    comparisons = protocol["primary_comparisons"] + protocol.get(
+        "mechanism_comparisons", [])
+    min_reps = protocol["minimum_repetitions_per_arm_cell"]
+    runs = [json.loads(line) for line in runs_path.read_text().splitlines()
+            if line.strip()]
+    runs = [r for r in runs if r.get("acceptance") and
+            r.get("integration") and r.get("harness") != "scripted"]
+
+    print("== Track D frozen-v4 comparisons (unit = run) ==")
+    rows = []
+    for left, right in comparisons:
+        cells = {}
+        for r in runs:
+            if r.get("arm") not in (left, right):
+                continue
+            d = _run_dimensions(r)
+            key = (d["repository"], d["language"], d["corpus"],
+                   d["workers"], d["model"], d["harness"], d["tier"],
+                   d["footprint_source"], d["noise"])
+            cells.setdefault(key, {}).setdefault(r["arm"], []).append(r)
+        for key, arms in sorted(cells.items(), key=lambda item: str(item[0])):
+            ls, rs = arms.get(left, []), arms.get(right, [])
+            if not ls or not rs:
+                continue
+            l_acc = [sum(r["acceptance"].values()) for r in ls]
+            r_acc = [sum(r["acceptance"].values()) for r in rs]
+            l_tput = [r.get("throughput_accepted_per_min") for r in ls
+                      if r.get("throughput_accepted_per_min") is not None]
+            r_tput = [r.get("throughput_accepted_per_min") for r in rs
+                      if r.get("throughput_accepted_per_min") is not None]
+            _, p_acc = _mannwhitney(l_acc, r_acc)
+            _, p_tput = (_mannwhitney(l_tput, r_tput)
+                         if l_tput and r_tput else (None, None))
+            repo, lang, corpus, workers, model, harness, tier, fp_source, noise = key
+            power = ("READY" if len(ls) >= min_reps and len(rs) >= min_reps
+                     else "UNDERPOWERED")
+            rows.append([
+                f"{left} v {right}", repo, lang, corpus, workers, harness,
+                model, tier, fp_source, f"d{noise[0]:g}/a{noise[1]:g}",
+                f"{len(ls)}v{len(rs)}", str(l_acc), str(r_acc),
+                round(p_acc, 4) if p_acc is not None else "-",
+                round(p_tput, 4) if p_tput is not None else "-", power,
+            ])
+    if rows:
+        table(rows, ["comparison", "repository", "lang", "corpus", "N",
+                     "harness", "model", "tier", "fp_source", "noise", "reps",
+                     "accepted_left", "accepted_right", "p_acc",
+                     "p_throughput", "power"])
+    else:
+        print("No complete frozen-v4 comparison cells yet.\n")
 
 
 def main():
     for f in (b1, b2, b3, b4, b5, b6, b7, trackc, trackd, trackd_quality,
-              trackd_inference, trackd_stratified_inference):
+              trackd_inference, trackd_stratified_inference,
+              trackd_protocol_inference):
         f()
 
 

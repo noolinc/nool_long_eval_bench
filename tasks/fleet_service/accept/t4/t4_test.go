@@ -15,6 +15,10 @@ func TestTTL(t *testing.T) {
 	if _, ok := m.Get("a"); !ok {
 		t.Fatal("a should be visible before expiry")
 	}
+	util.SetNow(func() int64 { return 1500 })
+	if _, ok := m.Get("a"); ok {
+		t.Fatal("a should be expired at exactly expiresAt (Now() >= expiresAt)")
+	}
 	util.SetNow(func() int64 { return 2000 })
 	if _, ok := m.Get("a"); ok {
 		t.Fatal("a should be expired")

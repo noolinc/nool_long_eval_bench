@@ -1,5 +1,15 @@
 {
   "service": "fleet_service",
+  "corpus": "v1",
+  "language": "go",
+  "repository": "synthetic/fleet_service",
+  "source_kind": "synthetic",
+  "footprint_source": "author-oracle",
+  "commands": {
+    "build": ["go", "build", "./..."],
+    "test": ["go", "test", "./..."],
+    "accept": ["go", "test", "./accept/{ticket}/"]
+  },
   "tickets": [
     {
       "id": "t1",

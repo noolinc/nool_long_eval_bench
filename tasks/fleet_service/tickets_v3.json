@@ -1,6 +1,27 @@
 {
  "service": "fleet_service",
- "corpus": "v3",
+ "corpus": "v3.1",
+ "language": "go",
+ "repository": "synthetic/fleet_service",
+ "source_kind": "synthetic",
+ "footprint_source": "author-oracle",
+ "commands": {
+  "build": [
+   "go",
+   "build",
+   "./..."
+  ],
+  "test": [
+   "go",
+   "test",
+   "./..."
+  ],
+  "accept": [
+   "go",
+   "test",
+   "./accept/{ticket}/"
+  ]
+ },
  "tickets": [
   {
    "id": "t1",
@@ -175,11 +196,12 @@
   },
   {
    "id": "t21",
-   "title": "Negative-subtotal clamp",
+   "title": "Negative-subtotal rejection",
    "footprint": [
     "service/billing.go"
    ],
-   "spec": "Invoice must treat a negative subtotal exactly like a zero subtotal: for any negative input the result equals Invoice(0). Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees, tax rules, caps)."
+   "spec": "Invoice must reject negative subtotals by returning exactly 0 before applying fees, tax, minimums, waivers, or caps. Preserve every behavior for non-negative inputs, including behaviors teammates may be adding in parallel.",
+   "tier": "ambiguous"
   },
   {
    "id": "t22",
@@ -187,7 +209,8 @@
    "footprint": [
     "service/billing.go"
    ],
-   "spec": "Invoice must never return more than 5000000 cents: any computed amount above that becomes exactly 5000000, applied as the final step after every other rule. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees, tax rules, negative handling)."
+   "spec": "Invoice must never return more than 5000000 cents: any computed amount above that becomes exactly 5000000, applied as the final step after every other rule. Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees, tax rules, negative handling).",
+   "tier": "ambiguous"
   },
   {
    "id": "t23",
@@ -196,7 +219,8 @@
     "api/router.go",
     "api/handlers.go"
    ],
-   "spec": "Every response served through Router() must carry the header `X-Served-By: fleetsvc`. Do not modify files outside api/."
+   "spec": "Every response served through Router() must carry the header `X-Served-By: fleetsvc`. Do not modify files outside api/.",
+   "tier": "ambiguous"
   },
   {
    "id": "t24",
@@ -205,7 +229,8 @@
     "api/router.go",
     "api/handlers.go"
    ],
-   "spec": "Requests carrying the header `X-Blocked: true` must be rejected by Router() with HTTP status 403 before reaching any handler; all other requests are unaffected. Do not modify files outside api/."
+   "spec": "Requests carrying the header `X-Blocked: true` must be rejected by Router() with HTTP status 403 before reaching any handler; all other requests are unaffected. Do not modify files outside api/.",
+   "tier": "ambiguous"
   },
   {
    "id": "t25",
@@ -221,7 +246,8 @@
    "footprint": [
     "store/memstore.go"
    ],
-   "spec": "Mem must not alias caller or internal memory: Put stores a copy of the value slice (later mutation of the caller's slice must not change stored data), and Get returns a copy (mutating the returned slice must not change stored data). Preserve all existing method signatures and behavior."
+   "spec": "Mem must not alias caller or internal memory: Put stores a copy of the value slice (later mutation of the caller's slice must not change stored data), and Get returns a copy (mutating the returned slice must not change stored data). Preserve all existing method signatures and behavior.",
+   "tier": "ambiguous"
   },
   {
    "id": "t27",
@@ -229,7 +255,8 @@
    "footprint": [
     "service/users.go"
    ],
-   "spec": "Users.Create must lowercase the email before storing it (and before any validation or duplicate checks teammates may be adding); the returned and fetched user's Email is the lowercased input."
+   "spec": "Users.Create must lowercase the email before storing it (and before any validation or duplicate checks teammates may be adding); the returned and fetched user's Email is the lowercased input.",
+   "tier": "ambiguous"
   },
   {
    "id": "t28",
@@ -237,7 +264,8 @@
    "footprint": [
     "service/users.go"
    ],
-   "spec": "Users.Create must return an error (any non-nil error) when a user with the same email is already stored, comparing values as stored after any normalization teammates may be adding (lowercasing, trimming); nothing is stored on rejection. Distinct emails must both succeed."
+   "spec": "Users.Create must return an error (any non-nil error) when a user with the same email is already stored, comparing values as stored after any normalization teammates may be adding (lowercasing, trimming); nothing is stored on rejection. Distinct emails must both succeed.",
+   "tier": "ambiguous"
   },
   {
    "id": "t29",
@@ -245,7 +273,8 @@
    "footprint": [
     "service/users.go"
    ],
-   "spec": "Users.Create must trim leading and trailing whitespace (spaces and tabs) from the email before storing it and before any validation, duplicate check, or other normalization; the stored Email carries no surrounding whitespace."
+   "spec": "Users.Create must trim leading and trailing whitespace (spaces and tabs) from the email before storing it and before any validation, duplicate check, or other normalization; the stored Email carries no surrounding whitespace.",
+   "tier": "ambiguous"
   },
   {
    "id": "t30",

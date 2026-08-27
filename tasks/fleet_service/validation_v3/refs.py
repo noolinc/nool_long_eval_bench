@@ -28,12 +28,12 @@ BILLING = '''package service
 // TaxBasisPoints is applied by Invoice on top of the order subtotal.
 const TaxBasisPoints = 1000 // 10.00%
 
-// Invoice: negative subtotals count as zero (t21); a 25c processing fee is
+// Invoice: negative subtotals are rejected with zero (t21); a 25c processing fee is
 // added before tax (t10); subtotals >= 100000 pay no tax (t11); the result
 // is at least 50 (t9) and at most 5000000, cap applied last (t22).
 func Invoice(subtotalCents int) int {
 	if subtotalCents < 0 {
-		subtotalCents = 0
+		return 0
 	}
 	withFee := subtotalCents + 25
 	var amt int

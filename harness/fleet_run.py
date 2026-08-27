@@ -2,12 +2,20 @@
 """Track D — Fleet Operations Benchmark (pre-registered in the design spec §8a;
 arm-decomposition study pre-registered §8c, 2026-08-22).
 
-N real agents process a ticket backlog against one shared codebase. Five arms
+N real agents process a ticket backlog against one shared codebase. The arms
 decompose dispatch policy, integration policy, and coordination source:
 
   git_fleet       : uncoordinated baseline — every ticket dispatched in
                     parallel; integration is a sequential blind `git merge`
                     queue in ticket order (conflicts aborted, never resolved).
+  git_retry       : git_fleet plus exactly ONE automated recovery pass per
+                    conflicted merge (rebase the ticket branch; if the rebase
+                    itself conflicts, re-run the agent once from current
+                    main). The realistic "team retries" baseline (spec §8d).
+  git_competitive : strong conventional control (frozen protocol v4 primary
+                    git comparator) — footprint-gated dispatch + CI/secret-
+                    gated merge queue + the single recovery pass of
+                    git_retry, combined.
   git_gated_queue : same parallel dispatch, but the merge queue is CI-gated —
                     a merge whose post-merge build or smoke tests fail is
                     reverted and recorded as queue-rejected (models the
@@ -64,6 +72,7 @@ import json
 import os
 import random
 import re
+import shlex
 import shutil
 import subprocess
 import sys
@@ -77,9 +86,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from adapters import claude as claude_adapter  # noqa: E402
 from adapters import opencode as opencode_adapter  # noqa: E402
+from adapters import scripted as scripted_adapter  # noqa: E402
+from protocol import (DEFAULT_PROTOCOL, protocol_provenance,
+                      validate_corpus)  # noqa: E402
 from run_experiment import ENV, RESULTS, TRANSCRIPTS, sh  # noqa: E402
 
-ADAPTERS = {"claude": claude_adapter, "opencode": opencode_adapter}
+# "scripted" is the deterministic no-LLM validation adapter; its records are
+# for harness plumbing verification only and must never be pooled with
+# real-model results (provenance carries harness="scripted").
+ADAPTERS = {"claude": claude_adapter, "opencode": opencode_adapter,
+            "scripted": scripted_adapter}
 
 # Fail-fast guard against provider-limit contamination (incidents of
 # 2026-08-21, 2026-08-22, 2026-08-23): a batch that keeps running after the
@@ -147,9 +163,17 @@ def transcript_rate_limited(tpath):
 
 
 REPO = Path(__file__).resolve().parent.parent
-TASK = REPO / "tasks" / "fleet_service"
+TASKS = REPO / "tasks"
+TASK = TASKS / "fleet_service"
 STARTER_PIN = TASK / "STARTER_SHA256"
 GOV = REPO / "harness" / "governance"
+ACTIVE_LANGUAGE = "go"
+ACTIVE_REPOSITORY = "synthetic/fleet_service"
+ACTIVE_COMMANDS = {
+    "build": ["go", "build", "./..."],
+    "test": ["go", "test", "./..."],
+    "accept": ["go", "test", "./accept/{ticket}/"],
+}
 
 # Symmetric secret-scanning gate (industry CI practice, gitleaks-style).
 # Applied identically to EVERY arm at integration: a hit is recorded in all
@@ -237,6 +261,16 @@ def evolution_summary(rec, tickets, ws):
 
 ARMS = {
     "git_fleet":       {"dispatch": "parallel",  "ci_gate": False, "merge": "git",  "nool_ws": False},
+    # git_fleet + ONE automated recovery pass per conflicted merge (rebase,
+    # then re-run the agent once from current main) — the realistic
+    # "team retries" baseline pre-registered in spec §8d. No CI gate, so it
+    # isolates the retry effect from git_gated_queue's gating effect.
+    "git_retry":       {"dispatch": "parallel",  "ci_gate": False, "merge": "git",  "nool_ws": False, "retry": True},
+    # Strong conventional baseline: predicted-footprint scheduling, a
+    # build/test/secret-gated merge queue, and one conflict recovery pass.
+    # It combines the ordinary controls a competent engineering team would
+    # deploy and is the primary git comparator in frozen protocol v4.
+    "git_competitive": {"dispatch": "footprint", "ci_gate": True,  "merge": "git",  "nool_ws": False, "retry": True},
     "git_gated_queue": {"dispatch": "parallel",  "ci_gate": True,  "merge": "git",  "nool_ws": False},
     "git_scheduled":   {"dispatch": "footprint", "ci_gate": False, "merge": "git",  "nool_ws": False},
     "nool_fleet":      {"dispatch": "footprint", "ci_gate": False, "merge": "nool", "nool_ws": True},
@@ -248,15 +282,15 @@ ARMS = {
 # on its own after this rather than blocking the run forever.
 LEASE_DURATION_MS = 900000
 
-PROMPT = """You are working in a Go service repository (module bench/fleetsvc).
+PROMPT = """You are working in a {language} repository ({repository}).
 Implement the following ticket. Modify only what the ticket requires.
 
 Ticket {tid} — {title}
 
 {spec}
 
-Verify with `go build ./...` and `go test ./...` (the existing tests must
-stay green). Land your work with the version-control workflow available in
+Verify with {verification} (the existing tests must stay green). Land your
+work with the version-control workflow available in
 this repository, then stop.
 """
 
@@ -269,18 +303,29 @@ this repository, then stop.
 # commits (verified 2026-08-26, every ticket tried) leaves the working
 # tree clean, so propose finds "No Git worktree changes" and the ticket is
 # rejected before promote ever runs, regardless of code quality.
-PROMPT_TRY = """You are working in a Go service repository (module bench/fleetsvc).
+PROMPT_TRY = """You are working in a {language} repository ({repository}).
 Implement the following ticket. Modify only what the ticket requires.
 
 Ticket {tid} — {title}
 
 {spec}
 
-Verify with `go build ./...` and `go test ./...` (the existing tests must
-stay green). Do not run git or any other version-control commands — leave
+Verify with {verification} (the existing tests must stay green). Do not run
+git or any other version-control commands — leave
 your changes as uncommitted edits in the working tree and stop; landing is
 handled outside this session.
 """
+
+
+def ticket_prompt(ticket, try_mode=False):
+    verify = " and ".join("`" + " ".join(ACTIVE_COMMANDS[k]) + "`"
+                          for k in ("build", "test"))
+    template = PROMPT_TRY if try_mode else PROMPT
+    return template.format(language=ACTIVE_LANGUAGE,
+                           repository=ACTIVE_REPOSITORY,
+                           verification=verify,
+                           tid=ticket["id"], title=ticket["title"],
+                           spec=ticket["spec"])
 
 
 def starter_sha():
@@ -311,6 +356,54 @@ def check_starter_pin(allow_unpinned):
     return sha
 
 
+def install_shared_governance(ws):
+    """Install the same visible policy contract in every arm.
+
+    The original fleet-service documents are retained for that corpus. Other
+    language corpora receive a minimal command-derived CI declaration rather
+    than misleading Go-specific setup, ownership paths, and hooks. Files the
+    starter already ships (imported repositories carry their own governance,
+    which the corpus contract says must be retained byte-for-byte) are never
+    overwritten — either way the treatment stays deterministic per corpus and
+    identical across arms.
+    """
+    gh = ws / ".github" / "workflows"
+    gh.mkdir(parents=True, exist_ok=True)
+
+    def _install(dst, content):
+        if dst.exists():
+            return
+        if isinstance(content, Path):
+            shutil.copy(content, dst)
+        else:
+            dst.write_text(content)
+
+    if (ACTIVE_LANGUAGE == "go" and
+            ACTIVE_REPOSITORY == "synthetic/fleet_service"):
+        _install(gh / "ci.yml", GOV / "industry_git" / "ci.yml")
+        _install(ws / "CODEOWNERS", GOV / "industry_git" / "CODEOWNERS")
+        _install(ws / "POLICY.md", GOV / "industry_git" / "POLICY.md")
+        _install(ws / ".pre-commit-config.yaml",
+                 GOV / "industry_git" / ".pre-commit-config.yaml")
+        return
+    build = shlex.join(ACTIVE_COMMANDS["build"])
+    test = shlex.join(ACTIVE_COMMANDS["test"])
+    _install(gh / "ci.yml",
+             "name: benchmark-required-checks\n"
+             "on: [push, pull_request]\n"
+             "jobs:\n  verify:\n    runs-on: ubuntu-latest\n    steps:\n"
+             "      - uses: actions/checkout@v4\n"
+             f"      - name: build\n        run: {build}\n"
+             f"      - name: test\n        run: {test}\n")
+    _install(ws / "CODEOWNERS", "* @benchmark/maintainers\n")
+    _install(ws / "POLICY.md",
+             f"# Shared landing policy\n\nEvery change must pass `{build}` "
+             f"and `{test}`. Merge conflicts are retried once in "
+             "retry-enabled arms; credential material is rejected in every "
+             "arm.\n")
+    _install(ws / ".pre-commit-config.yaml", "repos: []\n")
+
+
 def setup_ws(arm, parent):
     """Workspace contract.
 
@@ -333,13 +426,17 @@ def setup_ws(arm, parent):
                 ["git", "add", "-A"], ["git", "commit", "-qm", "base service"]):
         sh(cmd, ws, check=True)
     # Identical policy documentation for every arm (constant across arms).
-    gh = ws / ".github" / "workflows"
-    gh.mkdir(parents=True)
-    shutil.copy(GOV / "industry_git" / "ci.yml", gh / "ci.yml")
-    shutil.copy(GOV / "industry_git" / "CODEOWNERS", ws / "CODEOWNERS")
-    shutil.copy(GOV / "industry_git" / "POLICY.md", ws / "POLICY.md")
-    shutil.copy(GOV / "industry_git" / ".pre-commit-config.yaml",
-                ws / ".pre-commit-config.yaml")
+    install_shared_governance(ws)
+    # These documents are part of the shared starting state. Previously they
+    # were committed only as a side effect of nool setup, so git-agent
+    # worktrees branched before the files existed and did not receive the
+    # supposedly identical policy treatment. An imported starter may already
+    # ship every governance file, leaving nothing to commit here.
+    sh(["git", "add", "-A"], ws, check=True)
+    _, staged = sh(["git", "status", "--porcelain"], ws)
+    if staged.strip():
+        sh(["git", "commit", "-qm", "shared governance contract"], ws,
+           check=True)
     profile_sha = None
     if ARMS[arm]["nool_ws"]:
         code, out = sh(["nool", "init"], ws, timeout=120)
@@ -392,8 +489,8 @@ def setup_ws(arm, parent):
 
 
 def health(ws):
-    b, _ = sh(["go", "build", "./..."], ws, timeout=120)
-    t, _ = sh(["go", "test", "./..."], ws, timeout=180)
+    b, _ = sh(ACTIVE_COMMANDS["build"], ws, timeout=120)
+    t, _ = sh(ACTIVE_COMMANDS["test"], ws, timeout=180)
     return {"build_ok": b == 0, "smoke_ok": t == 0}
 
 
@@ -456,15 +553,15 @@ def agent_env(arm):
     return env
 
 
-def agent_ticket(ws, parent, ticket, model, run_id, adapter, arm):
-    wt = Path(parent) / f"wt_{ticket['id']}"
+def agent_ticket(ws, parent, ticket, model, run_id, adapter, arm, suffix=""):
+    wt = Path(parent) / f"wt_{ticket['id']}{suffix}"
     with _WORKTREE_ADD_LOCK:
-        sh(["git", "worktree", "add", "-q", "-b", f"ticket_{ticket['id']}",
+        sh(["git", "worktree", "add", "-q", "-b",
+            f"ticket_{ticket['id']}{suffix}",
             str(wt), "main"], ws, check=True)
-    prompt = PROMPT.format(tid=ticket["id"], title=ticket["title"],
-                           spec=ticket["spec"])
+    prompt = ticket_prompt(ticket)
     TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
-    tpath = TRANSCRIPTS / f"{run_id}_{ticket['id']}.jsonl"
+    tpath = TRANSCRIPTS / f"{run_id}_{ticket['id']}{suffix}.jsonl"
     _throttle_launch()
     res = adapter.run(wt, prompt, model, max_turns=30, timeout_s=600,
                       transcript_path=tpath, env=agent_env(arm))
@@ -489,8 +586,8 @@ def agent_ticket(ws, parent, ticket, model, run_id, adapter, arm):
     return {**res, "transcript": str(tpath.relative_to(REPO))}
 
 
-def integrate(ws, arm, ticket, run_id=""):
-    branch = f"ticket_{ticket['id']}"
+def integrate(ws, arm, ticket, run_id="", branch=None):
+    branch = branch or f"ticket_{ticket['id']}"
     _, pre = sh(["git", "rev-parse", "HEAD"], ws)
     pre = pre.strip()
     if ARMS[arm]["merge"] == "nool":
@@ -523,12 +620,12 @@ def integrate(ws, arm, ticket, run_id=""):
           f"build={'ok' if h['build_ok'] else 'FAIL'} "
           f"smoke={'ok' if h['smoke_ok'] else 'FAIL'} "
           f"secrets={'clean' if scan['clean'] else 'HIT'}", flush=True)
+    landed = code == 0 and not rejected
+    _, post = sh(["git", "rev-parse", "HEAD"], ws)
     return {"ticket": ticket["id"], "clean": True, "exit_code": code,
             "queue_rejected": rejected,
+            "landed_commit": post.strip() if landed else None,
             "post_merge_health": h, "secret_scan": scan,
-            "merge_tail": merge_tail}
-    return {"ticket": ticket["id"], "clean": True, "exit_code": code,
-            "queue_rejected": rejected, "post_merge_health": h,
             "merge_tail": merge_tail}
 
 
@@ -537,9 +634,47 @@ def score(ws, tickets):
     for t in tickets:
         dst = ws / "accept" / t["id"]
         shutil.copytree(TASK / "accept" / t["id"], dst)
-        code, _ = sh(["go", "test", f"./accept/{t['id']}/"], ws, timeout=120)
+        cmd = [part.format(ticket=t["id"])
+               for part in ACTIVE_COMMANDS["accept"]]
+        code, _ = sh(cmd, ws, timeout=120)
         out[t["id"]] = code == 0
         shutil.rmtree(ws / "accept")
+    return out
+
+
+def score_conditional(ws, tickets, integration):
+    """Attribution-correct acceptance (spec §8d): run each ticket's hidden
+    test against the exact main commit THAT ticket landed into, not the
+    end-of-run state. Decouples 'this agent's change was good' from 'a
+    later ticket poisoned main' — end-state scoring multiple-counts one
+    poisoning event across every subsequently-scored ticket. None = the
+    ticket never landed (conflict/rejection/starvation): conditional
+    acceptance is undefined, not failed. Runs AFTER wall_ms is captured;
+    measurement, never treatment."""
+    landed = {}
+    for i in integration:
+        if isinstance(i, dict) and i.get("ticket"):
+            landed[i["ticket"]] = i.get("landed_commit")
+    out = {}
+    for t in tickets:
+        tid = t["id"]
+        commit = landed.get(tid)
+        if not commit:
+            out[tid] = None
+            continue
+        wt = ws / f"condscore_{tid}"
+        try:
+            sh(["git", "worktree", "add", "-q", "--detach", str(wt), commit],
+               ws, check=True)
+            shutil.copytree(TASK / "accept" / tid, wt / "accept" / tid)
+            cmd = [part.format(ticket=tid)
+                   for part in ACTIVE_COMMANDS["accept"]]
+            code, _ = sh(cmd, wt, timeout=120)
+            out[tid] = code == 0
+        except Exception:
+            out[tid] = None  # unscorable, not failed — visible as a gap
+        finally:
+            sh(["git", "worktree", "remove", "--force", str(wt)], ws)
     return out
 
 
@@ -602,6 +737,43 @@ def preflight_isolation():
     return {"daemon_pids": []}
 
 
+def retry_conflicted(rec, ws, parent, ticket, run_id, arm, model, adapter,
+                     first):
+    """git_retry arm: ONE automated recovery pass for a conflicted merge —
+    the workflow a real team applies before declaring a ticket lost.
+    Step 1 (cheap): mechanically `git rebase main` the ticket branch in its
+    still-live agent worktree; if the rebase applies cleanly, merge the
+    rebased branch. Step 2 (full agent cost, recorded): if the rebase
+    itself conflicts, abort it and re-run the agent once in a fresh
+    worktree branched from CURRENT main, then merge that. Exactly one
+    pass — a second conflict is a loss, same as git_fleet. The first
+    attempt's outcome is preserved in the returned record."""
+    tid = ticket["id"]
+    branch = f"ticket_{tid}"
+    wt = Path(parent) / f"wt_{tid}"
+    info = {"rebase_ok": None, "reran_agent": False}
+    code, _ = sh(["git", "rebase", "main"], wt, timeout=120)
+    if code == 0:
+        info["rebase_ok"] = True
+    else:
+        sh(["git", "rebase", "--abort"], wt)
+        info["rebase_ok"] = False
+        info["reran_agent"] = True
+        rec["agents"][f"{tid}_retry"] = agent_ticket(
+            ws, parent, ticket, model, run_id, adapter, arm, suffix="_retry")
+        branch = f"ticket_{tid}_retry"
+    entry = integrate(ws, arm, ticket, run_id, branch=branch)
+    entry["retry"] = info
+    entry["first_attempt"] = {k: first.get(k) for k in
+                              ("clean", "exit_code", "merge_tail")}
+    tag = ("recovered" if entry["clean"] and not entry.get("queue_rejected")
+           else "LOST")
+    print(f"[{run_id}] {tid} retry "
+          f"({'rebase' if info['rebase_ok'] else 'agent-rerun'}) {tag}",
+          flush=True)
+    return entry
+
+
 def run_parallel(rec, ws, parent, tickets, model, run_id, n_workers, arm,
                  adapter):
     import concurrent.futures as cf
@@ -615,7 +787,11 @@ def run_parallel(rec, ws, parent, tickets, model, run_id, n_workers, arm,
             # remaining futures observe _ABORT after their current agent
             # and abort the same way on collection below.
     for t in tickets:  # sequential merge queue, ticket order
-        rec["integration"].append(integrate(ws, arm, t, run_id))
+        entry = integrate(ws, arm, t, run_id)
+        if ARMS[arm].get("retry") and not entry["clean"]:
+            entry = retry_conflicted(rec, ws, parent, t, run_id, arm, model,
+                                     adapter, entry)
+        rec["integration"].append(entry)
 
 
 def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
@@ -659,7 +835,11 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
         try:
             with lock:
                 rec["agents"][t["id"]] = res
-                rec["integration"].append(integrate(ws, arm, t, run_id))
+                entry = integrate(ws, arm, t, run_id)
+                if ARMS[arm].get("retry") and not entry["clean"]:
+                    entry = retry_conflicted(rec, ws, parent, t, run_id,
+                                             arm, model, adapter, entry)
+                rec["integration"].append(entry)
         except Exception as e:
             with lock:
                 rec["integration"].append({
@@ -751,8 +931,7 @@ def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
                            f"already holds the admission lease:\n{out}")
     wt = Path(ws) / ".nool" / "try" / name
     stray_nool = wt / ".nool"
-    prompt = PROMPT_TRY.format(tid=ticket["id"], title=ticket["title"],
-                               spec=ticket["spec"])
+    prompt = ticket_prompt(ticket, try_mode=True)
     TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
     tpath = TRANSCRIPTS / f"{run_id}_{ticket['id']}.jsonl"
     _throttle_launch()
@@ -870,8 +1049,11 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
           f"build={'ok' if h['build_ok'] else 'FAIL'} "
           f"smoke={'ok' if h['smoke_ok'] else 'FAIL'} "
           f"secrets={'clean' if scan['clean'] else 'HIT'}", flush=True)
+    _, post = sh(["git", "rev-parse", "HEAD"], ws)
     return {"ticket": ticket["id"], "clean": True, "exit_code": m_code,
-            "queue_rejected": False, "post_merge_health": h,
+            "queue_rejected": False,
+            "landed_commit": post.strip(),
+            "post_merge_health": h,
             "secret_scan": scan, "merge_tail": merge_tail}
 
 
@@ -1032,16 +1214,48 @@ def run_try_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
 
 def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
               allow_unpinned=False, harness="claude", limit=None,
-              seed=None):
+              seed=None, fp_drop=0.0, fp_add=0.0, fp_seed=None,
+              tier="all", task_root="tasks/fleet_service",
+              protocol_path=DEFAULT_PROTOCOL):
+    global TASK, STARTER_PIN, ACTIVE_LANGUAGE, ACTIVE_REPOSITORY
+    global ACTIVE_COMMANDS
     if arm not in ARMS:
         raise SystemExit(f"unknown arm {arm!r}; valid: {', '.join(ARMS)}")
+    if not (0.0 <= fp_drop <= 1.0 and 0.0 <= fp_add <= 1.0):
+        raise SystemExit("footprint-noise probabilities must lie in [0, 1]")
+    if (fp_drop or fp_add) and ARMS[arm]["dispatch"] == "parallel":
+        raise SystemExit("footprint noise only applies to footprint/lease "
+                         "dispatch arms; use git_competitive, git_scheduled, "
+                         "nool_fleet, nool_gated, or nool_try")
+    task_candidate = Path(task_root)
+    if not task_candidate.is_absolute():
+        task_candidate = REPO / task_candidate
+    task_candidate = task_candidate.resolve()
+    try:
+        task_candidate.relative_to(TASKS.resolve())
+    except ValueError as exc:
+        raise SystemExit("--task-root must resolve under tasks/") from exc
+    TASK = task_candidate
+    STARTER_PIN = TASK / "STARTER_SHA256"
+    corpus_path = TASK / tickets_file
+    if not corpus_path.is_file():
+        raise SystemExit(f"ticket corpus not found: {corpus_path}")
+    corpus = json.loads(corpus_path.read_text())
+    proto_prov, protocol = protocol_provenance(protocol_path)
+    validate_corpus(corpus, protocol)
+    ACTIVE_LANGUAGE = corpus["language"]
+    ACTIVE_REPOSITORY = corpus["repository"]
+    ACTIVE_COMMANDS = corpus["commands"]
     adapter = ADAPTERS[harness]
     sha = check_starter_pin(allow_unpinned)
     run_id = f"fleet_{arm}_{uuid.uuid4().hex[:8]}"
     print(f"[{run_id}] starting arm={arm} harness={harness} model={model} "
           f"workers={n_workers}", flush=True)
-    corpus = json.loads((TASK / tickets_file).read_text())
     tickets = corpus["tickets"]
+    if tier != "all":
+        tickets = [t for t in tickets if t.get("tier", "prescriptive") == tier]
+        if not tickets:
+            raise SystemExit(f"no {tier!r} tickets in {tickets_file}")
     if limit:
         tickets = tickets[:limit]
         print(f"[{run_id}] NOTE pipeline-validation slice: first {limit} "
@@ -1053,12 +1267,44 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
     rng.shuffle(order)
     tickets = [tickets[i] for i in order]
     print(f"[{run_id}] ticket order shuffled with seed={seed}", flush=True)
+    tickets_orig = tickets  # pre-noise footprints, for evolution/attribution
+    fp_noise = None
+    if fp_drop or fp_add:
+        # Footprint-noise study (spec §8d): perturb the DECLARED footprints
+        # the dispatcher gates on — drop each file w.p. fp_drop, then w.p.
+        # fp_add add one spurious file from the corpus-wide footprint
+        # universe. Models predicted (imperfect) footprints; agents' actual
+        # work and acceptance are untouched. Perturbation is recorded
+        # per-ticket so any run is exactly reproducible.
+        nrng = random.Random(fp_seed)
+        allfiles = sorted({f for t in tickets for f in t["footprint"]})
+        fp_noise = {"drop": fp_drop, "add": fp_add, "seed": fp_seed,
+                    "tickets": {}}
+        noisy = []
+        for t in tickets:
+            fp = [f for f in t["footprint"] if nrng.random() >= fp_drop]
+            if nrng.random() < fp_add:
+                extra = [f for f in allfiles if f not in t["footprint"]]
+                if extra:
+                    fp.append(nrng.choice(extra))
+            fp_noise["tickets"][t["id"]] = {"declared": t["footprint"],
+                                            "perturbed": fp}
+            noisy.append(dict(t, footprint=fp))
+        tickets = noisy
+        print(f"[{run_id}] footprint noise: drop={fp_drop} add={fp_add} "
+              f"seed={fp_seed}", flush=True)
     ver = lambda c: subprocess.run(c, capture_output=True, text=True,
                                    timeout=15).stdout.strip().splitlines()[0]
     rec = {"run_id": run_id, "arm": arm, "arm_policy": ARMS[arm],
            "harness": harness, "model": model, "n_workers": n_workers,
            "corpus": corpus.get("corpus", "v1"), "tickets_file": tickets_file,
-           "ticket_limit": limit,
+           "repository": corpus["repository"],
+           "language": corpus["language"],
+           "source_kind": corpus["source_kind"],
+           "footprint_source": corpus["footprint_source"],
+           "commands": corpus["commands"],
+           "protocol": proto_prov,
+           "ticket_limit": limit, "ticket_tier": tier,
            "shuffle_seed": seed,
            "governance_profile_sha": gov_profile_sha,
            "starter_sha": sha,
@@ -1067,8 +1313,11 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
            "isolation": preflight_isolation(),
            "nool_version": ver(["nool", "--version"]),
            "git_version": ver(["git", "--version"]),
-           "go_version": ver(["go", "version"]),
+           "go_version": (ver(["go", "version"])
+                          if ACTIVE_LANGUAGE == "go" else None),
            "agents": {}, "integration": [], "gating": {}, "releases": {}}
+    if fp_noise:
+        rec["footprint_noise"] = fp_noise
     t0 = time.monotonic()
     _ABORT.clear()
     try:
@@ -1081,6 +1330,11 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
 
         rec["wall_ms"] = round((time.monotonic() - t0) * 1000.0, 1)
         rec["acceptance"] = score(ws, tickets)
+        # Attribution-correct twin metric (§8d): scored after wall_ms so
+        # the extra worktree/test passes never inflate the treatment's
+        # measured wall time.
+        rec["acceptance_conditional"] = score_conditional(
+            ws, tickets_orig, rec["integration"])
         # Scoring-time corpus-artifact flag (the t21 class): a ticket whose
         # hidden test passes although its work never landed was satisfied by
         # a neighbor's change. Detected here so it is part of the record,
@@ -1104,14 +1358,25 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
                 rec["nool_knots"] = None
         rec["cost_usd"] = round(sum((a.get("cost_usd") or 0)
                                     for a in rec["agents"].values()), 4)
-        rec["evolution"] = evolution_summary(rec, tickets, ws)
+        # Throughput headline twin (§8d): acceptance and serialization cost
+        # belong in the same table, not headline + footnote.
+        _acc = sum(1 for v in rec["acceptance"].values() if v)
+        rec["throughput_accepted_per_min"] = (
+            round(_acc / (rec["wall_ms"] / 60000.0), 3)
+            if rec["wall_ms"] else None)
+        rec["evolution"] = evolution_summary(rec, tickets_orig, ws)
         rec["finished_utc"] = datetime.now(timezone.utc).isoformat()
     finally:
         # Crash-safe: the throwaway workspace must never outlive the run
         # (leaked worktrees re-register with nool/git state on later runs).
         shutil.rmtree(parent, ignore_errors=True)
     RESULTS.mkdir(parents=True, exist_ok=True)
-    with open(RESULTS / "fleet_runs.jsonl", "a") as f:
+    # Scripted-adapter runs are harness validation, not evidence: they land
+    # in their own file so fleet_runs.jsonl stays a pure record of
+    # real-model runs (summarize.py/make_figures.py read only the latter).
+    out_name = ("validation_runs.jsonl" if harness == "scripted"
+                else "fleet_runs.jsonl")
+    with open(RESULTS / out_name, "a") as f:
         f.write(json.dumps(rec) + "\n")
     passed = sum(1 for v in rec["acceptance"].values() if v)
     print(f"[{run_id}] accepted {passed}/{len(tickets)} "
@@ -1127,6 +1392,13 @@ def main():
                     help=f"comma list from: {', '.join(ARMS)}")
     ap.add_argument("--workers", type=int, default=5)
     ap.add_argument("--tickets", default="tickets.json")
+    ap.add_argument("--task-root", default="tasks/fleet_service",
+                    help="corpus directory under tasks/ (language-neutral)")
+    ap.add_argument("--protocol", default=str(DEFAULT_PROTOCOL),
+                    help="frozen protocol JSON recorded by SHA-256")
+    ap.add_argument("--tier", default="all",
+                    choices=("all", "prescriptive", "ambiguous"),
+                    help="run all tickets or one declared specification tier")
     ap.add_argument("--reps", type=int, default=1)
     ap.add_argument("--limit", type=int, default=None,
                     help="use only the first K tickets (pipeline validation "
@@ -1138,13 +1410,30 @@ def main():
     ap.add_argument("--allow-unpinned-starter", action="store_true",
                     help="run even if the starter tree hash does not match "
                          "tasks/fleet_service/STARTER_SHA256")
+    ap.add_argument("--fp-noise-drop", type=float, default=0.0,
+                    help="footprint-noise study (§8d): probability each "
+                         "declared footprint file is dropped before "
+                         "dispatch gating sees it")
+    ap.add_argument("--fp-noise-add", type=float, default=0.0,
+                    help="footprint-noise study (§8d): probability one "
+                         "spurious corpus file is added to a ticket's "
+                         "declared footprint")
+    ap.add_argument("--fp-noise-seed", type=int, default=None,
+                    help="seed for the footprint perturbation (recorded; "
+                         "random if omitted while noise is enabled)")
     args = ap.parse_args()
+    if (args.fp_noise_drop or args.fp_noise_add) \
+            and args.fp_noise_seed is None:
+        args.fp_noise_seed = random.randrange(2**31)
     for _ in range(args.reps):
         for arm in args.arms.split(","):
             run_fleet(arm, args.model, args.workers, args.tickets,
                       allow_unpinned=args.allow_unpinned_starter,
                       harness=args.harness, limit=args.limit,
-                      seed=args.seed)
+                      seed=args.seed, fp_drop=args.fp_noise_drop,
+                      fp_add=args.fp_noise_add, fp_seed=args.fp_noise_seed,
+                      tier=args.tier, task_root=args.task_root,
+                      protocol_path=args.protocol)
 
 
 if __name__ == "__main__":

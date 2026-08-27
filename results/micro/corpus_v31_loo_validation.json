@@ -1,0 +1,430 @@
+{
+ "fidelity": {
+  "diffs": [],
+  "identical": true
+ },
+ "generated_utc": "2026-08-27T02:16:57.192759+00:00",
+ "loo": {
+  "t1": {
+   "build_ok": true,
+   "cluster": "users",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t10": {
+   "build_ok": true,
+   "cluster": "billing",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t11": {
+   "build_ok": true,
+   "cluster": "billing",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t12": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t13": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t14": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t15": {
+   "build_ok": true,
+   "cluster": "store",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t16": {
+   "build_ok": true,
+   "cluster": "store",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t17": {
+   "build_ok": true,
+   "cluster": "store",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t18": {
+   "build_ok": true,
+   "cluster": "orders",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t19": {
+   "build_ok": true,
+   "cluster": "clock",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t2": {
+   "build_ok": true,
+   "cluster": "billing",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t20": {
+   "build_ok": true,
+   "cluster": "users",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t21": {
+   "build_ok": true,
+   "cluster": "billing",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t22": {
+   "build_ok": true,
+   "cluster": "billing",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t23": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t24": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t25": {
+   "build_ok": true,
+   "cluster": "store",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t26": {
+   "build_ok": true,
+   "cluster": "store",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t27": {
+   "build_ok": true,
+   "cluster": "users",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t28": {
+   "build_ok": true,
+   "cluster": "users",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t29": {
+   "build_ok": true,
+   "cluster": "users",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t3": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t30": {
+   "build_ok": true,
+   "cluster": "orders",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t31": {
+   "build_ok": true,
+   "cluster": "orders",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t32": {
+   "build_ok": true,
+   "cluster": "orders",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t33": {
+   "build_ok": true,
+   "cluster": "ids",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t34": {
+   "build_ok": true,
+   "cluster": "ids",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t35": {
+   "build_ok": true,
+   "cluster": "ids",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t36": {
+   "build_ok": true,
+   "cluster": "users",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t37": {
+   "build_ok": true,
+   "cluster": "users",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t38": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t39": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t4": {
+   "build_ok": true,
+   "cluster": "store",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t40": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t41": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t42": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t43": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t44": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t45": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t46": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t47": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t48": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t49": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t5": {
+   "build_ok": true,
+   "cluster": "orders",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t50": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t51": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t52": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t53": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t54": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t55": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t56": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t57": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t58": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t59": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t6": {
+   "build_ok": true,
+   "cluster": "users",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t60": {
+   "build_ok": true,
+   "cluster": "fillers",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t7": {
+   "build_ok": true,
+   "cluster": "api",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t8": {
+   "build_ok": true,
+   "cluster": "ids",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  },
+  "t9": {
+   "build_ok": true,
+   "cluster": "billing",
+   "own_test_fails": true,
+   "sibling_failures": [],
+   "suite_ok": true
+  }
+ },
+ "violations": []
+}

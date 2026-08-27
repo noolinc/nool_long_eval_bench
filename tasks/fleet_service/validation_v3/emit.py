@@ -3,7 +3,7 @@
 import json, os, tempfile, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from build_v3 import T
+from build_v3 import T, AMBIGUOUS_TIER
 from fillers import F
 
 REPO = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
@@ -26,11 +26,25 @@ def main():
         else:
             title, fp, spec, test = new[tid]
             assert test and "package " + tid in test, f"{tid}: bad test package"
-            tickets.append({"id": tid, "title": title, "footprint": fp, "spec": spec})
+            ticket = {"id": tid, "title": title, "footprint": fp, "spec": spec}
+            if tid in AMBIGUOUS_TIER:
+                ticket["tier"] = "ambiguous"
+            tickets.append(ticket)
 
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, "tickets_v3.json"), "w") as f:
-        json.dump({"service": "fleet_service", "corpus": "v3", "tickets": tickets}, f, indent=1)
+        json.dump({
+            "service": "fleet_service", "corpus": "v3.1",
+            "language": "go", "repository": "synthetic/fleet_service",
+            "source_kind": "synthetic",
+            "footprint_source": "author-oracle",
+            "commands": {
+                "build": ["go", "build", "./..."],
+                "test": ["go", "test", "./..."],
+                "accept": ["go", "test", "./accept/{ticket}/"],
+            },
+            "tickets": tickets,
+        }, f, indent=1)
         f.write("\n")
 
     for tid, (title, fp, spec, test) in new.items():

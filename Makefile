@@ -18,7 +18,7 @@ MODEL ?=
 MODEL_FLAG = $(if $(MODEL),--model $(MODEL),)
 IMAGE ?= nool-benchmarks
 
-.PHONY: trackB summarize tier1 trackC docker-build docker-digest docker-trackB check-transcripts
+.PHONY: trackB summarize tier1 trackC validate-study validate-harness docker-build docker-digest docker-trackB check-transcripts
 
 trackB:
 	cd micro && python3 b1_overhead.py \
@@ -43,6 +43,24 @@ trackC:
 
 check-transcripts:
 	python3 analysis/transcript_manifest.py check
+
+validate-study:
+	python3 harness/validate_protocol.py \
+		tasks/fleet_service/tickets.json \
+		tasks/fleet_service/tickets_v2.json \
+		tasks/fleet_service/tickets_v3.json
+	python3 -m py_compile harness/fleet_run.py harness/protocol.py \
+		harness/validate_protocol.py analysis/summarize.py
+	cd harness && python3 -m unittest -v test_protocol.py
+	git diff --check
+
+# End-to-end harness plumbing check, no LLM, ~3 min: every arm once with the
+# deterministic scripted adapter. Records go to validation_runs.jsonl and are
+# excluded from evidence by protocol rule.
+validate-harness:
+	python3 harness/fleet_run.py --harness scripted --model scripted \
+		--arms git_fleet,git_retry,git_competitive,git_gated_queue,git_scheduled,nool_fleet,nool_gated,nool_try \
+		--workers 8 --seed 7 --tickets tickets.json
 
 docker-build:
 	docker build -t $(IMAGE) .

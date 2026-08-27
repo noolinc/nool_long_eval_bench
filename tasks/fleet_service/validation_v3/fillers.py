@@ -328,6 +328,7 @@ func TestEmailDomain(t *testing.T) {
 	cases := [][2]string{
 		{"a@b.co", "b.co"},
 		{"weird@@x.io", "x.io"},
+		{"@lead.io", "lead.io"},
 		{"nodomain", ""},
 		{"trail@", ""},
 	}

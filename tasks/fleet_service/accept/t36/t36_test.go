@@ -15,4 +15,8 @@ func TestDisplayName(t *testing.T) {
 	if got := u2.DisplayName(); got != "no-at-sign" {
 		t.Fatalf("DisplayName without @ = %q, want whole email", got)
 	}
+	u3 := &model.User{Email: "@ex.co"}
+	if got := u3.DisplayName(); got != "" {
+		t.Fatalf("DisplayName with leading @ = %q, want empty", got)
+	}
 }

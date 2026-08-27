@@ -183,6 +183,38 @@ harness's own accounting — estimated metrics are banned; anything a harness
 does not expose is reported as null. See `harness/README.md` for the adapter
 contract if you are adding gemini/codex/pi.
 
+## Frozen cross-repository protocol (v4)
+
+Future comparative fleet evidence is governed by
+`protocols/fleet_v4.json`, pinned by `protocols/fleet_v4.sha256`. Its primary
+unit is the run, its minimum target is 10 repetitions per arm/cell, and its
+primary comparisons put native nool coordination against `git_competitive`:
+declared-footprint scheduling under recorded noise, a build/test/secret-gated merge queue, and
+one rebase-or-agent-rerun conflict recovery pass.
+
+The fleet runner is now language-neutral. A task root supplies a pinned
+starter, ticket/footprint metadata, held-out acceptance assets, and argument-
+array build/test/accept commands; see `tasks/CORPUS_CONTRACT.md`. Every new
+record carries repository, language, source kind, command contract, and the
+frozen protocol hash. Analysis strata include repository, language, model,
+harness, worker count, tier, and footprint noise, and never use tickets as
+independent replicates.
+
+```bash
+make validate-study     # protocol pin, corpus contracts, unit tests
+make validate-harness   # every arm once, deterministic scripted adapter, $0
+python3 harness/fleet_run.py --harness claude --model <pinned-model-id> \
+    --task-root tasks/fleet_service --tickets tickets_v3.json \
+    --arms git_competitive,nool_gated --workers 10 --reps 10
+```
+
+This implements the comparative framework; it does not manufacture external
+validity. The repository currently contains only the synthetic Go corpus.
+Imported CooperBench-style tasks and additional real TypeScript, Python, and
+Java/Rust repositories must retain their upstream prompts and acceptance
+criteria and must be committed before multilingual or independent-replication
+claims are made.
+
 Current status: Track B complete on four product versions (6.13.0,
 6.14.0, 6.14.1, 7.0.0) with per-version snapshots under
 `results/replications/`. Track C grid run three times (19/20, 20/20,
@@ -228,6 +260,15 @@ pre-registered ablation arms (spec §8c). Running nool arms: the free tier
 (2,000 knots per project, 30 days) covers a full replication — a 60-ticket
 fleet run consumes 62 knots, the whole suite ~1,200–1,500 — so the only
 replication cost is LLM spend (~$7–10 per fleet run, disclosed per run).
+
+**Governance visibility audit (2026-08-27).** The harness formerly copied
+the nominally shared CI/CODEOWNERS/POLICY files after the base commit but
+committed them only during nool setup. Git-agent worktrees therefore did not
+receive those documents. Protocol-v4 setup now commits the shared governance
+contract before either arm diverges and generates command-derived policy for
+non-Go corpora. Historical records are preserved with their original harness
+provenance; they must not be described as having identical visible policy
+documents across arms.
 
 ## License
 

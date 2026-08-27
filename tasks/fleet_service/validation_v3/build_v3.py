@@ -16,9 +16,14 @@ OUT = os.path.join(tempfile.gettempdir(), "fleetsvc_v3_out")
 
 T = {}   # tid -> (title, [footprint], spec, test_source or None)
 
+# Behavioral rather than signature-prescriptive tickets. Their prompts state
+# an observable result and the acceptance tests select the contract, leaving
+# agents to make implementation choices that can semantically collide.
+AMBIGUOUS_TIER = {"t21", "t22", "t23", "t24", "t26", "t27", "t28", "t29"}
+
 # ---------- Cluster A deepen: service/billing.go Invoice body ----------
-T["t21"] = ("Negative-subtotal clamp", ["service/billing.go"],
- "Invoice must treat a negative subtotal exactly like a zero subtotal: for any negative input the result equals Invoice(0). Preserve every other behavior of Invoice, including behaviors teammates may be adding in parallel (minimums, fees, tax rules, caps).",
+T["t21"] = ("Negative-subtotal rejection", ["service/billing.go"],
+ "Invoice must reject negative subtotals by returning exactly 0 before applying fees, tax, minimums, waivers, or caps. Preserve every behavior for non-negative inputs, including behaviors teammates may be adding in parallel.",
  '''package t21
 
 import (
@@ -27,13 +32,10 @@ import (
 	"bench/fleetsvc/service"
 )
 
-// Routed through Invoice itself so any co-landed billing semantics
-// (minimum, fee, waiver, cap) apply equally to both sides.
-func TestNegativeClamp(t *testing.T) {
-	zero := service.Invoice(0)
+func TestNegativeRejected(t *testing.T) {
 	for _, s := range []int{-1, -37, -99999} {
-		if got := service.Invoice(s); got != zero {
-			t.Fatalf("Invoice(%d) = %d, want Invoice(0) = %d", s, got, zero)
+		if got := service.Invoice(s); got != 0 {
+			t.Fatalf("Invoice(%d) = %d, want 0", s, got)
 		}
 	}
 }
@@ -466,6 +468,10 @@ func TestDisplayName(t *testing.T) {
 	u2 := &model.User{Email: "no-at-sign"}
 	if got := u2.DisplayName(); got != "no-at-sign" {
 		t.Fatalf("DisplayName without @ = %q, want whole email", got)
+	}
+	u3 := &model.User{Email: "@ex.co"}
+	if got := u3.DisplayName(); got != "" {
+		t.Fatalf("DisplayName with leading @ = %q, want empty", got)
 	}
 }
 ''')
