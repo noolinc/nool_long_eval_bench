@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: nool_gated N=35/v3.1 rep 2/2 fleet run result appended (2 reps, scope reduced under weekly quota constraint): 60/60 and 59/60 accepted
-knot_id: 6d83a36fee1d9443ecefc6e8ec235907a14bd1d7b93c81048dceb3df178f8cf1
-solidified_at: 1787802880293
+intent: nool_fleet N=35/v3.1 reps 1-2/2 fleet run results appended (scope reduced under weekly quota constraint): 59/60 and 59/60 accepted
+knot_id: d1ed3a27bb8fb04d30368b6d2fdc7e8231a6aad7e8eddaf6d117809ce3a2b409
+solidified_at: 1787803840030
 thread: main
