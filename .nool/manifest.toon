@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: §8d remaining results appended: light-noise git_scheduled 57/60, heavy-noise nool_gated 58/60, heavy-noise git_scheduled 55/60 -- study complete, 6/6 runs
-knot_id: 6cda613139c266608a7a625782550da9c9855f02922c0d9c7ce22336eb498c4c
-solidified_at: 1787831246511
+intent: Findings §6d + README: §8d footprint-source robustness first look (n=1/cell, UNDERPOWERED), including prediction-4 instrumentation gap and unplanned zero-noise build-poisoning event
+knot_id: 5bfdf3626c5fd0d07c7278117ee51c1db1aa159ef15eda1e104097356956d8ba
+solidified_at: 1787831437156
 thread: main
