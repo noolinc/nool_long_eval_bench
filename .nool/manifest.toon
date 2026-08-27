@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: §8d very-heavy noise (0.5/0.5) rep1 nool_gated result appended: 54/60
-knot_id: 8330feb9d3cea05dcf2bdb30ad6f578803e26bfc7411a563716aecf3ad298f63
-solidified_at: 1787838323825
+intent: §8d very-heavy noise rep1 git_scheduled result appended: 51/60
+knot_id: 96bc966007b64236d4c9c588e89c9d920d50c822110ddfa948bf0699dd6bce6d
+solidified_at: 1787838786852
 thread: main
