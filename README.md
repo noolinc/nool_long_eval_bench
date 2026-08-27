@@ -69,7 +69,7 @@ the one axis none of the below can speak to.
 | SlopCodeBench | 1 | agent re-extends its own prior solution across checkpoints | No | model/agent, long-horizon only | 20 problems × 93 checkpoints |
 | SWE-EVO | 1 | multi-file feature evolution from real release notes | No | model/agent | 48 tasks, 7 repos, avg 21 files/task |
 | CooperBench | 2 (fixed) | two features landed on one shared repo concurrently | Yes — real merge-conflict risk | task difficulty / model; coordination mechanism (git + Redis messaging) held fixed | ~600 tasks, 12 repos, 4 languages (arXiv:2601.13295) |
-| **nool_benchmarks (this suite)** | N=10–50 (concurrency ladder) | ticket-level changes dispatched across a shared corpus | Yes — merge conflicts / build-poisoning / attribution ARE the metrics | **VCS/coordination substrate: git vs nool**; tasks and agent count held fixed | 60-ticket corpus v3; N=25 and N=35 measured to date, N=50 pre-registered |
+| **nool_benchmarks (this suite)** | N=10–50 (concurrency ladder) | ticket-level changes dispatched across a shared corpus | Yes — merge conflicts / build-poisoning / attribution ARE the metrics | **VCS/coordination substrate: git vs nool**; tasks and agent count held fixed | 60-ticket corpus v3; N=25 and N=35 measured to date, N=50 pre-registered but deprioritized in favor of the mechanism question (see below) |
 
 CooperBench is the closest existing analog — the only one of the four with
 real concurrent-writer risk — which is why it's already planned as a Tier 2
@@ -323,7 +323,11 @@ nool 7.0.1 tranche, findings [§6b](docs/findings/2026-08-21-findings.md#sec-6b)
 contention). Remaining: the git-side [§8c](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8c) reps at N=35 on the original v3
 corpus (`git_gated_queue` 3/5, `git_scheduled` 2/5 — still deferred), and
 N=50 for any arm — deferred, flagged as a real memory-exhaustion risk on
-the 16GB development machine used for this study. **2026-08-27**: a
+the 16GB development machine used for this study, and (2026-08-27)
+explicitly deprioritized rather than withdrawn: the mechanism behind
+§8d's result (why nool degrades more slowly, not just that it does) is
+judged more valuable to pursue than further concurrency scaling — see
+the roadmap in [§8e](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8e). **2026-08-27**: a
 same-day harness-hardening commit (`163a896d`) was found to have edited
 `tickets_v3.json` in place (strengthened t4/t36/t54 tests, corpus label
 bumped to `v3.1`); two attempts to fill the v3 git-side gap landed as

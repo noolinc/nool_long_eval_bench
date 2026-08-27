@@ -766,6 +766,111 @@ an LLM-predicted footprint, or nool's own semantic footprint machinery,
 if any) rather than perturbing a known-correct declaration. This requires
 new harness code and is not pre-registered here.
 
+<a id="sec-8e"></a>
+## 8e. The mechanism question, and a redirected roadmap (proposed 2026-08-27, not yet pre-registered)
+
+§8d established a correlation (nool_gated degrades more slowly than
+git_scheduled as footprint noise rises) without establishing why. Six
+candidate mechanisms are equally consistent with the data collected so
+far, and no experiment run to date discriminates among them:
+
+1. **Dynamic lease behavior** — nool_gated's live `announce`/release
+   retry loop behaves differently under load than the harness's static
+   footprint-intersection scheduler, independent of noise per se.
+2. **An asymmetry in how the two arms are exposed to the same
+   corruption** — both receive identically-perturbed footprints, but
+   `nool merge`'s extra step and `git merge`'s absence of one could
+   interact with that corruption differently (the leading hypothesis
+   from §6d, never directly observed).
+3. **Ticket topology** — the specific corpus clusters (e.g. the
+   `service/billing.go` family, §6f) may be more or less exposed to
+   noise depending on which arm happens to serialize them in which
+   order; §6f already flagged this as an open, unresolved alternative
+   to a real per-arm difference.
+4. **Retry behavior** — how each arm's dispatch loop responds to a
+   refused or failed ticket (immediate retry vs. backoff vs. queue
+   position) could matter independent of the footprint information
+   itself.
+5. **Nool's semantics** — some property of nool's merge/conflict
+   detection genuinely does catch more true overlaps than blind `git
+   merge`, which is the reading this study has favored but never
+   isolated from the above four.
+6. **Some other implementation detail** not yet identified — the honest
+   default given no experiment has discriminated among 1–5.
+
+**Recommendation: stop optimizing the concurrency ladder (N=50) and
+redirect toward this question instead.** N=50 tests whether the
+policy-level separation established through N=35 continues to hold at
+higher concurrency — a question this suite has already answered
+directionally at every rung tested (§6, findings). It does not touch the
+mechanism question above, and carries a known, real memory-exhaustion
+risk on the 16GB development machine used for this study (§8a). The
+more valuable next step is determining *why* nool_gated's advantage
+appears, which §8d-ii below is designed to approach, and *whether it
+holds when footprints are agent-discovered rather than
+oracle-declared-plus-noise* — the actual real-world condition, since a
+production fleet has no oracle to perturb in the first place. N=50
+remains pre-registered and open; it is deprioritized, not withdrawn.
+
+### 8e-i. Scaling §8d to its own "3+" bar (buildable now, no new code)
+
+The cheapest, most direct next step: §8d's existing light/heavy/
+very-heavy cells are at n=2/cell. Three more reps per cell per arm (18
+runs: 2 arms x 3 noise levels x 3 reps) would bring every cell to n=5,
+clearing this suite's own convention for a minimally powered read and
+directly answering the request to make the existing result "difficult
+to dismiss" before adding new uncertainty types. Estimated cost at
+observed ~$8–9/run: ~$150. Not run; awaiting operator confirmation
+given the standing weekly-quota constraint.
+
+### 8e-ii. An intent-quality degradation battery (proposed; buildability varies by condition)
+
+Six distinct uncertainty types, gated on what each needs to build:
+
+| # | Condition | What it models | Buildable now? |
+|---|---|---|---|
+| 1 | Missing footprint entry | agent will touch a file it didn't declare | **Yes** — `fp_drop`, already measured (§8d) |
+| 2 | Overly broad footprint | agent declares a file it won't touch | **Yes** — `fp_add`, already measured (§8d) |
+| 3 | Symbol-level misprediction | right file, wrong function/symbol within it | **No** — needs symbol-granularity footprint metadata per ticket and a scheduler/`nool_gated` variant that gates on symbols, not files; corpus and harness both need new code |
+| 4 | Agent expands scope mid-execution | the agent's actual diff exceeds its declared footprint, discovered only during the run | **Partially** — the *passive* version (mine already-collected `nool_gated` transcripts for tickets whose real diff exceeded their declared footprint, as happened once uncontrolled at `t30`, §6b) is analysis, not a new run, and is cheap; the *deliberate* version (a corpus ticket whose spec undersells its true scope, in the spirit of the Specification Gap citation already in [§3](#sec-3).2) needs new ticket authoring |
+| 5 | Cross-file semantic incompatibility with disjoint footprints | two tickets touch *different* files that must stay behaviorally consistent | **No** — the only semantic-incompatibility case in this corpus so far (the billing.go cluster, §6f) has all tickets sharing one *declared* footprint; a disjoint-footprint version needs new corpus tickets designed around a real cross-cutting invariant |
+| 6 | Stale intent — a dependency changes after this ticket announced but before it lands | the footprint was accurate at announce time and became wrong mid-flight | **No** — needs timing-based fault injection in the dispatch loop (deliberately interleaving one ticket's completion after another's already-admitted change lands), a real harness capability gap, not a corpus change |
+
+Conditions 1–2 at ≥5 reps (8e-i above) are the immediate, fully-costed
+next step. Conditions 3, 5, and 6 each need dedicated harness/corpus
+engineering before any prediction can be pre-registered against them;
+condition 4's passive half is available today from existing data and
+should be attempted before the deliberate half is built. None of 3–6 is
+pre-registered by this section — this is a scoping proposal, not a
+committed design, and predictions for each must be written before their
+own data exists per this suite's standing discipline.
+
+**Working thesis this battery would test, if built**: git-style
+scheduling requires accurate upfront knowledge of what a change touches;
+nool's coordination remains safe further into the territory where
+agents are still discovering what the change is, rather than already
+knowing it. §8d-i's four measured points (§6d–§6h) are consistent with
+this thesis. They do not establish it, and replicating conditions 1–2
+further does not by itself generalize to conditions 3–6 — each
+remaining condition is a distinct claim requiring its own evidence, not
+an extrapolation from the two already measured.
+
+**8e-iii — natural, agent-discovered footprints (the "no-oracle"
+condition, formerly 8d-ii above).** The most direct test of the working
+thesis removes the oracle-plus-noise scaffold entirely: instead of
+perturbing a known-correct declaration, let each arm's scheduler work
+from a footprint the agent itself infers while actually solving the
+ticket (git-side: static analysis or an LLM-predicted footprint feeding
+the identical scheduler; nool-side: whatever native inference nool
+exposes, if any, feeding `announce intent`/`discover conflicts`). If the
+same widening-gap curve appears under real, uncontrolled uncertainty
+rather than synthetic noise, it becomes substantially harder to dismiss
+as benchmark engineering — this is judged the single most valuable
+remaining experiment in this line, ranked above further ladder scaling
+and above 8e-ii's conditions 3/5/6. It also requires the most new
+harness code of anything proposed here (a footprint-inference step for
+at least one arm) and is not scoped in detail in this section.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —

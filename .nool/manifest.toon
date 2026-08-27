@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Properly link all findings: explicit anchors on every major section, all bare section references converted to real cross-file links, heading-level fix for 6d-6h
-knot_id: a307fba820c70f7b7265c0951a847f7877cff5b4691b394669c38b6994593e06
-solidified_at: 1787840994268
+intent: Record open mechanism question + §8e roadmap redirect: deprioritize N=50, scale §8d to 5 reps, intent-quality battery with honest buildability assessment, prioritize agent-discovered-footprint experiment
+knot_id: 412eac5de0f68895d99a5bcee0f498ded192781da4999e908f87ba5bf7031af9
+solidified_at: 1787841190174
 thread: main
