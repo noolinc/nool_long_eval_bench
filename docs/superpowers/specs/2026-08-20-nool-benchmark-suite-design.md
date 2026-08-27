@@ -255,6 +255,7 @@ docs' claim is cited in the task README).
 
 ---
 
+<a id="sec-5"></a>
 ## 5. Track A — Adapted published benchmarks
 
 - **A1 CooperBench (Tier 2):** ~30–50 task subset stratified across its 12 repos
@@ -320,6 +321,7 @@ B5), `bench_*`/`phase*` dirs (manual pilot outputs; starter code recycled into
   provenance rather than claiming comparability across versions.
 - **External benchmark integration bias:** overlays are minimal diffs, published.
 
+<a id="sec-8"></a>
 ## 8. Replication package (external-validation requirements)
 
 A third party with no contact with us must be able to validate results. Concretely:
@@ -346,6 +348,7 @@ A third party with no contact with us must be able to validate results. Concrete
   provenance and compare effect directions/magnitudes, not exact values. Stated
   in README to preempt reviewer confusion.
 
+<a id="sec-8a"></a>
 ## 8a. Track D — Fleet Operations Benchmark (pre-registered 2026-08-20, before any Track D data)
 
 The enterprise scenario the suite must speak to: N real agents processing a
@@ -501,6 +504,7 @@ neighbor tolerance (distinct emails); no ticket specs changed.
   comparably to git; points censored by the watchdog are reported as
   infrastructure-censored, not evidence in either direction.
 
+<a id="sec-8b"></a>
 ## 8b. Track C follow-up condition: structured task flow (Tier 2, designed)
 
 Nool's task system (`task create/pick/start/qa/finish`, acceptance criteria,
@@ -515,6 +519,7 @@ nool arm the task board. Measured: coordination outcomes (duplicate work,
 interface mismatches at integration), token cost of task-context retrieval,
 and lease/announce conflicts if agents overlap.
 
+<a id="sec-8c"></a>
 ## 8c. Track D — arm-decomposition study (pre-registered 2026-08-22, before any arm-B/C/D data)
 
 **Implementation audit (2026-08-22), disclosed as a deviation from §8a's
@@ -624,6 +629,7 @@ pluck, bisect, query, hooks), and absence of tier-specific latency or
 throttling (B1/B2 measure latency). Remaining replicator cost is LLM spend
 (~$7-10 per fleet run), already disclosed.
 
+<a id="sec-8d"></a>
 ## 8d. Track D — footprint-source robustness (pre-registered 2026-08-27, before any 8d data)
 
 §8c's `nool_gated`/`git_scheduled` arms both gate on a corpus-declared

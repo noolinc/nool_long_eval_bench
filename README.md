@@ -73,7 +73,7 @@ the one axis none of the below can speak to.
 
 CooperBench is the closest existing analog — the only one of the four with
 real concurrent-writer risk — which is why it's already planned as a Tier 2
-adaptation (Track A1, spec §5) rather than something this suite ignores.
+adaptation (Track A1, spec [§5](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-5)) rather than something this suite ignores.
 The relationship is an inversion, not a duplication: CooperBench fixes the
 coordination mechanism and varies task difficulty at N=2; this suite fixes
 the tasks and varies the coordination mechanism at fleet scale. SlopCodeBench
@@ -139,7 +139,7 @@ rates are what carry over to a differently-sized corpus, counts don't.
 4. **When agents' stated plans are unreliable, Nool holds up better
    than git — and the advantage grows the worse the plans get.** This
    is the newest and most direct test of "why Nool instead of just a
-   good scheduler" (2026-08-27, findings §6d–§6h): the same two
+   good scheduler" (2026-08-27, findings [§6d](docs/findings/2026-08-21-findings.md#sec-6d)–[§6h](docs/findings/2026-08-21-findings.md#sec-6h)): the same two
    check-in-based setups from (2), `nool_gated` and `git_scheduled`,
    run again — but this time roughly one file in ten (light), one in
    three (heavy), or one in two (very-heavy) is wrongly listed in each
@@ -205,7 +205,7 @@ rates are what carry over to a differently-sized corpus, counts don't.
 | `results/replications/` | Per-version Track B snapshots + `MANIFEST.md` indexing every run's conditions |
 | `analysis/summarize.py` | Renders all committed results as tables, incl. run-level cross-rep inference (exact permutation Mann-Whitney per corpus/N/model cell, underpowered cells labeled). Numbers only — no conclusions in code |
 | `analysis/make_figures.py` | Regenerates every figure in `docs/findings/` from the raw JSON |
-| `Makefile` / `Dockerfile` | One-command replication (`make trackB`, `tier1`, `trackC`) and containerized execution (spec §8) |
+| `Makefile` / `Dockerfile` | One-command replication (`make trackB`, `tier1`, `trackC`) and containerized execution ([§8](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8)) |
 | `docs/findings/` | Findings report with figures; `docs/paper/` holds the academic write-up |
 
 Pre-suite pilot material (manual runs, no provenance — **not evidence**) was
@@ -309,38 +309,38 @@ scale-up 2's pre-registered concurrency ladder (N ∈ {10, 25, 35, 50}) has
 N=10 (v3 anchor, nool 7.0.0), N=25, and N=35 complete on the hardened
 corpus v3 for git_fleet/nool_fleet, plus an off-ladder N=20 point —
 separation holds at every measured N (see the attribution audit above for
-what "with N" can and cannot mean under this design). The §8c
+what "with N" can and cannot mean under this design). The [§8c](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8c)
 arm-decomposition study (git_gated_queue / git_scheduled / nool_gated) is
 implemented and run: smoke-tested clean on the 8-ticket v1 corpus and at
 N=10/v3, with `git_scheduled` matching the nool arms and confirming the
-policy-not-tool reading (§6a of the findings report). A sixth arm,
+policy-not-tool reading ([§6a](docs/findings/2026-08-21-findings.md#sec-6a) of the findings report). A sixth arm,
 `nool_try` (nool 7.0.x's native per-agent try-lifecycle, added
 2026-08-26), is measured at N=10, N=25, and N=35 on v3 (59–60/60 every
-rep, 2 reps per point). The nool-side §8c targets at N=35 are complete —
+rep, 2 reps per point). The nool-side [§8c](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8c) targets at N=35 are complete —
 `nool_gated` and `nool_fleet` both at 5/5 reps (59–60/60, zero conflicts;
-nool 7.0.1 tranche, findings §6b, including two single-ticket
+nool 7.0.1 tranche, findings [§6b](docs/findings/2026-08-21-findings.md#sec-6b), including two single-ticket
 `SQLite error 517` merge losses attributed to nool-internal store
-contention). Remaining: the git-side §8c reps at N=35 on the original v3
+contention). Remaining: the git-side [§8c](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8c) reps at N=35 on the original v3
 corpus (`git_gated_queue` 3/5, `git_scheduled` 2/5 — still deferred), and
 N=50 for any arm — deferred, flagged as a real memory-exhaustion risk on
 the 16GB development machine used for this study. **2026-08-27**: a
 same-day harness-hardening commit (`163a896d`) was found to have edited
 `tickets_v3.json` in place (strengthened t4/t36/t54 tests, corpus label
 bumped to `v3.1`); two attempts to fill the v3 git-side gap landed as
-`v3.1` records instead, so that gap remains open (findings §6c). The
+`v3.1` records instead, so that gap remains open (findings [§6c](docs/findings/2026-08-21-findings.md#sec-6c)). The
 mismatch was extended into its own scope-reduced N=35/v3.1 point —
 `git_gated_queue` (2 reps, 40/60 both, 20 conflicts each) and
 `git_scheduled` (3 reps, 60/59/59 of 60, zero conflicts) matched against
 fresh `nool_gated`/`nool_fleet` v3.1 reps (2 each, 59–60/60, zero
 conflicts) — directionally consistent with every other N=35 result.
-**2026-08-27, §8d footprint-source robustness** (`nool_gated` vs
+**2026-08-27, [§8d](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8d) footprint-source robustness** (`nool_gated` vs
 `git_scheduled` under injected footprint noise, N=20, corpus v3.1, 2
 reps/cell across 4 noise levels — still below this suite's "3+" bar but
-no longer a single draw). Re-ranked and root-caused in findings §6f
-after initial framing in §6d/§6e buried the strongest result under one
+no longer a single draw). Re-ranked and root-caused in findings [§6f](docs/findings/2026-08-21-findings.md#sec-6f)
+after initial framing in [§6d](docs/findings/2026-08-21-findings.md#sec-6d)/[§6e](docs/findings/2026-08-21-findings.md#sec-6e) buried the strongest result under one
 needing heavy qualification. Strongest: the accept/conflict degradation
 curve, now replicated at every level with a monotonically widening gap
-(§6g) — zero-noise 60/60 both arms (0 conflicts each, gap 0); light
+([§6g](docs/findings/2026-08-21-findings.md#sec-6g)) — zero-noise 60/60 both arms (0 conflicts each, gap 0); light
 noise `nool_gated` 58/60 (1 conflict) vs `git_scheduled` 56/60
 (4 conflicts, gap 2); heavy noise `nool_gated` 58/60 (2 conflicts) vs
 `git_scheduled` 55/60 (5 conflicts, gap 3), the heavy cell landing an
@@ -352,14 +352,14 @@ degrades more slowly than an oracle-scheduled git baseline as footprint
 quality drops — suggestive, not conclusive, at n=2, and still
 correlational (the leading mechanism, `nool merge`'s extra check vs.
 blind `git merge`, is not directly observed). Also important, but traced
-away from §8d itself:
+away from [§8d](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8d) itself:
 rep 1's zero-noise `git_scheduled` run hit 16 broken-main events and a
 failed final smoke test despite 60/60 accepted; root cause is ticket
 **t10** ("Processing fee"), part of a known "cluster-A" contention
 family (t2/t9/t10/t11/t21/t22, all declaring `service/billing.go`)
-documented since §2.4 — a corpus artifact designed to compose
+documented since [§2.4](docs/findings/2026-08-21-findings.md#sec-2-4) — a corpus artifact designed to compose
 incorrectly across sequential billing-logic changes, occurring here with
-**zero injected noise**, so it is not §8d evidence about noise
+**zero injected noise**, so it is not [§8d](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8d) evidence about noise
 robustness. It remains a real demonstration that accepted-ticket counts
 and final-main health are not the same measurement. One pre-registered
 prediction (refusal-log correlation with injected noise) was measured
@@ -371,13 +371,13 @@ finishing sooner under noise reflects doing less successful work (a
 conflicting `git merge` aborts before the expensive build+smoke
 pipeline), not higher efficiency, and the same caveat applies to raw
 throughput. Full detail, root-cause tracing, and the corrected ranking
-in findings §6d-§6g; a third rep per cell remains the natural next step
+in findings [§6d](docs/findings/2026-08-21-findings.md#sec-6d)-[§6g](docs/findings/2026-08-21-findings.md#sec-6g); a third rep per cell remains the natural next step
 if quota allows. External benchmark adaptations (CooperBench,
 SlopCodeBench) are Tier 2 — see the spec.
 
 ## Threats to validity
 
-Disclosed in the spec (§7) and repeated here: this is a vendor-run
+Disclosed in the spec ([§7](docs/findings/2026-08-21-findings.md#sec-7)) and repeated here: this is a vendor-run
 evaluation, pre-registered to mitigate that (spec hash pinned and
 tamper-evident: `docs/superpowers/specs/PRE_REGISTRATION.sha256.md`;
 external timestamping still recommended before paper-grade claims); LLM
@@ -385,11 +385,11 @@ cells at small N are labeled underpowered — `analysis/summarize.py` now
 prints the run-level inference table with per-cell power labels rather
 than leaving power implicit; execution for all collected results was
 local rather than containerized (recorded in every provenance block) —
-the §8 container path now exists (`make docker-build`, `make
+the [§8](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8) container path now exists (`make docker-build`, `make
 docker-trackB`) and future runs should use it so image IDs enter
 provenance; the fleet arms' gating attribution
-and baseline-policy limits are documented in the paper (§5.6) with
-pre-registered ablation arms (spec §8c). Running nool arms: the free tier
+and baseline-policy limits are documented in the paper ([§5.6](docs/paper/2026-08-nool-fleet-study.md#sec-5-6)) with
+pre-registered ablation arms (spec [§8c](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8c)). Running nool arms: the free tier
 (2,000 knots per project, 30 days) covers a full replication — a 60-ticket
 fleet run consumes 62 knots, the whole suite ~1,200–1,500 — so the only
 replication cost is LLM spend (~$7–10 per fleet run, disclosed per run).
