@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-register §8d-i very-heavy noise cell (0.5/0.5, 2 reps/arm, before this cell's data)
-knot_id: 1543ad722a9e8074d4339fb1b9850d8fe2deca49e957e2f180bd5d67462a23d8
-solidified_at: 1787837489426
+intent: Restructure README 'Findings at a glance' into 7-point conceptual ordering, elevating §8d footprint-source robustness to the top-level summary
+knot_id: c09fc4c569e78233149d400eabe3885708d4a27529bb8ba13e7aeb397527fff9
+solidified_at: 1787837852539
 thread: main

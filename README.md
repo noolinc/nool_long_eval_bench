@@ -46,66 +46,84 @@ feature pairs). The paper figure is cited as canonical here — confirm
 directly against the benchmark's own source before the Track A1 integration
 relies on either number.
 
-## Findings at a glance (runs 1–3 + fleet scale-up 1 and 2 + nool 7.0.0, 2026-08-20/26)
+## Findings at a glance (runs 1–3, fleet scale-up 1 and 2, nool 7.0.0/7.0.1, footprint-source robustness §8d; 2026-08-20/27)
 
 Full report with figures and provenance:
 [`docs/findings/2026-08-21-findings.md`](docs/findings/2026-08-21-findings.md) ·
 academic write-up: `docs/paper/2026-08-nool-fleet-study.md`. One pinned
-model (claude-sonnet-5) throughout; product versions 6.13.0 → 6.14.1 → 7.0.0
-recorded per run.
+model (claude-sonnet-5) throughout; product versions 6.13.0 → 6.14.1 →
+7.0.0 → 7.0.1 recorded per run.
 
 ![Concurrency ladder: mean acceptance rate by N](docs/findings/figures/trackd_ladder.svg)
 
-- **Footprint-gated dispatch eliminates fleet contention failures at every
-  measured N.** Pre-registered concurrency ladder, function-level
-  contention, corpus v3 (60 tickets) at N=25 and N=35 workers: the gated
-  arm held 60/60 accepted with zero merge conflicts across all four reps.
-  The ungated git baseline lost roughly a third of tickets to merge
-  conflicts at every N (flat 20–22 conflicts at N=20/25/35), and at N=35
-  additionally hit build-poisoning — 37/60 and **20/60**, the latter a
-  textually-clean merge breaking the build and voiding 18 further tickets.
-  Spend per accepted ticket stays lower for the gated arm at every point
-  measured ($0.11–0.21 vs $0.18–3.80 for git).
-- **Attribution audit (2026-08-22, paper §5.6):** the gating in the
-  original fleet runs was computed by the harness from corpus-declared
-  footprints — nool's own conflict verdicts were advisory and never
-  consulted — so that separation was established for the dispatch
-  *policy*, not the product per se. Three ablation arms addressing this
-  are now implemented and run (spec §8c): `git_scheduled` (git under the
-  identical scheduler), `git_gated_queue` (a CI-gated git merge queue),
-  and `nool_gated` (dispatch gated by nool's own real lease refusals via
-  `announce intent`) — see the 2026-08-26 update below. Conditional on a
-  ticket's work landing on main, acceptance is ~100% across arms: the
-  agents write equally good code either way.
-- **nool 7.0.0 (2026-08-26): a sixth arm, `nool_try`, using nool's native
-  per-agent lifecycle (`try new` → `propose --try-branch` → `try
-  promote`, real `announce intent` gating throughout) instead of a git
-  branch merged in by the harness.** At N=10 (60-ticket corpus, real
-  contention clusters), all four coordinated arms — `nool_try`,
-  `nool_gated`, `nool_fleet`, `git_scheduled` — held **zero conflicts**;
-  the two uncoordinated arms (`git_fleet`, `git_gated_queue`) lost the
-  usual ~35% to merge conflicts. `git_scheduled` matching the nool arms
-  again supports the attribution-audit reading above: the separation
-  tracks coordination *policy*, not the tool. Building this arm also
-  surfaced four real nool 7.0.0 bugs (a lease-overlap check, a
-  config-replacement break, a lease-release scoping bug, and a bisect
-  regression that can name an untraceable synthetic knot) — each found,
-  reproduced standalone, reported to the vendor via nool's own knowledge
-  ledger, and worked around; full detail in the findings report §6a.
-- **Mechanisms moved with the product** on 6.14.1: contended merges
-  converge 15/15 (were 1/15, = git, on ≤6.14.0), selective undo preserves
-  later unrelated work 5/5 (was 0/5), and bisect named the true culprit.
-  **On 7.0.0, bisect regressed**: it can name a synthetic "integrity-driver
-  attestation" knot untraceable to any real landing (§6a) — worse than
-  6.13–6.14's "names a real-but-wrong knot." B4 clarified: the **default
-  governed path rejects** test-breaking changes (full semantic
-  validation); the **`--fast` relaxed path accepts** them as an explicit
-  risk-control knob. Landing latency stays roughly 7–10× git.
-- **Standing wins:** perfect write attribution under shared-workspace
-  concurrency (git sweeps up to 56% of ops at N=15); context retrieval in
-  163–408 bytes vs 660 for grep+read at small scale.
-- **Honest nulls:** without designed contention (2×2 grid, 5-worker pilot,
-  v1 corpus) the arms do not separate on any metric, in any run.
+1. **Admission-time coordination prevents fleet contention.**
+   Pre-registered concurrency ladder, function-level contention, corpus
+   v3 (60 tickets) at N=25 and N=35: footprint-gated dispatch held 60/60
+   accepted with zero merge conflicts across all four reps, while
+   ungated git lost roughly a third of tickets to conflicts at every N
+   (flat 20–22 at N=20/25/35) and, at N=35, additionally hit
+   build-poisoning (37/60 and **20/60**, the latter a textually-clean
+   merge voiding 18 further tickets). Spend per accepted ticket stayed
+   lower for the gated arm at every point measured ($0.11–0.21 vs
+   $0.18–3.80 for git).
+2. **An ideal git scheduler matches nool under perfect footprints.** The
+   2026-08-22 attribution audit (paper §5.6) found the original gating
+   was computed by the harness from corpus-declared footprints — nool's
+   own conflict verdicts were advisory and never consulted — so the
+   separation in (1) was established for the dispatch *policy*, not the
+   product. Three ablation arms test this directly (spec §8c):
+   `git_scheduled` (git under the identical scheduler), `git_gated_queue`
+   (a CI-gated merge queue), `nool_gated` (dispatch gated by nool's real
+   `announce intent` refusals). At N=10 and again at N=35/v3.1
+   (2026-08-27, findings §6c), `git_scheduled` matches `nool_gated` and
+   `nool_fleet` — zero conflicts, effectively identical accept rates —
+   confirming the separation tracks coordination *policy*, not the tool,
+   whenever footprint information is accurate.
+3. **Integration-time gating is too late and wastes agent work.**
+   `git_fleet`'s ungated parallel dispatch lets every agent start
+   regardless of overlap, so conflicts are discovered only at merge —
+   $1.40–1.57 of each scale-up-1 run's spend (§2.3) produced work that
+   never integrated; `git_gated_queue`'s CI gate catches build-poisoning
+   but is checked after the same ungated dispatch, so it inherited the
+   same ~20/60 conflict rate and ~$3.3–3.4 of wasted spend per rep at
+   N=35 (2026-08-27 data). Admission-time gating (`nool_gated`,
+   `git_scheduled`, `nool_fleet`) keeps wasted spend near $0 by refusing
+   the conflicting ticket before an agent ever starts on it.
+4. **Under footprint noise, nool currently degrades more slowly than an
+   oracle-scheduled git baseline (2 reps; suggestive, not conclusive).**
+   New 2026-08-27 sub-study (§8d, findings §6d–§6f): `nool_gated` vs
+   `git_scheduled` at N=20 with injected footprint noise. Under perfect
+   information both hit 60/60. As noise rises, `nool_gated` degrades to
+   58/60 (light) and 58/60 (heavy, identical in both independent reps);
+   `git_scheduled` degrades further, to 56/60 (light) and 55/60 (heavy),
+   with its conflict count rising faster (0→4→5 vs. 0→1→2). Still n=2 per
+   cell — a third cell (very-heavy, 0.5/0.5 noise) is in progress to
+   check whether the gap keeps widening or reverses.
+5. **Accepted-ticket counts can hide broken final-system states.** The
+   same corpus cluster (`t2`/`t9`/`t10`/`t11`/`t21`/`t22`, all declaring
+   `service/billing.go`) that caused scale-up 1's 1/20 git-arm collapse
+   (§2.4) recurred in §8d's zero-noise `git_scheduled` anchor: 60/60
+   accepted, yet 16 broken-main events and a failed final smoke test
+   (§6f) — a corpus artifact, not a noise effect, but a standing
+   reminder that "accepted" and "final main is healthy" are different
+   measurements this suite tracks separately for exactly this reason.
+6. **Mechanism benchmarks (Track B) show attribution, recovery, and
+   governance advantages, alongside known latency and product defects.**
+   Perfect write attribution under shared-workspace concurrency (git
+   sweeps up to 56% of ops at N=15); context retrieval in 163–408 bytes
+   vs 660 for grep+read. On 6.14.1: contended merges converge 15/15 (were
+   1/15 on ≤6.14.0), selective undo preserves later unrelated work 5/5
+   (was 0/5), bisect names the true culprit. On 7.0.0, bisect regressed
+   (can name an untraceable synthetic knot, §6a) — 3 of 4 7.0.0 bugs
+   found this study were fixed in 7.0.1, one remains (`nool.toml`
+   `[bridge]`/`[try]` misconfiguration breaks `try new --worktree` with a
+   misleading error). B4: the default governed path rejects test-breaking
+   changes; the `--fast` relaxed path accepts them as an explicit,
+   attributable risk-control knob. Landing latency stays roughly 7–10×
+   git throughout.
+7. **No-contention workloads remain null.** Without designed contention
+   (2×2 grid, 5-worker pilot, v1 corpus) the arms do not separate on any
+   metric, in any run.
 
 ## Layout
 
