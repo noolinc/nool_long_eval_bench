@@ -235,12 +235,21 @@ rep, 2 reps per point). The nool-side §8c targets at N=35 are complete —
 `nool_gated` and `nool_fleet` both at 5/5 reps (59–60/60, zero conflicts;
 nool 7.0.1 tranche, findings §6b, including two single-ticket
 `SQLite error 517` merge losses attributed to nool-internal store
-contention). Remaining: the git-side §8c reps at N=35 (`git_gated_queue`
-3/5, `git_scheduled` 2/5 — deferred per operator decision, as both arms'
-integration inputs are N-invariant by design), and N=50 for any arm —
-deferred, flagged as a real memory-exhaustion risk on the 16GB
-development machine used for this study. External benchmark adaptations
-(CooperBench, SlopCodeBench) are Tier 2 — see the spec.
+contention). Remaining: the git-side §8c reps at N=35 on the original v3
+corpus (`git_gated_queue` 3/5, `git_scheduled` 2/5 — still deferred), and
+N=50 for any arm — deferred, flagged as a real memory-exhaustion risk on
+the 16GB development machine used for this study. **2026-08-27**: a
+same-day harness-hardening commit (`163a896d`) was found to have edited
+`tickets_v3.json` in place (strengthened t4/t36/t54 tests, corpus label
+bumped to `v3.1`); two attempts to fill the v3 git-side gap landed as
+`v3.1` records instead, so that gap remains open (findings §6c). The
+mismatch was extended into its own scope-reduced N=35/v3.1 point —
+`git_gated_queue` (2 reps, 40/60 both, 20 conflicts each) and
+`git_scheduled` (3 reps, 60/59/59 of 60, zero conflicts) matched against
+fresh `nool_gated`/`nool_fleet` v3.1 reps (2 each, 59–60/60, zero
+conflicts) — directionally consistent with every other N=35 result.
+External benchmark adaptations (CooperBench, SlopCodeBench) are Tier 2 —
+see the spec.
 
 ## Threats to validity
 
