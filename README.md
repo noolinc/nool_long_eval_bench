@@ -249,35 +249,38 @@ mismatch was extended into its own scope-reduced N=35/v3.1 point —
 fresh `nool_gated`/`nool_fleet` v3.1 reps (2 each, 59–60/60, zero
 conflicts) — directionally consistent with every other N=35 result.
 **2026-08-27, §8d footprint-source robustness** (`nool_gated` vs
-`git_scheduled` under injected footprint noise, N=20, corpus v3.1, now
-2 reps/cell — still below this suite's "3+" bar but no longer a single
-draw). Combined results (mean of 2 reps): zero-noise 60/60 both arms;
-light noise (0.1 drop/add) `nool_gated` 58/60 vs `git_scheduled` 56/60;
-heavy noise (0.3 drop/add) `nool_gated` 58/60 vs `git_scheduled` 55/60,
-with the heavy-noise cell landing the *identical* 58-vs-55 split in both
-independent reps — the cleanest separation in this sub-study.
-`nool_gated` is at or ahead of `git_scheduled` in every noise-cell
-observation across both reps (never behind), consistent with nool
-retaining more of its coordination advantage as footprint quality
-degrades. One pre-registered prediction (refusal-log correlation with
-injected noise) was measured via a per-ticket cut across all four
-noise-cell runs and came back null/inconsistent — spurious-add tickets
-were refused more often than untouched tickets in 2 of 4 runs and less
-often in the other 2, at small bucket sizes. Rep 1's zero-noise
-`git_scheduled` run also hit
-an uncaught, noise-unrelated build-poisoning event that did not recur in
-rep 2 — an isolated occurrence, not a standing defect, but a reminder
-that accepted-ticket counts and final-main-health are not the same
-measurement. An unplanned wall-time pattern also emerged: `nool_gated`'s
-wall time stayed tight across all six runs (316-372s) while
-`git_scheduled`'s ranged 271-589s and moved opposite to what "noise
-slows things down" predicts — its zero-noise reps were slowest, heavy
-noise fastest — most likely because a conflicting `git merge` aborts
-before the expensive build+smoke pipeline runs, so more conflicts under
-noise means proportionally less of that work per run. Full detail and
-caveats in findings §6d/§6e; a third rep per cell remains the natural
-next step if quota allows. External
-benchmark adaptations (CooperBench,
+`git_scheduled` under injected footprint noise, N=20, corpus v3.1, 2
+reps/cell — still below this suite's "3+" bar but no longer a single
+draw). Re-ranked and root-caused in findings §6f after initial framing
+in §6d/§6e buried the strongest result under one needing heavy
+qualification. Strongest: the accept/conflict degradation curve, now
+replicated — zero-noise 60/60 both arms (0 conflicts each); light noise
+`nool_gated` 58/60 (1 conflict) vs `git_scheduled` 56/60 (4 conflicts);
+heavy noise `nool_gated` 58/60 (2 conflicts) vs `git_scheduled` 55/60
+(5 conflicts), with the heavy cell landing an *identical* 58-vs-55 split
+in both independent reps. `nool_gated` degrades more slowly than an
+oracle-scheduled git baseline as footprint quality drops — suggestive,
+not conclusive, at n=2. Also important, but traced away from §8d itself:
+rep 1's zero-noise `git_scheduled` run hit 16 broken-main events and a
+failed final smoke test despite 60/60 accepted; root cause is ticket
+**t10** ("Processing fee"), part of a known "cluster-A" contention
+family (t2/t9/t10/t11/t21/t22, all declaring `service/billing.go`)
+documented since §2.4 — a corpus artifact designed to compose
+incorrectly across sequential billing-logic changes, occurring here with
+**zero injected noise**, so it is not §8d evidence about noise
+robustness. It remains a real demonstration that accepted-ticket counts
+and final-main health are not the same measurement. One pre-registered
+prediction (refusal-log correlation with injected noise) was measured
+via a per-ticket cut and came back null/inconsistent. A wall-time
+pattern — `nool_gated` stable at 316-372s across all six runs,
+`git_scheduled` ranging 271-589s and *faster* under heavier noise — is
+reported as a secondary, heavily-qualified observation: `git_scheduled`
+finishing sooner under noise reflects doing less successful work (a
+conflicting `git merge` aborts before the expensive build+smoke
+pipeline), not higher efficiency, and the same caveat applies to raw
+throughput. Full detail, root-cause tracing, and the corrected ranking
+in findings §6d-§6f; a third rep per cell remains the natural next step
+if quota allows. External benchmark adaptations (CooperBench,
 SlopCodeBench) are Tier 2 — see the spec.
 
 ## Threats to validity
