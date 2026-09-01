@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: §8e-i light-noise reps 3-4 results appended: nool_gated 57/60, 58/60; git_scheduled 59/60
-knot_id: 4fea148d202fe134eb649f204189a3f24877e22c550dd56829dd33dd4f9e6e57
-solidified_at: 1787843953032
+intent: Add §5.8: a second, distinct bisect defect (attestation knots in search space) found live on 7.0.3 and fixed same-day
+knot_id: 6ae6509d077bb081d8ed469108d81e7d33cb3e90ae5c29c351351ae83ebbdc10
+solidified_at: 1788291905905
 thread: main
