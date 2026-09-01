@@ -34,10 +34,13 @@ The short version of what a week of testing found:
   held up better than the git baseline at every level of unreliability
   tested, and the gap between them grew the worse the information got
   (from a 0-point gap with perfect information to a 6.7-percentage-point
-  gap in the worst case tested). This is still an early result (2
-  repeated runs per condition, not enough for a strong claim yet), but
-  it points at *when* a coordination layer like this actually earns its
-  keep: not when plans are perfect, but when they aren't.
+  gap in the worst case tested). This is still an early result: the
+  original balanced comparison has 2 repeated runs per condition; the
+  light-noise replication has since reached 5 and retains a smaller
+  2.0-point Nool lead. Heavy and very-heavy replications remain in
+  progress, so this is not yet a strong claim. It points at *when* a
+  coordination layer like this actually earns its keep: not when plans
+  are perfect, but when they aren't.
 - **A system can "pass" and still be broken.** In one run, every
   individual ticket's own test passed (100% accepted) while the shared
   codebase's overall test suite was silently failing — a reminder that

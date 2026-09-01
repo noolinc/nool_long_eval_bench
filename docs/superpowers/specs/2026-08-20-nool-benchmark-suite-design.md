@@ -834,6 +834,18 @@ averaged over 5 reps instead of 2. A reversal at any level, or the gap
 collapsing toward zero, would weaken §6f/§6g's reading materially more
 than a single-rep fluctuation would.
 
+**Execution update (2026-08-27).** The light-noise cell is now complete
+at n=5 per arm. The three preregistered additions produced, by shared
+seed, `nool_gated`/`git_scheduled` acceptance counts of 57/59 (5001),
+58/56 (5002), and 59/57 (5003). Together with reps 1--2, that is
+290/300 (96.7%) for `nool_gated` and 284/300 (94.7%) for
+`git_scheduled`: a 2.0pp advantage, positive but smaller than the
+original n=2 light estimate (3.3pp). The heavy cell's first added
+`nool_gated` run (seed 6001) is 55/60; its paired git run and the rest
+of the pre-registered heavy/very-heavy runs are not yet included in a
+cross-arm estimate. The initial §8d figures remain the balanced n=2
+analysis until each cell reaches its planned n=5.
+
 ### 8e-ii. An intent-quality degradation battery (proposed; buildability varies by condition)
 
 Six distinct uncertainty types, gated on what each needs to build:

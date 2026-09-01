@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: tier1 rerun (2026-09-01): Track B micro-benchmarks re-run + Track C redux_go 2x2 smoke cell (nool 7.0.3, claude-sonnet-5)
-knot_id: f0061c6a5e91e9d6837d1c807cffc9fb2d9a62345831dd94484875666006f6e2
-solidified_at: 1788303971074
+intent: §8e-i remaining results landed: light-noise reps 4-5 complete both arms (290/300 nool_gated vs 284/300 git_scheduled, +2.0pp), heavy-noise first result (nool_gated seed 6001, 55/60); docs updated to match
+knot_id: 82df295e5f4cb3ad9d06c918cb1ddd6143f0780137cb23294f2e5c5953df15cc
+solidified_at: 1788304006037
 thread: main
