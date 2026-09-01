@@ -1,14 +1,14 @@
 {
  "benchmark": "b4_guardrails",
  "provenance": {
-  "timestamp_utc": "2026-08-27T02:48:57.000401+00:00",
-  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "timestamp_utc": "2026-09-01T13:29:57.709424+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.0.1",
+  "nool_version": "nool 7.0.3",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
-  "os_version": "26.5.2",
+  "os_version": "26.6.2",
   "execution": "local (containerization deferred; see spec \u00a78)"
  },
  "cases": {
@@ -25,7 +25,7 @@
     "propose_tail": [
      "  [Pre-check] \u2705 In-process parse OK (go)",
      "  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...",
-     "  [Reify] \u2705 Full validation passed. Hash: d8f7245a15f937811c5b3bd13784dbba8832de91919456b7f152074f2f1d8fe8"
+     "  [Reify] \u2705 Full validation passed. Hash: d6a05550fb96c2c84afe80acf4235b321be373a210092353fae7af6b06e93be2"
     ],
     "validate_tail": []
    },
@@ -91,7 +91,7 @@
     "propose_tail": [
      "  \u2500\u2500\u2500 115 B of driver output folded to 114 B (0.9% less; --verbose for raw) \u2500\u2500\u2500",
      "",
-     "Error: Reification failed for '.go'. Output hash: 288df7d1666d9b3db2baf2182b6f12cab380cfd8f3fdbe52f2b685a830602509"
+     "Error: Reification failed for '.go'. Output hash: fcd5a1f8f7e128528e152d0a513fa22d461888d1148a637b859925dcaf58953a"
     ],
     "validate_tail": []
    },

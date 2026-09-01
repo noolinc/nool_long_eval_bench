@@ -1,14 +1,14 @@
 {
  "benchmark": "b7_regression_localization",
  "provenance": {
-  "timestamp_utc": "2026-08-27T02:49:45.684453+00:00",
-  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "timestamp_utc": "2026-09-01T19:41:37.186339+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.0.1",
+  "nool_version": "nool 7.0.3",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
-  "os_version": "26.5.2",
+  "os_version": "26.6.2",
   "execution": "local (containerization deferred; see spec \u00a78)"
  },
  "config": {
@@ -18,24 +18,24 @@
  "arms": {
   "git": {
    "culprit_found": true,
-   "wall_ms": 2107.3,
+   "wall_ms": 2461.8,
    "bisect_steps": 3,
    "exit_code": 0
   },
   "nool": {
-   "culprit_found": false,
-   "wall_ms": 1249.0,
+   "culprit_found": true,
+   "wall_ms": 1733.0,
    "bisect_steps_reported": 0,
    "exit_code": 0,
-   "knot_named": "91ec3d46459e377f",
-   "knot_named_intent": null,
-   "attested_for": "8bc96975",
-   "resolved_intent": "landing 6: add Extra6",
+   "knot_named": "06120c598fdd8c1d",
+   "knot_named_intent": "landing 7: add Extra7",
+   "attested_for": null,
+   "resolved_intent": null,
    "truth_intent": "landing 7",
    "output_tail": [
-    "  \ud83d\udc1b First bad Knot: 91ec3d46459e377f",
-    "  Intent: \"Attest    syntax Pass (Check) by integrity-driver for 8bc96975\"",
-    "  Time: 2026-08-27 02:49:42 UTC",
+    "  \ud83d\udc1b First bad Knot: 06120c598fdd8c1d",
+    "  Intent: \"Mutation @ lib.go\"",
+    "  Time: 2026-09-01 19:41:33 UTC",
     "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
    ]
   }

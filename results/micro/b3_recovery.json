@@ -1,14 +1,14 @@
 {
  "benchmark": "b3_recovery",
  "provenance": {
-  "timestamp_utc": "2026-08-27T02:48:51.303155+00:00",
-  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "timestamp_utc": "2026-09-01T13:29:50.636723+00:00",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.0.1",
+  "nool_version": "nool 7.0.3",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
-  "os_version": "26.5.2",
+  "os_version": "26.6.2",
   "execution": "local (containerization deferred; see spec \u00a78)"
  },
  "config": {
@@ -18,7 +18,7 @@
   "linear_timeline": {
    "git": [
     {
-     "recovery_ms": 16.6,
+     "recovery_ms": 18.4,
      "commands": [
       "git revert"
      ],
@@ -27,13 +27,13 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 0eb094a] Revert \"L3 sabotage b.go\"",
-      " Date: Thu Aug 27 04:48:32 2026 +0200",
+      "[main 215d299] Revert \"L3 sabotage b.go\"",
+      " Date: Tue Sep 1 15:29:31 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     },
     {
-     "recovery_ms": 15.9,
+     "recovery_ms": 17.0,
      "commands": [
       "git revert"
      ],
@@ -42,13 +42,13 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 0eb094a] Revert \"L3 sabotage b.go\"",
-      " Date: Thu Aug 27 04:48:32 2026 +0200",
+      "[main 73a3f8f] Revert \"L3 sabotage b.go\"",
+      " Date: Tue Sep 1 15:29:31 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     },
     {
-     "recovery_ms": 16.5,
+     "recovery_ms": 16.9,
      "commands": [
       "git revert"
      ],
@@ -57,13 +57,13 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 0eb094a] Revert \"L3 sabotage b.go\"",
-      " Date: Thu Aug 27 04:48:32 2026 +0200",
+      "[main 73a3f8f] Revert \"L3 sabotage b.go\"",
+      " Date: Tue Sep 1 15:29:31 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     },
     {
-     "recovery_ms": 15.6,
+     "recovery_ms": 26.5,
      "commands": [
       "git revert"
      ],
@@ -72,13 +72,13 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 0eb094a] Revert \"L3 sabotage b.go\"",
-      " Date: Thu Aug 27 04:48:32 2026 +0200",
+      "[main 73a3f8f] Revert \"L3 sabotage b.go\"",
+      " Date: Tue Sep 1 15:29:31 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     },
     {
-     "recovery_ms": 15.8,
+     "recovery_ms": 17.1,
      "commands": [
       "git revert"
      ],
@@ -87,15 +87,15 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 5176b0d] Revert \"L3 sabotage b.go\"",
-      " Date: Thu Aug 27 04:48:33 2026 +0200",
+      "[main 73a3f8f] Revert \"L3 sabotage b.go\"",
+      " Date: Tue Sep 1 15:29:31 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     }
    ],
    "nool": [
     {
-     "recovery_ms": 229.3,
+     "recovery_ms": 235.9,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -111,92 +111,7 @@
      ]
     },
     {
-     "recovery_ms": 231.5,
-     "commands": [
-      "nool pluck badwork --execute",
-      "nool propose post-pluck"
-     ],
-     "command_count": 2,
-     "all_commands_succeeded": true,
-     "damage_removed": true,
-     "unrelated_work_survived": true,
-     "output_tail": [
-      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
-      "",
-      "[Auto] Solidifying proposal..."
-     ]
-    },
-    {
-     "recovery_ms": 239.4,
-     "commands": [
-      "nool pluck badwork --execute",
-      "nool propose post-pluck"
-     ],
-     "command_count": 2,
-     "all_commands_succeeded": true,
-     "damage_removed": true,
-     "unrelated_work_survived": true,
-     "output_tail": [
-      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
-      "",
-      "[Auto] Solidifying proposal..."
-     ]
-    },
-    {
-     "recovery_ms": 233.9,
-     "commands": [
-      "nool pluck badwork --execute",
-      "nool propose post-pluck"
-     ],
-     "command_count": 2,
-     "all_commands_succeeded": true,
-     "damage_removed": true,
-     "unrelated_work_survived": true,
-     "output_tail": [
-      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
-      "",
-      "[Auto] Solidifying proposal..."
-     ]
-    },
-    {
-     "recovery_ms": 233.8,
-     "commands": [
-      "nool pluck badwork --execute",
-      "nool propose post-pluck"
-     ],
-     "command_count": 2,
-     "all_commands_succeeded": true,
-     "damage_removed": true,
-     "unrelated_work_survived": true,
-     "output_tail": [
-      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
-      "",
-      "[Auto] Solidifying proposal..."
-     ]
-    }
-   ]
-  },
-  "threaded_timeline": {
-   "git": [],
-   "nool": [
-    {
-     "recovery_ms": 220.6,
-     "commands": [
-      "nool pluck badwork --execute",
-      "nool propose post-pluck"
-     ],
-     "command_count": 2,
-     "all_commands_succeeded": true,
-     "damage_removed": true,
-     "unrelated_work_survived": true,
-     "output_tail": [
-      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
-      "",
-      "[Auto] Solidifying proposal..."
-     ]
-    },
-    {
-     "recovery_ms": 233.8,
+     "recovery_ms": 236.6,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -228,7 +143,7 @@
      ]
     },
     {
-     "recovery_ms": 225.4,
+     "recovery_ms": 233.8,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -244,7 +159,92 @@
      ]
     },
     {
-     "recovery_ms": 230.2,
+     "recovery_ms": 232.3,
+     "commands": [
+      "nool pluck badwork --execute",
+      "nool propose post-pluck"
+     ],
+     "command_count": 2,
+     "all_commands_succeeded": true,
+     "damage_removed": true,
+     "unrelated_work_survived": true,
+     "output_tail": [
+      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "",
+      "[Auto] Solidifying proposal..."
+     ]
+    }
+   ]
+  },
+  "threaded_timeline": {
+   "git": [],
+   "nool": [
+    {
+     "recovery_ms": 234.1,
+     "commands": [
+      "nool pluck badwork --execute",
+      "nool propose post-pluck"
+     ],
+     "command_count": 2,
+     "all_commands_succeeded": true,
+     "damage_removed": true,
+     "unrelated_work_survived": true,
+     "output_tail": [
+      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "",
+      "[Auto] Solidifying proposal..."
+     ]
+    },
+    {
+     "recovery_ms": 235.9,
+     "commands": [
+      "nool pluck badwork --execute",
+      "nool propose post-pluck"
+     ],
+     "command_count": 2,
+     "all_commands_succeeded": true,
+     "damage_removed": true,
+     "unrelated_work_survived": true,
+     "output_tail": [
+      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "",
+      "[Auto] Solidifying proposal..."
+     ]
+    },
+    {
+     "recovery_ms": 228.9,
+     "commands": [
+      "nool pluck badwork --execute",
+      "nool propose post-pluck"
+     ],
+     "command_count": 2,
+     "all_commands_succeeded": true,
+     "damage_removed": true,
+     "unrelated_work_survived": true,
+     "output_tail": [
+      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "",
+      "[Auto] Solidifying proposal..."
+     ]
+    },
+    {
+     "recovery_ms": 238.2,
+     "commands": [
+      "nool pluck badwork --execute",
+      "nool propose post-pluck"
+     ],
+     "command_count": 2,
+     "all_commands_succeeded": true,
+     "damage_removed": true,
+     "unrelated_work_survived": true,
+     "output_tail": [
+      "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "",
+      "[Auto] Solidifying proposal..."
+     ]
+    },
+    {
+     "recovery_ms": 238.3,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"

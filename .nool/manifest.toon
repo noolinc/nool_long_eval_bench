@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: git_scheduled N=40/v3.1 very-heavy-noise (0.5/0.5) rep 2/2 fleet run result appended: 46/60 accepted (arm complete, rate-limited attempt retried cleanly)
-knot_id: a139d899b82ae73a8d5dfe8ef87c1b98b11d2b9ec85c439f0c7aa4b8ddcbd32c
-solidified_at: 1788301363672
+intent: tier1 rerun (2026-09-01): Track B micro-benchmarks re-run + Track C redux_go 2x2 smoke cell (nool 7.0.3, claude-sonnet-5)
+knot_id: f0061c6a5e91e9d6837d1c807cffc9fb2d9a62345831dd94484875666006f6e2
+solidified_at: 1788303971074
 thread: main
