@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: nool_gated N=35/v3.1 very-heavy-noise (0.5/0.5) rep 1/2 fleet run result appended: 55/60 accepted
-knot_id: 77d494996d8536fd40001aa43a75851573452589bf9821c885df2bd86e4b744f
-solidified_at: 1788301169408
+intent: git_scheduled N=35/v3.1 very-heavy-noise (0.5/0.5) rep 1/2 fleet run result appended: 50/60 accepted
+knot_id: 6d2ea640add69a1992413d302f1d7cf8f89b859e5e352247a5a1336f1cba5ebf
+solidified_at: 1788301195629
 thread: main
