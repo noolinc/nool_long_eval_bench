@@ -7,7 +7,7 @@
 <a id="sec-abstract"></a>
 ## Abstract
 
-Enterprises considering fleets of autonomous coding agents need evidence for an outcome claim: that without a coordination layer, sufficiently agentic development becomes measurably unsafe or expensive, and that a coordination layer materially reduces those failures. We present a pre-registered benchmark suite comparing Nool — a semantic-agentic version-control and coordination system — against plain git across three instrument families: seven deterministic mechanism benchmarks (B1–B7), a 2×2 LLM-in-the-loop product experiment (single/multi agent × git/nool; N=5 per cell, one pinned model), and a fleet-operations pilot (5 concurrent real agents, 8-ticket backlog with designed contention). All outcome scoring is on final-system state (hidden acceptance tests, main-branch health), never on tool warnings. Phase 1 results are mixed and instructive: nool provides measured wins in concurrent-write attribution (90/90 ops attributed 1:1 vs 64% commingled under git at 15 writers), context-retrieval economy (163 vs 660 bytes to a correct hit), and syntax-level commit gating (Phase 1 exercised only the `--fast` relaxed path; see below); it currently provides no measured advantage in file-level merge outcomes (identical to git across three scenarios despite its semantic layer correctly classifying changes as commutable), fails to preserve unrelated later work during selective undo (fixed in 6.14.1), and mislocalizes regressions in its bisect tool (the two materialization defects found in Phase 1 were fixed in 6.14.1; a distinct, previously-undetected root cause — attestation knots left in the bisect search space — reproduced live on 7.0.3 and was fixed 2026-09-01, [§5.8](#sec-5-8)). The 2×2 product experiment shows no arm separation at pilot power. Two subsequent developments, both under the same pre-registered goalposts, change the picture. First, a product release (nool 6.14.1) closed three of the four adverse mechanism bounds on re-test: contended merges now converge 15/15, selective undo preserves later unrelated work 5/5, and bisect names the true culprit on the tested 13-landing timeline (a distinct bisect defect surfaced and was fixed later, [§5.8](#sec-5-8)); the fourth (B4 commit gating) was resolved by measurement rather than product change — the default governed path (`propose --solidify`, full validation) rejects the test-breaking change at propose, and the earlier negative had measured only the explicit `--fast` relaxed path, an attributable operator opt-in. Per-operation latency stays roughly 7–10× git. Second, a pre-registered scale-up of the fleet benchmark — 10 agents, 20 tickets with function-level contention clusters — produced the first clear arm separation: the uncoordinated git arm accepted 13/20 and 1/20 (in the latter rep a textually-clean merge silently broke the build, voiding 13 landed tickets), while the nool arm's footprint-gated dispatch accepted 19/20 in both reps with zero integration failures, at equal agent spend and +40–70% wall time. A subsequent scale-up to N=25 workers first hit an infrastructure ceiling rather than a product one — it reproducibly exhausted the operator machine's memory before any agent work began — resolved by a launch-cadence fix to the harness, after which two further pre-registered ladder points completed: at N=25, nool accepted every ticket with zero merge conflicts in both reps (60/60) while git failed roughly a third of contended tickets to merge conflicts each rep (41/60, 40/60); at N=35, nool again reached 60/60 with zero conflicts in both reps while git's failures deepened with concurrency — one rep merged cleanly but failed tests package-wide (37/60), the other suffered a full build-poisoning event that voided most of the backlog (20/60) — showing the separation strengthening, not merely holding, as N climbs. A same-session corpus-integrity incident — stray ticket solutions landed directly against the benchmark's source template — was found and fixed before it could affect any reported result, and a mid-run operator account rate limit corrupted one repetition, which is reported and excluded rather than silently averaged in. A subsequent implementation audit (2026-08-22, [§5.6](#sec-5-6)) found that the fleet arms' dispatch gating was computed by the harness from corpus-declared footprints — nool's own conflict verdicts were advisory and never consulted — so the fleet separation reported here is attributed to the footprint-gated dispatch *policy*; whether the product's native coordination machinery reproduces it is the subject of three pre-registered ablation arms (a CI-gated git merge queue, git under the identical scheduler, and dispatch gated by nool's own lease refusals) whose predictions and decision rules are fixed in the design spec before any of that data exists; those ablations confirm parity under accurate footprints ([§5.6](#sec-5-6)). A follow-on study ([§5.7](#sec-5-7), 2026-08-27) tests the natural next question — does that parity survive when footprint information itself is unreliable — and finds the first product-level (not merely policy-level) separation in this suite: under progressively noisier, identically-perturbed footprints shared by both schedulers, nool's real coordination arm degrades more slowly than the matching git baseline at every noise level tested (100.0% to 88.3% acceptance vs. 100.0% to 81.7%, gap widening monotonically from 0 to 6.7 percentage points), though at n=2 reps per condition this is suggestive rather than conclusive. We contribute the claim framework, the instruments, honest bounds that current mechanism behavior places on the enterprise claims, and a costed roadmap for the three decisive proofs: fleet correctness at high concurrency, longitudinal institutional memory, and deterministic governance.
+Enterprises considering fleets of autonomous coding agents need evidence for an outcome claim: that without a coordination layer, sufficiently agentic development becomes measurably unsafe or expensive, and that a coordination layer materially reduces those failures. We present a pre-registered benchmark suite comparing Nool — a semantic-agentic version-control and coordination system — against plain git across three instrument families: seven deterministic mechanism benchmarks (B1–B7), a 2×2 LLM-in-the-loop product experiment (single/multi agent × git/nool; N=5 per cell, one pinned model), and a fleet-operations pilot (5 concurrent real agents, 8-ticket backlog with designed contention). All outcome scoring is on final-system state (hidden acceptance tests, main-branch health), never on tool warnings. Phase 1 results are mixed and instructive: nool provides measured wins in concurrent-write attribution (90/90 ops attributed 1:1 vs 64% commingled under git at 15 writers), context-retrieval economy (163 vs 660 bytes to a correct hit), and syntax-level commit gating (Phase 1 exercised only the `--fast` relaxed path; see below); it currently provides no measured advantage in file-level merge outcomes (identical to git across three scenarios despite its semantic layer correctly classifying changes as commutable), fails to preserve unrelated later work during selective undo (fixed in 6.14.1), and mislocalizes regressions in its bisect tool (the two materialization defects found in Phase 1 were fixed in 6.14.1; a distinct root cause — attestation knots left in the bisect search space — was diagnosed by nool 7.0.0 but only worked around in this harness's result interpretation, not fixed in the product, until it reproduced live on 7.0.3 and was fixed there 2026-09-01, [§5.8](#sec-5-8)). The 2×2 product experiment shows no arm separation at pilot power. Two subsequent developments, both under the same pre-registered goalposts, change the picture. First, a product release (nool 6.14.1) closed three of the four adverse mechanism bounds on re-test: contended merges now converge 15/15, selective undo preserves later unrelated work 5/5, and bisect names the true culprit on the tested 13-landing timeline (a distinct bisect defect surfaced and was fixed later, [§5.8](#sec-5-8)); the fourth (B4 commit gating) was resolved by measurement rather than product change — the default governed path (`propose --solidify`, full validation) rejects the test-breaking change at propose, and the earlier negative had measured only the explicit `--fast` relaxed path, an attributable operator opt-in. Per-operation latency stays roughly 7–10× git. Second, a pre-registered scale-up of the fleet benchmark — 10 agents, 20 tickets with function-level contention clusters — produced the first clear arm separation: the uncoordinated git arm accepted 13/20 and 1/20 (in the latter rep a textually-clean merge silently broke the build, voiding 13 landed tickets), while the nool arm's footprint-gated dispatch accepted 19/20 in both reps with zero integration failures, at equal agent spend and +40–70% wall time. A subsequent scale-up to N=25 workers first hit an infrastructure ceiling rather than a product one — it reproducibly exhausted the operator machine's memory before any agent work began — resolved by a launch-cadence fix to the harness, after which two further pre-registered ladder points completed: at N=25, nool accepted every ticket with zero merge conflicts in both reps (60/60) while git failed roughly a third of contended tickets to merge conflicts each rep (41/60, 40/60); at N=35, nool again reached 60/60 with zero conflicts in both reps while git's failures deepened with concurrency — one rep merged cleanly but failed tests package-wide (37/60), the other suffered a full build-poisoning event that voided most of the backlog (20/60) — showing the separation strengthening, not merely holding, as N climbs. A same-session corpus-integrity incident — stray ticket solutions landed directly against the benchmark's source template — was found and fixed before it could affect any reported result, and a mid-run operator account rate limit corrupted one repetition, which is reported and excluded rather than silently averaged in. A subsequent implementation audit (2026-08-22, [§5.6](#sec-5-6)) found that the fleet arms' dispatch gating was computed by the harness from corpus-declared footprints — nool's own conflict verdicts were advisory and never consulted — so the fleet separation reported here is attributed to the footprint-gated dispatch *policy*; whether the product's native coordination machinery reproduces it is the subject of three pre-registered ablation arms (a CI-gated git merge queue, git under the identical scheduler, and dispatch gated by nool's own lease refusals) whose predictions and decision rules are fixed in the design spec before any of that data exists; those ablations confirm parity under accurate footprints ([§5.6](#sec-5-6)). A follow-on study ([§5.7](#sec-5-7), 2026-08-27) tests the natural next question — does that parity survive when footprint information itself is unreliable — and finds the first product-level (not merely policy-level) separation in this suite: under progressively noisier, identically-perturbed footprints shared by both schedulers, nool's real coordination arm degrades more slowly than the matching git baseline at every noise level tested (100.0% to 88.3% acceptance vs. 100.0% to 81.7%, gap widening monotonically from 0 to 6.7 percentage points), though at n=2 reps per condition this is suggestive rather than conclusive. We contribute the claim framework, the instruments, honest bounds that current mechanism behavior places on the enterprise claims, and a costed roadmap for the three decisive proofs: fleet correctness at high concurrency, longitudinal institutional memory, and deterministic governance.
 
 <a id="sec-1"></a>
 ## 1. Introduction
@@ -137,8 +137,9 @@ the nool arm via a new MergeReconcile union stage (git remains 1/15 on the
 identical branch sets; the disjoint negative control stays 15/15 in both
 arms). B3's selective undo now removes the damage 5/5 while preserving later
 unrelated work 5/5 in both timeline variants. B7's bisect names the true
-culprit on this run's fixture — but see [§5.8](#sec-5-8): a distinct, unaddressed
-root cause let the same tool mislocalize a live re-test 11 days later, on 7.0.3.
+culprit on this run's fixture — but see [§5.8](#sec-5-8): a distinct root
+cause let the same tool mislocalize a live re-test 11 days later, on 7.0.3,
+and was only fixed in the product on 2026-09-01.
 
 The B4 finding was clarified by testing both governance paths: the **default
 governed path** (`nool propose --solidify`) **rejects** test-breaking changes
@@ -474,52 +475,65 @@ and still miss a semantic composition defect across them), independent
 of [§8d](../superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8d)'s own manipulation.
 
 <a id="sec-5-8"></a>
-### 5.8 B7 regression: a second, distinct bisect defect found and fixed (2026-09-01)
+### 5.8 B7 regression: root cause fixed in the product, not just the harness (2026-09-01)
 
-Re-running B7 live against nool 7.0.3 (git SHA `61d9cd11`, ahead of the 6.14.1
-build [§5.3](#sec-5-3) tested) as an installation sanity check reproduced the
-Phase 1 negative finding: on the same 13-landing/culprit-at-7 fixture,
-`debug bisect` reported culprit `982a8a51`, whose intent was `"Attest
-syntax Pass (Check) by integrity-driver for e44a31fb"` — an attestation
-knot, not landing 7 (`resolved_intent: "landing 6: add Extra6"` against
-`truth_intent: "landing 7"`). This is not a recurrence of either
-materialization bug 6.14.1 fixed (implicit `--bad` resolution; every probe
-testing the mirror's literal HEAD instead of its own historical ref) — both
-remain correctly fixed and covered by regression tests. It is a third,
-previously-undetected defect: `run_bisect`'s search-candidate list
-(`ledger.get_knots_in_range(good, bad)`) included every knot in the HLC
-range with no filter on payload kind. An `Attestation` knot is a verdict
-*about* another knot, never a content change, but it lands with an HLC
-timestamp adjacent to the knot it attests to — and its own registered git
-ref can resolve to a *later* commit than its subject (issued or synced
+Re-running B7 live against nool 7.0.3 (git SHA `61d9cd11`, ahead of the
+6.14.1 build [§5.3](#sec-5-3) tested) as an installation sanity check
+reproduced the Phase 1 negative finding: on the same
+13-landing/culprit-at-7 fixture, `debug bisect` reported culprit
+`982a8a51`, whose intent was `"Attest syntax Pass (Check) by
+integrity-driver for e44a31fb"` — an attestation knot, not landing 7.
+
+This is a known defect, not a new one: an earlier revision of this harness
+(nool 7.0.0, commit `a019d5b2`, date not separately logged) had already
+diagnosed it exactly — "the integrity-driver mints an unconditional
+per-landing syntax-attestation knot invisible to `nool log` but not
+excluded from `debug bisect`'s search space, so 'First bad Knot' can name
+a wrapper knot with no resolvable intent" — and fixed the *symptom* at the
+harness layer: `b7_regression_localization.py` was taught to unwrap
+`"Attest ... for <prefix>"` back to the knot it attests and score against
+that (the `resolved_intent`/`via_attestation` fields this report has used
+since). That fix made the failure legible (an off-by-one to landing 6, not
+a total miss) and is what today's before-fix run also reported
+(`resolved_intent: "landing 6: add Extra6"` against `truth_intent: "landing
+7"`) — but it left `culprit_found` correctly `False`, and left the product
+itself unfixed: `run_bisect`'s search-candidate list
+(`ledger.get_knots_in_range(good, bad)`) still included every knot in the
+HLC range with no filter on payload kind. An `Attestation` knot is a
+verdict *about* another knot, never a content change, but it lands with an
+HLC timestamp adjacent to the knot it attests to — and its own registered
+git ref can resolve to a *later* commit than its subject (issued or synced
 after something else already landed). When that happens, probing the
 attestation materializes the later, bad state one step before the true
 culprit, and the binary search reports the attestation itself as "the
-first bad knot" instead of walking past it.
+first bad knot" instead of walking past it. Whatever nool version(s)
+shipped between the 6.14.1 re-test and this harness workaround at 7.0.0
+carried this defect unfixed at the product level; this report cannot date
+that window more precisely than "6.14.1 through 7.0.2."
 
-Filed as bug `5bc6e30e` and fixed the same day: `run_bisect` now excludes
-`Attestation`-payload knots from its search-candidate list (the caller's
-`good`/`bad` boundary knots are kept regardless of payload kind, since
-they are fixed reference points, not candidates). A regression test
+Filed as bug `5bc6e30e` and fixed the same day, in the product this time:
+`run_bisect` now excludes `Attestation`-payload knots from its
+search-candidate list (the caller's `good`/`bad` boundary knots are kept
+regardless of payload kind, since they are fixed reference points, not
+candidates). A regression test
 (`bisect_integration_tests::an_attestation_knot_is_never_reported_as_the_culprit`)
 constructs the exact failure shape — an attestation for landing *N* whose
 git ref points at landing *N+1*'s commit — and fails without the fix,
 reporting the attestation as culprit instead of the true landing; it
 passes with the fix in place. Re-running B7 live against the fixed build
-(git SHA `58578ad6`) confirms the correction: `culprit_found: true`,
-`knot_named_intent: "landing 7: add Extra7"`, matching `truth_intent`
-exactly.
+(git SHA `58578ad6`) confirms the correction directly, with no harness
+unwrapping needed: `culprit_found: true`, `knot_named_intent: "landing 7:
+add Extra7"`, matching `truth_intent` exactly, `resolved_intent`/
+`via_attestation` both empty.
 
-The likely reason the original 6.14.1 re-test ([§5.3](#sec-5-3)) did not catch
-this: whether an attestation knot's HLC timestamp and stale git ref happen
-to fall exactly at the binary search's convergence point is sensitive to
-incidental details of the fixture and the attestation-creation cadence at
-the time, not something that re-test's single fixture exercised. The
-corrected present-tense claim: **nool's bisect currently names the true
-culprit** on the B7 fixture, as of the 2026-09-01 fix — a bound that has
-now moved twice, not once, and on a mechanism (verdict knots interleaved
-with content knots) worth re-auditing for the same defect shape elsewhere
-in the product before it is treated as closed.
+The corrected present-tense claim: **nool's bisect currently names the
+true culprit** on the B7 fixture, as of the 2026-09-01 fix — a bound that
+has now moved twice, and the second move fixed a root cause a prior pass
+had only routed around at the measurement layer. Worth re-auditing for the
+same defect shape (a metadata/verdict knot type interleaved with content
+knots and not excluded from a tool that assumes every candidate is a
+content change) elsewhere in the product before this is treated as
+closed.
 
 <a id="sec-6"></a>
 ## 6. Evidence map: claims versus current evidence

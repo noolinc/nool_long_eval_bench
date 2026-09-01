@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Add §5.8: a second, distinct bisect defect (attestation knots in search space) found live on 7.0.3 and fixed same-day
-knot_id: 6ae6509d077bb081d8ed469108d81e7d33cb3e90ae5c29c351351ae83ebbdc10
-solidified_at: 1788291905905
+intent: Correct §5.8: credit nool 7.0.0's prior harness-side diagnosis/workaround of the attestation-knot bisect bug instead of framing it as newly discovered
+knot_id: fcc615b48fde9a809ca03e1fb080a2c9511fadf74f2eb4fea77de796e97db376
+solidified_at: 1788292032224
 thread: main
