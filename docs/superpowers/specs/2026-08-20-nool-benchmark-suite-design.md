@@ -894,6 +894,156 @@ and above 8e-ii's conditions 3/5/6. It also requires the most new
 harness code of anything proposed here (a footprint-inference step for
 at least one arm) and is not scoped in detail in this section.
 
+<a id="sec-8f"></a>
+## 8f. Track D — model-generalization replication at N=25: Claude Fable 5.1 on nool 7.1.0 (pre-registered 2026-09-04, before any Fable data)
+
+**Motivation.** Every LLM-in-the-loop Track D result in this suite rests
+on one pinned model, `claude-sonnet-5` (the only exceptions — a
+single-rep Gemini/Antigravity pair and a `limit=3` opencode trial — carry
+no evidence weight). H7 (portability) is therefore untested for the
+fleet track: the §8d/§8e-i reading — `nool_gated` degrades more slowly
+than the identically-gated `git_scheduled` as declared footprints get
+worse — could be a property of how one particular model follows,
+violates, and recovers from footprint declarations rather than of the
+coordination layer. A second model of a different tier and agentic
+profile (Fable 5.1: always-on thinking, longer turns, different
+tool-call density, 5× the per-token price) is the most direct way to
+find out. Two other things change with it and are disclosed as part of
+the condition, not controlled away: the product version advances to
+nool 7.1.0 (unmeasured; the last measured is 7.0.3), and N=25 is a
+ladder rung with sonnet data for `git_fleet`/`nool_fleet`/`nool_try`
+but none for this arm pair (sonnet's `nool_gated`/`git_scheduled` data
+sits at N=20 and N=35–45).
+
+**Design.** Fixed factors: harness `claude` (Claude Code CLI 2.1.260,
+`--setting-sources project,local`, `max_turns=30`, 600 s per agent —
+the harness defaults, unchanged); model `claude-fable-5-1` (pinned;
+`model_reported` recorded per agent from the CLI's own init event);
+nool 7.1.0 (`git_sha b5387e65`); corpus
+`tasks/fleet_service/tickets_v3.json` as it currently stands (`v3.1`,
+60 tickets, tier `all`, starter pinned by `STARTER_SHA256`); protocol
+`protocols/fleet_v4.json` (sha256 `1524b208…`); N=25 workers; arms
+`nool_gated` vs `git_scheduled` — the v4 mechanism pair and the pair
+behind every §8d/§8e-i point, chosen over the v4 primary control
+`git_competitive` so that exactly one thing changes relative to the
+sonnet evidence (the model), not a never-measured arm and a new model at
+once. Two cells:
+
+| Cell | fp_drop | fp_add | reps/arm | fp-noise seed (shared across arms within a rep) | shuffle seed (`--seed`, shared across arms within a rep) |
+|---|---|---|---|---|---|
+| zero-noise anchor | 0 | 0 | 3 | — | 25001 / 25002 / 25003 |
+| very-heavy | 0.5 | 0.5 | 3 | 2501 / 2502 / 2503 | 25011 / 25012 / 25013 |
+
+The very-heavy cell (half of every declared footprint wrong) is where
+sonnet's gap was largest and hence the most detectable at n=3; the
+zero-noise anchor establishes whether Fable honors declared footprints
+at all and is the matched baseline the degradation is measured from.
+Light and heavy cells are not included (cost — below). Each rep is one
+invocation running both arms back-to-back on identical perturbed
+footprints and identical ticket order:
+
+```
+python3 harness/fleet_run.py --harness claude --model claude-fable-5-1 \
+    --workers 25 --tickets tickets_v3.json --arms nool_gated,git_scheduled \
+    --reps 1 --seed <shuffle> [--fp-noise-drop 0.5 --fp-noise-add 0.5 --fp-noise-seed <fp>]
+```
+
+Unlike every prior cell, the ticket-order shuffle seed is pinned (prior
+runs left it random and recorded `shuffle_seed: null`); pinning it makes
+the two arms' paired comparison exact on the harness side and each run
+re-runnable with the same ticket order and the same perturbation.
+
+**Execution order and budget rule (fixed now).** Runs execute strictly
+sequentially, one arm at a time, in this order: anchor rep 1 →
+very-heavy rep 1 → very-heavy rep 2 → anchor rep 2 → very-heavy rep 3 →
+anchor rep 3 — so that, if the budget rule stops execution early, the
+informative cell reaches n=3 before the anchor does and neither cell is
+ever more than one rep ahead of the other. Fable 5.1 is priced at 5×
+sonnet-5 per token ($10/$50 vs $2/$10 per MTok); a one-turn headless
+preflight call cost $0.17 (sonnet-equivalent ≈ $0.035). At the observed
+$7.5–9.9 per sonnet run, each Fable run is expected to cost ~$35–45 and
+the full 12-run plan ~$420–540. **Spend cap: $450 of recorded
+`cost_usd`.** Before each invocation, if cumulative recorded spend plus
+twice the mean cost of the completed runs would exceed the cap, execution
+stops. A cell left below 3 reps is reported as budget-censored with the
+runs it did get, never as an arm outcome; both cells are analyzed at
+whatever n they reached, and the cross-cell comparison uses the paired
+reps only. The RAM watchdog script covers only `git_fleet`/`nool_fleet`;
+this arm pair already ran at N=35–45 on this same 16 GB machine without
+incident (paper §5.9), so N=25 runs unguarded, with free memory sampled
+by the operator and reported informationally. A run that dies for an
+infrastructure reason (rate limit, session limit, OOM) writes no record,
+is re-run with the same seeds, and the loss is logged under the existing
+`invalidated_*` convention. Runs land one record at a time as they
+finish; nothing is analyzed until a cell has all of its paired reps.
+
+**Reference points (sonnet-5, already collected, quoted so the
+predictions are checkable against fixed numbers).** Zero noise, this
+arm pair, v3.1, N=20/35: `nool_gated` ≥59/60 in 4/4 runs,
+`git_scheduled` ≥59/60 in 5/5, zero integration conflicts in all nine;
+one `git_scheduled` zero-noise run ended with a failed final smoke test
+despite 60/60 (the §6f `t10` event). Very-heavy (0.5/0.5), N=20–45, nine
+paired reps: `nool_gated` 482/540 (89.3%), `git_scheduled` 444/540
+(82.2%), pooled gap +7.0 pp; per-N mean gaps 6.7 (N=20), 2.5 (35), 5.0
+(40), 11.7 (45) pp; `nool_gated`'s conflict count strictly below
+`git_scheduled`'s in 7 of 9 pairs (one tie); `nool_gated`'s
+`wasted_cost_usd` below `git_scheduled`'s in 7 of 9 pairs; conditional
+acceptance ≥98% in 16 of 18 runs (two `git_scheduled` very-heavy runs
+at 87–90%); final health green in all 18. Per-agent, zero noise (540
+sonnet agents): median 7 turns (mean 8.9), median $0.128, median 27 s.
+
+**Predictions (falsifiable, recorded before any Fable data):**
+1. **Anchor.** In every zero-noise rep both arms accept ≥58/60 with
+   zero integration conflicts, and the paired difference is within ±2
+   tickets — Fable 5.1 honors declared footprints at least as well as
+   sonnet, and at perfect information the arms remain indistinguishable
+   (the §8c policy-not-tool result carries over to a second model).
+2. **Direction (primary).** At very-heavy noise the paired mean
+   acceptance of `nool_gated` exceeds `git_scheduled`'s (mean of the
+   paired differences > 0), and `nool_gated`'s integration-conflict
+   count is strictly lower than `git_scheduled`'s in at least 2 of the
+   3 pairs.
+3. **Magnitude.** The mean very-heavy gap lies in [+2, +12] pp — the
+   same order as sonnet's per-N range (2.5–11.7 pp). Below +2 pp
+   (including any reversal) the effect is judged materially
+   model-dependent; above +12 pp it is larger on Fable than at any
+   sonnet point and the mechanism question (§8e) sharpens rather than
+   closes.
+4. **Conditional acceptance** (accepted given landed) stays ≥95% pooled
+   per arm within each cell; single-run dips (sonnet saw 87–90% in two
+   `git_scheduled` very-heavy runs) are reported with the
+   landing-commit diagnosis rather than averaged away.
+5. **Wasted spend.** `nool_gated`'s `wasted_cost_usd` is at or below
+   `git_scheduled`'s in at least 2 of the 3 very-heavy pairs.
+6. **Cost calibration (secondary, not an arm claim).** Every Fable run
+   records `cost_usd` in [$20, $70], and Fable's median per-agent turn
+   count at zero noise is at or below sonnet's 7. Recorded to calibrate
+   future budgeting on this model tier.
+
+**Decision rule.** H7 (portability) is *supported for the §8d reading*
+if predictions 1, 2 and 3 hold: the noise-robustness advantage is then a
+property of the coordination layer that survives a change of model, and
+the findings/paper wording moves from "measured on one model" to
+"replicated on two models of different tiers". If 2 fails (mean gap ≤
+0), the §8d/§8e-i advantage is re-labeled sonnet-specific until a third
+model says otherwise, and the paper's generality wording is downgraded
+accordingly. If 1 fails for one arm only, the run is reported with its
+failure taxonomy and the cell is still analyzed. If the budget rule
+stops execution with fewer than 2 paired reps in the very-heavy cell,
+no direction claim is made in either direction. Three paired reps per
+cell meets this suite's "3+" convention for a minimally powered
+directional read, not a confirmatory one; run-level inference uses
+`analysis/summarize.py`'s exact permutation test per cell, and the
+cross-model comparison (Fable N=25 vs sonnet N=20–45) is descriptive
+only, since N differs and the frozen protocol forbids pooling across
+model strata.
+
+**Out of scope, stated so it is not read in later:** `git_competitive`
+(the v4 primary control, unmeasured with any LLM and deliberately not
+confounded with a model change here), light/heavy noise cells, the
+`ambiguous` tier cut, any N other than 25, and any Track B/C re-run on
+Fable.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —

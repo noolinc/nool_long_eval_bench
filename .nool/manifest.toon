@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: git_scheduled N=45/v3.1 very-heavy-noise (0.5/0.5) rep 3/3 fleet run result appended: 49/60 accepted (arm complete, N=45 ladder point done)
-knot_id: 6ecf58e4f5468c4654da351aa0c9c787794a234d24b1562e653f91911f0cae77
-solidified_at: 1788306422951
+intent: Pre-register §8f: Fable 5.1 / nool 7.1.0 model-generalization replication at N=25 (before any Fable data)
+knot_id: b104d97d69304e9a363a84686d55ec35b2c6b4d8084c71c520692f6ca57d06ca
+solidified_at: 1788488055729
 thread: main
