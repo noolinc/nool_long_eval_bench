@@ -535,6 +535,68 @@ knots and not excluded from a tool that assumes every candidate is a
 content change) elsewhere in the product before this is treated as
 closed.
 
+<a id="sec-5-9"></a>
+### 5.9 Concurrency scaling under very-heavy footprint noise (N=35→45, exploratory, 2026-09-01/02)
+
+[§5.7](#sec-5-7) fixed N=20 and varied noise; [§5.5](#sec-5-5) fixed noise at zero and
+varied N. This section crosses the two axes: does the noise-robustness
+gap itself grow with concurrency? **Unlike every other data point in
+this report, this thread was not pre-registered before data
+collection** — there is no design-spec section or "Pre-register…"
+commit covering it; it is reported as an honest, labeled exploratory
+follow-on, not a confirmatory test, and should not be read as
+satisfying this suite's own pre-registration discipline.
+
+**Design (post hoc).** `nool_gated` vs. `git_scheduled`, corpus v3.1,
+claude-sonnet-5, `fp_noise_drop=0.5, fp_noise_add=0.5` (§5.7's
+"very-heavy" cell held fixed) at N ∈ {35, 40, 45}, 2 reps at N=35/40 and
+3 reps at N=45, one shared noise seed per rep across both arms (`3501`/
+`3502`, `4001`/`4002`, `4501`/`4502`/`4503`).
+
+| N | reps | `nool_gated` accepted/60 (mean %) | `git_scheduled` accepted/60 (mean %) | gap (nool − git) | `nool_gated` mean wall | `git_scheduled` mean wall |
+|---|---|---|---|---|---|---|
+| 35 | 2 | 55, 50 (52.5, **87.5%**) | 50, 52 (51.0, **85.0%**) | 2.5 pp | 364 s | 262 s |
+| 40 | 2 | 52, 52 (52.0, **86.7%**) | 52, 46 (49.0, **81.7%**) | 5.0 pp | 238 s | 245 s |
+| 45 | 3 | 56, 56, 55 (55.7, **92.8%**) | 52, 45, 49 (48.7, **81.1%**) | 11.7 pp | 263 s | 334 s |
+
+`nool_gated`'s mean holds in a narrow 86.7–92.8% band across the three
+points; `git_scheduled`'s falls from 85.0% to 81.1% and is noisier
+run-to-run (45–52/60 at N=45 alone). The gap is not monotonic
+point-to-point in the small-n sense (it does not increase on every
+single pairwise step) but is larger at N=45 than at N=35 or N=40, and
+larger than any single-noise-level gap measured at fixed N=20 in
+[§5.7](#sec-5-7) (whose largest was 6.7 pp). Final health (`build_ok`,
+`smoke_ok`) was clean on all 14 runs — no cascading build-poisoning
+event at this noise level, unlike the zero-noise `git_scheduled`
+poisoning event reported in [§5.7](#sec-5-7). No run recorded a
+`queue_rejected` (overt scheduler-level) conflict; every miss on both
+arms is a ticket that was admitted and merged but failed its own
+acceptance test, consistent with (but not directly verified here as)
+noise hiding a true overlap from the admission gate rather than the
+gate visibly refusing contended work. Cost per accepted ticket is flat
+for `nool_gated` ($0.140–$0.143) and rises for `git_scheduled` ($0.149→
+$0.164) as its acceptance count falls, since total agent spend is
+governed by ticket count (60), not N. Wall time does not show the
+consistent "nool slower" pattern the rest of this report documents at
+zero noise: `nool_gated` wall was faster than `git_scheduled`'s at
+N=40 and notably faster at N=45, a reversal from the roughly 2–2.5×
+nool-slower pattern at N=25/N=35 zero-noise ([§5.5](#sec-5-5)) —
+unexplained here, reported as an observation, not a mechanism claim.
+
+**Reading this honestly.** Three points at n=2–3 reps is well below
+this suite's own 3+/5+ replication convention ([§8e-i](../superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8e)),
+and the thread was never pre-registered, so the widening trend cannot
+be reported as confirming a prediction — there was none on file before
+the data existed. It is directionally consistent with two things this
+report *did* pre-register separately (separation strengthens with N at
+zero noise, [§5.5](#sec-5-5); the noise-robustness gap widens with
+noise at fixed N, [§5.7](#sec-5-7)), which is what makes it worth
+recording rather than discarding, but consistency after the fact is
+not evidence at the same standard as a prediction that survives
+pre-registered replication. Treat this section as a candidate for
+proper pre-registration and replication, not as an added confirmatory
+data point for C2/C4 in [§6](#sec-6).
+
 <a id="sec-6"></a>
 ## 6. Evidence map: claims versus current evidence
 
