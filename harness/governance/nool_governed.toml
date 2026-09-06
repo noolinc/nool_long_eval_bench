@@ -13,7 +13,26 @@
 # gate (see fleet_run.secret_scan) applied identically to every arm —
 # mirroring the gitleaks/trufflehog CI stage used in industry practice.
 # Posture: observe-first (invariants warn); blocking reserved for the
-# blast airlock, steering checkpoints, and the shared secret gate.
+# blast airlock and the shared secret gate.
+#
+# ARM-PARITY RULE (architect decision, 2026-09-06). A control belongs in
+# this profile only if the git arms' control set contains a functional
+# counterpart. The git arms receive ci.yml required checks (build+test),
+# CODEOWNERS, POLICY.md and .pre-commit-config.yaml, plus the harness's
+# symmetric secret gate; every one of those is either automatic or inert
+# documentation. NOTHING in the git arms halts work pending a named human
+# role's approval. An interactive steering checkpoint therefore has no
+# counterpart, and including one puts a live blocking control on one side
+# of the comparison only — which is what setup_ws's "the rules are held
+# constant; only the enforcement substrate differs" contract forbids. The
+# two steer points this profile used to declare are removed below for that
+# reason, and the rule is symmetric: if the git arms ever gain a real
+# approval gate, nool's comes back.
+#
+# Disclosure: removing a gate only the nool arms faced removes a handicap
+# from nool. The justification is the parity rule stated above, not the
+# direction of the effect; the rule was fixed before the change and does
+# not depend on which arm it favors.
 
 [gating]
 fail_fast = true
@@ -23,25 +42,34 @@ blast_block_threshold = 30
 [trust]
 enabled = false
 
+# Steering is DISABLED under the arm-parity rule above. It previously
+# declared two interactive checkpoints: a CISO pre-push approval on
+# sensitive paths, and an Architect pre-solidify approval on
+# `coupling_slope_gt = 0.3`. Neither had a git-arm counterpart.
+#
+# The pre-solidify point was inert on every collected run (zero steering
+# halts anywhere in results/trackc/fleet_runs.jsonl), then began firing on
+# `nool try promote` under nool 7.2.0 — after reification reports full
+# validation passed — taking nool_try from 8/8 to 3/8 on the scripted
+# adapter while nool_fleet/nool_gated stayed at 8/8, because those
+# integrate with `nool merge`, which the same declared policy does not
+# bind. That non-uniform enforcement is reported as a product finding in
+# its own right; it is not the reason for this change, and this change is
+# not a workaround for it. The reason is arm parity, which held before
+# 7.2.0 ever made the gate visible.
+#
+# Removing it is prospective-only: no collected result contains a steering
+# halt, so no past number moves. The profile hash changes, which is how
+# run records distinguish the two profiles (old
+# 4e94f9c0a176e268f52024b38da57937b8f0d44fcd5acbb1e84bf9a0c96f2355).
+# fleet_run.py keeps a permanent tripwire: any steering halt is classified
+# `rejection_kind: "steer"` and disqualifies the RUN, never the ticket —
+# ticket-level censoring would be invalid here, because
+# `coupling_slope_gt` correlates with the contended-cluster tickets this
+# study is about, so dropping halted tickets would preferentially remove
+# the hardest ones and inflate the arm.
 [steer]
-enabled = true
-
-# CISO approval required before pushes touching security-sensitive surfaces.
-# The fleet service deliberately contains billing code so this can fire.
-[[steer.points]]
-point = "pre-push"
-role = "ciso"
-[[steer.points.triggers]]
-signal = "sensitive_path"
-paths = ["auth", "crypto", "identity", "billing", "signature", "secret"]
-
-# Architect approval on sharp coupling jumps before solidify.
-[[steer.points]]
-point = "pre-solidify"
-role = "architect"
-[[steer.points.triggers]]
-signal = "coupling_slope_gt"
-value = 0.3
+enabled = false
 
 # Advisory invariants: agents see the signal without hard style blocks;
 # the measured gates remain conflicts, health, secrets, steering.

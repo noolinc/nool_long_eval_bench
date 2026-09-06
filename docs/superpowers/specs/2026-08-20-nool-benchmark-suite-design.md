@@ -1208,6 +1208,83 @@ different claim and needs its own condition, not this one. Also out of
 scope: any N other than 25, footprint noise crossed with this arm, the
 `ambiguous` tier cut, and any model other than `claude-sonnet-5`.
 
+<a id="sec-8h"></a>
+## 8h. Governance-profile parity correction (architect decision, 2026-09-06, prospective-only)
+
+**The rule, fixed before the change.** A control belongs in the nool arms'
+governance profile only if the git arms' control set contains a functional
+counterpart. This is the operational form of §8a's existing contract, which
+`setup_ws` states as "the rules are held constant; only the enforcement
+substrate differs" — a rule about *rules*, which is violated when one side
+carries a live blocking control the other has no analogue for, however
+faithfully the documentation is mirrored.
+
+**Applying it.** The git arms receive `ci.yml` required checks (build and
+test), `CODEOWNERS`, `POLICY.md`, `.pre-commit-config.yaml`, and the
+harness's symmetric secret gate. Every one of those is either automatic or
+inert documentation: nothing in the git arms halts work pending a named
+human role's approval, because there are no pull requests and no reviewers
+in this harness. `nool_governed.toml` declared two interactive steering
+checkpoints — a CISO `pre-push` approval on sensitive paths and an Architect
+`pre-solidify` approval on `coupling_slope_gt = 0.3`. Neither has a
+counterpart. **Both are removed; `[steer]` is set to `enabled = false`.**
+Every automatic gate is kept unchanged: the blast-radius airlock
+(`blast_block_threshold`), the Aram policy gate, invariants, reification,
+and the shared secret scan.
+
+**Why not the alternatives**, recorded so the choice is auditable:
+- *Auto-approving the checkpoint from the harness* (`nool steer --action
+  approve`) would have the harness grant itself Architect authority. That
+  measures a product configured to defeat its own control, and the git arms
+  have no counterpart to that either — it replaces one asymmetry with a
+  worse one.
+- *Censoring steer-halted tickets from the denominator* is invalid here.
+  The trigger is `coupling_slope_gt`, which correlates with the
+  contended-cluster tickets this study is about; dropping halted tickets
+  would preferentially remove the hardest ones and inflate the arm. Where a
+  steering halt does occur it disqualifies the **run**, never the ticket.
+- *Keeping the gate and scoring halts as rejections* scores nool against a
+  blocking control `git_scheduled` and `git_competitive` never face.
+
+**Prospective-only; no collected number moves.** There are zero steering
+halts anywhere in `results/trackc/fleet_runs.jsonl` — the pre-solidify point
+was inert on every run ever collected. The old profile and the new one are
+therefore behaviorally identical over all existing data, and no result
+requires re-collection. What changes is the recorded
+`governance_profile_sha`, from
+`4e94f9c0a176e268f52024b38da57937b8f0d44fcd5acbb1e84bf9a0c96f2355` to
+`e551b88ae96ecf88e41554d02a1b0e78f64be03b12bcaa301e70f8f00dbcb8b1`, so any
+reader can partition runs by profile without trusting this note.
+
+**Disclosure of direction.** Removing a gate only the nool arms faced
+removes a handicap from nool, and this document's convention is to say so
+rather than let a reader discover it. The justification is the parity rule,
+which was fixed before the change and is symmetric: if the git arms ever
+gain a real approval gate — a required human review that actually blocks —
+nool's steering checkpoint returns with it.
+
+**The product finding this came out of, reported separately.** Under nool
+7.2.0 the `pre-solidify` steering point fires on `nool try promote` — after
+the Ghost-Run reports full validation passed — but does not fire on `nool
+merge`. The same declared policy therefore binds one landing verb and not
+another. Measured on the scripted adapter at N=8, corpus v1: `nool_try`
+3/8 with five tickets held at `PreSolidify`, against 8/8 for
+`nool_fleet` and `nool_gated` on the identical profile and tickets, and
+against `nool_try`'s own 8/8 and 60/60 on nool 7.0.0/7.0.1. This is a
+non-uniform-enforcement finding about the product, not the reason for the
+parity correction above, and the correction is not a workaround for it —
+the parity argument holds independently and held before 7.2.0 made the gate
+visible. After the correction all three nool arms return 8/8 on the same
+scripted check.
+
+**Permanent tripwire.** `fleet_run.py` classifies any steering halt as
+`rejection_kind: "steer"` (distinct from `validation` and `coordination`),
+counts it in the run summary as `steer_blocked`, and prints an explicit
+warning that the run is not a clean arm outcome. A future profile or product
+change that reintroduces a steering halt is therefore loud rather than
+silently scored as a validation failure, which is how this one was
+originally mislabeled.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —
