@@ -1129,9 +1129,8 @@ model; §8f's Fable condition is a separate stratum and the frozen
 protocol forbids pooling across model strata); corpus
 `tasks/fleet_service/tickets_v3.json` (`v3.1`, 60 tickets, tier `all`,
 starter pinned by `STARTER_SHA256`); protocol `protocols/fleet_v4.json`
-(sha256 `1524b208…`); N=25 workers — the ladder rung with the most
-sonnet comparators, and the width at which the measured partition above
-has a non-trivial tail. Zero footprint noise: this arm is about the
+(sha256 `1524b208…`); **N=35 workers** — see the amendment note below.
+Zero footprint noise: this arm is about the
 scheduler, and §8d's noise dimension is deliberately not crossed with it
 in the first cell. Arms `nool_planned`, `git_planned`, and `nool_fleet`
 (the incumbent comparator, re-run in the same batch rather than compared
@@ -1141,17 +1140,39 @@ rep: 27001 / 27002 / 27003.
 
 ```
 python3 harness/fleet_run.py --harness claude --model claude-sonnet-5 \
-    --workers 25 --tickets tickets_v3.json \
+    --workers 35 --tickets tickets_v3.json \
     --arms nool_planned,git_planned,nool_fleet --reps 1 --seed <shuffle>
 ```
+
+**Amendment, 2026-09-06, before any 8g data exists: N=25 → N=35.** This
+section was pre-registered hours earlier at N=25, on the reasoning that it
+was the rung with the most sonnet comparators. The operator directed N=35
+instead, and the change is recorded here rather than applied silently. It
+is a legitimate amendment and not a moved goalpost for one reason only:
+**zero 8g runs have been collected**, so no result exists that this choice
+could have been selected to favor. If any 8g data had been in hand, the
+honest move would have been a new cell, not an edit. What the change buys:
+N=35 is the rung where §8c's own re-analysis found git's failure mode
+turning bimodal (37/60 and 20/60 across two reps, the second a near-total
+build poisoning), so it is the rung where a scheduler difference has the
+most room to show; `nool_fleet` also has 5 sonnet reps at N=35 on corpus
+v3 against 2 at N=25. What it costs: the measured `--width 25` partition
+in the table above (10 waves, tail 2/1/1/1) is the one with a
+demonstrated non-trivial tail; at `--width 35` the partition is recomputed
+per run and recorded in `plan.wave_sizes`, so if it degenerates toward
+one wide wave plus a long tail of singletons, prediction 3's wall-time
+reasoning changes and that must be read off the recorded plan rather than
+assumed. N=35 has run unguarded on this 16 GB machine without incident
+(§8f, paper §5.9), so no watchdog.
 
 Runs execute strictly sequentially, one arm at a time, in rep-major order
 so all three arms of rep 1 complete before rep 2 begins; if the budget
 rule stops execution early, whole reps are complete rather than one arm
 being three reps ahead. **Spend cap: $90 of recorded `cost_usd`** at the
-observed $7.5–9.9 per sonnet run for 9 planned runs. A cell left below 3
-reps is reported as budget-censored with the runs it got, never as an arm
-outcome.
+observed $7.5–9.9 per sonnet run for 9 planned runs — unchanged by the
+amendment, since N is worker concurrency and the ticket count (60) that
+drives token spend is identical. A cell left below 3 reps is reported as
+budget-censored with the runs it got, never as an arm outcome.
 
 **Predictions (falsifiable, recorded before any data).**
 1. `nool fleet plan` returns a partition whose waves are pairwise
