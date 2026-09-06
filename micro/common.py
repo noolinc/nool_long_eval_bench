@@ -60,10 +60,23 @@ def git_commit_all(ws, msg):
 
 
 def nool_land(ws, intent, paths=None, extra=None, fast=False):
-    """propose --fast --solidify; returns (code, out, ms)."""
+    """propose --solidify in an EXPLICIT validation mode; returns (code, out, ms).
+
+    The mode is always passed on the command line rather than left to the CLI
+    default, so that what each cell measures is a property of this file and
+    not of whichever nool build happens to be installed. The default has been
+    full governance at every version this suite has measured -- b4's committed
+    results reject a test-breaking change on the no-flag path from 6.14.1
+    through 7.2.0, while the explicit `--fast` cell accepts it -- so this is a
+    no-op today and is verified as one (b4 outcomes are byte-identical across
+    the change). It is defensive, not a bug fix: the default is undocumented
+    in the sense that nothing pins it, and a silent change to it would
+    otherwise rewrite what "governed" means here without touching this repo.
+    `fast=True` is the deferred-validation path; `fast=False` is the governed
+    path.
+    """
     cmd = ["nool", "propose", "--intent", intent, "--solidify", "--compact"]
-    if fast:
-        cmd += ["--fast"]
+    cmd += ["--fast"] if fast else ["--full"]
     if paths:
         cmd += ["--path", *paths]
     else:

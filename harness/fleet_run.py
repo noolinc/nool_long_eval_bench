@@ -218,6 +218,11 @@ def evolution_summary(rec, tickets, ws):
     merge_errors = sum(1 for i in rec["integration"]
                        if i["clean"] and i["exit_code"] != 0)
     queue_rejected = sum(1 for i in rec["integration"] if i.get("queue_rejected"))
+    # Broken out of queue_rejected: a steering halt is a governance decision
+    # awaiting a role approval, not the code failing a gate. Pooling the two
+    # would let a policy trigger read as a product defect (or vice versa).
+    steer_blocked = sum(1 for i in rec["integration"]
+                        if i.get("rejection_kind") == "steer")
     broken_main = sum(1 for i in rec["integration"]
                       if i.get("post_merge_health")
                       and not (i["post_merge_health"]["build_ok"]
@@ -244,6 +249,7 @@ def evolution_summary(rec, tickets, ws):
         "conflicts": conflicts,
         "merge_errors": merge_errors,
         "queue_rejected": queue_rejected,
+        "steer_blocked": steer_blocked,
         "broken_main_merges": broken_main,
         "secret_hits": sorted({h for i in rec["integration"]
                                if i.get("secret_scan")
@@ -994,6 +1000,26 @@ def _release_propose_lease(ws, ticket):
                ws, timeout=60)
 
 
+def _rejection_kind(out):
+    """Classify WHY nool refused to land a try branch.
+
+    These are different products of the run and must not be pooled. A
+    governance *steering* halt means the change was validated and then held
+    for a human role to approve; a *validation* failure means the Ghost-Run
+    build/test rejected the code itself. Recording both as "validation"
+    (as this harness did through 2026-09-06) attributes a policy decision to
+    the code under test. Observed on nool 7.2.0: the governed profile's
+    pre-solidify `coupling_slope_gt` trigger fires on `try promote` AFTER
+    "[Reify] Full validation passed", so the two are trivially separable in
+    the output and were never the same event.
+    """
+    if "Steering intervention required" in out:
+        return "steer"
+    if "Coordination conflict" in out or "Lease Conflict" in out:
+        return "coordination"
+    return "validation"
+
+
 def _discard_and_release(ws, ticket, name):
     """Cleanup for a rejected try-branch: discard the branch, then release
     the propose-internal lease precisely (see _release_propose_lease) --
@@ -1017,15 +1043,29 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
     arm's lease-gated dispatch is designed to produce."""
     _, pre = sh(["git", "rev-parse", "HEAD"], ws)
     pre = pre.strip()
+    # The validation mode is pinned rather than left to the CLI default, so
+    # this arm's propose step is a property of this file rather than of the
+    # installed build. `--full` is the mode this arm was measured under: the
+    # no-flag default has been full governance at every version this suite
+    # has measured (b4's committed results reject a test-breaking change on
+    # the no-flag path from 6.14.1 through 7.2.0), so every collected
+    # nool_try run — 60/60 on 7.0.0/7.0.1 — used it. Pinning `--fast` here
+    # instead would silently make this a different arm than the one behind
+    # the collected data; it was measured doing exactly that, moving a
+    # scripted-adapter run from 3/8 to 4/8.
     p_code, p_out = sh(["nool", "propose", "--try-branch", name, "--all",
                         "--intent", _propose_intent(ticket),
-                        "--solidify", "--compact"], ws, timeout=300)
+                        "--solidify", "--full", "--compact"], ws, timeout=300)
     if p_code != 0:
         _discard_and_release(ws, ticket, name)
-        print(f"[{run_id}] {ticket['id']} try-propose REJECTED (precheck)",
+        kind = _rejection_kind(p_out)
+        if kind == "validation":
+            kind = "precheck"     # propose-stage validation is the AST precheck
+        print(f"[{run_id}] {ticket['id']} try-propose REJECTED ({kind})",
               flush=True)
         return {"ticket": ticket["id"], "clean": True, "exit_code": p_code,
-                "queue_rejected": True, "post_merge_health": None,
+                "queue_rejected": True, "rejection_stage": "propose",
+                "rejection_kind": kind, "post_merge_health": None,
                 "secret_scan": None,
                 "merge_tail": p_out.strip().splitlines()[-8:]}
     m_code, m_out = sh(["nool", "try", "promote", name, "--compact"], ws,
@@ -1033,10 +1073,12 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
     merge_tail = m_out.strip().splitlines()[-8:]
     if m_code != 0:
         _discard_and_release(ws, ticket, name)
-        print(f"[{run_id}] {ticket['id']} try-promote REJECTED (validation)",
+        kind = _rejection_kind(m_out)
+        print(f"[{run_id}] {ticket['id']} try-promote REJECTED ({kind})",
               flush=True)
         return {"ticket": ticket["id"], "clean": True, "exit_code": m_code,
-                "queue_rejected": True, "post_merge_health": None,
+                "queue_rejected": True, "rejection_stage": "promote",
+                "rejection_kind": kind, "post_merge_health": None,
                 "secret_scan": None, "merge_tail": merge_tail}
     scan = secret_scan(ws, pre)
     h = health(ws)
@@ -1381,6 +1423,16 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
     passed = sum(1 for v in rec["acceptance"].values() if v)
     print(f"[{run_id}] accepted {passed}/{len(tickets)} "
           f"wall={rec['wall_ms']/1000:.0f}s cost=${rec['cost_usd']}", flush=True)
+    # A steering halt suppresses acceptance for a reason that has nothing to
+    # do with the arm's coordination behaviour, so it must never pass by
+    # unremarked in a run log that is read as an arm outcome.
+    _steer = (rec.get("evolution") or {}).get("steer_blocked") or 0
+    if _steer:
+        print(f"[{run_id}] WARNING: {_steer} ticket(s) were held by a "
+              f"governance steering gate, not rejected by validation. This "
+              f"run is NOT a clean arm outcome — resolve the gate (see "
+              f"[steer] in the governance profile) or exclude the run.",
+              flush=True)
     return rec
 
 

@@ -1044,8 +1044,178 @@ confounded with a model change here), light/heavy noise cells, the
 `ambiguous` tier cut, any N other than 25, and any Track B/C re-run on
 Fable.
 
+<a id="sec-8g"></a>
+## 8g. Track D — native-planner arm: `nool_planned` (pre-registered 2026-09-06, before any 8g data)
+
+**Motivation.** Three separate threads in this document converge on the
+same gap. §8c's implementation audit established that the arm named
+`nool_fleet` does not use nool to dispatch: admission is a Python
+set-intersection over corpus-declared footprints, and `announce intent` /
+`discover conflicts` run only after admission is already decided, their
+output recorded but never consulted. §8b designed a condition exercising
+nool's own `fleet plan` disjoint waves; it was never implemented. §8e
+lists six candidate mechanisms for §8d's correlation and discriminates
+among none of them, and its mechanism 1 — nool_gated's live
+announce/release loop "behaves differently under load than the harness's
+static footprint-intersection scheduler" — is precisely a claim about
+*whose scheduler is on the critical path*. In every arm collected to
+date, the answer is: ours. No result in this suite has ever exercised
+nool's own scheduler. This arm changes that and nothing else.
+
+**What the arm is.** `nool_planned`: before dispatch, the harness computes
+the wave partition by calling `nool fleet plan --task <id>=<footprint>
+--width <N> --json` once, then dispatches strictly wave by wave with a
+barrier between waves. Integration is `nool merge`, as in
+`nool_fleet`/`nool_gated`. Agents, prompt, model, worker slots, agent
+timeout, launch stagger, acceptance scoring, and the pinned starter SHA
+are the §8a values, unchanged. `fleet plan` without `--run` is a
+preview-only planner: it spends nothing, launches no agent, and requires
+no ledger state beyond an initialized repo.
+
+**Measured before any run** (2026-09-06, nool 7.2.0, scratch ledger, the
+live `tasks/fleet_service/tickets_v3.json` footprints, exit 0, zero
+spend):
+
+| `--width` | tickets | waves | wave sizes |
+|---|---|---|---|
+| 8 | 60 | 10 | 8, 8, 8, 8, 8, 8, 8, 2, 1, 1 |
+| 25 | 60 | 10 | 25, 7, 6, 7, 5, 5, 2, 1, 1, 1 |
+
+The long tail at `--width 25` is the contended clusters serializing —
+the mechanism under study — and confirms the planner produces a usable,
+non-degenerate partition on the real corpus rather than one wave per
+ticket.
+
+**What it discriminates.** The suite currently varies the integration
+verb but holds the scheduler fixed. Adding this arm completes the
+factorial:
+
+| | harness scheduler | nool `fleet plan` |
+|---|---|---|
+| `git merge` | `git_scheduled` | `git_planned` (ablation, below) |
+| `nool merge` | `nool_fleet` | `nool_planned` (this arm) |
+
+`nool_planned` vs `nool_fleet` isolates the scheduler with the
+integration verb held constant; `nool_planned` vs `git_planned` isolates
+the integration verb with nool's scheduler held constant. Together they
+answer the §8c attribution question — how much of the effect is product
+and how much is the policy we wrote — for the dispatch half, which §8c
+left open.
+
+**A confound, disclosed now rather than discovered later.** nool's
+planner is wave-partitioned with a barrier: every task in wave k finishes
+before wave k+1 starts. The harness's footprint scheduler is
+rolling-greedy: a ticket is admitted the moment its footprint stops
+intersecting the in-flight set. These are different scheduling
+disciplines independent of how disjointness is computed, and a barrier
+alone changes both wall time and the merge queue's input distribution.
+A `nool_planned` effect is therefore attributable to nool's planner *as a
+whole* — disjointness computation and wave discipline together — and not
+to the disjointness computation alone. Isolating those two would need a
+third arm running the harness's own disjointness with a barrier imposed;
+it is named here as a known unresolved layer, not run.
+
+**The `git_planned` ablation.** Identical nool-computed waves, `git merge`
+integration, no nool anywhere in the arm's workspace. The waves are
+computed in a scratch ledger outside the arm's workspace and passed in as
+data, so §8a's contract that "the git control arm must have no
+coordination substrate at all" — machine-enforced by `setup_ws`'s
+assertion that no `.nool` directory exists — holds unchanged. This
+mirrors exactly how `git_scheduled` reuses `nool_fleet`'s scheduler.
+
+**Design.** Fixed factors: harness `claude`, model `claude-sonnet-5`
+(pinned — this arm changes the scheduler, so it must not also change the
+model; §8f's Fable condition is a separate stratum and the frozen
+protocol forbids pooling across model strata); corpus
+`tasks/fleet_service/tickets_v3.json` (`v3.1`, 60 tickets, tier `all`,
+starter pinned by `STARTER_SHA256`); protocol `protocols/fleet_v4.json`
+(sha256 `1524b208…`); N=25 workers — the ladder rung with the most
+sonnet comparators, and the width at which the measured partition above
+has a non-trivial tail. Zero footprint noise: this arm is about the
+scheduler, and §8d's noise dimension is deliberately not crossed with it
+in the first cell. Arms `nool_planned`, `git_planned`, and `nool_fleet`
+(the incumbent comparator, re-run in the same batch rather than compared
+against older reps, so machine state and nool version are shared), 3 reps
+each, ticket-order shuffle seed pinned and shared across arms within a
+rep: 27001 / 27002 / 27003.
+
+```
+python3 harness/fleet_run.py --harness claude --model claude-sonnet-5 \
+    --workers 25 --tickets tickets_v3.json \
+    --arms nool_planned,git_planned,nool_fleet --reps 1 --seed <shuffle>
+```
+
+Runs execute strictly sequentially, one arm at a time, in rep-major order
+so all three arms of rep 1 complete before rep 2 begins; if the budget
+rule stops execution early, whole reps are complete rather than one arm
+being three reps ahead. **Spend cap: $90 of recorded `cost_usd`** at the
+observed $7.5–9.9 per sonnet run for 9 planned runs. A cell left below 3
+reps is reported as budget-censored with the runs it got, never as an arm
+outcome.
+
+**Predictions (falsifiable, recorded before any data).**
+1. `nool fleet plan` returns a partition whose waves are pairwise
+   footprint-disjoint under the corpus-declared footprints in every rep —
+   i.e. it computes at least what the harness scheduler computes. A
+   failure here is a product finding and is reported as one.
+2. `nool_planned` accepts within ±2 tickets of `nool_fleet` at N=25,
+   where `nool_fleet`'s anchor is 60/60. The scheduler is being swapped
+   for one solving the same problem; a large gap means the two disagree
+   about disjointness, which prediction 1 says they should not.
+3. `nool_planned` wall time exceeds `nool_fleet`'s by ≥20%, from the
+   barrier: the measured `--width 25` partition serializes into 10 waves
+   whose last four hold one or two tickets each, so the run cannot finish
+   faster than the sum of ten wave latencies.
+4. `git_planned` accepts strictly fewer tickets than `nool_planned`, with
+   the shortfall being merge conflicts on contended clusters — the same
+   signature `git_scheduled` shows against `nool_fleet`. If instead
+   `git_planned` matches `nool_planned`, the dispatch discipline, not the
+   integration verb, is carrying the effect, and §8c's product attribution
+   narrows sharply.
+
+**Decision rule.** The arm supports "nool's own scheduler reproduces the
+policy result" if predictions 1 and 2 both hold; it falsifies it if
+`nool_planned` accepts ≥5 tickets fewer than `nool_fleet` while
+prediction 1 holds, which would locate the loss in the wave discipline
+rather than in disjointness. Prediction 3 failing (no wall-time cost)
+is reported as a favorable surprise, not as support for anything else.
+Prediction 4 is the §8c attribution read and is reported whichever way it
+goes; with 3 reps it is a directional read under this suite's own "3+"
+convention, not a confirmatory one, and run-level inference uses
+`analysis/summarize.py`'s exact permutation test.
+
+**Blocking precondition (nool 7.2.0, found 2026-09-06).** On nool 7.2.0
+the governed profile's `[steer]` pre-solidify architect trigger
+(`coupling_slope_gt = 0.3`) fires on `nool try promote` and halts it with
+"Steering intervention required at PreSolidify" *after* the Ghost-Run
+reports full validation passed. Scripted-adapter validation puts
+`nool_try` at 3–4 of 8 where 7.0.0/7.0.1 gave 8/8 and 60/60. This arm
+does not use try branches — `fleet plan` is invoked as a planner only and
+integration is `nool merge`, which does not trip the gate — so 8g is not
+blocked by it. It is recorded here because any 8g run batch that also
+re-runs `nool_try` would be contaminated, and because the same gate would
+apply if a later condition used `fleet plan --run`, whose isolation is
+implemented with try branches and `try promote`. The gate must be
+resolved, or held constant across every nool arm, before any try-based
+arm is run again on 7.2.0 or later.
+
+**Out of scope, stated so it is not read in later.** `nool fleet start` —
+nool's builder/reviewer quorum driving the agents themselves — remains
+out of scope exactly as §9 says. It would replace this suite's pinned
+Claude Code agent with nool's own harness backends and its own prompts,
+breaking the model and prompt parity every arm holds constant; it tests a
+different claim and needs its own condition, not this one. Also out of
+scope: any N other than 25, footprint noise crossed with this arm, the
+`ambiguous` tier cut, and any model other than `claude-sonnet-5`.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —
 noted as future condition), knowledge-ledger carryover (Tier 3), human-developer
 baselines, cross-repo enterprise simulations.
+
+Clarification (2026-09-06, on adding §8g): "as the multi-agent driver" is the
+operative phrase and still holds — `nool fleet start`, in which nool's own
+builder/reviewer agents replace this suite's pinned Claude Code agent, stays
+out of scope. §8g uses `nool fleet plan` as a *scheduler* only, with the
+agents unchanged, which is a different surface and is in scope.

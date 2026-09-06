@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: harness validation run under nool 7.2.0: nool_try 3 of 8 blocked at PreSolidify steer, other arms nominal
-knot_id: 9095fd94df863e4b1e31528656d1552f299bd60d86e58f756d2f033884e03da1
-solidified_at: 1788713237307
+intent: pin propose validation mode explicitly in nool arms, classify steer halts separately from validation rejections, pre-register 8g nool_planned native-planner arm
+knot_id: eb3363b01c202cd68466f4ee1b9900851396d3a085d57800d60ed417e2155a86
+solidified_at: 1788714035119
 thread: main
