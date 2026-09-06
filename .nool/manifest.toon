@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: 8i rep 1 nool_gated N=45 d0.5/a0.5 fp-seed 4501 on nool 7.2.0: 51/60 vs 56/60 on 7.0.3 same seed - below pre-registered band, steer_blocked=0 so not profile-confounded
-knot_id: 03d9c19a33ff33d69022725ffce4ae16393cbd37258f156057b56037da170b87
-solidified_at: 1788723634884
+intent: 8i rep 1 git_scheduled N=45 fp-seed 4501 on 7.2.0: 47/60 vs 52/60 on 7.0.3 - both arms down exactly 5, paired gap +4 preserved
+knot_id: 776d86b57f938791fd1126e2bbdf5e86ffab5bb587488be25c3f9f40146c015f
+solidified_at: 1788724033137
 thread: main
