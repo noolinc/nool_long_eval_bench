@@ -33,6 +33,16 @@ trackB:
 summarize:
 	python3 analysis/summarize.py
 
+# Cost-effectiveness over the fleet records (review 2026-09-07 §4): break-even
+# rework cost per matched cell. Numbers only. Override the cost parameters
+# on the command line, e.g. make cost C_HOUR=100 FEE=5
+C_HOUR ?= 0
+C_POISON ?= 0
+FEE ?= 0
+cost:
+	python3 analysis/cost_effectiveness.py --model claude-sonnet-5 --min-reps 2 \
+		--c-hour $(C_HOUR) --c-poison $(C_POISON) --fee $(FEE)
+
 tier1: trackB
 	cd harness && python3 run_experiment.py --harness $(HARNESS) $(MODEL_FLAG) \
 		--tasks redux_go --cells all --reps 1

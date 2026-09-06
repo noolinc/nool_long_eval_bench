@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: 8i rep 2 nool_gated N=45 fp-seed 4502 on 7.2.0: 57/60 in band; git_scheduled rep 2 and all of rep 3 rate-limit aborted with no record written
-knot_id: bda429aa96210d0a31f56cd6038d67059b64b9e9876259d2a6ffc80a8348d12a
-solidified_at: 1788736432951
+intent: setup review vs the enterprise economic question; cost_effectiveness.py prices failed tickets, poisonings, wall time and fee over fleet_runs and reports break-even C_rework per cell; 8i recorded as rate-limit censored; make cost target
+knot_id: 75e747ccc21863c0caed9b7aea0495ea56e5da943ae74f76961962eae5791f14
+solidified_at: 1788737140374
 thread: main

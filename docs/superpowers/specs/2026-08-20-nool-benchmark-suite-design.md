@@ -1408,6 +1408,23 @@ this is a directional read under this suite's own "3+" convention, not a
 confirmatory one; run-level inference uses `analysis/summarize.py`'s exact
 permutation test.
 
+**Outcome (2026-09-06/07): rate-limit censored at one paired rep.** Rep 1
+completed both arms; rep 2 completed `nool_gated` then `git_scheduled` aborted
+on the operator account's provider rate limit; rep 3 aborted at its first arm.
+The harness wrote no record for either aborted run. Under this section's own
+rule the cell is reported as censored, and no direction claim is made. What the
+completed runs show, reported as observations: on fp-seed 4501 both arms moved
+by exactly minus five tickets against their 7.0.3 values (56 to 51, 52 to 47)
+and the paired gap replicated exactly at +4, which is the both-arms-drop case
+the decision rule attributes to a shared cause rather than the product; on
+fp-seed 4502 `nool_gated` returned 57 against 56, in band, so the rep 1 shift
+did not recur. Prediction 4 held in every 7.2.0 run (`steer_blocked` = 0),
+verifying §8h's inertness argument. One nool-specific product finding stands
+independent of the censoring: `nool merge` on ticket t47 in rep 1 failed with
+"SQLite error: database is locked", exit 1, a failure mode the git arm cannot
+exhibit and which the 7.0.3 runs on the same seed did not (ledger `76af4310`).
+The two missing runs remain owed to this section under the same seeds.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —
