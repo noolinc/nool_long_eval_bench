@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: setup review vs the enterprise economic question; cost_effectiveness.py prices failed tickets, poisonings, wall time and fee over fleet_runs and reports break-even C_rework per cell; 8i recorded as rate-limit censored; make cost target
-knot_id: 75e747ccc21863c0caed9b7aea0495ea56e5da943ae74f76961962eae5791f14
-solidified_at: 1788737140374
+intent: pre-register 8j: claude-opus-5 at N=25 very-heavy noise, nool_gated vs git_scheduled, fp-seeds 2501-2503 shared with 8f, cap 180 USD, preflight OK at 0.082 USD
+knot_id: fbd388ed951b3481ab1f424b01295d91e6d7a8c2e185cb36d9ee0c92b1b49dbe
+solidified_at: 1788738014311
 thread: main

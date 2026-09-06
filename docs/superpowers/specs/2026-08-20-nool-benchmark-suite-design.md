@@ -1425,6 +1425,100 @@ independent of the censoring: `nool merge` on ticket t47 in rep 1 failed with
 exhibit and which the 7.0.3 runs on the same seed did not (ledger `76af4310`).
 The two missing runs remain owed to this section under the same seeds.
 
+<a id="sec-8j"></a>
+## 8j. Track D — second-model stratum: Claude Opus 5 at N=25, very-heavy noise (pre-registered 2026-09-07, before any Opus data)
+
+**Motivation.** H7 (portability) is still untested for the fleet track: every
+result with evidence weight is `claude-sonnet-5`. §8f pre-registered Claude
+Fable 5.1 for this purpose and has not run; this section does not replace it.
+It adds a second model of a different tier and agentic profile — Claude Opus 5,
+`claude-opus-5`, priced at $5 / $25 per MTok (2.5× sonnet-5's $2 / $10),
+adaptive thinking on by default — to the very-heavy-noise cell, where §8d's
+separation is largest and a model-specific effect would be most visible.
+
+**Design.** Fixed factors as §8f except the model: harness `claude`
+(`--setting-sources project,local`), model `claude-opus-5` pinned with
+`model_reported` recorded per agent; nool 7.2.0; corpus
+`tasks/fleet_service/tickets_v3.json` (`v3.1`, 60 tickets, tier `all`,
+starter pinned by `STARTER_SHA256`); protocol `protocols/fleet_v4.json`
+(sha256 `1524b208…`); N=25 workers, as directed by the operator; arms
+`nool_gated` vs `git_scheduled`; one cell, very-heavy noise
+`--fp-noise-drop 0.5 --fp-noise-add 0.5`; 3 reps. **The fp-noise seeds are
+the ones §8f reserved for this cell — 2501 / 2502 / 2503 — so that a future
+Fable run sees the identical perturbation and the two model strata compare
+directly.** Shuffle seeds 25011 / 25012 / 25013, pinned and shared across arms
+within a rep.
+
+```
+python3 harness/fleet_run.py --harness claude --model claude-opus-5 \
+    --workers 25 --tickets tickets_v3.json --arms nool_gated,git_scheduled \
+    --reps 1 --fp-noise-drop 0.5 --fp-noise-add 0.5 \
+    --fp-noise-seed <2501|2502|2503> --seed <25011|25012|25013>
+```
+
+**Two limits, disclosed now.** (1) *No zero-noise anchor.* §8f ran both an
+anchor and a noise cell so a degradation slope could be computed per model;
+this section runs the noise cell only, so what it can read is the **paired
+gap under noise** for Opus, not how far Opus degraded to get there. The anchor
+is a natural follow-on and is not run here. (2) *No same-N sonnet comparator
+for this arm pair.* Sonnet's very-heavy data for `nool_gated`/`git_scheduled`
+sits at N=20 (mean gap +4.0), N=35 (+1.5), N=40 (+3.0) and N=45 (+7.0), not
+N=25. The cross-model read is therefore descriptive; the within-batch paired
+comparison is the only controlled one, and it is the one the predictions are
+about. The frozen protocol forbids pooling across model strata.
+
+**Preflight.** Before rep 1, a one-turn headless call on `claude-opus-5`
+verifies that the model id resolves and the account has headroom (the
+operator's account hit its rolling limit during §8i hours earlier); its cost
+is recorded in the run log. Run 2026-09-07: `OK`, $0.082 (sonnet-equivalent
+≈ $0.035 at §8f's ratio), with `modelUsage` listing `claude-haiku-4-5`
+alongside `claude-opus-5` because the Claude Code CLI uses Haiku for auxiliary
+calls regardless of `--model` — a component constant across arms and models,
+so it does not bias the paired comparison, though prediction 4's ratio is
+measured on total cost including that share. A run that dies for an
+infrastructure reason writes no record, as in §8f.
+
+**Execution and budget.** Strictly sequential, one arm at a time, rep-major.
+Sonnet very-heavy runs cost $6.8–8.6 at N=20–45; at 2.5× per token and equal
+token counts an Opus run projects to ~$17–22, and adaptive thinking may raise
+that. Six runs project to ~$100–130. **Spend cap: $180 of recorded
+`cost_usd`.** Before each invocation, if cumulative spend plus twice the mean
+cost of completed runs would exceed the cap, execution stops; a cell below 3
+reps is reported as budget-censored with the runs it got. N=25 runs unguarded
+with the launch stagger, per §8a's resolution of the memory ceiling.
+
+**Predictions (falsifiable, recorded before any data).**
+1. The paired gap `nool_gated − git_scheduled` is positive in at least two of
+   three reps, and its mean is positive. This is the H7 claim for this cell.
+2. Both arms' acceptance falls in 40–58 of 60 — sonnet's very-heavy range
+   across N=20–45 (45–56) widened by ±3 for a different model's baseline
+   competence. An arm outside this band means the model, not the coordination
+   layer, is the story, and transcripts are inspected before any claim.
+3. `steer_blocked` = 0 in every `nool_gated` run (§8h's inertness, re-tested
+   on a second model).
+4. Opus cost per run lands within 1.5× to 4× of the sonnet very-heavy mean
+   ($7.7). This is a sanity bound on the pricing assumption behind the cap,
+   not a claim about the coordination layer; outside it, the budget rule
+   above still governs.
+
+**Decision rule.** Prediction 1 holding replicates the §8d direction on a
+second model and upgrades the paper's wording from "one model" to "two models
+of different tiers" for the very-heavy cell only. Prediction 1 failing (mean
+gap ≤ 0) re-labels the §8d/§8e-i advantage sonnet-specific until a third model
+says otherwise. Prediction 2 failing for one arm is reported with that arm's
+failure taxonomy and the cell is still analysed; failing for both arms
+suspends the direction read pending transcript inspection. Model drift was
+observed on sonnet on 2026-09-06 (both arms −5 on identical inputs across a
+five-day gap); the same-batch paired design is the defence, and no comparison
+in this section crosses a batch. Three reps is a directional read under this
+suite's "3+" convention; run-level inference uses `analysis/summarize.py`'s
+exact permutation test, and the cost-effectiveness read uses
+`analysis/cost_effectiveness.py --model claude-opus-5`.
+
+**Out of scope, stated so it is not read in later.** The zero-noise anchor
+for Opus, any N other than 25, light and heavy noise, `git_competitive`, and
+any Track B or C re-run on Opus.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —
