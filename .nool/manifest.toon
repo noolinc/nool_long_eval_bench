@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: 8g rep 1 nool_planned N=35 corpus v3.1: 59/60 headline, 60/60 conditional (t21 corpus artifact), zero conflicts, 10 disjoint waves, 616s, $6.58
-knot_id: 027a6d68ce5920cdb1ca7be0cc7439e45b91ed5368629c5b2a285ec14aff128c
-solidified_at: 1788718168452
+intent: 8g rep 1 git_planned N=35: 59/60 headline, 60/60 conditional, ZERO merge conflicts under plain git merge on nool-computed disjoint waves - prediction 4 falsified
+knot_id: 4d57b3b09874b4ea6e3b0cc607aaed2fb5216612456908e3de480b530872480f
+solidified_at: 1788718972809
 thread: main
