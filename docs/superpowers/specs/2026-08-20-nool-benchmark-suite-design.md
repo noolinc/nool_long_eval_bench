@@ -1179,10 +1179,13 @@ budget-censored with the runs it got, never as an arm outcome.
    footprint-disjoint under the corpus-declared footprints in every rep —
    i.e. it computes at least what the harness scheduler computes. A
    failure here is a product finding and is reported as one.
-2. `nool_planned` accepts within ±2 tickets of `nool_fleet` at N=25,
-   where `nool_fleet`'s anchor is 60/60. The scheduler is being swapped
-   for one solving the same problem; a large gap means the two disagree
-   about disjointness, which prediction 1 says they should not.
+2. `nool_planned` accepts within ±2 tickets of `nool_fleet` at N=35,
+   whose sonnet anchor on corpus v3 is 60/60 in four of five collected
+   reps and 59/60 in the fifth — and within ±2 of the `nool_fleet` reps
+   run in this same batch, which is the comparison that actually controls
+   for machine state and nool version. The scheduler is being swapped for
+   one solving the same problem; a large gap means the two disagree about
+   disjointness, which prediction 1 says they should not.
 3. `nool_planned` wall time exceeds `nool_fleet`'s by ≥20%, from the
    barrier: the measured `--width 25` partition serializes into 10 waves
    whose last four hold one or two tickets each, so the run cannot finish
