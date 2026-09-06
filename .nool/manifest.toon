@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: 8g rep 2 nool_fleet N=35 seed 27002: 60/60, 354s - rep 2 complete, all three arms 60/60 zero conflicts
-knot_id: 4f060673ae1c320c3c47319facdf315d02c00a36229c355a8d823e84d161edb5
-solidified_at: 1788721278700
+intent: 8g rep 3 nool_planned N=35 seed 27003: 59/60 headline 60/60 conditional, 609s, waves [28,7,6,5,5,4,2,1,1,1] disjoint
+knot_id: aa843286065ddba9019e80f85edbf3d7328bbe681e5fa475c0723ad0b0ac5468
+solidified_at: 1788722545601
 thread: main
