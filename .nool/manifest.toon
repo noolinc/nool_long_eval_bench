@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: paper 5.9: exploratory, NOT pre-registered — crosses the concurrency and footprint-noise axes (nool_gated vs git_scheduled, corpus v3.1, very-heavy noise 0.5/0.5, N=35/40/45, n=2-3 reps). Gap 2.5/5.0/11.7 pp, larger at N=45 than the 6.7 pp maximum at fixed N=20 in 5.7, but non-monotonic point-to-point and below this suite's 3+/5+ replication convention. Records the unexplained wall-time reversal at N=40/45 as an observation, not a mechanism claim
-knot_id: b790b0882e1697b2727ac07959197709a5ff5c2a0db172d249feb3412f4f1fd0
-solidified_at: 1788666935186
+intent: harness validation run under nool 7.2.0: nool_try 3 of 8 blocked at PreSolidify steer, other arms nominal
+knot_id: 9095fd94df863e4b1e31528656d1552f299bd60d86e58f756d2f033884e03da1
+solidified_at: 1788713237307
 thread: main
