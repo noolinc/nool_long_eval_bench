@@ -53,10 +53,17 @@ def b1():
     table(rows, ["hook", "median_ms", "p90_ms"])
     rows = []
     for size, c in d["landing_a_change"].items():
-        rows.append([size, c["git_add_commit"]["median_ms"],
-                     c["nool_propose_fast_solidify"]["median_ms"],
-                     c.get("nool_auto_justify_used", False), c["nool_nonzero_exits"]])
-    table(rows, ["change", "git_ms", "nool_ms", "auto_justify", "nool_fails"])
+        g = c["git_add_commit"]["median_ms"]
+        fast = c["nool_propose_fast_solidify"]["median_ms"]
+        full = (c.get("nool_propose_full_solidify") or {}).get("median_ms")
+        rows.append([size, g, fast, f"{fast / g:.1f}x" if g else "-",
+                     full if full is not None else "-",
+                     f"{full / g:.1f}x" if (full is not None and g) else "-",
+                     c["nool_nonzero_exits"], c.get("nool_full_nonzero_exits", "-")])
+    # Ratios are rendered, not left to the reader: the landing figure quoted in
+    # the README drifted from this table unnoticed once already.
+    table(rows, ["change", "git_ms", "fast_ms", "fast_x", "full_ms", "full_x",
+                 "fast_fails", "full_fails"])
 
 
 def b2():

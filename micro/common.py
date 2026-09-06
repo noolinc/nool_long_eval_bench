@@ -81,9 +81,29 @@ def version_of(cmd):
         return f"unavailable: {e}"
 
 
+def load_average():
+    """1/5/15-minute load, and cores, so a run on a busy box is self-evident.
+
+    The git arm is the control: if the machine is loaded, *both* arms inflate
+    and the absolute medians stop being comparable across runs. A 7.1.3 re-run
+    during a concurrent `rustc` build (load 119 on 10 cores) moved git's own
+    commit latency 22ms -> 48ms, which no Nool version could have caused.
+    """
+    try:
+        one, five, fifteen = os.getloadavg()
+        cores = os.cpu_count() or 1
+        return {"load_1m": round(one, 2), "load_5m": round(five, 2),
+                "load_15m": round(fifteen, 2), "cpu_count": cores,
+                "load_per_core_1m": round(one / cores, 2),
+                "quiet": (one / cores) < 1.5}
+    except Exception as e:
+        return {"error": str(e), "quiet": None}
+
+
 def provenance():
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "system_load": load_average(),
         "platform": platform.platform(),
         "machine": platform.machine(),
         "nool_version": version_of(["nool", "--version"]),
@@ -111,7 +131,16 @@ def summarize_ms(samples):
 
 def emit(name, payload):
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    payload = {"benchmark": name, "provenance": provenance(), **payload}
+    prov = provenance()
+    load = prov.get("system_load", {})
+    if load.get("quiet") is False:
+        print(f"[{name}] WARNING: machine is not quiet "
+              f"(load {load.get('load_1m')} on {load.get('cpu_count')} cores = "
+              f"{load.get('load_per_core_1m')}/core). Absolute medians in this "
+              f"result are inflated in BOTH arms and are not comparable with "
+              f"results collected on an idle machine. Re-run when quiet before "
+              f"citing these numbers.")
+    payload = {"benchmark": name, "provenance": prov, **payload}
     out = RESULTS_DIR / f"{name}.json"
     out.write_text(json.dumps(payload, indent=1) + "\n")
     print(f"[{name}] wrote {out}")
@@ -130,3 +159,38 @@ class TempRoot:
 
     def __exit__(self, *exc):
         shutil.rmtree(self.path, ignore_errors=True)
+
+# A bare `git commit` does almost no work, while `nool propose --solidify`
+# parses syntax, registers entities, evaluates blast radius and runs the policy
+# gate. Comparing the two overstates Nool's overhead. These hooks give git a
+# like-for-like baseline: the "fast" stack mirrors Nool's fast path (syntax
+# precheck + policy gate), the "full" stack adds a toolchain check standing in
+# for reification. Neither signs -- no GPG key is assumed -- so both git arms
+# still do strictly less than Nool, and the ratios remain an upper bound.
+PRECOMMIT_FAST = r"""#!/bin/sh
+set -e
+changed=$(git diff --cached --name-only --diff-filter=ACM | grep '\.go$' || true)
+[ -z "$changed" ] && exit 0
+# syntax/AST precheck
+unformatted=$(gofmt -l $changed || true)
+[ -n "$unformatted" ] && { echo "gofmt: $unformatted"; exit 1; }
+# policy gate: forbidden paths + change-width guard
+for f in $changed; do
+  case "$f" in secrets/*|*.pem) echo "forbidden path: $f"; exit 1;; esac
+done
+n=$(printf '%s\n' $changed | wc -l | tr -d ' ')
+[ "$n" -gt 500 ] && { echo "change too wide: $n files"; exit 1; }
+exit 0
+"""
+
+PRECOMMIT_FULL = PRECOMMIT_FAST.replace(
+    "exit 0\n", "go vet ./... >/dev/null 2>&1 || true\nexit 0\n")
+
+
+def install_precommit(ws, stack="fast"):
+    """Install a pre-commit hook so the git arm does comparable work."""
+    hook = Path(ws) / ".git" / "hooks" / "pre-commit"
+    hook.parent.mkdir(parents=True, exist_ok=True)
+    hook.write_text(PRECOMMIT_FAST if stack == "fast" else PRECOMMIT_FULL)
+    hook.chmod(0o755)
+    return hook

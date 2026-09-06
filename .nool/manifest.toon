@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Pre-register §8f: Fable 5.1 / nool 7.1.0 model-generalization replication at N=25 (before any Fable data)
-knot_id: b104d97d69304e9a363a84686d55ec35b2c6b4d8084c71c520692f6ca57d06ca
-solidified_at: 1788488055729
+intent: b1: split fast/full modes and fix the auto-justify threshold; add hooked-git baselines; b3: record deliberately skipped arms; common: capture system load and warn on noisy runs; refresh all Track B results on nool 7.1.4 (quiet machine)
+knot_id: 3d888c737b76f4bd86c58cc2ea5695fe5f7ad72d886ac728d7bc794a8a142991
+solidified_at: 1788666724481
 thread: main

@@ -81,13 +81,21 @@ VARIANTS = {
 
 def main():
     reps = {}
+    skipped = {}
     with TempRoot("b3") as root:
         for variant, l4_thread in VARIANTS.items():
             arms = {"git": [], "nool": []}
             reps[variant] = arms
             for arm in ("git", "nool"):
                 if arm == "git" and variant == "threaded_timeline":
-                    continue  # git has no thread concept; linear covers it
+                    # git has no thread concept; linear_timeline is its
+                    # comparable cell. Recorded explicitly rather than left as a
+                    # bare empty list, so a reader of the JSON can tell "skipped
+                    # by design" from "the arm failed to run".
+                    skipped[f"{variant}/{arm}"] = (
+                        "git has no thread concept; see linear_timeline for the "
+                        "git-comparable recovery cell")
+                    continue
                 for rep in range(REPS):
                     ws = make_workspace(root, f"{variant}_{arm}_{rep}",
                                         nool=(arm == "nool"))
@@ -105,7 +113,8 @@ def main():
                         "output_tail": out.strip().splitlines()[-3:],
                     })
                     print(f"[b3] {variant} {arm} rep {rep} done")
-    emit("b3_recovery", {"config": {"reps": REPS}, "variants": reps})
+    emit("b3_recovery", {"config": {"reps": REPS}, "variants": reps,
+                         "skipped_arms": skipped})
 
 
 if __name__ == "__main__":

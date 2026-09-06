@@ -49,8 +49,10 @@ The short version of what a week of testing found:
 - Nool's mechanism-level tests also show real, measurable wins in
   tracking who-changed-what under heavy concurrency and in undoing a bad
   change without losing later good ones — alongside a real cost:
-  landing a change through Nool takes roughly 7-10x longer than through
-  plain git.
+  landing a change through Nool takes roughly 6x longer than a git commit
+  that runs a comparable pre-commit stack (11x for a 100-file change), in
+  fast mode. The absolute figure — a few hundred milliseconds — sits
+  inside the noise of the model call that precedes any agent commit.
 
 Everything below is the full, unedited methodology and data behind those
 four bullets, written for readers who want to check the work.
@@ -184,12 +186,51 @@ rates are what carry over to a differently-sized corpus, counts don't.
    without losing later good work succeeded in every recent test
    (**100%**, was **0%** on older versions); merges among many
    contended branches also now converge cleanly every time (**100%**,
-   was **7%** = git-equivalent, on older versions). One tool
-   (bisect, for tracing which change caused a bug) got worse in the
-   newest version tested and is a known open issue. The costs: landing
-   a change through Nool takes roughly **7–10x** longer than through
-   plain git, and this study found and reported several real product
-   bugs along the way (most already fixed by the vendor).
+   was **7%** = git-equivalent, on older versions). Regression
+   localization (bisect), a known open issue on earlier versions, works
+   again on 7.1.4: it named the culprit knot in `1617 ms` against git
+   bisect's `1979 ms`. The costs: landing a change through Nool takes
+   roughly **6x** longer than a git commit running a comparable
+   pre-commit stack — `250–483 ms` fast-mode vs `40–45 ms` hooked git
+   (`23–26 ms` bare) — rising to **11x** for a 100-file change, and
+   **10–15x** in full mode against a `go vet` baseline. Measured on
+   nool 7.1.4 on an idle machine (`quiet: true`). At a few hundred
+   milliseconds absolute this is dominated by the model call that
+   precedes any agent commit. This study found and reported several real product bugs along
+   the way (most already fixed by the vendor).
+
+   *Baseline fairness (2026-09-05).* A bare `git add && git commit` does
+   almost no work, while `nool propose --solidify` parses syntax, registers
+   entities, evaluates blast radius and runs the policy gate — so quoting a
+   ratio against bare git overstates Nool's overhead. `b1` now also runs
+   **hooked git** arms: `git_precommit_fast` (a pre-commit hook doing a
+   `gofmt` syntax precheck plus a forbidden-path / change-width policy gate,
+   mirroring Nool's fast path) and `git_precommit_full` (adds `go vet`,
+   standing in for reification). Against that baseline the fast-mode ratio
+   falls to roughly **6x** (11x at 100 files) rather than the 10–20x a
+   bare-git comparison implies, because a realistic enterprise pre-commit
+   stack already costs about 2x a bare commit. Two
+   honest limits: neither git arm signs (no GPG key is assumed), so both
+   still do strictly less than Nool and the ratios remain an upper bound;
+   and `go vet` on a tiny synthetic repo is far cheaper than real
+   reification, so `git_precommit_full` understates a genuine full-mode
+   baseline. **The hooked-arm figures above were collected on a loaded
+   machine (`quiet: false`) and need a re-run on an idle box before they
+   are cited.**
+
+   *Measurement correction (2026-09-05).* An earlier revision of `b1`
+   quoted 7–10x from a cell that did not measure what its name claimed.
+   `nool_land()` defaults to `fast=False` and the caller never passed
+   `fast=True`, so the field recorded as `nool_propose_fast_solidify` was
+   timing **full** mode. Separately, `--auto-justify` was gated on
+   `n_files >= 100` on the assumption that the blast-radius gate trips
+   near 100 nodes; 10 Go files in fact produce 16 nodes and trip the
+   "Ask" band at 15, so all 10 reps of the 10-file cell exited 2 and the
+   recorded 28.53 ms was the latency of a **refused** propose, not a
+   landing. `b1` now runs both modes explicitly, applies `--auto-justify`
+   to every cell (a no-op below the band), and records
+   `nool_full_nonzero_exits` alongside the fast count; `summarize.py`
+   renders both ratios so this figure cannot drift unnoticed again.
 7. **Without any deliberate contention, nothing separates the two.**
    Run agents on a workload with no designed overlap at all and Nool
    and git perform identically on every metric measured, every time —
@@ -383,6 +424,34 @@ if quota allows. External benchmark adaptations (CooperBench,
 SlopCodeBench) are Tier 2 — see the spec.
 
 ## Threats to validity
+
+**Known observation — `nool query context` misses at file granularity.**
+In B6, `nool_query_context_symbol` and `nool_query_search` both retrieve the
+ground truth (`ratelimit.go#ApplyRateLimit`) at 163 and 245 bytes against the
+grep-and-read baseline's 658, but `nool_query_context_file` returns
+`hit: false`. File-level is the more natural first reach for an agent, so the
+token-efficiency result should be read as conditional on querying by symbol.
+
+**Known gap — the coordination arms assume identity is configured correctly.**
+`nool_gated` measures Nool with each agent under a distinct coordination
+identity. Nool's coordination checks are identity-scoped and the default
+identity is the *operator*, so co-located agents launched without a distinct
+`NOOL_AGENT_ID` (or the per-command `--as-agent` / `--agent-id`, which differ
+by verb and are not all fed by the environment variable) share one identity and
+every check passes vacuously: `discover conflicts` returns 0 against a live
+foreign lease, and two *exclusive* leases can be granted on the same path.
+A deployment in that state behaves as `git_scheduled` while believing it is
+`nool_gated` — and by finding (2) above those two arms are **indistinguishable
+whenever footprints are accurate**, so the misconfiguration stays invisible
+until footprints degrade, which is the exact condition Nool is adopted for.
+A suite run by the tool's author configures identity correctly by reflex;
+production will not. The suite currently has no arm for this. The missing cell
+is a third coordination arm — `nool_shared_identity`, identical to
+`nool_gated` but with every agent inheriting the operator identity — run across
+the same §8d footprint-noise ladder. The prediction on record: it tracks
+`nool_gated` at perfect footprints and collapses toward `git_scheduled` as
+noise rises. Until it is run, the reported Nool-vs-git gap should be read as
+an upper bound conditional on correct identity configuration.
 
 Disclosed in the spec ([§7](docs/findings/2026-08-21-findings.md#sec-7)) and repeated here: this is a vendor-run
 evaluation, pre-registered to mitigate that (spec hash pinned and

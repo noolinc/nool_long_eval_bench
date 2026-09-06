@@ -1,10 +1,18 @@
 {
  "benchmark": "b6_context_retrieval",
  "provenance": {
-  "timestamp_utc": "2026-09-01T13:30:41.956538+00:00",
+  "timestamp_utc": "2026-09-06T02:58:10.527039+00:00",
+  "system_load": {
+   "load_1m": 5.64,
+   "load_5m": 4.64,
+   "load_15m": 11.4,
+   "cpu_count": 12,
+   "load_per_core_1m": 0.47,
+   "quiet": true
+  },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.0.3",
+  "nool_version": "nool 7.1.4",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -19,7 +27,7 @@
  "queries": {
   "nool_query_search": {
    "bytes": 245,
-   "wall_ms": 13.5,
+   "wall_ms": 13.6,
    "hit": true,
    "exit_code": 0,
    "head": [
@@ -29,7 +37,7 @@
   },
   "nool_query_context_file": {
    "bytes": 239,
-   "wall_ms": 13.4,
+   "wall_ms": 13.3,
    "hit": false,
    "exit_code": 0,
    "head": [
@@ -39,7 +47,7 @@
   },
   "nool_query_context_symbol": {
    "bytes": 163,
-   "wall_ms": 12.9,
+   "wall_ms": 13.8,
    "hit": true,
    "exit_code": 0,
    "head": [
@@ -49,12 +57,12 @@
   },
   "nool_search_then_context": {
    "bytes": 408,
-   "wall_ms": 26.4,
+   "wall_ms": 27.4,
    "hit": true
   },
   "baseline_grep_read": {
-   "bytes": 660,
-   "wall_ms": 14.7,
+   "bytes": 658,
+   "wall_ms": 14.6,
    "hit": true,
    "files_read": 2
   },

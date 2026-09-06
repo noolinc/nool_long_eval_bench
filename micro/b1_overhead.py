@@ -11,7 +11,9 @@ Reports medians over repeated runs. Numbers only; no interpretation.
 
 import json
 
-from common import (TempRoot, emit, git_commit_all, make_workspace, nool_land,
+from common import (
+    TempRoot, emit, git_commit_all, install_precommit, make_workspace,
+    nool_land,
                     run, summarize_ms)
 
 HOOK_REPS = 20
@@ -60,25 +62,55 @@ def bench_commit_paths(root):
     for n_files, reps in COMMIT_REPS.items():
         git_ws = make_workspace(root, f"git_{n_files}")
         nool_ws = make_workspace(root, f"nool_{n_files}", nool=True)
-        git_ms, nool_ms, nool_fail = [], [], 0
+        full_ws = make_workspace(root, f"noolfull_{n_files}", nool=True)
+        # Like-for-like git baselines: bare git does almost no work, so the
+        # hooked arms give git a comparable syntax-check + policy-gate stack.
+        hookf_ws = make_workspace(root, f"githookfast_{n_files}")
+        hookF_ws = make_workspace(root, f"githookfull_{n_files}")
+        install_precommit(hookf_ws, "fast")
+        install_precommit(hookF_ws, "full")
+        git_ms, fast_ms, full_ms = [], [], []
+        hookf_ms, hookF_ms = [], []
+        fast_fail = full_fail = 0
         for rep in range(reps):
             write_change(git_ws, n_files, rep)
             _, _, ms = git_commit_all(git_ws, f"rep {rep}")
             git_ms.append(ms)
+            write_change(hookf_ws, n_files, rep)
+            _, _, ms = git_commit_all(hookf_ws, f"rep {rep}")
+            hookf_ms.append(ms)
+            write_change(hookF_ws, n_files, rep)
+            _, _, ms = git_commit_all(hookF_ws, f"rep {rep}")
+            hookF_ms.append(ms)
+            # The blast-radius "Ask" band starts at 15 nodes, and 10 Go files
+            # already produce 16 nodes -- an earlier revision gated
+            # --auto-justify on n_files >= 100 and so recorded the latency of a
+            # *refused* propose (exit 2) for the 10-file cell rather than a
+            # landing. --auto-justify is the sanctioned non-interactive path and
+            # is a no-op below the band, so it is applied to every cell.
+            extra = ["--auto-justify"]
             write_change(nool_ws, n_files, rep)
-            # ≥~100 nodes trips nool's blast-radius gate in non-interactive
-            # mode; --auto-justify is the sanctioned wide-change path, so the
-            # 100-file cell measures that path (recorded in the cell).
-            extra = ["--auto-justify"] if n_files >= 100 else None
-            code, _, ms = nool_land(nool_ws, f"rep {rep}", extra=extra)
-            nool_ms.append(ms)
+            code, _, ms = nool_land(nool_ws, f"rep {rep}", extra=extra, fast=True)
+            fast_ms.append(ms)
             if code != 0:
-                nool_fail += 1
+                fast_fail += 1
+            # Full mode is a different product path (deferred validation vs
+            # reification). Recorded separately: an earlier revision passed no
+            # --fast at all while naming the field "..._fast_solidify".
+            write_change(full_ws, n_files, rep)
+            code, _, ms = nool_land(full_ws, f"rep {rep}", extra=extra, fast=False)
+            full_ms.append(ms)
+            if code != 0:
+                full_fail += 1
         out[f"{n_files}_files"] = {
             "git_add_commit": summarize_ms(git_ms),
-            "nool_propose_fast_solidify": summarize_ms(nool_ms),
-            "nool_auto_justify_used": n_files >= 100,
-            "nool_nonzero_exits": nool_fail,
+            "git_precommit_fast": summarize_ms(hookf_ms),
+            "git_precommit_full": summarize_ms(hookF_ms),
+            "nool_propose_fast_solidify": summarize_ms(fast_ms),
+            "nool_propose_full_solidify": summarize_ms(full_ms),
+            "nool_auto_justify_used": True,
+            "nool_nonzero_exits": fast_fail,
+            "nool_full_nonzero_exits": full_fail,
         }
     return out
 

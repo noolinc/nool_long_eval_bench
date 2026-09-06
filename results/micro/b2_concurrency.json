@@ -1,10 +1,18 @@
 {
  "benchmark": "b2_concurrency",
  "provenance": {
-  "timestamp_utc": "2026-09-01T13:29:30.736325+00:00",
+  "timestamp_utc": "2026-09-06T02:56:56.689940+00:00",
+  "system_load": {
+   "load_1m": 5.74,
+   "load_5m": 4.39,
+   "load_15m": 11.91,
+   "cpu_count": 12,
+   "load_per_core_1m": 0.48,
+   "quiet": true
+  },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.0.3",
+  "nool_version": "nool 7.1.4",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -23,61 +31,61 @@
  },
  "cells": {
   "git_n2": {
-   "wall_time_ms": 478.1,
+   "wall_time_ms": 665.3,
    "ops_expected": 12,
    "ops_landed": 12,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 2,
-   "total_retries": 3,
+   "ops_swept_into_other_commit": 4,
+   "total_retries": 8,
    "op_latency": {
     "n": 12,
-    "median_ms": 39.02,
-    "p10_ms": 31.16,
-    "p90_ms": 39.77,
-    "min_ms": 31.16,
-    "max_ms": 48.69
+    "median_ms": 37.94,
+    "p10_ms": 30.93,
+    "p90_ms": 39.52,
+    "min_ms": 30.93,
+    "max_ms": 42.11
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 10
+   "history_entries_added": 8
   },
   "git_n5": {
-   "wall_time_ms": 1044.9,
+   "wall_time_ms": 935.5,
    "ops_expected": 30,
    "ops_landed": 30,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 14,
-   "total_retries": 28,
+   "ops_swept_into_other_commit": 15,
+   "total_retries": 20,
    "op_latency": {
     "n": 30,
-    "median_ms": 37.74,
-    "p10_ms": 16.06,
-    "p90_ms": 43.99,
-    "min_ms": 15.59,
-    "max_ms": 48.44
+    "median_ms": 37.27,
+    "p10_ms": 31.51,
+    "p90_ms": 42.92,
+    "min_ms": 17.06,
+    "max_ms": 47.76
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 16
+   "history_entries_added": 15
   },
   "git_n15": {
-   "wall_time_ms": 1367.6,
+   "wall_time_ms": 1396.1,
    "ops_expected": 90,
    "ops_landed": 90,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 56,
-   "total_retries": 74,
+   "ops_swept_into_other_commit": 52,
+   "total_retries": 65,
    "op_latency": {
     "n": 90,
-    "median_ms": 55.05,
-    "p10_ms": 35.48,
-    "p90_ms": 75.37,
-    "min_ms": 27.12,
-    "max_ms": 99.91
+    "median_ms": 65.77,
+    "p10_ms": 41.17,
+    "p90_ms": 84.84,
+    "min_ms": 30.62,
+    "max_ms": 96.09
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 34
+   "history_entries_added": 38
   },
   "nool_n2": {
-   "wall_time_ms": 755.4,
+   "wall_time_ms": 747.2,
    "ops_expected": 12,
    "ops_landed": 12,
    "writers_gave_up": 0,
@@ -85,17 +93,17 @@
    "total_retries": 0,
    "op_latency": {
     "n": 12,
-    "median_ms": 119.08,
-    "p10_ms": 94.28,
-    "p90_ms": 147.35,
-    "min_ms": 94.28,
-    "max_ms": 170.09
+    "median_ms": 119.7,
+    "p10_ms": 95.5,
+    "p90_ms": 127.42,
+    "min_ms": 95.5,
+    "max_ms": 157.13
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 12
   },
   "nool_n5": {
-   "wall_time_ms": 1599.5,
+   "wall_time_ms": 1701.1,
    "ops_expected": 30,
    "ops_landed": 30,
    "writers_gave_up": 0,
@@ -103,17 +111,17 @@
    "total_retries": 0,
    "op_latency": {
     "n": 30,
-    "median_ms": 151.35,
-    "p10_ms": 105.39,
-    "p90_ms": 498.47,
-    "min_ms": 98.07,
-    "max_ms": 876.48
+    "median_ms": 199.02,
+    "p10_ms": 113.72,
+    "p90_ms": 454.82,
+    "min_ms": 99.37,
+    "max_ms": 786.24
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 30
   },
   "nool_n15": {
-   "wall_time_ms": 4325.0,
+   "wall_time_ms": 4268.2,
    "ops_expected": 90,
    "ops_landed": 90,
    "writers_gave_up": 0,
@@ -121,11 +129,11 @@
    "total_retries": 0,
    "op_latency": {
     "n": 90,
-    "median_ms": 438.27,
-    "p10_ms": 239.11,
-    "p90_ms": 1034.24,
-    "min_ms": 117.98,
-    "max_ms": 1940.55
+    "median_ms": 450.87,
+    "p10_ms": 213.1,
+    "p90_ms": 1123.65,
+    "min_ms": 150.04,
+    "max_ms": 1898.52
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 90
