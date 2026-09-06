@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: implement 8g: nool_planned and git_planned arms dispatched from nool fleet plan waves with a barrier; scratch-ledger planner keeps the git arm substrate-free
-knot_id: 5bf43b25d1fca272c4168685bb76dee14ee59885a97a85bcdedca579af20ae03
-solidified_at: 1788715298747
-thread: main
+intent: Release: 1.0.0
+knot_id: 9e307eca8485c970d26736decfced54cc026536eb4b176df70ebcc9cab854023
+solidified_at: 1788717173649
+thread: 
