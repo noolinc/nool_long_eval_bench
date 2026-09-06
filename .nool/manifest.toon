@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: pre-register 8j: claude-opus-5 at N=25 very-heavy noise, nool_gated vs git_scheduled, fp-seeds 2501-2503 shared with 8f, cap 180 USD, preflight OK at 0.082 USD
-knot_id: fbd388ed951b3481ab1f424b01295d91e6d7a8c2e185cb36d9ee0c92b1b49dbe
-solidified_at: 1788738014311
+intent: 8j rep 1 nool_gated claude-opus-5 N=25 d0.5/a0.5 fp-seed 2501: 55/60, 842s, 35.04 USD (4.5x sonnet mean; prediction 4 falsified on this run)
+knot_id: 62a3b659a63935c45818bd9e224008a3e727eb0b06ec5488b945ddad1e91fefd
+solidified_at: 1788739047850
 thread: main
