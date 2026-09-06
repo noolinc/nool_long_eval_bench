@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: pre-register 8i: replicate the very-heavy-noise N=45 cell on nool 7.2.0 reusing fp-seeds 4501-4503; land 8g rep 3 git_planned 60/60
-knot_id: e31111f3869a88266b1452d3ac57b446cf8d4d6ac5260094b2f0b08ad3b47673
-solidified_at: 1788722820125
+intent: 8g rep 3 nool_fleet N=35 seed 27003 - 8g data collection complete at n=3
+knot_id: 2f9eadcd1c32a1fa787feb5fb94282242909c707c8cf3e1376168791e8e2ae5f
+solidified_at: 1788723175493
 thread: main
