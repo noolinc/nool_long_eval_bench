@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: 8g rep 2 nool_planned N=35 seed 27002: 60/60, 548s, waves [28,6,7,5,5,4,2,1,1,1] disjoint
-knot_id: a10ed235466c4d38eb5643edb73a59ac22a929f75cc4f2b17b959e02665e4179
-solidified_at: 1788720264543
+intent: 8g rep 2 git_planned N=35 seed 27002: 60/60, 514s, zero conflicts on identical waves - P4 falsified a second time
+knot_id: a813dad49c275ce5509c0a42826b5b5ff6aa7113ee51a5c5f9e7fc59763ecee2
+solidified_at: 1788720852382
 thread: main
