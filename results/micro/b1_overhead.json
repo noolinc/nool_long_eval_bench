@@ -1,18 +1,18 @@
 {
  "benchmark": "b1_overhead",
  "provenance": {
-  "timestamp_utc": "2026-09-06T02:56:45.294028+00:00",
+  "timestamp_utc": "2026-09-06T17:15:39.913887+00:00",
   "system_load": {
-   "load_1m": 4.98,
-   "load_5m": 4.19,
-   "load_15m": 11.97,
+   "load_1m": 3.37,
+   "load_5m": 2.87,
+   "load_15m": 3.81,
    "cpu_count": 12,
-   "load_per_core_1m": 0.41,
+   "load_per_core_1m": 0.28,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.1.4",
+  "nool_version": "nool 7.2.0",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -30,55 +30,55 @@
  "hook_latency_with_payload": {
   "claude_hook": {
    "n": 20,
-   "median_ms": 16.67,
-   "p10_ms": 16.35,
-   "p90_ms": 17.46,
-   "min_ms": 16.34,
-   "max_ms": 17.79,
+   "median_ms": 20.12,
+   "p10_ms": 18.81,
+   "p90_ms": 39.72,
+   "min_ms": 18.62,
+   "max_ms": 68.27,
    "exit_codes_seen": [
     0
    ]
   },
   "codex_hook": {
    "n": 20,
-   "median_ms": 7.4,
-   "p10_ms": 7.22,
-   "p90_ms": 7.53,
-   "min_ms": 7.12,
-   "max_ms": 7.68,
+   "median_ms": 15.17,
+   "p10_ms": 8.83,
+   "p90_ms": 40.59,
+   "min_ms": 8.57,
+   "max_ms": 65.79,
    "exit_codes_seen": [
     0
    ]
   },
   "gemini_hook": {
    "n": 20,
-   "median_ms": 7.31,
-   "p10_ms": 7.11,
-   "p90_ms": 7.6,
-   "min_ms": 7.0,
-   "max_ms": 7.78,
+   "median_ms": 8.31,
+   "p10_ms": 7.79,
+   "p90_ms": 9.32,
+   "min_ms": 7.69,
+   "max_ms": 9.4,
    "exit_codes_seen": [
     0
    ]
   },
   "opencode_hook": {
    "n": 20,
-   "median_ms": 7.43,
-   "p10_ms": 7.23,
-   "p90_ms": 7.75,
-   "min_ms": 7.09,
-   "max_ms": 7.83,
+   "median_ms": 8.5,
+   "p10_ms": 7.6,
+   "p90_ms": 9.0,
+   "min_ms": 7.51,
+   "max_ms": 9.12,
    "exit_codes_seen": [
     0
    ]
   },
   "pi_hook": {
    "n": 20,
-   "median_ms": 7.3,
-   "p10_ms": 7.22,
-   "p90_ms": 7.42,
-   "min_ms": 7.18,
-   "max_ms": 7.83,
+   "median_ms": 8.57,
+   "p10_ms": 8.07,
+   "p90_ms": 9.55,
+   "min_ms": 7.89,
+   "max_ms": 11.47,
    "exit_codes_seen": [
     0
    ]
@@ -88,43 +88,43 @@
   "1_files": {
    "git_add_commit": {
     "n": 10,
-    "median_ms": 25.94,
-    "p10_ms": 21.47,
-    "p90_ms": 37.34,
-    "min_ms": 21.47,
-    "max_ms": 37.34
+    "median_ms": 26.11,
+    "p10_ms": 22.1,
+    "p90_ms": 73.81,
+    "min_ms": 22.1,
+    "max_ms": 73.81
    },
    "git_precommit_fast": {
     "n": 10,
-    "median_ms": 45.08,
-    "p10_ms": 37.9,
-    "p90_ms": 446.22,
-    "min_ms": 37.9,
-    "max_ms": 446.22
+    "median_ms": 46.77,
+    "p10_ms": 40.09,
+    "p90_ms": 403.67,
+    "min_ms": 40.09,
+    "max_ms": 403.67
    },
    "git_precommit_full": {
     "n": 10,
-    "median_ms": 37.3,
-    "p10_ms": 31.18,
-    "p90_ms": 284.49,
-    "min_ms": 31.18,
-    "max_ms": 284.49
+    "median_ms": 37.44,
+    "p10_ms": 34.41,
+    "p90_ms": 289.92,
+    "min_ms": 34.41,
+    "max_ms": 289.92
    },
    "nool_propose_fast_solidify": {
     "n": 10,
-    "median_ms": 266.98,
-    "p10_ms": 223.03,
-    "p90_ms": 435.08,
-    "min_ms": 223.03,
-    "max_ms": 435.08
+    "median_ms": 250.82,
+    "p10_ms": 161.13,
+    "p90_ms": 449.58,
+    "min_ms": 161.13,
+    "max_ms": 449.58
    },
    "nool_propose_full_solidify": {
     "n": 10,
-    "median_ms": 563.38,
-    "p10_ms": 152.79,
-    "p90_ms": 1015.88,
-    "min_ms": 152.79,
-    "max_ms": 1015.88
+    "median_ms": 487.13,
+    "p10_ms": 169.87,
+    "p90_ms": 921.53,
+    "min_ms": 169.87,
+    "max_ms": 921.53
    },
    "nool_auto_justify_used": true,
    "nool_nonzero_exits": 0,
@@ -133,43 +133,43 @@
   "10_files": {
    "git_add_commit": {
     "n": 10,
-    "median_ms": 22.55,
-    "p10_ms": 21.77,
-    "p90_ms": 23.34,
-    "min_ms": 21.77,
-    "max_ms": 23.34
+    "median_ms": 23.49,
+    "p10_ms": 21.01,
+    "p90_ms": 65.7,
+    "min_ms": 21.01,
+    "max_ms": 65.7
    },
    "git_precommit_fast": {
     "n": 10,
-    "median_ms": 39.76,
-    "p10_ms": 38.95,
-    "p90_ms": 210.31,
-    "min_ms": 38.95,
-    "max_ms": 210.31
+    "median_ms": 41.96,
+    "p10_ms": 38.18,
+    "p90_ms": 208.74,
+    "min_ms": 38.18,
+    "max_ms": 208.74
    },
    "git_precommit_full": {
     "n": 10,
-    "median_ms": 32.41,
-    "p10_ms": 31.69,
-    "p90_ms": 166.82,
-    "min_ms": 31.69,
-    "max_ms": 166.82
+    "median_ms": 33.41,
+    "p10_ms": 31.7,
+    "p90_ms": 166.42,
+    "min_ms": 31.7,
+    "max_ms": 166.42
    },
    "nool_propose_fast_solidify": {
     "n": 10,
-    "median_ms": 250.5,
-    "p10_ms": 162.09,
-    "p90_ms": 257.62,
-    "min_ms": 162.09,
-    "max_ms": 257.62
+    "median_ms": 251.23,
+    "p10_ms": 161.24,
+    "p90_ms": 535.2,
+    "min_ms": 161.24,
+    "max_ms": 535.2
    },
    "nool_propose_full_solidify": {
     "n": 10,
-    "median_ms": 322.36,
-    "p10_ms": 175.5,
-    "p90_ms": 329.12,
-    "min_ms": 175.5,
-    "max_ms": 329.12
+    "median_ms": 318.52,
+    "p10_ms": 244.95,
+    "p90_ms": 381.63,
+    "min_ms": 244.95,
+    "max_ms": 381.63
    },
    "nool_auto_justify_used": true,
    "nool_nonzero_exits": 0,
@@ -178,43 +178,43 @@
   "100_files": {
    "git_add_commit": {
     "n": 5,
-    "median_ms": 24.51,
-    "p10_ms": 23.67,
-    "p90_ms": 25.09,
-    "min_ms": 23.67,
-    "max_ms": 25.09
+    "median_ms": 23.91,
+    "p10_ms": 23.24,
+    "p90_ms": 25.45,
+    "min_ms": 23.24,
+    "max_ms": 25.45
    },
    "git_precommit_fast": {
     "n": 5,
-    "median_ms": 43.59,
-    "p10_ms": 43.3,
-    "p90_ms": 200.35,
-    "min_ms": 43.3,
-    "max_ms": 200.35
+    "median_ms": 42.61,
+    "p10_ms": 41.35,
+    "p90_ms": 228.24,
+    "min_ms": 41.35,
+    "max_ms": 228.24
    },
    "git_precommit_full": {
     "n": 5,
-    "median_ms": 34.92,
-    "p10_ms": 34.11,
-    "p90_ms": 172.29,
-    "min_ms": 34.11,
-    "max_ms": 172.29
+    "median_ms": 33.86,
+    "p10_ms": 32.74,
+    "p90_ms": 186.28,
+    "min_ms": 32.74,
+    "max_ms": 186.28
    },
    "nool_propose_fast_solidify": {
     "n": 5,
-    "median_ms": 483.23,
-    "p10_ms": 274.59,
-    "p90_ms": 512.85,
-    "min_ms": 274.59,
-    "max_ms": 512.85
+    "median_ms": 468.77,
+    "p10_ms": 272.79,
+    "p90_ms": 490.91,
+    "min_ms": 272.79,
+    "max_ms": 490.91
    },
    "nool_propose_full_solidify": {
     "n": 5,
-    "median_ms": 519.68,
-    "p10_ms": 282.56,
-    "p90_ms": 615.37,
-    "min_ms": 282.56,
-    "max_ms": 615.37
+    "median_ms": 564.92,
+    "p10_ms": 275.14,
+    "p90_ms": 592.34,
+    "min_ms": 275.14,
+    "max_ms": 592.34
    },
    "nool_auto_justify_used": true,
    "nool_nonzero_exits": 0,

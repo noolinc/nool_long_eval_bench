@@ -1,18 +1,18 @@
 {
  "benchmark": "b7_regression_localization",
  "provenance": {
-  "timestamp_utc": "2026-09-06T02:58:18.917778+00:00",
+  "timestamp_utc": "2026-09-06T17:17:14.321585+00:00",
   "system_load": {
-   "load_1m": 5.23,
-   "load_5m": 4.58,
-   "load_15m": 11.3,
+   "load_1m": 3.09,
+   "load_5m": 3.03,
+   "load_15m": 3.78,
    "cpu_count": 12,
-   "load_per_core_1m": 0.44,
+   "load_per_core_1m": 0.26,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.1.4",
+  "nool_version": "nool 7.2.0",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -26,24 +26,24 @@
  "arms": {
   "git": {
    "culprit_found": true,
-   "wall_ms": 1979.0,
+   "wall_ms": 2192.2,
    "bisect_steps": 3,
    "exit_code": 0
   },
   "nool": {
    "culprit_found": true,
-   "wall_ms": 1617.0,
+   "wall_ms": 1698.3,
    "bisect_steps_reported": 0,
    "exit_code": 0,
-   "knot_named": "34b7569f1175ca00",
+   "knot_named": "dc82901b56d9dc87",
    "knot_named_intent": "landing 7: add Extra7",
    "attested_for": null,
    "resolved_intent": null,
    "truth_intent": "landing 7",
    "output_tail": [
-    "  \ud83d\udc1b First bad Knot: 34b7569f1175ca00",
+    "  \ud83d\udc1b First bad Knot: dc82901b56d9dc87",
     "  Intent: \"Mutation @ lib.go\"",
-    "  Time: 2026-09-06 02:58:15 UTC",
+    "  Time: 2026-09-06 17:17:10 UTC",
     "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
    ]
   }

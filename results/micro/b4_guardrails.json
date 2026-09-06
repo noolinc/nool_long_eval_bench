@@ -1,18 +1,18 @@
 {
  "benchmark": "b4_guardrails",
  "provenance": {
-  "timestamp_utc": "2026-09-06T02:57:23.904121+00:00",
+  "timestamp_utc": "2026-09-06T17:16:17.968114+00:00",
   "system_load": {
-   "load_1m": 5.32,
-   "load_5m": 4.39,
-   "load_15m": 11.69,
+   "load_1m": 3.69,
+   "load_5m": 3.08,
+   "load_15m": 3.85,
    "cpu_count": 12,
-   "load_per_core_1m": 0.44,
+   "load_per_core_1m": 0.31,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.1.4",
+  "nool_version": "nool 7.2.0",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -33,7 +33,7 @@
     "propose_tail": [
      "  [Pre-check] \u2705 In-process parse OK (go)",
      "  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...",
-     "  [Reify] \u2705 Full validation passed. Hash: 75b69f6568864da8b61001e89364f0a08a983d1676dddc4d84f62cb9dea98343"
+     "  [Reify] \u2705 Full validation passed. Hash: 8ed805832d2a7c05ccfb2cec70aa6f5e582405b02c1f71610324e0aa13505b45"
     ],
     "validate_tail": []
    },
@@ -99,7 +99,7 @@
     "propose_tail": [
      "  \u2500\u2500\u2500 115 B of driver output folded to 114 B (0.9% less; --verbose for raw) \u2500\u2500\u2500",
      "",
-     "Error: Reification failed for '.go'. Output hash: a53de8a9000f9a19fdbf8f81b7075615ef7b1a1ad7e27d09a8d18427ebdb0e09"
+     "Error: Reification failed for '.go'. Output hash: 97803cd655b3f10a37b0ff6f4f69f59915c6d801be9abf9040588542c1bc14ce"
     ],
     "validate_tail": []
    },

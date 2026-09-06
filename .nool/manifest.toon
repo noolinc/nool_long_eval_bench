@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: architect decision 8h: remove interactive steer points from the nool governance profile under an arm-parity rule; report the 7.2.0 non-uniform enforcement as a product finding
-knot_id: b2defa5bca368d4d50cc58618067547798c39e5af0f1aa198f4dd9425e06bad6
-solidified_at: 1788714615575
+intent: Track B re-run on nool 7.2.0: every qualitative outcome reproduces 7.1.4; only git-arm race stochasticity and latency jitter move
+knot_id: 26d9819b46a7f3ae80e943845ea63b66651969e704fcdcfb6cb72680efbdbe95
+solidified_at: 1788715177104
 thread: main
