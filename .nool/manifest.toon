@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Track B re-run on nool 7.2.0: every qualitative outcome reproduces 7.1.4; only git-arm race stochasticity and latency jitter move
-knot_id: 26d9819b46a7f3ae80e943845ea63b66651969e704fcdcfb6cb72680efbdbe95
-solidified_at: 1788715177104
+intent: implement 8g: nool_planned and git_planned arms dispatched from nool fleet plan waves with a barrier; scratch-ledger planner keeps the git arm substrate-free
+knot_id: 5bf43b25d1fca272c4168685bb76dee14ee59885a97a85bcdedca579af20ae03
+solidified_at: 1788715298747
 thread: main

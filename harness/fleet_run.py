@@ -281,6 +281,14 @@ ARMS = {
     "git_scheduled":   {"dispatch": "footprint", "ci_gate": False, "merge": "git",  "nool_ws": False},
     "nool_fleet":      {"dispatch": "footprint", "ci_gate": False, "merge": "nool", "nool_ws": True},
     "nool_gated":      {"dispatch": "lease",     "ci_gate": False, "merge": "nool", "nool_ws": True},
+    # §8g: the first arms in this suite whose DISPATCH is computed by nool
+    # rather than by this harness. Waves come from `nool fleet plan`, run
+    # with a barrier between them. `git_planned` is the attribution
+    # ablation — bit-identical nool-computed waves, `git merge` integration,
+    # and no coordination substrate in its workspace (the plan is computed
+    # in a scratch ledger; see _plan_waves).
+    "nool_planned":    {"dispatch": "planned",   "ci_gate": False, "merge": "nool", "nool_ws": True},
+    "git_planned":     {"dispatch": "planned",   "ci_gate": False, "merge": "git",  "nool_ws": False},
     "nool_try":        {"dispatch": "try",       "ci_gate": False, "merge": "try",  "nool_ws": True},
 }
 
@@ -913,6 +921,126 @@ def run_footprint_gated(rec, ws, parent, tickets, model, run_id, n_workers,
         raise RateLimitAbort("batch aborted: provider rate limit detected")
 
 
+def _plan_waves(tickets, n_workers, run_id):
+    """§8g: the NodeID-disjoint wave partition, computed by nool's planner.
+
+    `nool fleet plan` without `--run` is a preview-only planner: it spends
+    nothing, launches no agent, and only needs an initialized ledger to run
+    in. That ledger is a throwaway created OUTSIDE every arm's workspace,
+    for two reasons. It lets `git_planned` receive bit-identical waves while
+    its own workspace keeps no coordination substrate at all — §8a's
+    contract, asserted in setup_ws — and it keeps the planner from seeing,
+    or being influenced by, the arm's own accumulating history.
+
+    Returns (waves, metadata). The metadata records prediction 1 of §8g:
+    whether nool's partition is in fact pairwise footprint-disjoint under
+    the corpus-declared footprints. That is measured and recorded, never
+    corrected -- a planner that emits an overlapping wave is a product
+    finding, and silently repairing its output here would erase it.
+    """
+    scratch = tempfile.mkdtemp(prefix=f"noolplan_{run_id}_")
+    try:
+        (Path(scratch) / "PLAN.md").write_text(
+            "Scratch ledger: `nool fleet plan` needs a ledger to run in.\n")
+        for cmd in (["git", "init", "-q", "-b", "main"],
+                    ["git", "config", "user.email",
+                     "bench@nool-benchmarks.local"],
+                    ["git", "config", "user.name", "Bench"],
+                    ["git", "add", "-A"],
+                    ["git", "commit", "-qm", "scratch"]):
+            sh(cmd, scratch, check=True)
+        code, out = sh(["nool", "init"], scratch, timeout=180)
+        if code != 0:
+            raise RuntimeError(f"fleet-plan scratch ledger init failed:\n{out}")
+        cmd = ["nool", "fleet", "plan", "--width", str(n_workers), "--json"]
+        for t in tickets:
+            cmd += ["--task", f"{t['id']}={','.join(t['footprint'])}"]
+        code, out = sh(cmd, scratch, timeout=300)
+        if code != 0:
+            raise RuntimeError(f"`nool fleet plan` failed (exit {code}):\n{out}")
+        try:
+            plan = json.loads(out[out.index("{"):out.rindex("}") + 1])
+        except (ValueError, json.JSONDecodeError) as e:
+            raise RuntimeError(f"`nool fleet plan --json` emitted "
+                               f"unparseable output ({e}):\n{out}")
+    finally:
+        shutil.rmtree(scratch, ignore_errors=True)
+
+    waves = [list(w) for w in (plan.get("waves") or [])]
+    fp = {t["id"]: set(t["footprint"]) for t in tickets}
+    flat = [tid for w in waves for tid in w]
+    missing = sorted(set(fp) - set(flat))
+    extra = sorted(set(flat) - set(fp))
+    dupes = sorted({tid for tid in flat if flat.count(tid) > 1})
+    if missing or extra or dupes:
+        # Never paper over this by appending the strays as a final wave:
+        # that would repair the planner's output and hide the defect in a
+        # run that then looks normal. The run is invalid; say why.
+        raise RuntimeError(
+            f"`nool fleet plan` did not return a partition of the ticket "
+            f"set (missing={missing} unexpected={extra} duplicated={dupes}). "
+            f"§8g prediction 1 falsified; report as a product finding "
+            f"rather than re-running until it passes.")
+    disjoint = []
+    for w in waves:
+        ok = all(not (fp[a] & fp[b])
+                 for i, a in enumerate(w) for b in w[i + 1:])
+        disjoint.append(ok)
+    meta = {"waves": waves,
+            "wave_sizes": [len(w) for w in waves],
+            "parallel_width": plan.get("parallel_width"),
+            "max_width": plan.get("max_width"),
+            "width_decision": plan.get("width_decision"),
+            "waves_footprint_disjoint": disjoint,
+            "all_waves_disjoint": all(disjoint)}
+    return waves, meta
+
+
+def run_planned_waves(rec, ws, parent, tickets, model, run_id, n_workers,
+                      arm, adapter):
+    """§8g: dispatch the waves nool's planner computed, with a barrier.
+
+    Every ticket in wave k finishes AND integrates before wave k+1 starts,
+    so a later wave's agents branch from a main that already carries the
+    earlier waves. That barrier is the planner's own discipline and is the
+    disclosed difference from run_footprint_gated's rolling-greedy
+    admission (§8g): an effect here is attributable to nool's planner as a
+    whole, not to its disjointness computation alone.
+    """
+    import concurrent.futures as cf
+    by_id = {t["id"]: t for t in tickets}
+    waves, plan_meta = _plan_waves(tickets, n_workers, run_id)
+    rec["plan"] = plan_meta
+    print(f"[{run_id}] nool fleet plan: {len(waves)} wave(s), sizes "
+          f"{plan_meta['wave_sizes']}, disjoint={plan_meta['all_waves_disjoint']}",
+          flush=True)
+    for i, wave in enumerate(waves, 1):
+        if _ABORT.is_set():
+            break
+        wave_tickets = [by_id[tid] for tid in wave]
+        print(f"[{run_id}] wave {i}/{len(waves)} dispatching "
+              f"{len(wave_tickets)} ticket(s)", flush=True)
+        with cf.ThreadPoolExecutor(max_workers=n_workers) as ex:
+            futs = {ex.submit(agent_ticket, ws, parent, t, model, run_id,
+                              adapter, arm): t
+                    for t in wave_tickets}
+            for f in futs:
+                # Re-raises RateLimitAbort exactly as run_parallel does.
+                rec["agents"][futs[f]["id"]] = f.result()
+        # Barrier: the wave integrates in ticket order before the next one
+        # dispatches, which is what makes this wave scheduling rather than
+        # a batched version of parallel dispatch.
+        for t in wave_tickets:
+            entry = integrate(ws, arm, t, run_id)
+            if ARMS[arm].get("retry") and not entry["clean"]:
+                entry = retry_conflicted(rec, ws, parent, t, run_id, arm,
+                                         model, adapter, entry)
+            entry["wave"] = i
+            rec["integration"].append(entry)
+    if _ABORT.is_set():
+        raise RateLimitAbort("batch aborted: provider rate limit detected")
+
+
 def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
                      agent_id):
     """Isolation for the nool_try arm: `nool try new --worktree` instead of
@@ -1366,6 +1494,7 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
         dispatch = {"parallel": run_parallel,
                     "footprint": run_footprint_gated,
                     "lease": run_lease_gated,
+                    "planned": run_planned_waves,
                     "try": run_try_gated}[ARMS[arm]["dispatch"]]
         dispatch(rec, ws, parent, tickets, model, run_id, n_workers, arm,
                  adapter)

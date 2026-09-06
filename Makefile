@@ -59,7 +59,7 @@ validate-study:
 # excluded from evidence by protocol rule.
 validate-harness:
 	python3 harness/fleet_run.py --harness scripted --model scripted \
-		--arms git_fleet,git_retry,git_competitive,git_gated_queue,git_scheduled,nool_fleet,nool_gated,nool_try \
+		--arms git_fleet,git_retry,git_competitive,git_gated_queue,git_scheduled,nool_fleet,nool_gated,nool_try,nool_planned,git_planned \
 		--workers 8 --seed 7 --tickets tickets.json
 
 docker-build:
