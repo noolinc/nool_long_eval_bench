@@ -1309,6 +1309,105 @@ change that reintroduces a steering halt is therefore loud rather than
 silently scored as a validation failure, which is how this one was
 originally mislabeled.
 
+<a id="sec-8i"></a>
+## 8i. Track D — version replication of the very-heavy-noise cell on nool 7.2.0 (pre-registered 2026-09-06, before any 8i data)
+
+**Motivation.** The noise dose-response is this suite's strongest and
+most-replicated separation, and **none of it has ever run on the installed
+product version.** Every noise cell was collected on nool 7.0.1 (the N=20
+light/heavy/very-heavy ladder, 2026-08-27) or nool 7.0.3 (very-heavy at
+N=35/40/45, 2026-09-01); the installed CLI is 7.2.0. The only 7.2.0 Track D
+data in existence is §8g's zero-noise cell, which sits at an acceptance
+ceiling and discriminates nothing.
+
+Two facts bracket how much this matters, and both are recorded rather than
+assumed. Track B re-ran clean on 7.2.0 the same day (§ results/micro, every
+qualitative outcome across b1–b7 identical to 7.1.4, including the merge and
+concurrency mechanisms a fleet run leans on). But a real fleet-level 7.2.0
+regression was also found that day — the `[steer]` pre-solidify gate began
+firing on `nool try promote`, taking `nool_try` from 8/8 to 3/8 (§8h) — and
+Track B did not catch it, because it is a governance interaction rather than
+a mechanism. "Track B replicates" is therefore not evidence that the fleet
+arms replicate, and this condition exists to test the fleet arms directly.
+
+**Cell choice.** `d0.5/a0.5` at N=45, `nool_gated` vs `git_scheduled`. This
+is the cell where the collected separation is largest and the two arms do
+not overlap at all — `nool_gated` 56/56/55 against `git_scheduled` 52/45/49,
+mean gap +7.0 tickets — so it is where a version regression in either
+direction would be most visible. A cell with overlapping ranges could absorb
+a real regression inside its own spread.
+
+**Design.** Fixed factors: harness `claude`, model `claude-sonnet-5`
+(pinned, matching the cell being replicated); corpus
+`tasks/fleet_service/tickets_v3.json` (`v3.1`, 60 tickets, tier `all`,
+starter pinned by `STARTER_SHA256`); protocol `protocols/fleet_v4.json`
+(sha256 `1524b208…`); N=45 workers; `--fp-noise-drop 0.5 --fp-noise-add
+0.5`; arms `nool_gated` and `git_scheduled`; 3 reps. **The footprint-noise
+seeds are reused from the cell being replicated — 4501 / 4502 / 4503,
+shared across arms within a rep** — so every arm in both batches sees a
+bit-identical footprint perturbation and the version is the thing that
+varies.
+
+```
+python3 harness/fleet_run.py --harness claude --model claude-sonnet-5 \
+    --workers 45 --tickets tickets_v3.json \
+    --arms nool_gated,git_scheduled --reps 1 \
+    --fp-noise-drop 0.5 --fp-noise-add 0.5 --fp-noise-seed <4501|4502|4503> \
+    --seed <45001|45002|45003>
+```
+
+**Two disclosed differences from the 7.0.3 batch**, neither controlled away:
+
+1. *Ticket order.* The 7.0.3 runs left `--seed` unset and recorded
+   `shuffle_seed: null`, so their ticket order was random and is not
+   recoverable. No exact match is possible. This batch pins 45001 / 45002 /
+   45003 so it is reproducible going forward. Three arbitrary pinned orders
+   and three arbitrary random orders are the same draw statistically at
+   n=3; the difference is that this batch can be re-run and that one
+   cannot.
+2. *Governance profile.* `nool_governed.toml` changed today under §8h's
+   arm-parity rule, `4e94f9c0…` → `e551b88a…`. It is argued inert **for this
+   arm pair specifically**: `nool_gated` integrates with `nool merge`, the
+   removed steering points never fired on that path, and there are zero
+   steering halts anywhere in `results/trackc/fleet_runs.jsonl`. Prediction
+   4 below turns that argument into a falsifiable check rather than leaving
+   it as an assertion. `git_scheduled` never applies the profile at all.
+
+**Execution and budget.** Strictly sequential, one arm at a time, rep-major
+(both arms of rep 1 before rep 2). At the replicated cell's observed mean of
+$7.73/run, six runs project to ~$46. **Spend cap: $60 of recorded
+`cost_usd`.** Before each invocation, if cumulative spend plus twice the
+mean cost of completed runs would exceed the cap, execution stops; a cell
+below 3 reps is reported as budget-censored with the runs it got, never as
+an arm outcome. N=45 has run unguarded on this 16 GB machine (paper §5.9),
+so no watchdog.
+
+**Predictions (falsifiable, recorded before any data).**
+1. `nool_gated` accepts 53–58 in every rep — its 7.0.3 band (55–56)
+   widened by ±2 for run-to-run variation.
+2. `git_scheduled` accepts 43–54 in every rep — its 7.0.3 band (45–52)
+   widened by ±2.
+3. The paired gap `nool_gated − git_scheduled` is positive in all three
+   reps, with a mean within ±3 of the replicated +7.0. This is the
+   replication claim proper; 1 and 2 locate any failure to an arm.
+4. Zero `steer_blocked` in every `nool_gated` run. This is §8h's inertness
+   argument made falsifiable: a non-zero count means the profile change was
+   not inert for this arm after all, and the run batch is confounded and
+   reported as such rather than as a version result.
+
+**Decision rule.** The replication holds if predictions 1–4 all hold. If
+prediction 3 fails while 1 and 2 hold, the effect size moved without either
+arm leaving its band, and the honest report is "gap not replicated at n=3"
+rather than a regression claim. If `nool_gated` falls below 53 while
+`git_scheduled` stays in band, that is a **7.2.0 product regression** and is
+reported as a product finding with the same weight §8h's steering finding
+received — not quietly absorbed into the noise ladder. If both arms drop
+together, suspect the corpus or the machine before the product, and check
+`final_health` and `t21` behaviour before drawing any conclusion. At n=3
+this is a directional read under this suite's own "3+" convention, not a
+confirmatory one; run-level inference uses `analysis/summarize.py`'s exact
+permutation test.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —
