@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: 8i reps 2-3 N=45 d0.5/a0.5 on nool 7.2.0, fp-seeds 4502/4503 - version replication complete at n=3
-knot_id: 6d98c2c0ae764934fa5db30e33b99e43f36fbbc458b64a9dc7f2db74d0c4bfe8
-solidified_at: 1788724606774
+intent: 8i rep 2 nool_gated N=45 fp-seed 4502 on 7.2.0: 57/60 in band; git_scheduled rep 2 and all of rep 3 rate-limit aborted with no record written
+knot_id: bda429aa96210d0a31f56cd6038d67059b64b9e9876259d2a6ffc80a8348d12a
+solidified_at: 1788736432951
 thread: main
