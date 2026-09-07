@@ -223,6 +223,12 @@ def evolution_summary(rec, tickets, ws):
     # would let a policy trigger read as a product defect (or vice versa).
     steer_blocked = sum(1 for i in rec["integration"]
                         if i.get("rejection_kind") == "steer")
+    # 8k: share of tickets the AGENT landed via nool (vs the harness
+    # fallback). None for arms whose integration entries carry no source.
+    sourced = [i for i in rec["integration"] if i.get("landing_source")]
+    agent_landing_rate = (round(sum(1 for i in sourced
+                                    if i["landing_source"] == "agent")
+                                / len(sourced), 3) if sourced else None)
     broken_main = sum(1 for i in rec["integration"]
                       if i.get("post_merge_health")
                       and not (i["post_merge_health"]["build_ok"]
@@ -250,6 +256,7 @@ def evolution_summary(rec, tickets, ws):
         "merge_errors": merge_errors,
         "queue_rejected": queue_rejected,
         "steer_blocked": steer_blocked,
+        "agent_landing_rate": agent_landing_rate,
         "broken_main_merges": broken_main,
         "secret_hits": sorted({h for i in rec["integration"]
                                if i.get("secret_scan")
@@ -289,6 +296,12 @@ ARMS = {
     # in a scratch ledger; see _plan_waves).
     "nool_planned":    {"dispatch": "planned",   "ci_gate": False, "merge": "nool", "nool_ws": True},
     "git_planned":     {"dispatch": "planned",   "ci_gate": False, "merge": "git",  "nool_ws": False},
+    # 8k: the first arm in which the AGENT uses nool. nool_try's isolation
+    # and lease loop, plus `nool hooks install` baked into the base commit
+    # and the standard (not leave-it-uncommitted) prompt, so the agent lands
+    # with `nool propose` itself under the guard; the harness only promotes
+    # and falls back to nool_try's landing when the agent did not land.
+    "nool_native":     {"dispatch": "native",    "ci_gate": False, "merge": "try",  "nool_ws": True, "hooks": True},
     "nool_try":        {"dispatch": "try",       "ci_gate": False, "merge": "try",  "nool_ws": True},
 }
 
@@ -459,7 +472,7 @@ def setup_ws(arm, parent):
         prof = GOV / "nool_governed.toml"
         shutil.copy(prof, ws / "nool.toml")
         profile_sha = hashlib.sha256(prof.read_bytes()).hexdigest()
-        if arm == "nool_try":
+        if ARMS[arm]["merge"] == "try":
             # nool 7.0.0: replacing the init-generated nool.toml wholesale
             # drops its default [bridge]/[try] sections, and `nool try new
             # --worktree` then fails with a misleading "git worktree add
@@ -484,6 +497,16 @@ def setup_ws(arm, parent):
                     'mode = "shared"\n'
                     "max_worktrees = 64\n"
                     "lease_ttl_ms = 1800000\n")
+        if ARMS[arm].get("hooks"):
+            # 8k: install nool's Claude Code guard + session context BEFORE
+            # the substrate commit, so .claude/settings.json rides into every
+            # try worktree and the agent (run with --setting-sources
+            # project,local) works under it. The hook commands carry this
+            # workspace's absolute .nool/hooks path, valid for the run.
+            code, out = sh(["nool", "hooks", "install", "--compact"], ws,
+                           timeout=60)
+            if code != 0 or not (ws / ".claude" / "settings.json").exists():
+                raise RuntimeError(f"nool hooks install failed:\n{out}")
         c, s = sh(["nool", "status", "--json"], ws, timeout=120)
         if c != 0:
             raise RuntimeError(f"nool ledger not live after init:\n{s}")
@@ -1042,7 +1065,7 @@ def run_planned_waves(rec, ws, parent, tickets, model, run_id, n_workers,
 
 
 def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
-                     agent_id):
+                     agent_id, native=False):
     """Isolation for the nool_try arm: `nool try new --worktree` instead of
     a manual `git worktree add`. Verified 2026-08-26 race-free under 20-way
     concurrent dispatch (ThreadPoolExecutor, disjoint per-ticket nodes) —
@@ -1065,7 +1088,10 @@ def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
                            f"already holds the admission lease:\n{out}")
     wt = Path(ws) / ".nool" / "try" / name
     stray_nool = wt / ".nool"
-    prompt = ticket_prompt(ticket, try_mode=True)
+    # 8k: the native arm gets the STANDARD prompt ("land your work with the
+    # version-control workflow available in this repository") so the agent
+    # discovers nool through the installed hooks, not through us.
+    prompt = ticket_prompt(ticket, try_mode=not native)
     TRANSCRIPTS.mkdir(parents=True, exist_ok=True)
     tpath = TRANSCRIPTS / f"{run_id}_{ticket['id']}.jsonl"
     _throttle_launch()
@@ -1079,11 +1105,37 @@ def agent_ticket_try(ws, parent, ticket, model, run_id, adapter, arm,
             f"no fleet_runs.jsonl record written for this run")
     if stray_nool.exists():  # e.g. an agent running `nool init` by mistake
         shutil.rmtree(stray_nool, ignore_errors=True)
+    extra = {}
+    if native:
+        # Did the agent land via nool? `try show --json` reports
+        # stash_present once a propose has stashed under the branch, plus
+        # the agent's own intent and the branch lease id (released after
+        # promote). Guard denials are counted from the transcript by the
+        # deny reason's stable tail; the SessionStart context does not
+        # contain that string, so it is not miscounted.
+        c, js = sh(["nool", "try", "show", name, "--json"], ws, timeout=60)
+        info = {}
+        if c == 0:
+            try:
+                info = json.loads(js[js.index("{"):js.rindex("}") + 1])
+            except (ValueError, json.JSONDecodeError):
+                info = {}
+        try:
+            denials = tpath.read_text(errors="ignore").count("NOOL_ALLOW_GIT=1")
+        except OSError:
+            denials = None
+        extra = {"landed_via_nool": bool(info.get("stash_present")),
+                 "landing_mode": info.get("mode"),
+                 "agent_intent": info.get("intent"),
+                 "try_lease_id": info.get("lease_id"),
+                 "guard_denials": denials}
+        print(f"[{run_id}] {ticket['id']} landed_via_nool="
+              f"{extra['landed_via_nool']} guard_denials={denials}", flush=True)
     print(f"[{run_id}] {ticket['id']} agent done "
           f"{res['wall_ms']/1000:.0f}s turns={res.get('num_turns')} "
           f"tools={res.get('tool_calls')} timed_out={res['timed_out']}",
           flush=True)
-    return {**res, "transcript": str(tpath.relative_to(REPO))}, name
+    return {**res, **extra, "transcript": str(tpath.relative_to(REPO))}, name
 
 
 def _propose_intent(ticket):
@@ -1164,7 +1216,8 @@ def _discard_and_release(ws, ticket, name):
     _release_propose_lease(ws, ticket)
 
 
-def integrate_try(ws, ticket, run_id, name, agent_id):
+def integrate_try(ws, ticket, run_id, name, agent_id,
+                  landed_by_agent=False, agent_lease_id=None):
     """Integration for the nool_try arm: `nool propose --try-branch --all`
     (runs an AST precheck immediately — syntax-broken exits 2, nothing
     stashed) then `nool try promote` (runs a full build+test Ghost-Run
@@ -1188,9 +1241,16 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
     # instead would silently make this a different arm than the one behind
     # the collected data; it was measured doing exactly that, moving a
     # scripted-adapter run from 3/8 to 4/8.
-    p_code, p_out = sh(["nool", "propose", "--try-branch", name, "--all",
-                        "--intent", _propose_intent(ticket),
-                        "--solidify", "--full", "--compact"], ws, timeout=300)
+    if landed_by_agent:
+        # 8k: the agent already stashed the try proposal itself; the harness
+        # must not propose over it (that would re-land under our intent).
+        p_code, p_out = 0, ""
+    else:
+        p_code, p_out = sh(["nool", "propose", "--try-branch", name, "--all",
+                            "--intent", _propose_intent(ticket),
+                            "--solidify", "--full", "--compact"], ws,
+                           timeout=300)
+    source = "agent" if landed_by_agent else "harness"
     if p_code != 0:
         _discard_and_release(ws, ticket, name)
         kind = _rejection_kind(p_out)
@@ -1200,8 +1260,8 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
               flush=True)
         return {"ticket": ticket["id"], "clean": True, "exit_code": p_code,
                 "queue_rejected": True, "rejection_stage": "propose",
-                "rejection_kind": kind, "post_merge_health": None,
-                "secret_scan": None,
+                "rejection_kind": kind, "landing_source": source,
+                "post_merge_health": None, "secret_scan": None,
                 "merge_tail": p_out.strip().splitlines()[-8:]}
     m_code, m_out = sh(["nool", "try", "promote", name, "--compact"], ws,
                        timeout=300)
@@ -1213,22 +1273,31 @@ def integrate_try(ws, ticket, run_id, name, agent_id):
               flush=True)
         return {"ticket": ticket["id"], "clean": True, "exit_code": m_code,
                 "queue_rejected": True, "rejection_stage": "promote",
-                "rejection_kind": kind, "post_merge_health": None,
-                "secret_scan": None, "merge_tail": merge_tail}
+                "rejection_kind": kind, "landing_source": source,
+                "post_merge_health": None, "secret_scan": None,
+                "merge_tail": merge_tail}
     scan = secret_scan(ws, pre)
     h = health(ws)
     # `propose --try-branch` takes its own lease independent of the
     # admission lease; on a successful promote nothing released it. See
     # _release_propose_lease for why this must be a precise, by-ID
     # release rather than `--all`.
-    _release_propose_lease(ws, ticket)
+    if landed_by_agent:
+        # The agent's propose renewed the try branch's own lease; promote
+        # deletes the branch and should release it. Release by id anyway —
+        # a no-op ("no active announcement matches") when already gone.
+        if agent_lease_id:
+            sh(["nool", "announce", "release", agent_lease_id, "--compact"],
+               ws, timeout=60)
+    else:
+        _release_propose_lease(ws, ticket)
     print(f"[{run_id}] {ticket['id']} promoted "
           f"build={'ok' if h['build_ok'] else 'FAIL'} "
           f"smoke={'ok' if h['smoke_ok'] else 'FAIL'} "
           f"secrets={'clean' if scan['clean'] else 'HIT'}", flush=True)
     _, post = sh(["git", "rev-parse", "HEAD"], ws)
     return {"ticket": ticket["id"], "clean": True, "exit_code": m_code,
-            "queue_rejected": False,
+            "queue_rejected": False, "landing_source": source,
             "landed_commit": post.strip(),
             "post_merge_health": h,
             "secret_scan": scan, "merge_tail": merge_tail}
@@ -1389,6 +1458,31 @@ def run_try_gated(rec, ws, parent, tickets, model, run_id, n_workers, arm,
                          integrate_fn)
 
 
+def run_native(rec, ws, parent, tickets, model, run_id, n_workers, arm,
+               adapter):
+    """8k nool_native: nool_try's isolation and lease loop, but the agent
+    lands via nool itself under installed hooks. The harness only promotes,
+    and falls back to nool_try's landing (recorded as landing_source
+    "harness") when the agent did not land."""
+    names, landed, leases = {}, {}, {}
+
+    def agent_fn(t, agent_id):
+        res, name = agent_ticket_try(ws, parent, t, model, run_id, adapter,
+                                     arm, agent_id, native=True)
+        names[t["id"]] = name
+        landed[t["id"]] = bool(res.get("landed_via_nool"))
+        leases[t["id"]] = res.get("try_lease_id")
+        return res
+
+    def integrate_fn(t, agent_id):
+        return integrate_try(ws, t, run_id, names[t["id"]], agent_id,
+                             landed_by_agent=landed[t["id"]],
+                             agent_lease_id=leases[t["id"]])
+
+    _lease_gated_dispatch(rec, ws, tickets, run_id, n_workers, agent_fn,
+                          integrate_fn)
+
+
 def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
               allow_unpinned=False, harness="claude", limit=None,
               seed=None, fp_drop=0.0, fp_add=0.0, fp_seed=None,
@@ -1502,6 +1596,7 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
                     "footprint": run_footprint_gated,
                     "lease": run_lease_gated,
                     "planned": run_planned_waves,
+                    "native": run_native,
                     "try": run_try_gated}[ARMS[arm]["dispatch"]]
         dispatch(rec, ws, parent, tickets, model, run_id, n_workers, arm,
                  adapter)

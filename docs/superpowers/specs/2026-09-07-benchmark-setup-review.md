@@ -50,6 +50,12 @@ exactly (59.7 vs 59.3 accepted, zero conflicts, n=3), and the 5.6 audit found
 consulted. After those two findings, the only product-attributed separation in
 154 runs is the 8d noise dose-response, roughly fifteen runs at n=2 to 5.
 
+*Addressed, same day:* a transcript audit quantified this (115 agent
+`git commit` calls vs 2 real `nool propose` calls across 120 nool-arm
+sessions, the latter into stray ledgers the harness discards), and spec 8k
+pre-registers `nool_native`, the first arm in which the agent lands via
+nool under installed hooks, with same-batch `nool_try` as the ablation.
+
 **2.3 There was no economic model.** `cost_usd` is the Claude CLI's own
 `total_cost_usd`: LLM tokens and nothing else. C5, "cost per accepted change",
 was LLM dollars per ticket. That omits every cost the enterprise argument rests

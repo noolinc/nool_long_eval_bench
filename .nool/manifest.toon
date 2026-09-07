@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: docstring: announce release --all --agent-id scopes correctly on 7.2.0 (re-tested 1 of 2 leases released); release_lease form is sound, by-ID path kept for precision
-knot_id: 1394adee5168328cbef351d7ad1d9e61fe6a8efbe6e2e0f6eeea712fbd7f27f0
-solidified_at: 1788778854131
+intent: 8k nool_native: agent-facing nool arm (hooks installed in base, standard prompt, try show stash_present detection, harness fallback with landing_source, agent_landing_rate + guard_denials metrics); pre-registered in spec 8k before any data; 1-ticket scripted validation 1/1
+knot_id: 913bdcdc03b44801a3833e3fe26e6c3604fa9839aad7c8798f89bde540ad04ca
+solidified_at: 1788779639336
 thread: main

@@ -1519,6 +1519,110 @@ exact permutation test, and the cost-effectiveness read uses
 for Opus, any N other than 25, light and heavy noise, `git_competitive`, and
 any Track B or C re-run on Opus.
 
+<a id="sec-8k"></a>
+## 8k. Track D — agent-facing nool: the `nool_native` arm (pre-registered 2026-09-07, before any 8k data)
+
+**Motivation.** A transcript audit on 2026-09-07 (setup review, section 2b)
+established that in every arm named `nool_*`, nool is exercised by the
+harness at integration and never by the agent: across 120 agent sessions in
+the latest `nool_gated` and `nool_fleet` runs, agents issued 115 `git commit`
+calls and two real `nool propose` calls, both into stray ledgers the harness
+discards; `nool_try` agents issue neither. The agents' lived workflow is
+identical plain git in every arm. That is the correct design for isolating
+the coordination layer, and it leaves the workflow an adopter would actually
+deploy — hooks installed, `propose` as the commit verb, leases taken in the
+loop — unmeasured. B1's hook tax and 7–10× per-operation latency have never
+been paid by a fleet agent in this suite. This arm makes them pay it.
+
+**What the arm is.** `nool_native` reuses `nool_try` end to end — lease-gated
+admission via `announce intent` (exit 3 refuses), isolation via `nool try new
+--worktree`, integration via `nool try promote` — with two changes:
+
+1. `nool hooks install` runs in the workspace before the base commit, so
+   `.claude/settings.json` (SessionStart context, PreToolUse guard, Stop) is
+   carried into every try worktree; the agent runs under
+   `--setting-sources project,local` and therefore under the guard.
+2. The agent receives the **standard** prompt ("land your work with the
+   version-control workflow available in this repository, then stop"), not
+   `nool_try`'s leave-it-uncommitted prompt. It discovers nool the way a real
+   user's agent does: SessionStart injects the golden path, and raw git
+   history verbs are denied with the nool equivalent.
+
+After the agent stops, the harness reads `nool try show <name> --json`. If
+`stash_present` is true the agent landed via nool and the harness goes
+straight to `try promote`. If false, the harness lands exactly as `nool_try`
+does (`propose --try-branch --all --full`, then promote) and records
+`landing_source: "harness_fallback"`. Scoring is therefore identical to
+`nool_try` in every case, and the fallback share is itself a primary metric.
+Per-agent guard denials are counted from the transcript.
+
+**Verified before pre-registration (scratch ledger, nool 7.2.0).** From inside
+a try worktree, `nool hooks dispatch` resolves the parent ledger and injects
+the full context; a `propose --all --solidify` there stashes under the branch
+and flips `stash_present`. The guard denies `git commit` and `git stash`
+(the `git_scheduled` control's agents used `stash` roughly 56 times per run
+as WIP hygiene) and allows `git add`, `git log`, `go test`, and `nool
+propose`; it false-positives on a regex alternation containing `|git commit|`
+even when quoted. `try promote` is not blocked by pending main-queue
+candidates or by unrelated dirty paths in main, only by uncommitted edits in
+main to a file the branch touches. The passive Stop hook's transcript
+proposal errors harmlessly in a fresh workspace (`.nool/` is ignored). One
+behaviour could not be verified synthetically: whether the Stop hook bounces
+a headless agent with a dirty tree back to land — a live smoke run settles
+it before any paid batch.
+
+**Design.** Fixed factors as §8g: harness `claude`, `claude-sonnet-5` pinned,
+nool 7.2.0, corpus v3.1, protocol v4, N=35, zero footprint noise, tier
+`all`. Arms `nool_native` and `nool_try` (the exact ablation — same isolation,
+same integration, harness-landed, no hooks — re-run in the same batch),
+3 reps each, shuffle seeds 28001 / 28002 / 28003 shared across arms within a
+rep. Zero noise is chosen deliberately: this arm is about the cost and
+behaviour of agents using nool, not conflict avoidance, and cost, turns,
+wall time, landing rate and denial counts have no ceiling at zero noise.
+
+```
+python3 harness/fleet_run.py --harness claude --model claude-sonnet-5 \
+    --workers 35 --tickets tickets_v3.json --arms nool_native,nool_try \
+    --reps 1 --seed <28001|28002|28003>
+```
+
+**Gates before spend.** (1) `make validate-harness` with the arm added: the
+scripted adapter never lands, so the fallback path must yield 8/8 with
+landing rate 0. (2) A live smoke run, `--limit 2 --workers 2`, sonnet: hooks
+fire, SessionStart context appears in the transcript, at least one ticket
+lands with `stash_present` true, and the run completes. Cost under $1.
+**Spend cap for the batch: $75** at the observed $7–10 per sonnet run, with
+the same stop rule as §8f.
+
+**Predictions (falsifiable, recorded before any data).**
+1. Agent landing rate — tickets with `stash_present` true — is at least 50%
+   in every rep. Below that, hooks-plus-context do not reliably get an agent
+   to land via nool, which is a product usability finding and is reported as
+   one, with the fallback share disclosed on every number.
+2. `nool_native` acceptance is within ±3 tickets of same-batch `nool_try`.
+   Same isolation, same integration; the only new variable is who lands.
+3. `nool_native` costs more than `nool_try` — mean `cost_usd` per run higher
+   by at least 10% and mean agent turns higher — from hook overhead, denials,
+   and the landing turns. This is B1's per-operation cost surfacing at fleet
+   level; a null here means the agent-facing tax is negligible at this scale.
+4. At least 20% of `nool_native` agent sessions contain one or more guard
+   denials (agents reach for `stash`, `commit`, or a denied grep).
+5. `steer_blocked` = 0 in every run.
+
+**Decision rule.** Predictions 1–2 holding establishes that the agent-facing
+workflow reproduces the harness-integrated result; prediction 3 then prices
+it, and that price goes into `analysis/cost_effectiveness.py` as the
+`nool_native` arm's own row — the first cost figure in this suite for nool
+used as an adopter would use it. Prediction 1 failing is reported as the
+headline of the section regardless of anything else, because a coordination
+layer agents will not adopt through its own hooks is not one an enterprise
+gets the benefit of. n=3 is a directional read under this suite's "3+"
+convention.
+
+**Out of scope, stated so it is not read in later.** Footprint noise, any N
+other than 35, Opus, and the knowledge-ledger features (`learn`, `findings`,
+`query context`) as agent tools — those are Track E's subject.
+
 ## 9. Out of scope (this iteration)
 
 Nool fleet/orchestration as the multi-agent driver (tests a different claim —
