@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: 8j rep 1 nool_gated claude-opus-5 N=25 d0.5/a0.5 fp-seed 2501: 55/60, 842s, 35.04 USD (4.5x sonnet mean; prediction 4 falsified on this run)
-knot_id: 62a3b659a63935c45818bd9e224008a3e727eb0b06ec5488b945ddad1e91fefd
-solidified_at: 1788739047850
+intent: docstring: announce release --all --agent-id scopes correctly on 7.2.0 (re-tested 1 of 2 leases released); release_lease form is sound, by-ID path kept for precision
+knot_id: 1394adee5168328cbef351d7ad1d9e61fe6a8efbe6e2e0f6eeea712fbd7f27f0
+solidified_at: 1788778854131
 thread: main

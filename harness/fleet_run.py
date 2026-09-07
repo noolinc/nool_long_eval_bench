@@ -1112,7 +1112,14 @@ def _release_propose_lease(ws, ticket):
     produced the N=10/v3 "Coordination conflict" scatter across unrelated
     ticket pairs, not a leak -- confirmed by direct repro: two leases
     announced under distinct agent ids, `release --all --agent-id
-    <one>` released both. The only safe release is by the lease's own
+    <one>` released both.
+
+    RE-TESTED 2026-09-07 on nool 7.2.0: the same repro now releases
+    exactly ONE of two leases -- `--agent-id` scopes correctly on this
+    version, so release_lease()'s `--all --agent-id` form is sound for
+    nool_gated on 7.2.0 and the claim above describes 7.0.x behaviour.
+    The by-ID path below is kept because it is precise on every version,
+    not because --all is still unsafe. The only safe release is by the lease's own
     specific announcement ID, which propose's own output never prints, so
     look it up via `announce status` (our --intent string is unique per
     ticket) and release only that one."""
