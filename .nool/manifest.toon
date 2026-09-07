@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: 8k nool_native: agent-facing nool arm (hooks installed in base, standard prompt, try show stash_present detection, harness fallback with landing_source, agent_landing_rate + guard_denials metrics); pre-registered in spec 8k before any data; 1-ticket scripted validation 1/1
-knot_id: 913bdcdc03b44801a3833e3fe26e6c3604fa9839aad7c8798f89bde540ad04ca
-solidified_at: 1788779639336
+intent: 8j rep 1 git_scheduled claude-opus-5 N=25 d0.5/a0.5 fp-seed 2501: 55/60, 997s, 36.71 USD - paired gap vs nool_gated is ZERO on Opus (sonnet gaps at this noise were +1.5 to +7)
+knot_id: e66f111ed4d86cb12ae0c251d23dfbbdec93be421e37ecce9deb7d7cfdf05abd
+solidified_at: 1788779952643
 thread: main
