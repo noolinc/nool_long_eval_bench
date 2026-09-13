@@ -1,0 +1,7637 @@
+{
+ "benchmark": "b9_blast_multilang",
+ "provenance": {
+  "timestamp_utc": "2026-09-13T10:41:54.492777+00:00",
+  "system_load": {
+   "load_1m": 3.65,
+   "load_5m": 7.2,
+   "load_15m": 7.31,
+   "cpu_count": 12,
+   "load_per_core_1m": 0.3,
+   "quiet": true
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "nool_version": "nool 7.4.0",
+  "git_version": "git version 2.50.1 (Apple Git-155)",
+  "go_version": "go version go1.26.2 darwin/arm64",
+  "python_version": "3.11.2",
+  "os_version": "26.6.2",
+  "execution": "local (containerization deferred; see spec \u00a78)"
+ },
+ "config": {
+  "scenarios": [
+   "chain",
+   "star",
+   "pollution"
+  ],
+  "languages": [
+   "python",
+   "javascript",
+   "typescript",
+   "java",
+   "csharp",
+   "cpp",
+   "c",
+   "php",
+   "rust",
+   "kotlin",
+   "swift",
+   "ruby",
+   "dart",
+   "scala",
+   "lua",
+   "r",
+   "shell",
+   "powershell",
+   "objective-c",
+   "elixir",
+   "erlang",
+   "clojure",
+   "svelte",
+   "css",
+   "html",
+   "json",
+   "markdown",
+   "toml",
+   "yaml",
+   "xml"
+  ],
+  "mode": "propose --all --fast --solidify, one file per knot",
+  "ground_truth": "dependents closure by construction; markup/config formats run pollution only"
+ },
+ "summary": {
+  "python": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "javascript": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "typescript": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "java": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "csharp": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "cpp": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "c": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "php": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "rust": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "kotlin": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "swift": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "ruby": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "dart": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "scala": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "lua": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "r": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "shell": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "powershell": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "objective-c": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "elixir": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "erlang": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "clojure": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "svelte": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "css": {
+   "targets": 8,
+   "mean_FPR": 0.0,
+   "mean_recall": 1.0,
+   "errors": 0
+  },
+  "html": {
+   "targets": 1,
+   "mean_FPR": 0.0,
+   "mean_recall": null,
+   "errors": 0
+  },
+  "json": {
+   "targets": 1,
+   "mean_FPR": 0.0,
+   "mean_recall": null,
+   "errors": 0
+  },
+  "markdown": {
+   "targets": 1,
+   "mean_FPR": 0.0,
+   "mean_recall": null,
+   "errors": 0
+  },
+  "toml": {
+   "targets": 1,
+   "mean_FPR": 0.0,
+   "mean_recall": null,
+   "errors": 0
+  },
+  "yaml": {
+   "targets": 1,
+   "mean_FPR": 0.0,
+   "mean_recall": null,
+   "errors": 0
+  },
+  "xml": {
+   "targets": 1,
+   "mean_FPR": 0.0,
+   "mean_recall": null,
+   "errors": 0
+  }
+ },
+ "results": [
+  {
+   "language": "python",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.py",
+      "helper.py",
+      "unrelated.py",
+      "util.py"
+     ],
+     "targets": [
+      {
+       "target": "util.py",
+       "G": [
+        "handler.py",
+        "helper.py"
+       ],
+       "R": [
+        "handler.py",
+        "helper.py"
+       ],
+       "dependents": [
+        "handler.py",
+        "helper.py"
+       ],
+       "descendant_paths": [
+        "handler.py",
+        "helper.py"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.py,helper.py) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.9,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "helper.py",
+       "G": [
+        "handler.py"
+       ],
+       "R": [
+        "handler.py"
+       ],
+       "dependents": [
+        "handler.py"
+       ],
+       "descendant_paths": [
+        "handler.py"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.py) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.9,
+       "debug_ms": 22.4
+      },
+      {
+       "target": "handler.py",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.9,
+       "debug_ms": 21.5
+      },
+      {
+       "target": "unrelated.py",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.6,
+       "debug_ms": 22.5
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.py",
+      "leaf_0.py",
+      "leaf_1.py",
+      "leaf_2.py",
+      "unrelated_star.py"
+     ],
+     "targets": [
+      {
+       "target": "core.py",
+       "G": [
+        "leaf_0.py",
+        "leaf_1.py",
+        "leaf_2.py"
+       ],
+       "R": [
+        "leaf_0.py",
+        "leaf_1.py",
+        "leaf_2.py"
+       ],
+       "dependents": [
+        "leaf_0.py",
+        "leaf_1.py",
+        "leaf_2.py"
+       ],
+       "descendant_paths": [
+        "leaf_0.py",
+        "leaf_1.py",
+        "leaf_2.py"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.py,leaf_1.py,leaf_2.py) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=6, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.8,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "leaf_0.py",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.1,
+       "debug_ms": 21.7
+      },
+      {
+       "target": "unrelated_star.py",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.9,
+       "debug_ms": 21.0
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.py",
+      "pollute_00.py",
+      "pollute_01.py",
+      "pollute_02.py",
+      "pollute_03.py"
+     ],
+     "targets": [
+      {
+       "target": "a.py",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.7,
+       "debug_ms": 21.4
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.1
+  },
+  {
+   "language": "javascript",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.js",
+      "helper.js",
+      "unrelated.js",
+      "util.js"
+     ],
+     "targets": [
+      {
+       "target": "util.js",
+       "G": [
+        "handler.js",
+        "helper.js"
+       ],
+       "R": [
+        "handler.js",
+        "helper.js"
+       ],
+       "dependents": [
+        "handler.js",
+        "helper.js"
+       ],
+       "descendant_paths": [
+        "handler.js",
+        "helper.js"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.js,helper.js) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.1,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "helper.js",
+       "G": [
+        "handler.js"
+       ],
+       "R": [
+        "handler.js"
+       ],
+       "dependents": [
+        "handler.js"
+       ],
+       "descendant_paths": [
+        "handler.js"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.js) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.5
+      },
+      {
+       "target": "handler.js",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.7,
+       "debug_ms": 21.2
+      },
+      {
+       "target": "unrelated.js",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.3,
+       "debug_ms": 22.5
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.js",
+      "leaf_0.js",
+      "leaf_1.js",
+      "leaf_2.js",
+      "unrelated_star.js"
+     ],
+     "targets": [
+      {
+       "target": "core.js",
+       "G": [
+        "leaf_0.js",
+        "leaf_1.js",
+        "leaf_2.js"
+       ],
+       "R": [
+        "leaf_0.js",
+        "leaf_1.js",
+        "leaf_2.js"
+       ],
+       "dependents": [
+        "leaf_0.js",
+        "leaf_1.js",
+        "leaf_2.js"
+       ],
+       "descendant_paths": [
+        "leaf_0.js",
+        "leaf_1.js",
+        "leaf_2.js"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.js,leaf_1.js,leaf_2.js) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=6, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.6,
+       "debug_ms": 22.6
+      },
+      {
+       "target": "leaf_0.js",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.1,
+       "debug_ms": 21.3
+      },
+      {
+       "target": "unrelated_star.js",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.6,
+       "debug_ms": 21.3
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.js",
+      "pollute_00.js",
+      "pollute_01.js",
+      "pollute_02.js",
+      "pollute_03.js"
+     ],
+     "targets": [
+      {
+       "target": "a.js",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.3,
+       "debug_ms": 21.3
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.4
+  },
+  {
+   "language": "typescript",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.ts",
+      "helper.ts",
+      "unrelated.ts",
+      "util.ts"
+     ],
+     "targets": [
+      {
+       "target": "util.ts",
+       "G": [
+        "handler.ts",
+        "helper.ts"
+       ],
+       "R": [
+        "handler.ts",
+        "helper.ts"
+       ],
+       "dependents": [
+        "handler.ts",
+        "helper.ts"
+       ],
+       "descendant_paths": [
+        "handler.ts",
+        "helper.ts"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ts,helper.ts) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.4,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "helper.ts",
+       "G": [
+        "handler.ts"
+       ],
+       "R": [
+        "handler.ts"
+       ],
+       "dependents": [
+        "handler.ts"
+       ],
+       "descendant_paths": [
+        "handler.ts"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ts) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.8,
+       "debug_ms": 21.4
+      },
+      {
+       "target": "handler.ts",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.2,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "unrelated.ts",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.6
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.ts",
+      "leaf_0.ts",
+      "leaf_1.ts",
+      "leaf_2.ts",
+      "unrelated_star.ts"
+     ],
+     "targets": [
+      {
+       "target": "core.ts",
+       "G": [
+        "leaf_0.ts",
+        "leaf_1.ts",
+        "leaf_2.ts"
+       ],
+       "R": [
+        "leaf_0.ts",
+        "leaf_1.ts",
+        "leaf_2.ts"
+       ],
+       "dependents": [
+        "leaf_0.ts",
+        "leaf_1.ts",
+        "leaf_2.ts"
+       ],
+       "descendant_paths": [
+        "leaf_0.ts",
+        "leaf_1.ts",
+        "leaf_2.ts"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.ts,leaf_1.ts,leaf_2.ts) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.1,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "leaf_0.ts",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.9,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "unrelated_star.ts",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.0,
+       "debug_ms": 24.0
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.ts",
+      "pollute_00.ts",
+      "pollute_01.ts",
+      "pollute_02.ts",
+      "pollute_03.ts"
+     ],
+     "targets": [
+      {
+       "target": "a.ts",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.0,
+       "debug_ms": 22.0
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.4
+  },
+  {
+   "language": "java",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "Handler.java",
+      "Helper.java",
+      "Unrelated.java",
+      "Util.java"
+     ],
+     "targets": [
+      {
+       "target": "Util.java",
+       "G": [
+        "Handler.java",
+        "Helper.java"
+       ],
+       "R": [
+        "Handler.java",
+        "Helper.java"
+       ],
+       "dependents": [
+        "Handler.java",
+        "Helper.java"
+       ],
+       "descendant_paths": [
+        "Handler.java",
+        "Helper.java"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.java,Helper.java) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.3,
+       "debug_ms": 22.1
+      },
+      {
+       "target": "Helper.java",
+       "G": [
+        "Handler.java"
+       ],
+       "R": [
+        "Handler.java"
+       ],
+       "dependents": [
+        "Handler.java"
+       ],
+       "descendant_paths": [
+        "Handler.java"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.java) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.7,
+       "debug_ms": 22.4
+      },
+      {
+       "target": "Handler.java",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.9,
+       "debug_ms": 21.7
+      },
+      {
+       "target": "Unrelated.java",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.9,
+       "debug_ms": 21.0
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "Core.java",
+      "Leaf_0.java",
+      "Leaf_1.java",
+      "Leaf_2.java",
+      "Unrelated_star.java"
+     ],
+     "targets": [
+      {
+       "target": "Core.java",
+       "G": [
+        "Leaf_0.java",
+        "Leaf_1.java",
+        "Leaf_2.java"
+       ],
+       "R": [
+        "Leaf_0.java",
+        "Leaf_1.java",
+        "Leaf_2.java"
+       ],
+       "dependents": [
+        "Leaf_0.java",
+        "Leaf_1.java",
+        "Leaf_2.java"
+       ],
+       "descendant_paths": [
+        "Leaf_0.java",
+        "Leaf_1.java",
+        "Leaf_2.java"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.java,Leaf_1.java,Leaf_2.java) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.0,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "Leaf_0.java",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.0,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "Unrelated_star.java",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.9,
+       "debug_ms": 21.7
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "A.java",
+      "Pollute_00.java",
+      "Pollute_01.java",
+      "Pollute_02.java",
+      "Pollute_03.java"
+     ],
+     "targets": [
+      {
+       "target": "A.java",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 29.7,
+       "debug_ms": 21.7
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.5
+  },
+  {
+   "language": "csharp",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "Handler.cs",
+      "Helper.cs",
+      "Unrelated.cs",
+      "Util.cs"
+     ],
+     "targets": [
+      {
+       "target": "Util.cs",
+       "G": [
+        "Handler.cs",
+        "Helper.cs"
+       ],
+       "R": [
+        "Handler.cs",
+        "Helper.cs"
+       ],
+       "dependents": [
+        "Handler.cs",
+        "Helper.cs"
+       ],
+       "descendant_paths": [
+        "Handler.cs",
+        "Helper.cs"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.cs,Helper.cs) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 22.0
+      },
+      {
+       "target": "Helper.cs",
+       "G": [
+        "Handler.cs"
+       ],
+       "R": [
+        "Handler.cs"
+       ],
+       "dependents": [
+        "Handler.cs"
+       ],
+       "descendant_paths": [
+        "Handler.cs"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.cs) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.6,
+       "debug_ms": 22.1
+      },
+      {
+       "target": "Handler.cs",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.5
+      },
+      {
+       "target": "Unrelated.cs",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.1,
+       "debug_ms": 21.7
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "Core.cs",
+      "Leaf_0.cs",
+      "Leaf_1.cs",
+      "Leaf_2.cs",
+      "Unrelated_star.cs"
+     ],
+     "targets": [
+      {
+       "target": "Core.cs",
+       "G": [
+        "Leaf_0.cs",
+        "Leaf_1.cs",
+        "Leaf_2.cs"
+       ],
+       "R": [
+        "Leaf_0.cs",
+        "Leaf_1.cs",
+        "Leaf_2.cs"
+       ],
+       "dependents": [
+        "Leaf_0.cs",
+        "Leaf_1.cs",
+        "Leaf_2.cs"
+       ],
+       "descendant_paths": [
+        "Leaf_0.cs",
+        "Leaf_1.cs",
+        "Leaf_2.cs"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.cs,Leaf_1.cs,Leaf_2.cs) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "Leaf_0.cs",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.1,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "Unrelated_star.cs",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.4,
+       "debug_ms": 21.7
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "A.cs",
+      "Pollute_00.cs",
+      "Pollute_01.cs",
+      "Pollute_02.cs",
+      "Pollute_03.cs"
+     ],
+     "targets": [
+      {
+       "target": "A.cs",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.7,
+       "debug_ms": 21.7
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.1
+  },
+  {
+   "language": "cpp",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.hpp",
+      "helper.hpp",
+      "unrelated.hpp",
+      "util.hpp"
+     ],
+     "targets": [
+      {
+       "target": "util.hpp",
+       "G": [
+        "handler.hpp",
+        "helper.hpp"
+       ],
+       "R": [
+        "handler.hpp",
+        "helper.hpp"
+       ],
+       "dependents": [
+        "handler.hpp",
+        "helper.hpp"
+       ],
+       "descendant_paths": [
+        "handler.hpp",
+        "helper.hpp"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.hpp,helper.hpp) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.8,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "helper.hpp",
+       "G": [
+        "handler.hpp"
+       ],
+       "R": [
+        "handler.hpp"
+       ],
+       "dependents": [
+        "handler.hpp"
+       ],
+       "descendant_paths": [
+        "handler.hpp"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.hpp) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.8,
+       "debug_ms": 21.5
+      },
+      {
+       "target": "handler.hpp",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "unrelated.hpp",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.8,
+       "debug_ms": 22.1
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.hpp",
+      "leaf_0.hpp",
+      "leaf_1.hpp",
+      "leaf_2.hpp",
+      "unrelated_star.hpp"
+     ],
+     "targets": [
+      {
+       "target": "core.hpp",
+       "G": [
+        "leaf_0.hpp",
+        "leaf_1.hpp",
+        "leaf_2.hpp"
+       ],
+       "R": [
+        "leaf_0.hpp",
+        "leaf_1.hpp",
+        "leaf_2.hpp"
+       ],
+       "dependents": [
+        "leaf_0.hpp",
+        "leaf_1.hpp",
+        "leaf_2.hpp"
+       ],
+       "descendant_paths": [
+        "leaf_0.hpp",
+        "leaf_1.hpp",
+        "leaf_2.hpp"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.hpp,leaf_1.hpp,leaf_2.hpp) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.9,
+       "debug_ms": 21.7
+      },
+      {
+       "target": "leaf_0.hpp",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.6,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "unrelated_star.hpp",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.0,
+       "debug_ms": 21.6
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.hpp",
+      "pollute_00.hpp",
+      "pollute_01.hpp",
+      "pollute_02.hpp",
+      "pollute_03.hpp"
+     ],
+     "targets": [
+      {
+       "target": "a.hpp",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.9,
+       "debug_ms": 22.3
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.4
+  },
+  {
+   "language": "c",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.h",
+      "helper.h",
+      "unrelated.h",
+      "util.h"
+     ],
+     "targets": [
+      {
+       "target": "util.h",
+       "G": [
+        "handler.h",
+        "helper.h"
+       ],
+       "R": [
+        "handler.h",
+        "helper.h"
+       ],
+       "dependents": [
+        "handler.h",
+        "helper.h"
+       ],
+       "descendant_paths": [
+        "handler.h",
+        "helper.h"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.h,helper.h) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=7, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.6,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "helper.h",
+       "G": [
+        "handler.h"
+       ],
+       "R": [
+        "handler.h"
+       ],
+       "dependents": [
+        "handler.h"
+       ],
+       "descendant_paths": [
+        "handler.h"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.h) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.9,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "handler.h",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.7,
+       "debug_ms": 22.3
+      },
+      {
+       "target": "unrelated.h",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.4,
+       "debug_ms": 21.7
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.h",
+      "leaf_0.h",
+      "leaf_1.h",
+      "leaf_2.h",
+      "unrelated_star.h"
+     ],
+     "targets": [
+      {
+       "target": "core.h",
+       "G": [
+        "leaf_0.h",
+        "leaf_1.h",
+        "leaf_2.h"
+       ],
+       "R": [
+        "leaf_0.h",
+        "leaf_1.h",
+        "leaf_2.h"
+       ],
+       "dependents": [
+        "leaf_0.h",
+        "leaf_1.h",
+        "leaf_2.h"
+       ],
+       "descendant_paths": [
+        "leaf_0.h",
+        "leaf_1.h",
+        "leaf_2.h"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.h,leaf_1.h,leaf_2.h) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.3,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "leaf_0.h",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "unrelated_star.h",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.0,
+       "debug_ms": 21.6
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.h",
+      "pollute_00.h",
+      "pollute_01.h",
+      "pollute_02.h",
+      "pollute_03.h"
+     ],
+     "targets": [
+      {
+       "target": "a.h",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.5,
+       "debug_ms": 21.6
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.4
+  },
+  {
+   "language": "php",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.php",
+      "helper.php",
+      "unrelated.php",
+      "util.php"
+     ],
+     "targets": [
+      {
+       "target": "util.php",
+       "G": [
+        "handler.php",
+        "helper.php"
+       ],
+       "R": [
+        "handler.php",
+        "helper.php"
+       ],
+       "dependents": [
+        "handler.php",
+        "helper.php"
+       ],
+       "descendant_paths": [
+        "handler.php",
+        "helper.php"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.php,helper.php) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.5,
+       "debug_ms": 22.3
+      },
+      {
+       "target": "helper.php",
+       "G": [
+        "handler.php"
+       ],
+       "R": [
+        "handler.php"
+       ],
+       "dependents": [
+        "handler.php"
+       ],
+       "descendant_paths": [
+        "handler.php"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.php) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.2,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "handler.php",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.1,
+       "debug_ms": 21.3
+      },
+      {
+       "target": "unrelated.php",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.2,
+       "debug_ms": 21.6
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.php",
+      "leaf_0.php",
+      "leaf_1.php",
+      "leaf_2.php",
+      "unrelated_star.php"
+     ],
+     "targets": [
+      {
+       "target": "core.php",
+       "G": [
+        "leaf_0.php",
+        "leaf_1.php",
+        "leaf_2.php"
+       ],
+       "R": [
+        "leaf_0.php",
+        "leaf_1.php",
+        "leaf_2.php"
+       ],
+       "dependents": [
+        "leaf_0.php",
+        "leaf_1.php",
+        "leaf_2.php"
+       ],
+       "descendant_paths": [
+        "leaf_0.php",
+        "leaf_1.php",
+        "leaf_2.php"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.php,leaf_1.php,leaf_2.php) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.3,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "leaf_0.php",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.4,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "unrelated_star.php",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.6,
+       "debug_ms": 21.6
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.php",
+      "pollute_00.php",
+      "pollute_01.php",
+      "pollute_02.php",
+      "pollute_03.php"
+     ],
+     "targets": [
+      {
+       "target": "a.php",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.4,
+       "debug_ms": 21.3
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "rust",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "src/handler.rs",
+      "src/helper.rs",
+      "src/lib.rs",
+      "src/unrelated.rs",
+      "src/util.rs"
+     ],
+     "targets": [
+      {
+       "target": "src/util.rs",
+       "G": [
+        "src/handler.rs",
+        "src/helper.rs",
+        "src/lib.rs"
+       ],
+       "R": [
+        "src/handler.rs",
+        "src/helper.rs",
+        "src/lib.rs"
+       ],
+       "dependents": [
+        "src/handler.rs",
+        "src/helper.rs",
+        "src/lib.rs"
+       ],
+       "descendant_paths": [
+        "Cargo.lock",
+        "src/handler.rs",
+        "src/helper.rs",
+        "src/lib.rs"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Cargo.lock,src) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=6"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.6,
+       "debug_ms": 22.6
+      },
+      {
+       "target": "src/helper.rs",
+       "G": [
+        "src/handler.rs",
+        "src/lib.rs"
+       ],
+       "R": [
+        "src/handler.rs",
+        "src/lib.rs"
+       ],
+       "dependents": [
+        "src/handler.rs",
+        "src/lib.rs"
+       ],
+       "descendant_paths": [
+        "Cargo.lock",
+        "src/handler.rs",
+        "src/lib.rs"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Cargo.lock,src) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=7, dependents=2, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.4,
+       "debug_ms": 22.7
+      },
+      {
+       "target": "src/handler.rs",
+       "G": [
+        "src/lib.rs"
+       ],
+       "R": [
+        "src/lib.rs"
+       ],
+       "dependents": [
+        "src/lib.rs"
+       ],
+       "descendant_paths": [
+        "src/lib.rs"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=4"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.1,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "src/unrelated.rs",
+       "G": [
+        "src/lib.rs"
+       ],
+       "R": [
+        "src/lib.rs"
+       ],
+       "dependents": [
+        "src/lib.rs"
+       ],
+       "descendant_paths": [
+        "src/lib.rs"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.0,
+       "debug_ms": 21.7
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "src/core.rs",
+      "src/leaf_0.rs",
+      "src/leaf_1.rs",
+      "src/leaf_2.rs",
+      "src/lib.rs",
+      "src/unrelated_star.rs"
+     ],
+     "targets": [
+      {
+       "target": "src/core.rs",
+       "G": [
+        "src/leaf_0.rs",
+        "src/leaf_1.rs",
+        "src/leaf_2.rs",
+        "src/lib.rs"
+       ],
+       "R": [
+        "src/leaf_0.rs",
+        "src/leaf_1.rs",
+        "src/leaf_2.rs",
+        "src/lib.rs"
+       ],
+       "dependents": [
+        "src/leaf_0.rs",
+        "src/leaf_1.rs",
+        "src/leaf_2.rs",
+        "src/lib.rs"
+       ],
+       "descendant_paths": [
+        "Cargo.lock",
+        "src/leaf_0.rs",
+        "src/leaf_1.rs",
+        "src/leaf_2.rs",
+        "src/lib.rs"
+       ],
+       "metrics": {
+        "TP": 4,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "47",
+        "dependents": "4",
+        "symbol_reachable": "4",
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Cargo.lock,src) \u2229 Hull(main), risk=47, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=4, symbol_query_us=8, dependents=4, unrelated_later=7"
+       },
+       "debug_exit": 0,
+       "query_ms": 29.4,
+       "debug_ms": 21.4
+      },
+      {
+       "target": "src/leaf_0.rs",
+       "G": [
+        "src/lib.rs"
+       ],
+       "R": [
+        "src/lib.rs"
+       ],
+       "dependents": [
+        "src/lib.rs"
+       ],
+       "descendant_paths": [
+        "src/lib.rs"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "8",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=8"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.6,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "src/unrelated_star.rs",
+       "G": [
+        "src/lib.rs"
+       ],
+       "R": [
+        "src/lib.rs"
+       ],
+       "dependents": [
+        "src/lib.rs"
+       ],
+       "descendant_paths": [
+        "src/lib.rs"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.9,
+       "debug_ms": 22.2
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "src/a.rs",
+      "src/lib.rs",
+      "src/pollute_00.rs",
+      "src/pollute_01.rs",
+      "src/pollute_02.rs",
+      "src/pollute_03.rs"
+     ],
+     "targets": [
+      {
+       "target": "src/a.rs",
+       "G": [
+        "src/lib.rs"
+       ],
+       "R": [
+        "src/lib.rs"
+       ],
+       "dependents": [
+        "src/lib.rs"
+       ],
+       "descendant_paths": [
+        "src/lib.rs"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "10",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=10"
+       },
+       "debug_exit": 0,
+       "query_ms": 30.0,
+       "debug_ms": 22.1
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 5.1
+  },
+  {
+   "language": "kotlin",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "Handler.kt",
+      "Helper.kt",
+      "Unrelated.kt",
+      "Util.kt"
+     ],
+     "targets": [
+      {
+       "target": "Util.kt",
+       "G": [
+        "Handler.kt",
+        "Helper.kt"
+       ],
+       "R": [
+        "Handler.kt",
+        "Helper.kt"
+       ],
+       "dependents": [
+        "Handler.kt",
+        "Helper.kt"
+       ],
+       "descendant_paths": [
+        "Handler.kt",
+        "Helper.kt"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.kt,Helper.kt) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.1,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "Helper.kt",
+       "G": [
+        "Handler.kt"
+       ],
+       "R": [
+        "Handler.kt"
+       ],
+       "dependents": [
+        "Handler.kt"
+       ],
+       "descendant_paths": [
+        "Handler.kt"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.kt) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.5,
+       "debug_ms": 21.5
+      },
+      {
+       "target": "Handler.kt",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.4,
+       "debug_ms": 20.8
+      },
+      {
+       "target": "Unrelated.kt",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.6,
+       "debug_ms": 21.0
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "Core.kt",
+      "Leaf_0.kt",
+      "Leaf_1.kt",
+      "Leaf_2.kt",
+      "Unrelated_star.kt"
+     ],
+     "targets": [
+      {
+       "target": "Core.kt",
+       "G": [
+        "Leaf_0.kt",
+        "Leaf_1.kt",
+        "Leaf_2.kt"
+       ],
+       "R": [
+        "Leaf_0.kt",
+        "Leaf_1.kt",
+        "Leaf_2.kt"
+       ],
+       "dependents": [
+        "Leaf_0.kt",
+        "Leaf_1.kt",
+        "Leaf_2.kt"
+       ],
+       "descendant_paths": [
+        "Leaf_0.kt",
+        "Leaf_1.kt",
+        "Leaf_2.kt"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.kt,Leaf_1.kt,Leaf_2.kt) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=8, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.5,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "Leaf_0.kt",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "Unrelated_star.kt",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.2
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "A.kt",
+      "Pollute_00.kt",
+      "Pollute_01.kt",
+      "Pollute_02.kt",
+      "Pollute_03.kt"
+     ],
+     "targets": [
+      {
+       "target": "A.kt",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 21.6
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.3
+  },
+  {
+   "language": "swift",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "Handler.swift",
+      "Helper.swift",
+      "Unrelated.swift",
+      "Util.swift"
+     ],
+     "targets": [
+      {
+       "target": "Util.swift",
+       "G": [
+        "Handler.swift",
+        "Helper.swift"
+       ],
+       "R": [
+        "Handler.swift",
+        "Helper.swift"
+       ],
+       "dependents": [
+        "Handler.swift",
+        "Helper.swift"
+       ],
+       "descendant_paths": [
+        "Handler.swift",
+        "Helper.swift"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.swift,Helper.swift) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.7,
+       "debug_ms": 22.1
+      },
+      {
+       "target": "Helper.swift",
+       "G": [
+        "Handler.swift"
+       ],
+       "R": [
+        "Handler.swift"
+       ],
+       "dependents": [
+        "Handler.swift"
+       ],
+       "descendant_paths": [
+        "Handler.swift"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.swift) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.0,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "Handler.swift",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "Unrelated.swift",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.1,
+       "debug_ms": 21.5
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "Core.swift",
+      "Leaf_0.swift",
+      "Leaf_1.swift",
+      "Leaf_2.swift",
+      "Unrelated_star.swift"
+     ],
+     "targets": [
+      {
+       "target": "Core.swift",
+       "G": [
+        "Leaf_0.swift",
+        "Leaf_1.swift",
+        "Leaf_2.swift"
+       ],
+       "R": [
+        "Leaf_0.swift",
+        "Leaf_1.swift",
+        "Leaf_2.swift"
+       ],
+       "dependents": [
+        "Leaf_0.swift",
+        "Leaf_1.swift",
+        "Leaf_2.swift"
+       ],
+       "descendant_paths": [
+        "Leaf_0.swift",
+        "Leaf_1.swift",
+        "Leaf_2.swift"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.swift,Leaf_1.swift,Leaf_2.swift) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=8, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 30.2,
+       "debug_ms": 27.4
+      },
+      {
+       "target": "Leaf_0.swift",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 30.9,
+       "debug_ms": 24.6
+      },
+      {
+       "target": "Unrelated_star.swift",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.6,
+       "debug_ms": 23.1
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "A.swift",
+      "Pollute_00.swift",
+      "Pollute_01.swift",
+      "Pollute_02.swift",
+      "Pollute_03.swift"
+     ],
+     "targets": [
+      {
+       "target": "A.swift",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.4,
+       "debug_ms": 21.7
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.1
+  },
+  {
+   "language": "ruby",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.rb",
+      "helper.rb",
+      "unrelated.rb",
+      "util.rb"
+     ],
+     "targets": [
+      {
+       "target": "util.rb",
+       "G": [
+        "handler.rb",
+        "helper.rb"
+       ],
+       "R": [
+        "handler.rb",
+        "helper.rb"
+       ],
+       "dependents": [
+        "handler.rb",
+        "helper.rb"
+       ],
+       "descendant_paths": [
+        "handler.rb",
+        "helper.rb"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.rb,helper.rb) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.4,
+       "debug_ms": 21.3
+      },
+      {
+       "target": "helper.rb",
+       "G": [
+        "handler.rb"
+       ],
+       "R": [
+        "handler.rb"
+       ],
+       "dependents": [
+        "handler.rb"
+       ],
+       "descendant_paths": [
+        "handler.rb"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.rb) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=5, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.0,
+       "debug_ms": 22.5
+      },
+      {
+       "target": "handler.rb",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.4,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "unrelated.rb",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.9,
+       "debug_ms": 21.6
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.rb",
+      "leaf_0.rb",
+      "leaf_1.rb",
+      "leaf_2.rb",
+      "unrelated_star.rb"
+     ],
+     "targets": [
+      {
+       "target": "core.rb",
+       "G": [
+        "leaf_0.rb",
+        "leaf_1.rb",
+        "leaf_2.rb"
+       ],
+       "R": [
+        "leaf_0.rb",
+        "leaf_1.rb",
+        "leaf_2.rb"
+       ],
+       "dependents": [
+        "leaf_0.rb",
+        "leaf_1.rb",
+        "leaf_2.rb"
+       ],
+       "descendant_paths": [
+        "leaf_0.rb",
+        "leaf_1.rb",
+        "leaf_2.rb"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.rb,leaf_1.rb,leaf_2.rb) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=6, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.7,
+       "debug_ms": 21.3
+      },
+      {
+       "target": "leaf_0.rb",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.8,
+       "debug_ms": 21.4
+      },
+      {
+       "target": "unrelated_star.rb",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.5,
+       "debug_ms": 21.3
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.rb",
+      "pollute_00.rb",
+      "pollute_01.rb",
+      "pollute_02.rb",
+      "pollute_03.rb"
+     ],
+     "targets": [
+      {
+       "target": "a.rb",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=4, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 30.2,
+       "debug_ms": 22.7
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "dart",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.dart",
+      "helper.dart",
+      "unrelated.dart",
+      "util.dart"
+     ],
+     "targets": [
+      {
+       "target": "util.dart",
+       "G": [
+        "handler.dart",
+        "helper.dart"
+       ],
+       "R": [
+        "handler.dart",
+        "helper.dart"
+       ],
+       "dependents": [
+        "handler.dart",
+        "helper.dart"
+       ],
+       "descendant_paths": [
+        "handler.dart",
+        "helper.dart"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.dart,helper.dart) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.0,
+       "debug_ms": 21.7
+      },
+      {
+       "target": "helper.dart",
+       "G": [
+        "handler.dart"
+       ],
+       "R": [
+        "handler.dart"
+       ],
+       "dependents": [
+        "handler.dart"
+       ],
+       "descendant_paths": [
+        "handler.dart"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.dart) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.6,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "handler.dart",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.4,
+       "debug_ms": 21.3
+      },
+      {
+       "target": "unrelated.dart",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.7,
+       "debug_ms": 21.2
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.dart",
+      "leaf_0.dart",
+      "leaf_1.dart",
+      "leaf_2.dart",
+      "unrelated_star.dart"
+     ],
+     "targets": [
+      {
+       "target": "core.dart",
+       "G": [
+        "leaf_0.dart",
+        "leaf_1.dart",
+        "leaf_2.dart"
+       ],
+       "R": [
+        "leaf_0.dart",
+        "leaf_1.dart",
+        "leaf_2.dart"
+       ],
+       "dependents": [
+        "leaf_0.dart",
+        "leaf_1.dart",
+        "leaf_2.dart"
+       ],
+       "descendant_paths": [
+        "leaf_0.dart",
+        "leaf_1.dart",
+        "leaf_2.dart"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.dart,leaf_1.dart,leaf_2.dart) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "leaf_0.dart",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.5,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "unrelated_star.dart",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.0
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.dart",
+      "pollute_00.dart",
+      "pollute_01.dart",
+      "pollute_02.dart",
+      "pollute_03.dart"
+     ],
+     "targets": [
+      {
+       "target": "a.dart",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.6,
+       "debug_ms": 21.6
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "scala",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "Handler.scala",
+      "Helper.scala",
+      "Unrelated.scala",
+      "Util.scala"
+     ],
+     "targets": [
+      {
+       "target": "Util.scala",
+       "G": [
+        "Handler.scala",
+        "Helper.scala"
+       ],
+       "R": [
+        "Handler.scala",
+        "Helper.scala"
+       ],
+       "dependents": [
+        "Handler.scala",
+        "Helper.scala"
+       ],
+       "descendant_paths": [
+        "Handler.scala",
+        "Helper.scala"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.scala,Helper.scala) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=6, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 29.1,
+       "debug_ms": 24.3
+      },
+      {
+       "target": "Helper.scala",
+       "G": [
+        "Handler.scala"
+       ],
+       "R": [
+        "Handler.scala"
+       ],
+       "dependents": [
+        "Handler.scala"
+       ],
+       "descendant_paths": [
+        "Handler.scala"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.scala) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.3,
+       "debug_ms": 22.8
+      },
+      {
+       "target": "Handler.scala",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=4, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.9,
+       "debug_ms": 23.2
+      },
+      {
+       "target": "Unrelated.scala",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.5,
+       "debug_ms": 23.9
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "Core.scala",
+      "Leaf_0.scala",
+      "Leaf_1.scala",
+      "Leaf_2.scala",
+      "Unrelated_star.scala"
+     ],
+     "targets": [
+      {
+       "target": "Core.scala",
+       "G": [
+        "Leaf_0.scala",
+        "Leaf_1.scala",
+        "Leaf_2.scala"
+       ],
+       "R": [
+        "Leaf_0.scala",
+        "Leaf_1.scala",
+        "Leaf_2.scala"
+       ],
+       "dependents": [
+        "Leaf_0.scala",
+        "Leaf_1.scala",
+        "Leaf_2.scala"
+       ],
+       "descendant_paths": [
+        "Leaf_0.scala",
+        "Leaf_1.scala",
+        "Leaf_2.scala"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.scala,Leaf_1.scala,Leaf_2.scala) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=8, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.4,
+       "debug_ms": 24.9
+      },
+      {
+       "target": "Leaf_0.scala",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.8,
+       "debug_ms": 22.9
+      },
+      {
+       "target": "Unrelated_star.scala",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.6,
+       "debug_ms": 22.3
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "A.scala",
+      "Pollute_00.scala",
+      "Pollute_01.scala",
+      "Pollute_02.scala",
+      "Pollute_03.scala"
+     ],
+     "targets": [
+      {
+       "target": "A.scala",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.6,
+       "debug_ms": 22.2
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.5
+  },
+  {
+   "language": "lua",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.lua",
+      "helper.lua",
+      "unrelated.lua",
+      "util.lua"
+     ],
+     "targets": [
+      {
+       "target": "util.lua",
+       "G": [
+        "handler.lua",
+        "helper.lua"
+       ],
+       "R": [
+        "handler.lua",
+        "helper.lua"
+       ],
+       "dependents": [
+        "handler.lua",
+        "helper.lua"
+       ],
+       "descendant_paths": [
+        "handler.lua",
+        "helper.lua"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.lua,helper.lua) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.5,
+       "debug_ms": 22.9
+      },
+      {
+       "target": "helper.lua",
+       "G": [
+        "handler.lua"
+       ],
+       "R": [
+        "handler.lua"
+       ],
+       "dependents": [
+        "handler.lua"
+       ],
+       "descendant_paths": [
+        "handler.lua"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.lua) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.9,
+       "debug_ms": 22.1
+      },
+      {
+       "target": "handler.lua",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.5,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "unrelated.lua",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.5,
+       "debug_ms": 21.7
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.lua",
+      "leaf_0.lua",
+      "leaf_1.lua",
+      "leaf_2.lua",
+      "unrelated_star.lua"
+     ],
+     "targets": [
+      {
+       "target": "core.lua",
+       "G": [
+        "leaf_0.lua",
+        "leaf_1.lua",
+        "leaf_2.lua"
+       ],
+       "R": [
+        "leaf_0.lua",
+        "leaf_1.lua",
+        "leaf_2.lua"
+       ],
+       "dependents": [
+        "leaf_0.lua",
+        "leaf_1.lua",
+        "leaf_2.lua"
+       ],
+       "descendant_paths": [
+        "leaf_0.lua",
+        "leaf_1.lua",
+        "leaf_2.lua"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.lua,leaf_1.lua,leaf_2.lua) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.0,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "leaf_0.lua",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.7,
+       "debug_ms": 21.2
+      },
+      {
+       "target": "unrelated_star.lua",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.9,
+       "debug_ms": 21.5
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.lua",
+      "pollute_00.lua",
+      "pollute_01.lua",
+      "pollute_02.lua",
+      "pollute_03.lua"
+     ],
+     "targets": [
+      {
+       "target": "a.lua",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.5,
+       "debug_ms": 22.2
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "r",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.r",
+      "helper.r",
+      "unrelated.r",
+      "util.r"
+     ],
+     "targets": [
+      {
+       "target": "util.r",
+       "G": [
+        "handler.r",
+        "helper.r"
+       ],
+       "R": [
+        "handler.r",
+        "helper.r"
+       ],
+       "dependents": [
+        "handler.r",
+        "helper.r"
+       ],
+       "descendant_paths": [
+        "handler.r",
+        "helper.r"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.r,helper.r) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.4,
+       "debug_ms": 22.8
+      },
+      {
+       "target": "helper.r",
+       "G": [
+        "handler.r"
+       ],
+       "R": [
+        "handler.r"
+       ],
+       "dependents": [
+        "handler.r"
+       ],
+       "descendant_paths": [
+        "handler.r"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.r) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.1,
+       "debug_ms": 22.4
+      },
+      {
+       "target": "handler.r",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.9,
+       "debug_ms": 23.3
+      },
+      {
+       "target": "unrelated.r",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 23.4
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.r",
+      "leaf_0.r",
+      "leaf_1.r",
+      "leaf_2.r",
+      "unrelated_star.r"
+     ],
+     "targets": [
+      {
+       "target": "core.r",
+       "G": [
+        "leaf_0.r",
+        "leaf_1.r",
+        "leaf_2.r"
+       ],
+       "R": [
+        "leaf_0.r",
+        "leaf_1.r",
+        "leaf_2.r"
+       ],
+       "dependents": [
+        "leaf_0.r",
+        "leaf_1.r",
+        "leaf_2.r"
+       ],
+       "descendant_paths": [
+        "leaf_0.r",
+        "leaf_1.r",
+        "leaf_2.r"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.r,leaf_1.r,leaf_2.r) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=8, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.9,
+       "debug_ms": 21.4
+      },
+      {
+       "target": "leaf_0.r",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.5,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "unrelated_star.r",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.2,
+       "debug_ms": 23.6
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.r",
+      "pollute_00.r",
+      "pollute_01.r",
+      "pollute_02.r",
+      "pollute_03.r"
+     ],
+     "targets": [
+      {
+       "target": "a.r",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=4, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 21.7
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "shell",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.sh",
+      "helper.sh",
+      "unrelated.sh",
+      "util.sh"
+     ],
+     "targets": [
+      {
+       "target": "util.sh",
+       "G": [
+        "handler.sh",
+        "helper.sh"
+       ],
+       "R": [
+        "handler.sh",
+        "helper.sh"
+       ],
+       "dependents": [
+        "handler.sh",
+        "helper.sh"
+       ],
+       "descendant_paths": [
+        "handler.sh",
+        "helper.sh"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.sh,helper.sh) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=6, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.4,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "helper.sh",
+       "G": [
+        "handler.sh"
+       ],
+       "R": [
+        "handler.sh"
+       ],
+       "dependents": [
+        "handler.sh"
+       ],
+       "descendant_paths": [
+        "handler.sh"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.sh) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.2,
+       "debug_ms": 21.5
+      },
+      {
+       "target": "handler.sh",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.5,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "unrelated.sh",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.7,
+       "debug_ms": 21.2
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.sh",
+      "leaf_0.sh",
+      "leaf_1.sh",
+      "leaf_2.sh",
+      "unrelated_star.sh"
+     ],
+     "targets": [
+      {
+       "target": "core.sh",
+       "G": [
+        "leaf_0.sh",
+        "leaf_1.sh",
+        "leaf_2.sh"
+       ],
+       "R": [
+        "leaf_0.sh",
+        "leaf_1.sh",
+        "leaf_2.sh"
+       ],
+       "dependents": [
+        "leaf_0.sh",
+        "leaf_1.sh",
+        "leaf_2.sh"
+       ],
+       "descendant_paths": [
+        "leaf_0.sh",
+        "leaf_1.sh",
+        "leaf_2.sh"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.sh,leaf_1.sh,leaf_2.sh) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.3,
+       "debug_ms": 23.1
+      },
+      {
+       "target": "leaf_0.sh",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.4,
+       "debug_ms": 22.0
+      },
+      {
+       "target": "unrelated_star.sh",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.0,
+       "debug_ms": 22.3
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.sh",
+      "pollute_00.sh",
+      "pollute_01.sh",
+      "pollute_02.sh",
+      "pollute_03.sh"
+     ],
+     "targets": [
+      {
+       "target": "a.sh",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.7,
+       "debug_ms": 21.8
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "powershell",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.ps1",
+      "helper.ps1",
+      "unrelated.ps1",
+      "util.ps1"
+     ],
+     "targets": [
+      {
+       "target": "util.ps1",
+       "G": [
+        "handler.ps1",
+        "helper.ps1"
+       ],
+       "R": [
+        "handler.ps1",
+        "helper.ps1"
+       ],
+       "dependents": [
+        "handler.ps1",
+        "helper.ps1"
+       ],
+       "descendant_paths": [
+        "handler.ps1",
+        "helper.ps1"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ps1,helper.ps1) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=7, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.0,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "helper.ps1",
+       "G": [
+        "handler.ps1"
+       ],
+       "R": [
+        "handler.ps1"
+       ],
+       "dependents": [
+        "handler.ps1"
+       ],
+       "descendant_paths": [
+        "handler.ps1"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ps1) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.7,
+       "debug_ms": 22.7
+      },
+      {
+       "target": "handler.ps1",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "unrelated.ps1",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.0,
+       "debug_ms": 22.0
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.ps1",
+      "leaf_0.ps1",
+      "leaf_1.ps1",
+      "leaf_2.ps1",
+      "unrelated_star.ps1"
+     ],
+     "targets": [
+      {
+       "target": "core.ps1",
+       "G": [
+        "leaf_0.ps1",
+        "leaf_1.ps1",
+        "leaf_2.ps1"
+       ],
+       "R": [
+        "leaf_0.ps1",
+        "leaf_1.ps1",
+        "leaf_2.ps1"
+       ],
+       "dependents": [
+        "leaf_0.ps1",
+        "leaf_1.ps1",
+        "leaf_2.ps1"
+       ],
+       "descendant_paths": [
+        "leaf_0.ps1",
+        "leaf_1.ps1",
+        "leaf_2.ps1"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.ps1,leaf_1.ps1,leaf_2.ps1) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.9,
+       "debug_ms": 23.8
+      },
+      {
+       "target": "leaf_0.ps1",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.4,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "unrelated_star.ps1",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.1,
+       "debug_ms": 21.5
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.ps1",
+      "pollute_00.ps1",
+      "pollute_01.ps1",
+      "pollute_02.ps1",
+      "pollute_03.ps1"
+     ],
+     "targets": [
+      {
+       "target": "a.ps1",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.9,
+       "debug_ms": 21.7
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "objective-c",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.m",
+      "helper.m",
+      "unrelated.m",
+      "util.m"
+     ],
+     "targets": [
+      {
+       "target": "util.m",
+       "G": [
+        "handler.m",
+        "helper.m"
+       ],
+       "R": [
+        "handler.m",
+        "helper.m"
+       ],
+       "dependents": [
+        "handler.m",
+        "helper.m"
+       ],
+       "descendant_paths": [
+        "handler.m",
+        "helper.m"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.m,helper.m) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=6, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 29.0,
+       "debug_ms": 22.7
+      },
+      {
+       "target": "helper.m",
+       "G": [
+        "handler.m"
+       ],
+       "R": [
+        "handler.m"
+       ],
+       "dependents": [
+        "handler.m"
+       ],
+       "descendant_paths": [
+        "handler.m"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.m) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.2,
+       "debug_ms": 22.7
+      },
+      {
+       "target": "handler.m",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.7,
+       "debug_ms": 21.3
+      },
+      {
+       "target": "unrelated.m",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.2,
+       "debug_ms": 21.8
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.m",
+      "leaf_0.m",
+      "leaf_1.m",
+      "leaf_2.m",
+      "unrelated_star.m"
+     ],
+     "targets": [
+      {
+       "target": "core.m",
+       "G": [
+        "leaf_0.m",
+        "leaf_1.m",
+        "leaf_2.m"
+       ],
+       "R": [
+        "leaf_0.m",
+        "leaf_1.m",
+        "leaf_2.m"
+       ],
+       "dependents": [
+        "leaf_0.m",
+        "leaf_1.m",
+        "leaf_2.m"
+       ],
+       "descendant_paths": [
+        "leaf_0.m",
+        "leaf_1.m",
+        "leaf_2.m"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.m,leaf_1.m,leaf_2.m) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=9, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.0,
+       "debug_ms": 23.2
+      },
+      {
+       "target": "leaf_0.m",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.8,
+       "debug_ms": 22.2
+      },
+      {
+       "target": "unrelated_star.m",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.5,
+       "debug_ms": 22.6
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.m",
+      "pollute_00.m",
+      "pollute_01.m",
+      "pollute_02.m",
+      "pollute_03.m"
+     ],
+     "targets": [
+      {
+       "target": "a.m",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.4,
+       "debug_ms": 21.3
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "elixir",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.ex",
+      "helper.ex",
+      "unrelated.ex",
+      "util.ex"
+     ],
+     "targets": [
+      {
+       "target": "util.ex",
+       "G": [
+        "handler.ex",
+        "helper.ex"
+       ],
+       "R": [
+        "handler.ex",
+        "helper.ex"
+       ],
+       "dependents": [
+        "handler.ex",
+        "helper.ex"
+       ],
+       "descendant_paths": [
+        "handler.ex",
+        "helper.ex"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ex,helper.ex) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 22.0
+      },
+      {
+       "target": "helper.ex",
+       "G": [
+        "handler.ex"
+       ],
+       "R": [
+        "handler.ex"
+       ],
+       "dependents": [
+        "handler.ex"
+       ],
+       "descendant_paths": [
+        "handler.ex"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ex) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.6,
+       "debug_ms": 22.1
+      },
+      {
+       "target": "handler.ex",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.6,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "unrelated.ex",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.4,
+       "debug_ms": 22.2
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.ex",
+      "leaf_0.ex",
+      "leaf_1.ex",
+      "leaf_2.ex",
+      "unrelated_star.ex"
+     ],
+     "targets": [
+      {
+       "target": "core.ex",
+       "G": [
+        "leaf_0.ex",
+        "leaf_1.ex",
+        "leaf_2.ex"
+       ],
+       "R": [
+        "leaf_0.ex",
+        "leaf_1.ex",
+        "leaf_2.ex"
+       ],
+       "dependents": [
+        "leaf_0.ex",
+        "leaf_1.ex",
+        "leaf_2.ex"
+       ],
+       "descendant_paths": [
+        "leaf_0.ex",
+        "leaf_1.ex",
+        "leaf_2.ex"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.ex,leaf_1.ex,leaf_2.ex) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=8, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.9,
+       "debug_ms": 22.8
+      },
+      {
+       "target": "leaf_0.ex",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.3,
+       "debug_ms": 21.4
+      },
+      {
+       "target": "unrelated_star.ex",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.2,
+       "debug_ms": 21.5
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.ex",
+      "pollute_00.ex",
+      "pollute_01.ex",
+      "pollute_02.ex",
+      "pollute_03.ex"
+     ],
+     "targets": [
+      {
+       "target": "a.ex",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.4,
+       "debug_ms": 22.0
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.4
+  },
+  {
+   "language": "erlang",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.erl",
+      "helper.erl",
+      "unrelated.erl",
+      "util.erl"
+     ],
+     "targets": [
+      {
+       "target": "util.erl",
+       "G": [
+        "handler.erl",
+        "helper.erl"
+       ],
+       "R": [
+        "handler.erl",
+        "helper.erl"
+       ],
+       "dependents": [
+        "handler.erl",
+        "helper.erl"
+       ],
+       "descendant_paths": [
+        "handler.erl",
+        "helper.erl"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.erl,helper.erl) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=7, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.5,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "helper.erl",
+       "G": [
+        "handler.erl"
+       ],
+       "R": [
+        "handler.erl"
+       ],
+       "dependents": [
+        "handler.erl"
+       ],
+       "descendant_paths": [
+        "handler.erl"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.erl) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.9,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "handler.erl",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.9,
+       "debug_ms": 21.1
+      },
+      {
+       "target": "unrelated.erl",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.5,
+       "debug_ms": 21.7
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.erl",
+      "leaf_0.erl",
+      "leaf_1.erl",
+      "leaf_2.erl",
+      "unrelated_star.erl"
+     ],
+     "targets": [
+      {
+       "target": "core.erl",
+       "G": [
+        "leaf_0.erl",
+        "leaf_1.erl",
+        "leaf_2.erl"
+       ],
+       "R": [
+        "leaf_0.erl",
+        "leaf_1.erl",
+        "leaf_2.erl"
+       ],
+       "dependents": [
+        "leaf_0.erl",
+        "leaf_1.erl",
+        "leaf_2.erl"
+       ],
+       "descendant_paths": [
+        "leaf_0.erl",
+        "leaf_1.erl",
+        "leaf_2.erl"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.erl,leaf_1.erl,leaf_2.erl) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.4,
+       "debug_ms": 21.7
+      },
+      {
+       "target": "leaf_0.erl",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.8,
+       "debug_ms": 22.1
+      },
+      {
+       "target": "unrelated_star.erl",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.0,
+       "debug_ms": 21.7
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.erl",
+      "pollute_00.erl",
+      "pollute_01.erl",
+      "pollute_02.erl",
+      "pollute_03.erl"
+     ],
+     "targets": [
+      {
+       "target": "a.erl",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.6,
+       "debug_ms": 21.3
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "clojure",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.clj",
+      "helper.clj",
+      "unrelated.clj",
+      "util.clj"
+     ],
+     "targets": [
+      {
+       "target": "util.clj",
+       "G": [
+        "handler.clj",
+        "helper.clj"
+       ],
+       "R": [
+        "handler.clj",
+        "helper.clj"
+       ],
+       "dependents": [
+        "handler.clj",
+        "helper.clj"
+       ],
+       "descendant_paths": [
+        "handler.clj",
+        "helper.clj"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.clj,helper.clj) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 22.6
+      },
+      {
+       "target": "helper.clj",
+       "G": [
+        "handler.clj"
+       ],
+       "R": [
+        "handler.clj"
+       ],
+       "dependents": [
+        "handler.clj"
+       ],
+       "descendant_paths": [
+        "handler.clj"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.clj) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.6,
+       "debug_ms": 20.9
+      },
+      {
+       "target": "handler.clj",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.1,
+       "debug_ms": 21.7
+      },
+      {
+       "target": "unrelated.clj",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=4, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.7,
+       "debug_ms": 21.9
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.clj",
+      "leaf_0.clj",
+      "leaf_1.clj",
+      "leaf_2.clj",
+      "unrelated_star.clj"
+     ],
+     "targets": [
+      {
+       "target": "core.clj",
+       "G": [
+        "leaf_0.clj",
+        "leaf_1.clj",
+        "leaf_2.clj"
+       ],
+       "R": [
+        "leaf_0.clj",
+        "leaf_1.clj",
+        "leaf_2.clj"
+       ],
+       "dependents": [
+        "leaf_0.clj",
+        "leaf_1.clj",
+        "leaf_2.clj"
+       ],
+       "descendant_paths": [
+        "leaf_0.clj",
+        "leaf_1.clj",
+        "leaf_2.clj"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.clj,leaf_1.clj,leaf_2.clj) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.1,
+       "debug_ms": 23.2
+      },
+      {
+       "target": "leaf_0.clj",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 29.0,
+       "debug_ms": 22.5
+      },
+      {
+       "target": "unrelated_star.clj",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.6,
+       "debug_ms": 22.2
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.clj",
+      "pollute_00.clj",
+      "pollute_01.clj",
+      "pollute_02.clj",
+      "pollute_03.clj"
+     ],
+     "targets": [
+      {
+       "target": "a.clj",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.5,
+       "debug_ms": 21.4
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.4
+  },
+  {
+   "language": "svelte",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.svelte",
+      "helper.svelte",
+      "unrelated.svelte",
+      "util.svelte"
+     ],
+     "targets": [
+      {
+       "target": "util.svelte",
+       "G": [
+        "handler.svelte",
+        "helper.svelte"
+       ],
+       "R": [
+        "handler.svelte",
+        "helper.svelte"
+       ],
+       "dependents": [
+        "handler.svelte",
+        "helper.svelte"
+       ],
+       "descendant_paths": [
+        "handler.svelte",
+        "helper.svelte"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.svelte,helper.svelte) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.6,
+       "debug_ms": 22.1
+      },
+      {
+       "target": "helper.svelte",
+       "G": [
+        "handler.svelte"
+       ],
+       "R": [
+        "handler.svelte"
+       ],
+       "dependents": [
+        "handler.svelte"
+       ],
+       "descendant_paths": [
+        "handler.svelte"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.svelte) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.4,
+       "debug_ms": 21.6
+      },
+      {
+       "target": "handler.svelte",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.7,
+       "debug_ms": 22.4
+      },
+      {
+       "target": "unrelated.svelte",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.2,
+       "debug_ms": 21.6
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.svelte",
+      "leaf_0.svelte",
+      "leaf_1.svelte",
+      "leaf_2.svelte",
+      "unrelated_star.svelte"
+     ],
+     "targets": [
+      {
+       "target": "core.svelte",
+       "G": [
+        "leaf_0.svelte",
+        "leaf_1.svelte",
+        "leaf_2.svelte"
+       ],
+       "R": [
+        "leaf_0.svelte",
+        "leaf_1.svelte",
+        "leaf_2.svelte"
+       ],
+       "dependents": [
+        "leaf_0.svelte",
+        "leaf_1.svelte",
+        "leaf_2.svelte"
+       ],
+       "descendant_paths": [
+        "leaf_0.svelte",
+        "leaf_1.svelte",
+        "leaf_2.svelte"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.svelte,leaf_1.svelte,leaf_2.svelte) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 29.0,
+       "debug_ms": 22.6
+      },
+      {
+       "target": "leaf_0.svelte",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.2,
+       "debug_ms": 21.7
+      },
+      {
+       "target": "unrelated_star.svelte",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.4,
+       "debug_ms": 21.5
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.svelte",
+      "pollute_00.svelte",
+      "pollute_01.svelte",
+      "pollute_02.svelte",
+      "pollute_03.svelte"
+     ],
+     "targets": [
+      {
+       "target": "a.svelte",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.3,
+       "debug_ms": 21.9
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 3.0
+  },
+  {
+   "language": "css",
+   "scenarios": [
+    {
+     "scenario": "chain",
+     "universe": [
+      "handler.css",
+      "helper.css",
+      "unrelated.css",
+      "util.css"
+     ],
+     "targets": [
+      {
+       "target": "util.css",
+       "G": [
+        "handler.css",
+        "helper.css"
+       ],
+       "R": [
+        "handler.css",
+        "helper.css"
+       ],
+       "dependents": [
+        "handler.css",
+        "helper.css"
+       ],
+       "descendant_paths": [
+        "handler.css",
+        "helper.css"
+       ],
+       "metrics": {
+        "TP": 2,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "37",
+        "dependents": "2",
+        "symbol_reachable": "2",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.css,helper.css) \u2229 Hull(main), risk=37, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=2, symbol_query_us=5, dependents=2, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.1,
+       "debug_ms": 21.9
+      },
+      {
+       "target": "helper.css",
+       "G": [
+        "handler.css"
+       ],
+       "R": [
+        "handler.css"
+       ],
+       "dependents": [
+        "handler.css"
+       ],
+       "descendant_paths": [
+        "handler.css"
+       ],
+       "metrics": {
+        "TP": 1,
+        "FP": 0,
+        "FN": 0,
+        "TN": 3,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "32",
+        "dependents": "1",
+        "symbol_reachable": "1",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.css) \u2229 Hull(main), risk=32, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.0,
+       "debug_ms": 21.5
+      },
+      {
+       "target": "handler.css",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=1"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.2,
+       "debug_ms": 23.4
+      },
+      {
+       "target": "unrelated.css",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 4,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.8,
+       "debug_ms": 21.8
+      }
+     ]
+    },
+    {
+     "scenario": "star",
+     "universe": [
+      "core.css",
+      "leaf_0.css",
+      "leaf_1.css",
+      "leaf_2.css",
+      "unrelated_star.css"
+     ],
+     "targets": [
+      {
+       "target": "core.css",
+       "G": [
+        "leaf_0.css",
+        "leaf_1.css",
+        "leaf_2.css"
+       ],
+       "R": [
+        "leaf_0.css",
+        "leaf_1.css",
+        "leaf_2.css"
+       ],
+       "dependents": [
+        "leaf_0.css",
+        "leaf_1.css",
+        "leaf_2.css"
+       ],
+       "descendant_paths": [
+        "leaf_0.css",
+        "leaf_1.css",
+        "leaf_2.css"
+       ],
+       "metrics": {
+        "TP": 3,
+        "FP": 0,
+        "FN": 0,
+        "TN": 2,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "42",
+        "dependents": "3",
+        "symbol_reachable": "3",
+        "unrelated_later": "2",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.css,leaf_1.css,leaf_2.css) \u2229 Hull(main), risk=42, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=3, symbol_query_us=7, dependents=3, unrelated_later=2"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.3,
+       "debug_ms": 21.8
+      },
+      {
+       "target": "leaf_0.css",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=3"
+       },
+       "debug_exit": 0,
+       "query_ms": 24.8,
+       "debug_ms": 21.1
+      },
+      {
+       "target": "unrelated_star.css",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "0",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=0"
+       },
+       "debug_exit": 0,
+       "query_ms": 25.0,
+       "debug_ms": 21.0
+      }
+     ]
+    },
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.css",
+      "pollute_00.css",
+      "pollute_01.css",
+      "pollute_02.css",
+      "pollute_03.css"
+     ],
+     "targets": [
+      {
+       "target": "a.css",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 28.1,
+       "debug_ms": 22.6
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 2.9
+  },
+  {
+   "language": "html",
+   "scenarios": [
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.html",
+      "pollute_00.html",
+      "pollute_01.html",
+      "pollute_02.html",
+      "pollute_03.html"
+     ],
+     "targets": [
+      {
+       "target": "a.html",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.9,
+       "debug_ms": 21.7
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 0.9
+  },
+  {
+   "language": "json",
+   "scenarios": [
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.json",
+      "pollute_00.json",
+      "pollute_01.json",
+      "pollute_02.json",
+      "pollute_03.json"
+     ],
+     "targets": [
+      {
+       "target": "a.json",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 29.9,
+       "debug_ms": 23.0
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 0.9
+  },
+  {
+   "language": "markdown",
+   "scenarios": [
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.md",
+      "pollute_00.md",
+      "pollute_01.md",
+      "pollute_02.md",
+      "pollute_03.md"
+     ],
+     "targets": [
+      {
+       "target": "a.md",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.7,
+       "debug_ms": 21.6
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 1.0
+  },
+  {
+   "language": "toml",
+   "scenarios": [
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.toml",
+      "pollute_00.toml",
+      "pollute_01.toml",
+      "pollute_02.toml",
+      "pollute_03.toml"
+     ],
+     "targets": [
+      {
+       "target": "a.toml",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.6,
+       "debug_ms": 22.4
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 1.0
+  },
+  {
+   "language": "yaml",
+   "scenarios": [
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.yaml",
+      "pollute_00.yaml",
+      "pollute_01.yaml",
+      "pollute_02.yaml",
+      "pollute_03.yaml"
+     ],
+     "targets": [
+      {
+       "target": "a.yaml",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 26.7,
+       "debug_ms": 21.8
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 1.0
+  },
+  {
+   "language": "xml",
+   "scenarios": [
+    {
+     "scenario": "pollution",
+     "universe": [
+      "a.xml",
+      "pollute_00.xml",
+      "pollute_01.xml",
+      "pollute_02.xml",
+      "pollute_03.xml"
+     ],
+     "targets": [
+      {
+       "target": "a.xml",
+       "G": [],
+       "R": [],
+       "dependents": [],
+       "descendant_paths": [],
+       "metrics": {
+        "TP": 0,
+        "FP": 0,
+        "FN": 0,
+        "TN": 5,
+        "FPR": 0.0,
+        "recall": 1.0,
+        "precision": 1.0
+       },
+       "query_exit": 0,
+       "debug": {
+        "risk": "12",
+        "dependents": "0",
+        "symbol_reachable": "0",
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=0.000, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
+       },
+       "debug_exit": 0,
+       "query_ms": 27.2,
+       "debug_ms": 22.8
+      }
+     ]
+    }
+   ],
+   "errors": [],
+   "seconds": 1.0
+  }
+ ]
+}

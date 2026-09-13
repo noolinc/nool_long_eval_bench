@@ -758,20 +758,59 @@ def release_lease(ws, ticket, gate):
     return {"exit": c, "tail": o.strip().splitlines()[-1:]}
 
 
-def preflight_isolation():
-    """Refuse to run on a machine with leftover coordination state: stale
-    daemons race the benchmark's nool clients, and live announcements/leases
-    from earlier sessions bleed into dispatch records."""
+def preflight_isolation(workspace_roots=()):
+    """Refuse to run beside coordination state that could touch this run.
+
+    The shared nool daemon is machine-wide and serves whichever repos have
+    registered with it. This harness runs every nool client with
+    NOOL_NO_DAEMON=1 (see run_experiment.ENV), so its clients never start a
+    daemon or register a workspace with one: a live daemon serving other
+    repos cannot reach the run. What is refused is (a) daemon processes
+    whose socket no longer answers -- orphaned, the stale state implicated
+    in the 2026-08-22 merge failures -- and (b) a live daemon watching a
+    repo under one of this run's workspace roots or the benchmark repo
+    itself. Anything else is recorded in the run's provenance rather than
+    killed."""
     import subprocess as sp
     pids = sp.run(["pgrep", "-f", "nool-daemon"], capture_output=True,
                   text=True).stdout.split()
-    if pids:
+    if not pids:
+        return {"daemon_pids": [], "daemon_repos": []}
+    try:
+        status = sp.run(["nool", "daemon", "status", "--all", "--json"],
+                        capture_output=True, text=True, timeout=15,
+                        env=ENV)
+        line = next((l for l in status.stdout.splitlines()
+                     if l.strip().startswith("{")), "{}")
+        info = json.loads(line)
+    except (sp.SubprocessError, ValueError, StopIteration) as e:
+        info = {"ok": False, "error": str(e)}
+    if not info.get("ok"):
         raise RuntimeError(
-            f"{len(pids)} nool-daemon process(es) already running "
-            f"({', '.join(pids[:5])}...). Kill them before benchmarking: "
-            "`pkill -f nool-daemon`. Stale daemons were implicated in the "
-            "2026-08-22 merge failures.")
-    return {"daemon_pids": []}
+            f"{len(pids)} nool-daemon process(es) running "
+            f"({', '.join(pids[:5])}) but the daemon socket does not answer "
+            f"({info.get('error') or info.get('status')}): stale daemons. "
+            "Kill them before benchmarking: `pkill -f nool-daemon`. Stale "
+            "daemons were implicated in the 2026-08-22 merge failures.")
+    watched = [r.get("repo_path", "") for r in info.get("repos", [])]
+    roots = [Path(r).resolve() for r in workspace_roots] + [REPO.resolve()]
+    def under(path, root):
+        try:
+            Path(path).resolve().relative_to(root)
+            return True
+        except (ValueError, OSError):
+            return False
+    overlapping = sorted({w for w in watched
+                          if any(under(w, root) for root in roots)})
+    if overlapping:
+        raise RuntimeError(
+            f"the shared nool daemon (pid {info.get('pid')}) is watching a "
+            f"repo inside this run's roots: {', '.join(overlapping)}. Stop "
+            "watching it (`nool daemon stop` in that repo) before "
+            "benchmarking; a daemon draining a benchmark workspace races the "
+            "run's own nool clients.")
+    return {"daemon_pids": pids, "daemon_pid": info.get("pid"),
+            "daemon_repos": watched}
 
 
 def retry_conflicted(rec, ws, parent, ticket, run_id, arm, model, adapter,
@@ -1581,7 +1620,7 @@ def run_fleet(arm, model, n_workers, tickets_file="tickets.json",
            "starter_sha": sha,
            "started_utc": datetime.now(timezone.utc).isoformat(),
            "preflight": adapter.preflight(),
-           "isolation": preflight_isolation(),
+           "isolation": preflight_isolation(workspace_roots=[parent]),
            "nool_version": ver(["nool", "--version"]),
            "git_version": ver(["git", "--version"]),
            "go_version": (ver(["go", "version"])

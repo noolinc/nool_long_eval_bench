@@ -390,46 +390,88 @@ def _mannwhitney(xs, ys):
     return u_obs, p
 
 
-MIN_REPS_FOR_INFERENCE = 5
+def frozen_protocol():
+    """The frozen fleet protocol: the single source of the repetition floor
+    and the strata every Track D table cuts cells by. Read here rather than
+    hard-coded so the analysis cannot drift below what the protocol requires
+    (a 5-rep floor in this file once labeled cells sufficient that the
+    frozen v4 protocol, at 10, does not)."""
+    p = REPO / "protocols" / "fleet_v4.json"
+    if not p.exists():
+        return None
+    return json.loads(p.read_text())
+
+
+def min_reps_for_inference():
+    protocol = frozen_protocol()
+    return protocol["minimum_repetitions_per_arm_cell"] if protocol else None
+
+
+def strata_key(r, protocol):
+    """A run's cell identity under the protocol's `stratify_by` list, in
+    that order. Every stratum the protocol names participates, so two runs
+    land in one cell only when they agree on all of them."""
+    d = _run_dimensions(r)
+    names = {"repository": d["repository"], "language": d["language"],
+             "corpus": d["corpus"], "n_workers": d["workers"],
+             "model": d["model"], "harness": d["harness"],
+             "ticket_tier": d["tier"],
+             "footprint_source": d["footprint_source"],
+             "footprint_noise": f"d{d['noise'][0]:g}/a{d['noise'][1]:g}"}
+    strata = (protocol or {}).get("analysis_rules", {}).get(
+        "stratify_by", list(names))
+    return tuple((s, names.get(s, "?")) for s in strata)
 
 
 def trackd_inference():
     """Cross-rep arm inference for Track D (spec §3.7 statistics).
 
-    Unit of inference is the RUN (Wilson caveat above). For each corpus/N
-    cell with data from both arms: Mann-Whitney U on per-run accepted counts,
-    wall time, and cost per accepted ticket. Every cell with fewer than
-    MIN_REPS_FOR_INFERENCE reps per arm is explicitly labeled UNDERPOWERED;
-    p-values are still printed so effect direction and magnitude are readable,
-    per the spec's 'no p-value theater' rule.
+    Unit of inference is the RUN (Wilson caveat above). For each cell, cut
+    by every stratum the frozen protocol lists, with data from both arms:
+    Mann-Whitney U on per-run accepted counts, wall time, and cost per
+    accepted ticket. Every cell with fewer reps per arm than the protocol's
+    `minimum_repetitions_per_arm_cell` is explicitly labeled UNDERPOWERED
+    and never READY; p-values are still printed so effect direction and
+    magnitude are readable, per the spec's 'no p-value theater' rule.
     """
     p = RESULTS / "trackc" / "fleet_runs.jsonl"
     if not p.exists():
         return
+    protocol = frozen_protocol()
+    if protocol is None:
+        print("== Track D cross-rep arm inference: no frozen protocol; "
+              "not labeling any cell ==\n")
+        return
+    min_reps = protocol["minimum_repetitions_per_arm_cell"]
     runs = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
     runs = [r for r in runs if r.get("acceptance") and r.get("integration")]
+    if protocol.get("analysis_rules", {}).get(
+            "exclude_scripted_adapter_from_evidence"):
+        runs = [r for r in runs if r.get("harness") != "scripted"]
     cells = {}
     for r in runs:
-        key = (r.get("corpus", "v1"), r["n_workers"],
-               r.get("model", "?"))
-        cells.setdefault(key, {}).setdefault(r["arm"], []).append(r)
+        cells.setdefault(strata_key(r, protocol), {}).setdefault(
+            r["arm"], []).append(r)
 
     print("== Track D cross-rep arm inference (unit = run) ==")
     print("p-values from exact permutation Mann-Whitney where computable;")
-    print("cells below %d reps/arm are labeled UNDERPOWERED regardless of"
-          % MIN_REPS_FOR_INFERENCE)
-    print("any p-value. Pooled-ticket tests are deliberately omitted:")
-    print("tickets within a run are not independent (cascade failures).")
-    print("Cells never mix models; git_fleet vs nool_fleet only.\n")
+    print("cells below %d reps/arm (protocol %s) are labeled UNDERPOWERED"
+          % (min_reps, protocol["protocol_id"]))
+    print("regardless of any p-value. Pooled-ticket tests are deliberately")
+    print("omitted: tickets within a run are not independent (cascade")
+    print("failures). Cells are cut by every protocol stratum; git_fleet vs")
+    print("nool_fleet only.\n")
     rows = []
-    for (corpus, n_workers, model), arms in sorted(cells.items()):
+    for key, arms in sorted(cells.items(), key=lambda item: str(item[0])):
         g = arms.get("git_fleet", [])
         nl = arms.get("nool_fleet", [])
         if not g or not nl:
             continue
-        underpowered = (len(g) < MIN_REPS_FOR_INFERENCE
-                        or len(nl) < MIN_REPS_FOR_INFERENCE)
-        tag = "UNDERPOWERED" if underpowered else ""
+        dims = dict(key)
+        corpus, n_workers, model = (dims.get("corpus"), dims.get("n_workers"),
+                                    dims.get("model"))
+        underpowered = len(g) < min_reps or len(nl) < min_reps
+        tag = "UNDERPOWERED" if underpowered else "READY"
         acc = {a: [sum(r["acceptance"].values()) for r in rs]
                for a, rs in (("git", g), ("nool", nl))}
         wall = {a: [r.get("wall_ms") for r in rs] for a, rs in
@@ -450,13 +492,17 @@ def trackd_inference():
             return ",".join(str(round(v, 2)) for v in vs) or "-"
 
         rows.append([f"{corpus}/N={n_workers}", model,
+                     f"{dims.get('repository')}/{dims.get('language')}/"
+                     f"{dims.get('harness')}/{dims.get('ticket_tier')}/"
+                     f"{dims.get('footprint_noise')}",
                      f"{len(g)}v{len(nl)}",
                      fmt(acc["git"]), fmt(acc["nool"]),
                      round(p_acc, 4) if p_acc is not None else "-",
                      round(p_wall, 4) if p_wall is not None else "-",
                      round(p_cost, 4) if p_cost is not None else "-",
                      tag])
-    table(rows, ["corpus/N", "model", "reps(g|n)", "acc_git/reps",
+    table(rows, ["corpus/N", "model", "repo/lang/harness/tier/noise",
+                 "reps(g|n)", "acc_git/reps",
                  "acc_nool/reps", "p_acc", "p_wall", "p_cost/usd_acc",
                  "power"])
 
@@ -481,8 +527,13 @@ def trackd_stratified_inference():
     p = RESULTS / "trackc" / "fleet_runs.jsonl"
     if not p.exists():
         return
+    protocol = frozen_protocol()
+    min_reps = min_reps_for_inference()
     runs = [json.loads(l) for l in p.read_text().splitlines() if l.strip()]
     runs = [r for r in runs if r.get("acceptance") and r.get("integration")]
+    if (protocol or {}).get("analysis_rules", {}).get(
+            "exclude_scripted_adapter_from_evidence"):
+        runs = [r for r in runs if r.get("harness") != "scripted"]
     models = sorted({r.get("model", "?") for r in runs})
     for model in models:
         cells = {}
@@ -555,7 +606,16 @@ def trackd_stratified_inference():
               f"evaluated: {total:,}; observed mean-difference sum: "
               f"{obs_total:+.1f}")
         print(f"two-sided stratified p = {extreme}/{total:,} = "
-              f"{extreme / total:.5f}\n")
+              f"{extreme / total:.5f}")
+        thin = [f"{key[0]}/N={key[1]}" for (key, pooled, ng, obs) in strata
+                if min_reps is not None
+                and (ng < min_reps or len(pooled) - ng < min_reps)]
+        if thin:
+            print(f"UNDERPOWERED: {len(thin)}/{len(strata)} cells are below "
+                  f"the protocol floor of {min_reps} reps/arm "
+                  f"({', '.join(thin)}); this pooled p-value is exploratory, "
+                  "not confirmatory.")
+        print()
 
 
 def trackd_protocol_inference():

@@ -27,7 +27,9 @@ trackB:
 		&& python3 b4_guardrails.py \
 		&& python3 b5_swarm_merge.py \
 		&& python3 b6_context_retrieval.py \
-		&& python3 b7_regression_localization.py
+		&& python3 b7_regression_localization.py \
+		&& python3 b8_blast_false_positive.py \
+		&& python3 b9_blast_multilang.py
 	python3 analysis/summarize.py
 
 summarize:

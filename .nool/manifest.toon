@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Add B8 blast false-positive benchmark (track B)
-knot_id: 6f0c81c44bd4192e04140a23b8a9f538a56afc325a791a0fd175c3e61cad6ba7
-solidified_at: 1789252432682
+intent: Track B: B9 multi-language blast-radius benchmark (30 built-in languages, B8's chain/star/pollution shapes), refreshed B8/B9 results on nool 7.4.0 with the symbol-granular seal graph (B8 28/28 targets FPR 0 precision 1, B9 30/30 languages exact, quiet machine), B8/B9 added to the trackB target, Track D inference reads the rep floor (10) and strata from the frozen fleet_v4 protocol instead of a hard-coded 5, harness preflight refuses only stale daemons or ones watching a run root (others recorded in provenance), scripted-adapter validation runs for every arm
+knot_id: 6eff7dd40f6a91088a35460c8b755e70195032bf8182e721be0f155709e26846
+solidified_at: 1789296173491
 thread: main
