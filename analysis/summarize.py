@@ -125,12 +125,17 @@ def b5():
     rows = []
     for cell, reps in d["cells"].items():
         clean = [r["clean_merges"] for r in reps]
+        success = [r.get("successful_merges", "-") for r in reps]
+        noops = [r.get("silent_noops", "-") for r in reps]
+        inventory = [r.get("inventory_complete", "-") for r in reps]
+        vet = [r.get("vet_exit", "-") for r in reps]
         sem = [r.get("semantic_layer_passes", "-") for r in reps]
         semconf = [r.get("semantic_pass_but_file_conflict", "-") for r in reps]
         lies = [r["exit0_despite_conflict"] for r in reps]
-        rows.append([cell, clean, sem, semconf, lies])
-    table(rows, ["cell", "clean/rep", "semantic_pass", "sem_pass_but_conflict",
-                 "exit0_on_conflict"])
+        rows.append([cell, success, clean, noops, inventory, vet, sem, semconf, lies])
+    table(rows, ["cell", "success/rep", "tree_clean/rep", "silent_noops",
+                 "inventory_complete", "vet_exit", "semantic_pass",
+                 "sem_pass_but_conflict", "exit0_on_conflict"])
 
 
 def b6():
@@ -140,11 +145,17 @@ def b6():
     print("== B6 context retrieval (bytes an agent must ingest) ==")
     rows = []
     for k, v in d["queries"].items():
+        if k == "controls":
+            continue
         if isinstance(v, dict):
-            rows.append([k, v.get("bytes"), v.get("wall_ms"), v.get("hit")])
+            rows.append([k, v.get("bytes"), v.get("wall_ms"), v.get("hit"),
+                         v.get("records", "-"), v.get("unresolved", "-")])
         else:
-            rows.append([k, v, "-", "-"])
-    table(rows, ["query", "bytes", "wall_ms", "hit"])
+            rows.append([k, v, "-", "-", "-", "-"])
+    table(rows, ["query", "bytes", "wall_ms", "hit", "records", "unresolved"])
+    controls = d["queries"].get("controls")
+    if controls:
+        print("controls:", ", ".join(f"{k}={v}" for k, v in controls.items()), "\n")
 
 
 def b7():

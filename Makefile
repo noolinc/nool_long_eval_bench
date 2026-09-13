@@ -18,9 +18,14 @@ MODEL ?=
 MODEL_FLAG = $(if $(MODEL),--model $(MODEL),)
 IMAGE ?= nool-benchmarks
 
-.PHONY: trackB summarize tier1 trackC validate-study validate-harness docker-build docker-digest docker-trackB check-transcripts
+.PHONY: trackB summarize tier1 trackC validate-study validate-harness validate-scorers docker-build docker-digest docker-trackB check-transcripts
 
-trackB:
+# Scorer validation: injected refusals, no-ops, partial landings and
+# heading-only answers must be detected before any result is regenerated.
+validate-scorers:
+	cd micro && python3 validate_scorers.py
+
+trackB: validate-scorers
 	cd micro && python3 b1_overhead.py \
 		&& python3 b2_concurrency.py \
 		&& python3 b3_recovery.py \

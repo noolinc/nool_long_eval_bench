@@ -11,9 +11,18 @@ Scenarios:
                    (the AST-mergeable case where a semantic merge could
                    differ from git's textual merge)
 
-Success detection is by working-tree state (conflict markers / unmerged
-paths), never exit codes; pilot probing showed `nool merge` can exit 0 on a
-conflicted merge, so exit-code reliability is itself recorded.
+A merge SUCCEEDS only when four independent observations agree: the
+command exited 0, the working tree holds no conflict markers or unmerged
+paths, HEAD advanced, and the branch's own change is present in the merged
+tree. The 2026-09-13 audit showed the earlier criterion (`not
+tree_conflicted` alone) reporting 15/15 clean merges with every merge
+command mocked to fail and the tree untouched: a refused merge, a silent
+no-op and a partial landing all leave a clean tree. Each observation is
+recorded per branch so the scorer can be checked against injected
+failures (`validate_scorers.py`). `tree_clean` is kept as the historical
+file-level metric; `success` is what counts. After the last merge the
+cumulative symbol inventory and a `go vet` of the merged tree are recorded,
+so a merge that landed text but broke the package is visible.
 For the nool arm the semantic layer's verdict ("Semantic convergence ...
 passed") is recorded separately from the file-level outcome.
 """
@@ -68,10 +77,46 @@ def tree_conflicted(ws):
     return unmerged or markers
 
 
-def merge_all(ws, arm):
+def expected_symbol(i, scenario):
+    """The definition branch `i` adds under `scenario`."""
+    return {"disjoint": f"func Agent{i}()",
+            "same_anchor": f"func (s *Server) Method{i}()",
+            "diff_functions": f"func (s *Server) Agent{i}Method()"}[scenario]
+
+
+def change_landed(ws, i, scenario):
+    """Whether branch `i`'s own change is present in the merged tree."""
+    path = ws / (f"agent_{i}_file.go" if scenario == "disjoint" else "server.go")
+    try:
+        return expected_symbol(i, scenario) in path.read_text()
+    except OSError:
+        return False
+
+
+def head_of(ws):
+    code, out, _ = run(["git", "rev-parse", "HEAD"], ws)
+    return out.strip() if code == 0 else None
+
+
+def symbol_inventory(ws):
+    """Every `func` definition in the merged tree's Go files."""
+    found = set()
+    for path in sorted(ws.glob("*.go")):
+        try:
+            text = path.read_text()
+        except OSError:
+            continue
+        for line in text.splitlines():
+            if line.startswith("func "):
+                found.add(line.split("{")[0].strip())
+    return found
+
+
+def merge_all(ws, arm, scenario="diff_functions"):
     per_branch, latencies = [], []
     exit_code_lies = 0
     for i in range(1, N_AGENTS + 1):
+        head_before = head_of(ws)
         t0 = time.monotonic()
         if arm == "git":
             code, out, _ = run(["git", "merge", "-q", "--no-edit", f"agent_{i}"], ws)
@@ -79,6 +124,10 @@ def merge_all(ws, arm):
             code, out, _ = run(["nool", "merge", f"agent_{i}", "--compact"], ws)
         ms = (time.monotonic() - t0) * 1000.0
         conflicted = tree_conflicted(ws)
+        head_after = head_of(ws)
+        landed = change_landed(ws, i, scenario)
+        head_advanced = head_after is not None and head_after != head_before
+        success = code == 0 and not conflicted and landed and head_advanced
         # 6.13/6.14.0 print "Semantic convergence ... passed"; 6.14.1 reworded
         # to "Semantic convergence checked (...)". Match both.
         semantic_pass = bool(re.search(
@@ -94,6 +143,9 @@ def merge_all(ws, arm):
                 run(["git", "checkout", "-f", "main"], ws)
         latencies.append(ms)
         per_branch.append({"branch": i, "clean": not conflicted,
+                           "tree_clean": not conflicted, "landed": landed,
+                           "head_advanced": head_advanced, "success": success,
+                           "silent_noop": code == 0 and not conflicted and not landed,
                            "exit_code": code, "semantic_layer_pass": semantic_pass,
                            "merge_reconcile_union": reconciled})
     return per_branch, latencies, exit_code_lies
@@ -102,6 +154,8 @@ def merge_all(ws, arm):
 def run_cell(root, scenario, arm, rep):
     ws = make_workspace(root, f"{scenario}_{arm}_{rep}", nool=False)
     (ws / "server.go").write_text(BASE_GO)
+    # A module root so `go vet` can judge the merged tree in both arms.
+    (ws / "go.mod").write_text("module bench\n\ngo 1.21\n")
     run(["git", "add", "-A"], ws, check=True)
     run(["git", "commit", "-qm", "base"], ws, check=True)
     if arm == "nool":
@@ -110,13 +164,25 @@ def run_cell(root, scenario, arm, rep):
             raise RuntimeError(out)
     for i in range(1, N_AGENTS + 1):
         make_branch(ws, i, scenario)
-    per_branch, latencies, lies = merge_all(ws, arm)
-    clean = sum(1 for b in per_branch if b["clean"])
+    per_branch, latencies, lies = merge_all(ws, arm, scenario)
+    clean = sum(1 for b in per_branch if b["tree_clean"])
+    successes = sum(1 for b in per_branch if b["success"])
+    expected = {expected_symbol(i, scenario) for i in range(1, N_AGENTS + 1)}
+    inventory = symbol_inventory(ws)
+    vet_code, vet_out, _ = run(["go", "vet", "./..."], ws)
     cell = {
         "clean_merges": clean,
+        "successful_merges": successes,
         "conflicts": N_AGENTS - clean,
+        "silent_noops": sum(1 for b in per_branch if b["silent_noop"]),
+        "refused": sum(1 for b in per_branch if b["exit_code"] != 0),
+        "inventory_present": len(expected & inventory),
+        "inventory_complete": expected <= inventory,
+        "vet_exit": vet_code,
+        "vet_tail": vet_out.strip().splitlines()[-2:],
         "merge_latency": summarize_ms(latencies),
         "exit0_despite_conflict": lies,
+        "branches": per_branch,
     }
     if arm == "nool":
         sem = [b["semantic_layer_pass"] for b in per_branch]
@@ -139,7 +205,10 @@ def main():
                     print(f"[b5] {scenario}/{arm} rep {rep} done")
                 cells[f"{scenario}_{arm}"] = reps
     emit("b5_swarm_merge", {
-        "config": {"n_agents": N_AGENTS, "reps": REPS},
+        "config": {"n_agents": N_AGENTS, "reps": REPS,
+                   "success_criterion": "exit 0 AND tree clean AND HEAD advanced AND "
+                                        "the branch's own change present in the merged tree; "
+                                        "inventory and go vet recorded after the last merge"},
         "cells": cells,
     })
 

@@ -1,18 +1,39 @@
 {
  "benchmark": "b6_context_retrieval",
  "provenance": {
-  "timestamp_utc": "2026-09-06T17:17:05.802009+00:00",
+  "run_id": "2335974f-f526-4dd3-9c5f-cde585a8cefa",
+  "timestamp_utc": "2026-09-13T12:54:26.149755+00:00",
   "system_load": {
-   "load_1m": 3.28,
-   "load_5m": 3.07,
-   "load_15m": 3.81,
+   "load_1m": 2.19,
+   "load_5m": 2.25,
+   "load_15m": 2.25,
    "cpu_count": 12,
-   "load_per_core_1m": 0.27,
+   "load_per_core_1m": 0.18,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.2.0",
+  "nool_version": "nool 7.4.0",
+  "binary": "/Users/arunbalakrishnan/Development/NoolWorkspace/Nool/target/debug/nool",
+  "binary_sha256": "2b42a99d0208396f804e997e172fe4f4a57878c770aa37d2d56c93b1ec3dac31",
+  "nool_build": {
+   "version": "7.4.0",
+   "edition": "community",
+   "git_sha": "8afc09210ac5344528dd53f2373344ee23b583f8",
+   "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+   "target": "aarch64-apple-darwin",
+   "dirty": false
+  },
+  "harness": {
+   "git_sha": "afe8e32eb8d0886cb6fb2a5da375c0a363b6429d",
+   "dirty": true
+  },
+  "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+  "env_overrides": {
+   "NOOL_NO_DAEMON": "1",
+   "GIT_TERMINAL_PROMPT": "0"
+  },
+  "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -22,13 +43,18 @@
  "config": {
   "n_files": 12,
   "funcs_per_file": 4,
-  "ground_truth": "ratelimit.go#ApplyRateLimit"
+  "ground_truth": "ratelimit.go#ApplyRateLimit",
+  "negative_control": "ratelimit.go#NoSuchFunctionForControl",
+  "hit_criterion": "entity record naming the function (stdout only); headings and echoed query text never count"
  },
  "queries": {
   "nool_query_search": {
    "bytes": 245,
-   "wall_ms": 16.2,
+   "stderr_bytes": 581,
+   "wall_ms": 26.8,
    "hit": true,
+   "records": 1,
+   "first_knot": "658d0f5f",
    "exit_code": 0,
    "head": [
     "Query: semantic search(\"rate limiting\")",
@@ -36,9 +62,13 @@
    ]
   },
   "nool_query_context_file": {
-   "bytes": 239,
-   "wall_ms": 15.0,
-   "hit": false,
+   "bytes": 497,
+   "stderr_bytes": 581,
+   "wall_ms": 22.6,
+   "hit": true,
+   "records": 4,
+   "heading_only": false,
+   "unresolved": false,
    "exit_code": 0,
    "head": [
     "Context for: entity:ratelimit.go:08599939c482bce1",
@@ -46,25 +76,54 @@
    ]
   },
   "nool_query_context_symbol": {
-   "bytes": 163,
-   "wall_ms": 14.5,
+   "bytes": 249,
+   "stderr_bytes": 581,
+   "wall_ms": 23.0,
    "hit": true,
+   "records": 1,
+   "heading_only": false,
+   "unresolved": false,
    "exit_code": 0,
    "head": [
-    "Context for: ratelimit.go#ApplyRateLimit",
+    "Context for: entity:ApplyRateLimit:44fd4a12b24a63b8",
     "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
    ]
   },
-  "nool_search_then_context": {
-   "bytes": 408,
-   "wall_ms": 30.7,
-   "hit": true
+  "nool_query_context_nonexistent_symbol": {
+   "bytes": 174,
+   "stderr_bytes": 682,
+   "wall_ms": 22.8,
+   "hit": false,
+   "records": 0,
+   "heading_only": true,
+   "unresolved": true,
+   "exit_code": 1,
+   "head": [
+    "[Unresolved] 'ratelimit.go#NoSuchFunctionForControl' matches no entity or feature; nothing retrieved. Try `nool query search \"<intent>\"` or `nool context \"<task>\" --cite`."
+   ]
+  },
+  "nool_search_then_materialize": {
+   "bytes": 620,
+   "wall_ms": 65.2,
+   "hit": true,
+   "derived_from": "658d0f5f"
   },
   "baseline_grep_read": {
    "bytes": 660,
-   "wall_ms": 13.6,
+   "wall_ms": 14.5,
    "hit": true,
    "files_read": 2
+  },
+  "baseline_grep_bounded": {
+   "bytes": 659,
+   "wall_ms": 9.7,
+   "hit": true,
+   "context_lines": 6
+  },
+  "controls": {
+   "negative_symbol_not_hit": true,
+   "negative_symbol_reported_unresolved": true,
+   "symbol_answer_has_records": true
   },
   "whole_repo_go_bytes": 4828
  }

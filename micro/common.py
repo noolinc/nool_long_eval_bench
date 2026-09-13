@@ -5,6 +5,7 @@ monotonic clocks (ms), and emits one JSON result file with full provenance.
 No LLM involvement anywhere in Track B.
 """
 
+import hashlib
 import json
 import os
 import platform
@@ -13,6 +14,7 @@ import statistics
 import subprocess
 import tempfile
 import time
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -23,7 +25,14 @@ ENV = dict(os.environ, NOOL_NO_DAEMON="1", GIT_TERMINAL_PROMPT="0")
 
 
 def run(cmd, cwd, check=False, timeout=300):
-    """Run a command; return (exit_code, stdout+stderr, elapsed_ms)."""
+    """Run a command; return (exit_code, stdout+stderr, elapsed_ms).
+
+    Streams are merged here because most callers only branch on the exit
+    code and want every diagnostic in one place. Anything that SCORES the
+    output (bytes an agent ingests, a retrieval hit) must use `run_split`:
+    a development build prints an analytics line on stderr for every
+    command, and merging it into scored stdout inflated B6's byte counts.
+    """
     t0 = time.monotonic()
     p = subprocess.run(
         cmd, cwd=str(cwd), env=ENV, timeout=timeout,
@@ -33,6 +42,21 @@ def run(cmd, cwd, check=False, timeout=300):
     if check and p.returncode != 0:
         raise RuntimeError(f"{cmd} failed ({p.returncode}) in {cwd}:\n{p.stdout}")
     return p.returncode, p.stdout, ms
+
+
+def run_split(cmd, cwd, timeout=300):
+    """Run a command; return (exit_code, stdout, stderr, elapsed_ms).
+
+    The scored stream is stdout alone; stderr is returned so a caller can
+    record its size and diagnostics without counting them as retrieved
+    context."""
+    t0 = time.monotonic()
+    p = subprocess.run(
+        cmd, cwd=str(cwd), env=ENV, timeout=timeout,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+    )
+    ms = (time.monotonic() - t0) * 1000.0
+    return p.returncode, p.stdout, p.stderr, ms
 
 
 def make_workspace(parent, name, nool=False):
@@ -113,13 +137,56 @@ def load_average():
         return {"error": str(e), "quiet": None}
 
 
+def _sha256_of(path):
+    try:
+        return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    except Exception as e:  # noqa: BLE001 - recorded, not fatal
+        return f"unavailable: {e}"
+
+
+def nool_build():
+    """The tested build, as the binary itself reports it: version, edition,
+    source sha and whether that source tree was dirty. The first line of
+    `nool --version` names a version only; two binaries built from different
+    commits (or one from a dirty tree) print the same line."""
+    try:
+        raw = subprocess.run(["nool", "version", "--json"], stdout=subprocess.PIPE,
+                             stderr=subprocess.PIPE, text=True, timeout=15).stdout
+        start = raw.find("{")
+        return json.loads(raw[start:]) if start >= 0 else {"unavailable": raw.strip()[:200]}
+    except Exception as e:  # noqa: BLE001
+        return {"unavailable": str(e)}
+
+
+def harness_revision():
+    """This benchmark repository's own revision, so a result names the
+    scorer that produced it, not just the product it scored."""
+    try:
+        sha = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(REPO_ROOT),
+                             stdout=subprocess.PIPE, text=True, timeout=15).stdout.strip()
+        dirty = subprocess.run(["git", "status", "--porcelain"], cwd=str(REPO_ROOT),
+                               stdout=subprocess.PIPE, text=True, timeout=15).stdout.strip()
+        return {"git_sha": sha, "dirty": bool(dirty)}
+    except Exception as e:  # noqa: BLE001
+        return {"unavailable": str(e)}
+
+
 def provenance():
+    binary = shutil.which("nool")
     return {
+        "run_id": str(uuid.uuid4()),
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "system_load": load_average(),
         "platform": platform.platform(),
         "machine": platform.machine(),
         "nool_version": version_of(["nool", "--version"]),
+        "binary": binary,
+        "binary_sha256": _sha256_of(binary) if binary else "unavailable: nool not on PATH",
+        "nool_build": nool_build(),
+        "harness": harness_revision(),
+        "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+        "env_overrides": {k: ENV[k] for k in ("NOOL_NO_DAEMON", "GIT_TERMINAL_PROMPT")},
+        "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
         "git_version": version_of(["git", "--version"]),
         "go_version": version_of(["go", "version"]),
         "python_version": platform.python_version(),
