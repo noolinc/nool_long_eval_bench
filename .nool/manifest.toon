@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Track B P0 (audit 2026-09-13): B5 success is four independent observations (exit 0, clean tree, HEAD advanced, the branch's own change present) plus cumulative symbol inventory and go vet after the last merge; B6 hits are returned entity records (never the echoed heading), with a nonexistent-symbol negative control, a bounded-grep baseline and a search-to-materialize flow whose second step is derived from the search output; provenance records an immutable run id, the binary's sha256, the build's source sha and dirtiness, the harness revision, daemon mode and env overrides, and scored outputs read stdout alone; make validate-scorers gates trackB with injected refusal/no-op/partial/heading-only failures. Results regenerated on a clean nool 7.4.0 build (8afc0921): B5 nool 15/15 successful merges in every scenario with complete inventories and passing vet vs git 1/15 in the contended ones; B6 symbol and file queries hit real records, the negative control is unresolved and exits 1; B8 28/28 and B9 30/30 exact
-knot_id: 7b9c3dde781840427a0403d9123f4157cee1a61c926b5419fcc1758a1cef2de3
-solidified_at: 1789304418950
+intent: Add B10 part 1: self-replay admission cost benchmark against Nool's own repository
+knot_id: 57d1c1550863a6343971a7be4bebfddf93c68a077f1d6baf0bd72f2afa68f573
+solidified_at: 1789514293020
 thread: main

@@ -1,0 +1,3747 @@
+{
+ "benchmark": "b10_self",
+ "provenance": {
+  "run_id": "e14fc517-c47c-4129-b489-b2165299fdb9",
+  "timestamp_utc": "2026-09-15T23:16:22.148381+00:00",
+  "system_load": {
+   "load_1m": 1.82,
+   "load_5m": 2.23,
+   "load_15m": 2.25,
+   "cpu_count": 12,
+   "load_per_core_1m": 0.15,
+   "quiet": true
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "nool_version": "nool 7.7.0",
+  "binary": "/Users/arunbalakrishnan/Development/NoolWorkspace/Nool/target/debug/nool",
+  "binary_sha256": "b161d04b9b90a7108815f05fa3f137c6ad860091b5809bea468c693298f2a98b",
+  "nool_build": {
+   "version": "7.7.0",
+   "edition": "community",
+   "git_sha": "951fdb3fabe8146cd914051ae911d54520cc28bb",
+   "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+   "target": "aarch64-apple-darwin",
+   "dirty": false
+  },
+  "harness": {
+   "git_sha": "ed9017e2ff9ea6fbea9012a52c3b9ac0053c80c8",
+   "dirty": true
+  },
+  "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+  "env_overrides": {
+   "NOOL_NO_DAEMON": "1",
+   "GIT_TERMINAL_PROMPT": "0"
+  },
+  "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
+  "git_version": "git version 2.50.1 (Apple Git-155)",
+  "go_version": "go version go1.26.2 darwin/arm64",
+  "python_version": "3.11.2",
+  "os_version": "26.6.2",
+  "execution": "local (containerization deferred; see spec \u00a78)"
+ },
+ "config": {
+  "source_repo": "/Users/arunbalakrishnan/Development/NoolWorkspace/Nool",
+  "replay_count_requested": 30,
+  "timeout_s": 60,
+  "copy_seconds": 8.2
+ },
+ "results": [
+  {
+   "idx": 0,
+   "n_paths": 5,
+   "paths_sample": [
+    "crates/nool-analytics/src/lib.rs",
+    "crates/nool-cli/src/propose_cmd.rs",
+    "crates/nool-cli/src/solidify.rs",
+    "crates/nool-cli/src/engine.rs",
+    "crates/nool-cli/tests/proposal_stages_instrumentation.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 5348.57,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 24,
+     "affected_nodes": [
+      "crates/nool-cli/fuzz/fuzz_targets/importer.rs",
+      "crates/nool-cli/src/solidify.rs",
+      "crates/nool-cli/src/lib.rs",
+      "crates/nool-cli/tests/proposal_stages_instrumentation.rs",
+      "crates/nool-cli/src/engine.rs",
+      "crates/nool-enterprise/src/audit_cmd.rs",
+      "crates/nool-cli/src/try_cmd.rs",
+      "crates/nool-team/src/eval_cmd.rs"
+     ],
+     "declared": 5,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (5 props):",
+      "subject": "Add per-stage propose/solidify timing instrumentation (blast/contracts/plan/precheck/test-select/driver/cascade/aram/judgment/findings/field on propose; seal-gate/relational/module-invariant/conflict/steer/seal-graph on solidify) to ProposalAnalytics, and print a snapshot proposal_stages line in propose --json (task fc64fc1f)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Link fix d83eb600 to bug fe356fc0"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 1,
+     "envelope_size": 24
+    },
+    "ms": {
+     "aram_ms": 1433,
+     "blast_ms": 3197,
+     "contracts_ms": 104,
+     "findings_ms": 92,
+     "index_ms": 11,
+     "judgment_ms": 21,
+     "plan_ms": 0,
+     "precheck_ms": 15
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 1,
+   "n_paths": 5,
+   "paths_sample": [
+    "crates/nool-core/src/evidence_plan.rs",
+    "crates/nool-core/src/lib.rs",
+    "crates/nool-cli/src/propose_cmd.rs",
+    "crates/nool-cli/src/main_helpers.rs",
+    "crates/nool-cli/tests/evidence_plan_admission.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 9328.61,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 172,
+     "affected_nodes": [
+      "crates/nool-tasks/src/tests.rs",
+      "crates/nool-cli/src/compare_cmd.rs",
+      "crates/nool-memory/tests/hybrid_search_recall_test.rs",
+      "crates/nool-team/src/agent_fleet_cmd.rs",
+      "crates/nool-core/src/lib.rs",
+      "crates/nool-storage/src/lib.rs",
+      "crates/nool-cli/src/propose_cmd.rs",
+      "crates/nool-cli/src/git_cli.rs"
+     ],
+     "declared": 5,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (5 props):",
+      "subject": "Add nool_core::evidence_plan::evidence_plan -- deterministic evidence-admission planning consumed by propose_cmd right after gate [3] resolves, driving test-selection/attestation/steer knobs and recorded on the stash as nool:evidence-plan:v1"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Release   7.1.1",
+      "subject": "Release: 7.1.1"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "fix bug 3c40a7e6: move ignore-pattern helpers out of the ast-gated fast_path module so nool-core builds without default features"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (14 props):",
+      "subject": "split nool-core: extract models, fact_projection and the policy ABI types into nool-policy-abi, so the Aram policy SDK compiles against the wire format rather than the engine and can be shipped to licensees"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 172
+    },
+    "ms": {
+     "aram_ms": 1457,
+     "blast_ms": 7078,
+     "contracts_ms": 222,
+     "findings_ms": 99,
+     "index_ms": 28,
+     "judgment_ms": 29,
+     "plan_ms": 0,
+     "precheck_ms": 4
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 2,
+   "n_paths": 6,
+   "paths_sample": [
+    "crates/nool-cli/src/propose_cmd.rs",
+    "crates/nool-cli/src/main_helpers.rs",
+    "crates/nool-cli/src/contracts.rs",
+    "crates/nool-cli/src/lib.rs",
+    "crates/nool-core/src/invariant_checker.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 10451.8,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 172,
+     "affected_nodes": [
+      "crates/nool-storage/src/context_store.rs",
+      "crates/nool-cli/src/git_cli.rs",
+      "crates/nool-cli/src/main_helpers.rs",
+      "crates/nool-cli/src/token_cmd.rs",
+      "crates/nool-cli/tests/fleet_council_exit_codes.rs",
+      "crates/nool-memory/src/node_anchor.rs",
+      "crates/nool-bridge-api/src/lib.rs",
+      "crates/nool-harness/src/run.rs"
+     ],
+     "declared": 6,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (2 props):",
+      "subject": "sync the shipped agent skill to 7.1.4 \u2014 the docs-vs-binary guard fails the build when it drifts, which is what caught this"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (5 props):",
+      "subject": "Add nool_core::evidence_plan::evidence_plan -- deterministic evidence-admission planning consumed by propose_cmd right after gate [3] resolves, driving test-selection/attestation/steer knobs and recorded on the stash as nool:evidence-plan:v1"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "NOOL-8: add a test that checks the shipped agent skill against the binary itself (every documented verb resolves, exit-code claims match the canonical table, the declared version is the crate version), and sync the skill from 6.7.0 to 7.1.2 - it documented exit 1 = conflict for discover conflicts, the one value agents branch on"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "Symbol-seeded propose envelope with envelope.status (task 6f7b5c36)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 172
+    },
+    "ms": {
+     "aram_ms": 1429,
+     "blast_ms": 8215,
+     "contracts_ms": 212,
+     "findings_ms": 92,
+     "index_ms": 10,
+     "judgment_ms": 32,
+     "plan_ms": 0,
+     "precheck_ms": 24
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 3,
+   "n_paths": 3,
+   "paths_sample": [
+    "crates/nool-cli/src/solidify.rs",
+    "crates/nool-storage/src/evidence.rs",
+    "crates/nool-cli/tests/integration.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 6862.35,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 115,
+     "affected_nodes": [
+      "crates/nool-harness/src/quorum.rs",
+      "crates/nool-cli/src/discover_bootstrap.rs",
+      "crates/nool-cli/src/export_cmd.rs",
+      "crates/nool-cli/src/merge_driver.rs",
+      "crates/nool-cli/tests/blast_radius_field_signal.rs",
+      "crates/nool-daemon/src/main.rs",
+      "crates/nool-mcp/src/main.rs",
+      "crates/nool-cli/src/evidence.rs"
+     ],
+     "declared": 3,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ docs/GOVERNANCE.md",
+      "subject": "GOVERNANCE.md: relational-invariant DSL is now scoped to the proposal's region"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (2 props):",
+      "subject": "sync the shipped agent skill to 7.1.4 \u2014 the docs-vs-binary guard fails the build when it drifts, which is what caught this"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Make fleet/work/solidify daemon auto-start opt-in via NOOL_DAEMON=1 instead of opt-out (task 743d75e1)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "Scope solidify-time relational invariants to the proposal's touched region instead of a full ledger scan (task 169da562)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 4,
+     "envelope_size": 115
+    },
+    "ms": {
+     "aram_ms": 1374,
+     "blast_ms": 4794,
+     "contracts_ms": 171,
+     "findings_ms": 89,
+     "index_ms": 9,
+     "judgment_ms": 29,
+     "plan_ms": 0,
+     "precheck_ms": 22
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 4,
+   "n_paths": 9,
+   "paths_sample": [
+    "crates/nool-cli/src/propose_cmd.rs",
+    "crates/nool-cli/src/insights_analytics.rs",
+    "crates/nool-cli/src/engine.rs",
+    "crates/nool-cli/src/main_helpers.rs",
+    "crates/nool-cli/src/llm/routing.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 11868.34,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 180,
+     "affected_nodes": [
+      "crates/nool-cli/tests/eval_cli.rs",
+      "crates/nool-cli/src/tui.rs",
+      "crates/nool-cli/src/rewind_cmd.rs",
+      "crates/nool-harness/src/run_loop.rs",
+      "crates/nool-cli/src/llm/resolve.rs",
+      "crates/nool-core/src/engine.rs",
+      "crates/nool-tasks/src/bridge.rs",
+      "crates/nool-cli/src/query_cmd.rs"
+     ],
+     "declared": 9,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (5 props):",
+      "subject": "Add nool_core::evidence_plan::evidence_plan -- deterministic evidence-admission planning consumed by propose_cmd right after gate [3] resolves, driving test-selection/attestation/steer knobs and recorded on the stash as nool:evidence-plan:v1"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Link fix d83eb600 to bug fe356fc0"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "Symbol-seeded propose envelope with envelope.status (task 6f7b5c36)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 180
+    },
+    "ms": {
+     "aram_ms": 1491,
+     "blast_ms": 9198,
+     "contracts_ms": 215,
+     "findings_ms": 85,
+     "index_ms": 10,
+     "judgment_ms": 93,
+     "plan_ms": 0,
+     "precheck_ms": 23
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 5,
+   "n_paths": 6,
+   "paths_sample": [
+    "crates/nool-cli/src/solidify.rs",
+    "crates/nool-cli/src/steer.rs",
+    "crates/nool-cli/src/main_helpers.rs",
+    "crates/nool-rollup/src/lib.rs",
+    "crates/nool-rollup/Cargo.toml"
+   ],
+   "exit_code": 0,
+   "wall_ms": 8944.02,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 121,
+     "affected_nodes": [
+      "crates/nool-cli/src/llm/routing.rs",
+      "crates/nool-workspace/src/lib.rs",
+      "crates/nool-cli/src/insights_analytics.rs",
+      "crates/nool-team/src/agent_fleet_cmd.rs",
+      "crates/nool-cli/tests/crash_consistent_solidify.rs",
+      "crates/nool-cli/src/lib.rs",
+      "crates/nool-team/src/announce_cmd.rs",
+      "crates/nool-workspace/src/insights.rs"
+     ],
+     "declared": 6,
+     "status": "partial",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Make fleet/work/solidify daemon auto-start opt-in via NOOL_DAEMON=1 instead of opt-out (task 743d75e1)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "Scope solidify-time relational invariants to the proposal's touched region instead of a full ledger scan (task 169da562)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 4,
+     "envelope_size": 121
+    },
+    "ms": {
+     "aram_ms": 1434,
+     "blast_ms": 6647,
+     "contracts_ms": 179,
+     "findings_ms": 87,
+     "index_ms": 9,
+     "judgment_ms": 53,
+     "plan_ms": 0,
+     "precheck_ms": 22
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 6,
+   "n_paths": 3,
+   "paths_sample": [
+    "crates/nool-cli/src/propose_cmd.rs",
+    "crates/nool-cli/src/seal_graph.rs",
+    "crates/nool-cli/tests/integration.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 5339.43,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 17,
+     "affected_nodes": [
+      "crates/nool-cli/src/lib.rs",
+      "crates/nool-cli/tests/module_invariants.rs",
+      "crates/nool-team/src/inquiry_cmd.rs",
+      "crates/nool-cli/tests/git_import_proptest.rs",
+      "crates/nool-team/src/agent_fleet_cmd.rs",
+      "crates/nool-cli/tests/integration.rs",
+      "crates/nool/src/main.rs",
+      "crates/nool-cli/src/propose_cmd.rs"
+     ],
+     "declared": 3,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (5 props):",
+      "subject": "Add nool_core::evidence_plan::evidence_plan -- deterministic evidence-admission planning consumed by propose_cmd right after gate [3] resolves, driving test-selection/attestation/steer knobs and recorded on the stash as nool:evidence-plan:v1"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Link fix d83eb600 to bug fe356fc0"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "Symbol-seeded propose envelope with envelope.status (task 6f7b5c36)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 3,
+     "envelope_size": 17
+    },
+    "ms": {
+     "aram_ms": 1386,
+     "blast_ms": 3336,
+     "contracts_ms": 95,
+     "findings_ms": 81,
+     "index_ms": 8,
+     "judgment_ms": 31,
+     "plan_ms": 0,
+     "precheck_ms": 23
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 7,
+   "n_paths": 6,
+   "paths_sample": [
+    "crates/nool-cli/src/solidify.rs",
+    "crates/nool-cli/src/main_helpers.rs",
+    "crates/nool-cli/src/doctor.rs",
+    "crates/nool-core/src/semantic_verify.rs",
+    "crates/nool-storage/src/semantic_store.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 9614.77,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 171,
+     "affected_nodes": [
+      "crates/nool-team/src/playbook_cost.rs",
+      "crates/nool-harness/src/advise.rs",
+      "crates/nool-cli/src/thread_cmd.rs",
+      "crates/nool-tasks/src/bridge.rs",
+      "check_knots.rs",
+      "crates/nool-harness/src/coordinator.rs",
+      "crates/nool-cli/src/llm/council.rs",
+      "crates/nool-cli/src/git_import/author.rs"
+     ],
+     "declared": 6,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Bug report: test_propose_solidify_is_blocked_by_relational_controls_in_block_mode fails pre-existing at HEAD"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Link fix 64eebd49 to bug 851e8e27"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Make fleet/work/solidify daemon auto-start opt-in via NOOL_DAEMON=1 instead of opt-out (task 743d75e1)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "Scope solidify-time relational invariants to the proposal's touched region instead of a full ledger scan (task 169da562)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 171
+    },
+    "ms": {
+     "aram_ms": 1453,
+     "blast_ms": 7167,
+     "contracts_ms": 208,
+     "findings_ms": 85,
+     "index_ms": 10,
+     "judgment_ms": 67,
+     "plan_ms": 0,
+     "precheck_ms": 22
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 8,
+   "n_paths": 3,
+   "paths_sample": [
+    "docs/research/2026-09-15-behavioural-contract-record.md",
+    "scripts/contract_surface_experiment.py",
+    "docs/research/2026-09-15-contract-surface-experiment-results.json"
+   ],
+   "exit_code": 0,
+   "wall_ms": 1768.26,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 3,
+     "affected_nodes": [
+      "docs/research/2026-09-15-contract-surface-experiment-results.json",
+      "scripts/contract_surface_experiment.py",
+      "docs/research/2026-09-15-behavioural-contract-record.md"
+     ],
+     "declared": 3,
+     "status": "partial",
+     "tier": "LOW"
+    },
+    "envelope": {
+     "contracts": []
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Bug report: test_propose_solidify_is_blocked_by_relational_controls_in_block_mode fails pre-existing at HEAD"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "Design note + experiment for behavioural contract record (task 4f934d1e)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Link fix 64eebd49 to bug 851e8e27"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (7 props):",
+      "subject": "Retire assurance overclaims, banner two stale research docs, fix the CLAUDE.md spec pointer"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   P2: research memo docs/reports/2026-09-15-incremental-admission-co",
+      "subject": "Create task: P2: research memo docs/reports/2026-09-15-incremental-admission-control.md and ledger findings"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 0,
+     "envelope_size": 3
+    },
+    "ms": {
+     "aram_ms": 1334,
+     "blast_ms": 72,
+     "contracts_ms": 76,
+     "findings_ms": 82,
+     "judgment_ms": 2,
+     "plan_ms": 0,
+     "precheck_ms": 3
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 9,
+   "n_paths": 5,
+   "paths_sample": [
+    "crates/nool-cli/src/engine.rs",
+    "crates/nool-cli/src/solidify.rs",
+    "crates/nool-cli/src/propose_cmd.rs",
+    "crates/nool-harness/src/routing.rs",
+    "crates/nool-cli/tests/blast_envelope_seal_gate.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 5009.58,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 29,
+     "affected_nodes": [
+      "crates/nool-cli/src/lib.rs",
+      "crates/nool-cli/src/engine.rs",
+      "crates/nool-cli/tests/git_import_proptest.rs",
+      "crates/nool-cli/src/llm/mod.rs",
+      "crates/nool-cli/src/bug_debug.rs",
+      "crates/nool-cli/src/llm/council.rs",
+      "crates/nool-cli/src/compare_cmd.rs",
+      "crates/nool-team/src/pr_summary.rs"
+     ],
+     "declared": 5,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (9 props):",
+      "subject": "Gate propose-time semantic field signal + semantic-index walk behind admission control (task 2d1e3508)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ docs/GOVERNANCE.md",
+      "subject": "GOVERNANCE.md: relational-invariant DSL is now scoped to the proposal's region"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (9 props):",
+      "subject": "fix bug 6c708726: add a ContentResolver for .nool/lfs pointers and resolve them in rewind, try, materialize, the discovery snapshot and the git-index projection"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 1,
+     "envelope_size": 29
+    },
+    "ms": {
+     "aram_ms": 1375,
+     "blast_ms": 3114,
+     "contracts_ms": 102,
+     "findings_ms": 81,
+     "index_ms": 8,
+     "judgment_ms": 19,
+     "plan_ms": 0,
+     "precheck_ms": 10
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 10,
+   "n_paths": 4,
+   "paths_sample": [
+    "crates/nool-storage/src/lib.rs",
+    "crates/nool-cli/src/propose_cmd.rs",
+    "crates/nool-cli/src/test_select.rs",
+    "crates/nool-cli/tests/integration.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 7168.65,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 111,
+     "affected_nodes": [
+      "crates/nool-cli/src/try_cmd.rs",
+      "crates/nool-enterprise/src/workspace.rs",
+      "crates/nool-workspace/src/telemetry.rs",
+      "crates/nool-cli/src/compare_cmd.rs",
+      "crates/nool-cli/src/intelligence.rs",
+      "crates/nool-cli/src/llm/council.rs",
+      "crates/nool-cli/src/adr.rs",
+      "crates/nool-cli/src/llm/routing.rs"
+     ],
+     "declared": 4,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "Scope solidify-time relational invariants to the proposal's touched region instead of a full ledger scan (task 169da562)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Accepting a module-level fact records an Assertion knot and a matc",
+      "subject": "Create task: Accepting a module-level fact records an Assertion knot and a matching [invariants] rule, and reconcile flags later contradictions"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (9 props):",
+      "subject": "Gate propose-time semantic field signal + semantic-index walk behind admission control (task 2d1e3508)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ docs/reports/2026-09-15-incremental-admission-control.md",
+      "subject": "Add incremental admission control research memo"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (19 props):",
+      "subject": "Make fleet width configurable and machine-aware; fix edge duplication, reindex data loss, lease supersession, and the crates.io plugin scaffold"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 4,
+     "envelope_size": 111
+    },
+    "ms": {
+     "aram_ms": 1422,
+     "blast_ms": 4818,
+     "contracts_ms": 167,
+     "findings_ms": 85,
+     "index_ms": 9,
+     "judgment_ms": 52,
+     "plan_ms": 0,
+     "precheck_ms": 95
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 11,
+   "n_paths": 7,
+   "paths_sample": [
+    "docs/GOVERNANCE.md",
+    "docs/README.md",
+    "spec/Fast_vs_Full_Validation.md",
+    "README.md",
+    "docs/RESEARCH_EXECUTIVE_SUMMARY.md"
+   ],
+   "exit_code": 0,
+   "wall_ms": 1817.72,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 7,
+     "affected_nodes": [
+      "docs/GOVERNANCE.md",
+      "spec/Fast_vs_Full_Validation.md",
+      "CLAUDE.md",
+      "docs/RESEARCH_EXECUTIVE_SUMMARY.md",
+      "docs/MATHEMATICAL_FOUNDATIONS_RESEARCH.md",
+      "README.md",
+      "docs/README.md"
+     ],
+     "declared": 7,
+     "status": "partial",
+     "tier": "LOW"
+    },
+    "envelope": {
+     "contracts": []
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 5,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ docs/reports/2026-09-15-incremental-admission-control.md",
+      "subject": "Add incremental admission control research memo"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   P2: research memo docs/reports/2026-09-15-incremental-admission-co",
+      "subject": "Create task: P2: research memo docs/reports/2026-09-15-incremental-admission-control.md and ledger findings"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ docs/GOVERNANCE.md",
+      "subject": "GOVERNANCE.md: relational-invariant DSL is now scoped to the proposal's region"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ infra/README.md",
+      "subject": "Fix the bootstrap order: hub secrets must hold real values before App Runner starts\n\nThe runbook I wrote had the order backwards and it cost a real create cycle.\nIt documented full apply first, secrets afterwards. nool-hub-server refuses to\nboot while the OTP HMAC secret holds its placeholder:\n\n  licence config: secret nool/hub/otp-hmac-secret still holds the placeholder;\n  write the OTP HMAC key before starting the hub\n\nSo the service crash-looped for twenty minutes, never answered the /v1/crl\nhealth check, and App Runner left it CREATE_FAILED. A failed App Runner\nservice cannot be updated, only replaced, so the mistake is not free.\n\nThe guard itself is correct and worth keeping -- a hub that booted with a\nplaceholder HMAC would hash every one-time passcode under a known key. The\nrunbook was wrong, not the code.\n\n- new section 4 creates the four secret shells with -target, writes real\n  values, and verifies none still read REPLACE_ME before continuing\n- full apply becomes section 5, and now says App Runner's own wait times out\n  at 20 minutes and points at the container log rather than the service log,\n  because only the container log names the refusal\n- notes that a placeholder Paddle secret is non-fatal (webhooks stay disabled)\n  while the OTP one is fatal -- they fail very differently and the old text\n  treated all four as one step\n\nVerified against the live account: the three generatable secrets now hold real\nvalues, and tofu plan shows the tainted service replacing cleanly.\n"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (7 props):",
+      "subject": "Retire assurance overclaims, banner two stale research docs, fix the CLAUDE.md spec pointer"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 0,
+     "envelope_size": 7
+    },
+    "ms": {
+     "aram_ms": 1339,
+     "blast_ms": 90,
+     "contracts_ms": 78,
+     "findings_ms": 81,
+     "judgment_ms": 4,
+     "plan_ms": 0,
+     "precheck_ms": 0
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 12,
+   "n_paths": 2,
+   "paths_sample": [
+    "crates/nool-cli/src/bug_debug.rs",
+    "crates/nool-cli/tests/validate_honesty.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 3447.2,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 18,
+     "affected_nodes": [
+      "crates/nool-cli/tests/git_import_proptest.rs",
+      "crates/nool-cli/src/compare_cmd.rs",
+      "crates/nool-team/src/announce_cmd.rs",
+      "crates/nool-team/src/eval_cmd.rs",
+      "crates/nool-team/src/pr_summary.rs",
+      "crates/nool-cli/src/lib.rs",
+      "crates/nool-cli/src/try_cmd.rs",
+      "crates/nool-enterprise/src/audit_cmd.rs"
+     ],
+     "declared": 2,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (2 props):",
+      "subject": "nool validate --all: watermark scope to fast-deferred debt instead of full DAG decode"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ crates/nool-cli/src/bug_debug.rs",
+      "subject": "Fix nool debug bisect reporting an Attestation knot as the regression culprit (bug 5bc6e30e)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Link fix d83eb600 to bug fe356fc0"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 1,
+     "envelope_size": 18
+    },
+    "ms": {
+     "aram_ms": 1332,
+     "blast_ms": 1675,
+     "contracts_ms": 92,
+     "findings_ms": 82,
+     "index_ms": 11,
+     "judgment_ms": 4,
+     "plan_ms": 0,
+     "precheck_ms": 15
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 13,
+   "n_paths": 33,
+   "paths_sample": [
+    "Cargo.lock",
+    "crates/nool-analytics/Cargo.toml",
+    "crates/nool-aram-policy-sdk/Cargo.toml",
+    "crates/nool-aram/Cargo.toml",
+    "crates/nool-ast/Cargo.toml"
+   ],
+   "exit_code": 0,
+   "wall_ms": 2283.62,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 33,
+     "affected_nodes": [
+      "crates/nool-tasks/Cargo.toml",
+      "Cargo.lock",
+      "version.txt",
+      "docs/CHANGELOG.md",
+      "crates/nool-harness-proto/Cargo.toml",
+      "crates/nool-mcp/Cargo.toml",
+      "crates/nool-harness-api/Cargo.toml",
+      "crates/nool-core/Cargo.toml"
+     ],
+     "declared": 33,
+     "status": "partial",
+     "tier": "LOW"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram-policy-sdk/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-billing-shared/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "harness-api",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-harness-api/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-api/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-local/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-oidc/Cargo.toml"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,billing,harness-api,identity"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 5,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ Cargo.lock",
+      "subject": "Cargo.lock: sync tempfile dev-dependency added to nool-rollup"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ infra/README.md",
+      "subject": "Fix the bootstrap order: hub secrets must hold real values before App Runner starts\n\nThe runbook I wrote had the order backwards and it cost a real create cycle.\nIt documented full apply first, secrets afterwards. nool-hub-server refuses to\nboot while the OTP HMAC secret holds its placeholder:\n\n  licence config: secret nool/hub/otp-hmac-secret still holds the placeholder;\n  write the OTP HMAC key before starting the hub\n\nSo the service crash-looped for twenty minutes, never answered the /v1/crl\nhealth check, and App Runner left it CREATE_FAILED. A failed App Runner\nservice cannot be updated, only replaced, so the mistake is not free.\n\nThe guard itself is correct and worth keeping -- a hub that booted with a\nplaceholder HMAC would hash every one-time passcode under a known key. The\nrunbook was wrong, not the code.\n\n- new section 4 creates the four secret shells with -target, writes real\n  values, and verifies none still read REPLACE_ME before continuing\n- full apply becomes section 5, and now says App Runner's own wait times out\n  at 20 minutes and points at the container log rather than the service log,\n  because only the container log names the refusal\n- notes that a placeholder Paddle secret is non-fatal (webhooks stay disabled)\n  while the OTP one is fatal -- they fail very differently and the old text\n  treated all four as one step\n\nVerified against the live account: the three generatable secrets now hold real\nvalues, and tofu plan shows the tainted service replacing cleanly.\n"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ Cargo.lock",
+      "subject": "release 7.1.4: Cargo.lock re-resolved to the bumped crate versions"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ Cargo.lock",
+      "subject": "release 7.1.3: Cargo.lock re-resolved to the bumped crate versions"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 33
+    },
+    "ms": {
+     "aram_ms": 1379,
+     "blast_ms": 406,
+     "contracts_ms": 77,
+     "findings_ms": 81,
+     "index_ms": 8,
+     "judgment_ms": 19,
+     "plan_ms": 0,
+     "precheck_ms": 0
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 14,
+   "n_paths": 2,
+   "paths_sample": [
+    "crates/nool-cli/src/test_select.rs",
+    "crates/nool-cli/src/solidify.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 4439.19,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 19,
+     "affected_nodes": [
+      "crates/nool-cli/src/bug_debug.rs",
+      "crates/nool/src/cli_opts.rs",
+      "crates/nool-cli/tests/git_import_proptest.rs",
+      "crates/nool-cli/src/query_cmd.rs",
+      "crates/nool-team/src/lib.rs",
+      "crates/nool-cli/src/try_cmd.rs",
+      "crates/nool-team/src/pr_summary.rs",
+      "crates/nool-cli/src/test_select.rs"
+     ],
+     "declared": 2,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add Ledger::reachable and use it for propose's blast envelope and test selection (task 20c9c7c9)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Release   7.1.1",
+      "subject": "Release: 7.1.1"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  test  @ crates/nool-cli/src/test_select.rs",
+      "subject": "test selection: build the spawn-marker literals with concat! so test_select.rs no longer classifies itself as spawn-based and its own tests run in the ghost run (bug c9ea81ec)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Link fix d83eb600 to bug fe356fc0"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 1,
+     "envelope_size": 19
+    },
+    "ms": {
+     "aram_ms": 1349,
+     "blast_ms": 2648,
+     "contracts_ms": 94,
+     "findings_ms": 81,
+     "index_ms": 10,
+     "judgment_ms": 7,
+     "plan_ms": 0,
+     "precheck_ms": 6
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 15,
+   "n_paths": 2,
+   "paths_sample": [
+    "crates/nool-core/src/reification.rs",
+    "crates/nool-core/src/semantic_pruning.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 2148.47,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 175,
+     "affected_nodes": [
+      "crates/nool-enterprise/src/lib.rs",
+      "crates/nool-cli/tests/generated_paths_skip.rs",
+      "crates/nool-team/src/inquiry_cmd.rs",
+      "crates/nool-harness/src/run.rs",
+      "crates/nool-cli/src/llm/council.rs",
+      "crates/nool-cli/src/solidify_cmd.rs",
+      "crates/nool-mcp/src/main.rs",
+      "crates/nool-harness/src/delegate.rs"
+     ],
+     "declared": 2,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (2 props):",
+      "subject": "reification: target-scoped ghost runs, a separate ghost-run timeout with explicit diagnosis, and a cargo test-target mapper"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Detached knots on per-writer chains, three-group push, host blob l",
+      "subject": "Create task: Detached knots on per-writer chains, three-group push, host blob limit"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Accepting a module-level fact records an Assertion knot and a matc",
+      "subject": "Create task: Accepting a module-level fact records an Assertion knot and a matching [invariants] rule, and reconcile flags later contradictions"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "Fix nool push WASM-recompilation, cargo job-cap for validate/doctor RAM, and hanging daemon-leak test (bugs fe356fc0, d5f8b915, c187cfcd)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 175
+    },
+    "ms": {
+     "aram_ms": 1335,
+     "blast_ms": 275,
+     "contracts_ms": 209,
+     "findings_ms": 80,
+     "index_ms": 8,
+     "judgment_ms": 5,
+     "plan_ms": 0,
+     "precheck_ms": 19
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 16,
+   "n_paths": 3,
+   "paths_sample": [
+    "crates/nool-cli/src/value_receipt.rs",
+    "crates/nool-cli/src/lib.rs",
+    "crates/nool-cli/src/progress.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 7558.4,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 15,
+     "affected_nodes": [
+      "crates/nool-team/src/announce_cmd.rs",
+      "crates/nool-cli/fuzz/fuzz_targets/importer.rs",
+      "crates/nool-team/src/agent_fleet_cmd.rs",
+      "crates/nool/src/cli_opts.rs",
+      "crates/nool-enterprise/src/audit_cmd.rs",
+      "crates/nool-cli/src/lib.rs",
+      "crates/nool-enterprise/src/lib.rs",
+      "crates/nool-team/src/eval_cmd.rs"
+     ],
+     "declared": 3,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": []
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Bug report: test_propose_solidify_is_blocked_by_relational_controls_in_block_mode fails pre-existing at HEAD"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "Calm UX foundation: ValueReceipt human/compact renderer and themed Spinner phases (knot-tying, shield-lock, weave, token-compress)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Link fix 64eebd49 to bug 851e8e27"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ crates/nool-core/src/config.rs",
+      "subject": "record why max_knot_bytes cannot be lowered yet: MutationRef exists but only --binary lfs produces it"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 0,
+     "envelope_size": 15
+    },
+    "ms": {
+     "aram_ms": 1336,
+     "blast_ms": 5834,
+     "contracts_ms": 87,
+     "findings_ms": 81,
+     "judgment_ms": 2,
+     "plan_ms": 0,
+     "precheck_ms": 4
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 17,
+   "n_paths": 2,
+   "paths_sample": [
+    "crates/nool-telemetry/src/lib.rs",
+    "crates/nool-telemetry/src/tests.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 2044.47,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 38,
+     "affected_nodes": [
+      "crates/nool-cli/src/steer.rs",
+      "crates/nool-telemetry/src/lib.rs",
+      "crates/nool-team/src/lib.rs",
+      "crates/nool-harness/src/gates.rs",
+      "crates/nool-team/src/playbook_cost.rs",
+      "crates/nool-telemetry/src/tests.rs",
+      "crates/nool/src/cli_opts.rs",
+      "crates/nool-cli/src/llm/judgment.rs"
+     ],
+     "declared": 2,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": []
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (2 props):",
+      "subject": "Skip the machine-global agent transcript scan in telemetry sync for ledgers outside the project root, isolating in-memory and temp-dir test ledgers"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Detached knots on per-writer chains, three-group push, host blob l",
+      "subject": "Create task: Detached knots on per-writer chains, three-group push, host blob limit"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Remember refused legacy knot refs so a push does not retry them ev",
+      "subject": "Create task: Remember refused legacy knot refs so a push does not retry them every time"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Bug report: test_propose_solidify_is_blocked_by_relational_controls_in_block_mode fails pre-existing at HEAD"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 0,
+     "envelope_size": 38
+    },
+    "ms": {
+     "aram_ms": 1328,
+     "blast_ms": 324,
+     "contracts_ms": 103,
+     "findings_ms": 82,
+     "index_ms": 8,
+     "judgment_ms": 1,
+     "plan_ms": 0,
+     "precheck_ms": 3
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 18,
+   "n_paths": 33,
+   "paths_sample": [
+    "Cargo.lock",
+    "crates/nool-analytics/Cargo.toml",
+    "crates/nool-aram-policy-sdk/Cargo.toml",
+    "crates/nool-aram/Cargo.toml",
+    "crates/nool-ast/Cargo.toml"
+   ],
+   "exit_code": 0,
+   "wall_ms": 2280.54,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 33,
+     "affected_nodes": [
+      "crates/nool-memory/Cargo.toml",
+      "crates/nool-policy-abi/Cargo.toml",
+      "crates/nool-language-sdk/Cargo.toml",
+      "crates/nool-hub-server/Cargo.toml",
+      "Cargo.lock",
+      "crates/nool-storage/Cargo.toml",
+      "crates/nool/Cargo.toml",
+      "crates/nool-team/Cargo.toml"
+     ],
+     "declared": 33,
+     "status": "partial",
+     "tier": "LOW"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram-policy-sdk/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-billing-shared/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "harness-api",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-harness-api/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-api/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-local/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-oidc/Cargo.toml"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,billing,harness-api,identity"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 5,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ Cargo.lock",
+      "subject": "Cargo.lock: sync tempfile dev-dependency added to nool-rollup"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Detached knots on per-writer chains, three-group push, host blob l",
+      "subject": "Create task: Detached knots on per-writer chains, three-group push, host blob limit"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ Cargo.lock",
+      "subject": "release 7.1.4: Cargo.lock re-resolved to the bumped crate versions"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Remember refused legacy knot refs so a push does not retry them ev",
+      "subject": "Create task: Remember refused legacy knot refs so a push does not retry them every time"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Bug report: test_propose_solidify_is_blocked_by_relational_controls_in_block_mode fails pre-existing at HEAD"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 33
+    },
+    "ms": {
+     "aram_ms": 1366,
+     "blast_ms": 392,
+     "contracts_ms": 77,
+     "findings_ms": 88,
+     "index_ms": 10,
+     "judgment_ms": 19,
+     "plan_ms": 0,
+     "precheck_ms": 0
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 19,
+   "n_paths": 12,
+   "paths_sample": [
+    "crates/nool-cli/src/config_cmd.rs",
+    "crates/nool-cli/src/judgment_review.rs",
+    "crates/nool-cli/src/main_helpers.rs",
+    "crates/nool-cli/src/solidify.rs",
+    "crates/nool-cli/src/steer.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 7621.07,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 56,
+     "affected_nodes": [
+      "crates/nool-team/src/announce_cmd.rs",
+      "crates/nool-cli/src/git_cli.rs",
+      "crates/nool-cli/src/task_cmd.rs",
+      "crates/nool-harness/tests/conformance.rs",
+      "crates/nool-cli/src/lib.rs",
+      "crates/nool-rollup/src/lib.rs",
+      "crates/nool-cli/src/try_merge.rs",
+      "crates/nool-cli/src/export_cmd.rs"
+     ],
+     "declared": 12,
+     "status": "partial",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (12 props):",
+      "subject": "Finish structural coupling steering and quorum metric (task f6cd4834)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Blast radius fidelity: cpp",
+      "subject": "Create task: Blast radius fidelity: cpp"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:ReviewCriteria 1eadbd92",
+      "subject": "Review acceptance criteria for task 1eadbd92"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:ReviewCriteria 8d4ae276",
+      "subject": "Review acceptance criteria for task 8d4ae276"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 1,
+     "envelope_size": 56
+    },
+    "ms": {
+     "aram_ms": 1393,
+     "blast_ms": 5558,
+     "contracts_ms": 122,
+     "findings_ms": 82,
+     "index_ms": 8,
+     "judgment_ms": 38,
+     "plan_ms": 0,
+     "precheck_ms": 1
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 20,
+   "n_paths": 9,
+   "paths_sample": [
+    "crates/nool-cli/src/architecture_cmd.rs",
+    "crates/nool-cli/src/cli_opts.rs",
+    "crates/nool-cli/src/doctor.rs",
+    "crates/nool-cli/src/main_helpers.rs",
+    "crates/nool-cli/src/solidify.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 8095.78,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 175,
+     "affected_nodes": [
+      "crates/nool-team/src/inquiry_cmd.rs",
+      "crates/nool-cli/src/task_handlers.rs",
+      "crates/nool-tasks/src/tests.rs",
+      "crates/nool-cli/tests/crash_consistent_solidify.rs",
+      "crates/nool-cli/src/discover_cmd.rs",
+      "crates/nool-rollup/src/lib.rs",
+      "crates/nool-storage/src/spool.rs",
+      "crates/nool-cli/src/evidence.rs"
+     ],
+     "declared": 9,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Bug report: test_propose_solidify_is_blocked_by_relational_controls_in_block_mode fails pre-existing at HEAD"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (9 props):",
+      "subject": "Complete module dependency assertions and enforced invariants (task fef1b8c5)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - test_propose_solidify_is_blocked_by_relational_controls_in_blo",
+      "subject": "Link fix 64eebd49 to bug 851e8e27"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ crates/nool-cli/src/architecture_cmd.rs",
+      "subject": "architecture accept: fold locator into minting_point so unbound subjects receive distinct deterministic nool_ids (bug 698034c0)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 175
+    },
+    "ms": {
+     "aram_ms": 1420,
+     "blast_ms": 5804,
+     "contracts_ms": 211,
+     "findings_ms": 86,
+     "index_ms": 10,
+     "judgment_ms": 49,
+     "plan_ms": 0,
+     "precheck_ms": 17
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 21,
+   "n_paths": 6,
+   "paths_sample": [
+    "crates/nool-cli/src/blast_radius.rs",
+    "crates/nool-cli/src/insights_analytics.rs",
+    "crates/nool-cli/src/llm/routing.rs",
+    "crates/nool-cli/src/main_helpers.rs",
+    "crates/nool-core/src/hodge.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 6605.19,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 171,
+     "affected_nodes": [
+      "crates/nool-cli/src/evidence.rs",
+      "crates/nool-cli/src/solidify_cmd.rs",
+      "crates/nool-cli/src/insights_analytics.rs",
+      "crates/nool-harness/src/report.rs",
+      "crates/nool-cli/src/enrich.rs",
+      "crates/nool-cli/src/thread_cmd.rs",
+      "crates/nool-workspace/src/lib.rs",
+      "crates/nool-storage/src/spool.rs"
+     ],
+     "declared": 6,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "Blast-radius Semantic Field sourced from the entity graph (Semantic-family edges lifted to files): real \u03bb\u2082, component count and diffusion reach; honest labels for edgeless and disconnected graphs; k off-by-one fixed (task 9a6c415c)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Detached knots on per-writer chains, three-group push, host blob l",
+      "subject": "Create task: Detached knots on per-writer chains, three-group push, host blob limit"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ crates/nool-cli/src/blast_radius.rs",
+      "subject": "blast-radius: risk-scored BlastRadiusAnalysis receipt for human TTYs"
+     },
+     {
+      "kind": "finding",
+      "preview": "nool_telemetry::sync only imports transcripts naming project_root, and productio",
+      "subject": "telemetry sync scope"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 171
+    },
+    "ms": {
+     "aram_ms": 1364,
+     "blast_ms": 4551,
+     "contracts_ms": 208,
+     "findings_ms": 86,
+     "index_ms": 10,
+     "judgment_ms": 24,
+     "plan_ms": 0,
+     "precheck_ms": 10
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 22,
+   "n_paths": 6,
+   "paths_sample": [
+    "crates/nool-cli/src/discover_bootstrap.rs",
+    "crates/nool-cli/src/seal_graph.rs",
+    "crates/nool-core/src/config.rs",
+    "crates/nool-core/src/discovery.rs",
+    "crates/nool-core/src/ignore_patterns.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 6183.88,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 184,
+     "affected_nodes": [
+      "crates/nool-cli/src/adr.rs",
+      "crates/nool-team/src/inquiry_cmd.rs",
+      "crates/nool-cli/src/steer.rs",
+      "crates/nool-telemetry/src/correlator/mod.rs",
+      "crates/nool-memory/src/lib.rs",
+      "crates/nool-core/fuzz/fuzz_targets/receipt_decode.rs",
+      "crates/nool-storage/src/billing_engine.rs",
+      "crates/nool-cli/tests/crash_consistent_solidify.rs"
+     ],
+     "declared": 6,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "Seal graph: skip generated, minified and vendored files via one shared [analysis] generated_paths predicate across seal_graph, discovery, discover lift and discover bootstrap; reindex-graph marks superseded candidates Stale reversibly and propagates its errors (task 4a656a88)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (19 props):",
+      "subject": "Make fleet width configurable and machine-aware; fix edge duplication, reindex data loss, lease supersession, and the crates.io plugin scaffold"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 184
+    },
+    "ms": {
+     "aram_ms": 1354,
+     "blast_ms": 4193,
+     "contracts_ms": 218,
+     "findings_ms": 87,
+     "index_ms": 8,
+     "judgment_ms": 18,
+     "plan_ms": 0,
+     "precheck_ms": 11
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 23,
+   "n_paths": 4,
+   "paths_sample": [
+    "crates/nool-cli/src/architecture_cmd.rs",
+    "crates/nool-cli/src/cli_opts.rs",
+    "crates/nool-core/src/lib.rs",
+    "crates/nool-core/src/module_facts.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 5695.9,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 174,
+     "affected_nodes": [
+      "crates/nool-workspace/src/lib.rs",
+      "crates/nool-cli/src/changelog_cmd.rs",
+      "crates/nool-cli/tests/integration.rs",
+      "crates/nool-team/src/council_cmd.rs",
+      "crates/nool-team/src/playbook_cost.rs",
+      "crates/nool-cli/tests/gate_receipt_invariant.rs",
+      "crates/nool-team/src/governance_score.rs",
+      "crates/nool-telemetry/src/correlator/mod.rs"
+     ],
+     "declared": 4,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (9 props):",
+      "subject": "Complete module dependency assertions and enforced invariants (task fef1b8c5)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "finding",
+      "preview": "nool_telemetry::sync only imports transcripts naming project_root, and productio",
+      "subject": "telemetry sync scope"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ crates/nool-cli/src/architecture_cmd.rs",
+      "subject": "architecture accept: fold locator into minting_point so unbound subjects receive distinct deterministic nool_ids (bug 698034c0)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 174
+    },
+    "ms": {
+     "aram_ms": 1347,
+     "blast_ms": 3743,
+     "contracts_ms": 211,
+     "findings_ms": 85,
+     "index_ms": 10,
+     "judgment_ms": 11,
+     "plan_ms": 0,
+     "precheck_ms": 17
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 24,
+   "n_paths": 5,
+   "paths_sample": [
+    "crates/nool-cli/src/insights.rs",
+    "crates/nool-cli/src/insights_analytics.rs",
+    "crates/nool-core/src/hodge.rs",
+    "crates/nool-workspace/src/insights.rs",
+    "docs/INSIGHTS_UX_TRUST_COCKPIT.md"
+   ],
+   "exit_code": 0,
+   "wall_ms": 3149.83,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 172,
+     "affected_nodes": [
+      "crates/nool-team/src/lib.rs",
+      "crates/nool-workspace/src/insights.rs",
+      "crates/nool-cli/src/nool_bridge.rs",
+      "crates/nool-hub-server/src/main.rs",
+      "docs/INSIGHTS_UX_TRUST_COCKPIT.md",
+      "crates/nool-cli/src/insights.rs",
+      "crates/nool-cli/src/try_cmd.rs",
+      "crates/nool-core/src/lib.rs"
+     ],
+     "declared": 5,
+     "status": "partial",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (5 props):",
+      "subject": "Insights health grade: SCC-count solenoidal debt over Semantic dependency edges, temperature demoted to informational, per-deduction definitions in JSON and docs, hodge find_solenoidal_paths implemented (task ed66e864)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ infra/README.md",
+      "subject": "Fix the bootstrap order: hub secrets must hold real values before App Runner starts\n\nThe runbook I wrote had the order backwards and it cost a real create cycle.\nIt documented full apply first, secrets afterwards. nool-hub-server refuses to\nboot while the OTP HMAC secret holds its placeholder:\n\n  licence config: secret nool/hub/otp-hmac-secret still holds the placeholder;\n  write the OTP HMAC key before starting the hub\n\nSo the service crash-looped for twenty minutes, never answered the /v1/crl\nhealth check, and App Runner left it CREATE_FAILED. A failed App Runner\nservice cannot be updated, only replaced, so the mistake is not free.\n\nThe guard itself is correct and worth keeping -- a hub that booted with a\nplaceholder HMAC would hash every one-time passcode under a known key. The\nrunbook was wrong, not the code.\n\n- new section 4 creates the four secret shells with -target, writes real\n  values, and verifies none still read REPLACE_ME before continuing\n- full apply becomes section 5, and now says App Runner's own wait times out\n  at 20 minutes and points at the container log rather than the service log,\n  because only the container log names the refusal\n- notes that a placeholder Paddle secret is non-fatal (webhooks stay disabled)\n  while the OTP one is fatal -- they fail very differently and the old text\n  treated all four as one step\n\nVerified against the live account: the three generatable secrets now hold real\nvalues, and tofu plan shows the tainted service replacing cleanly.\n"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ crates/nool-cli/src/insights.rs",
+      "subject": "insights: human ROI dashboard and exec/manager/engineer audience views"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 172
+    },
+    "ms": {
+     "aram_ms": 1335,
+     "blast_ms": 1257,
+     "contracts_ms": 210,
+     "findings_ms": 86,
+     "index_ms": 9,
+     "judgment_ms": 7,
+     "plan_ms": 0,
+     "precheck_ms": 13
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 25,
+   "n_paths": 33,
+   "paths_sample": [
+    "Cargo.lock",
+    "crates/nool-analytics/Cargo.toml",
+    "crates/nool-aram-policy-sdk/Cargo.toml",
+    "crates/nool-aram/Cargo.toml",
+    "crates/nool-ast/Cargo.toml"
+   ],
+   "exit_code": 0,
+   "wall_ms": 2264.62,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 33,
+     "affected_nodes": [
+      "crates/nool-aram-policy-sdk/Cargo.toml",
+      "crates/nool-identity-oidc/Cargo.toml",
+      "crates/nool-identity-local/Cargo.toml",
+      "crates/nool-hub-server/Cargo.toml",
+      "docs/CHANGELOG.md",
+      "version.txt",
+      "crates/nool-bridge-api/Cargo.toml",
+      "crates/nool-core/Cargo.toml"
+     ],
+     "declared": 33,
+     "status": "partial",
+     "tier": "LOW"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram-policy-sdk/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-billing-shared/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "harness-api",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-harness-api/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-api/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-local/Cargo.toml"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "identity",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-identity-oidc/Cargo.toml"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,billing,harness-api,identity"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 5,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ Cargo.lock",
+      "subject": "Cargo.lock: sync tempfile dev-dependency added to nool-rollup"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Finish   landed=bbde5998",
+      "subject": "Finish task 6afbfd65 (landed bbde5998)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ Cargo.lock",
+      "subject": "release 7.1.4: Cargo.lock re-resolved to the bumped crate versions"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Bug       Minor - nool push recompiles the same Aram WASM policy module once per",
+      "subject": "Bug report: nool push recompiles the same Aram WASM policy module once per unpushed knot"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  @ Cargo.lock",
+      "subject": "release 7.1.3: Cargo.lock re-resolved to the bumped crate versions"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 7,
+     "envelope_size": 33
+    },
+    "ms": {
+     "aram_ms": 1374,
+     "blast_ms": 392,
+     "contracts_ms": 77,
+     "findings_ms": 79,
+     "index_ms": 8,
+     "judgment_ms": 18,
+     "plan_ms": 0,
+     "precheck_ms": 0
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 26,
+   "n_paths": 4,
+   "paths_sample": [
+    "crates/nool-cli/src/query_cmd.rs",
+    "crates/nool-cli/src/seal_graph.rs",
+    "crates/nool-cli/src/solidify.rs",
+    "crates/nool-cli/tests/integration.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 6372.02,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 21,
+     "affected_nodes": [
+      "crates/nool-cli/tests/integration.rs",
+      "crates/nool-team/src/pr_summary.rs",
+      "crates/nool-cli/fuzz/fuzz_targets/importer.rs",
+      "crates/nool-enterprise/src/lib.rs",
+      "crates/nool-cli/tests/module_invariants.rs",
+      "crates/nool-cli/src/try_cmd.rs",
+      "crates/nool-cli/src/solidify.rs",
+      "crates/nool-team/src/inquiry_cmd.rs"
+     ],
+     "declared": 4,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Blast radius fidelity: cpp",
+      "subject": "Create task: Blast radius fidelity: cpp"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (9 props):",
+      "subject": "fix bug 6c708726: add a ContentResolver for .nool/lfs pointers and resolve them in rewind, try, materialize, the discovery snapshot and the git-index projection"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:ReviewCriteria 1eadbd92",
+      "subject": "Review acceptance criteria for task 1eadbd92"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (4 props):",
+      "subject": "Add nool doctor --fix --heads-only: consolidate fragmented DAG heads without pruning knots rejected by the replay engine"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:ReviewCriteria 8d4ae276",
+      "subject": "Review acceptance criteria for task 8d4ae276"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 4,
+     "envelope_size": 21
+    },
+    "ms": {
+     "aram_ms": 1381,
+     "blast_ms": 4375,
+     "contracts_ms": 99,
+     "findings_ms": 81,
+     "index_ms": 9,
+     "judgment_ms": 32,
+     "plan_ms": 0,
+     "precheck_ms": 8
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 27,
+   "n_paths": 3,
+   "paths_sample": [
+    "crates/nool-cli/src/seal_graph.rs",
+    "crates/nool-cli/tests/integration.rs",
+    "crates/nool-storage/src/semantic_store.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 5774.3,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 117,
+     "affected_nodes": [
+      "crates/nool-cli/tests/generated_paths_skip.rs",
+      "crates/nool-cli/src/steer.rs",
+      "crates/nool-cli/src/git_import/skip.rs",
+      "crates/nool-cli/src/propose_cmd.rs",
+      "crates/nool-harness/src/run_loop.rs",
+      "crates/nool-cli/src/adr.rs",
+      "crates/nool-cli/src/doctor.rs",
+      "crates/nool-rollup/src/lib.rs"
+     ],
+     "declared": 3,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 9,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "Symbol-seeded propose envelope with envelope.status (task 6f7b5c36)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "finding",
+      "preview": "nool_telemetry::sync only imports transcripts naming project_root, and productio",
+      "subject": "telemetry sync scope"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "Seal graph: skip generated, minified and vendored files via one shared [analysis] generated_paths predicate across seal_graph, discovery, discover lift and discover bootstrap; reindex-graph marks superseded candidates Stale reversibly and propagates its errors (task 4a656a88)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (10 props):",
+      "subject": "Symbol-granular entity graph at the seal (seal_graph): Owns file\u2192symbol, Uses file\u2192imported symbol, dispatch Calls from trait/interface methods to implementations, per-file reconciliation that retires edges an edit removed, rebuild = per-file sync; symbol-mode blast radius walks from the symbol entity (path#Name supported) and query context reaches a file's symbols; edition-gate the contract/commit-template integration tests; move DeviceRegistration above admin_cmd test modules for clippy --all-targets"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 4,
+     "envelope_size": 117
+    },
+    "ms": {
+     "aram_ms": 1381,
+     "blast_ms": 3651,
+     "contracts_ms": 177,
+     "findings_ms": 86,
+     "index_ms": 10,
+     "judgment_ms": 34,
+     "plan_ms": 0,
+     "precheck_ms": 17
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 28,
+   "n_paths": 10,
+   "paths_sample": [
+    "crates/nool-ast/src/skeleton.rs",
+    "crates/nool-cli/src/admin_cmd.rs",
+    "crates/nool-cli/src/blast_radius.rs",
+    "crates/nool-cli/src/lib.rs",
+    "crates/nool-cli/src/main_helpers.rs"
+   ],
+   "exit_code": 0,
+   "wall_ms": 14443.03,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 204,
+     "affected_nodes": [
+      "crates/nool-harness/src/cascade.rs",
+      "crates/nool-cli/tests/governance_trace_integrity.rs",
+      "crates/nool-hub-server/src/main.rs",
+      "crates/nool-storage/tests/context_workflow_integration_test.rs",
+      "crates/nool-tasks/src/bridge.rs",
+      "crates/nool-team/src/governance_score.rs",
+      "crates/nool-cli/src/git_import/mod.rs",
+      "crates/nool-harness/src/cost.rs"
+     ],
+     "declared": 10,
+     "status": "known",
+     "tier": "CRITICAL"
+    },
+    "envelope": {
+     "contracts": [
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3 -> finding:5ba5c9cb63992dac482fc95977a5e3f57d23fa518a986ba03a7d3ae301e3e639",
+       "id": "edge::30c20f0ae0d0e211",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/tests/integration.rs:643604bc666aa4c3"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c -> finding:097d83372d73d8f1a350db3275f6e4a8f42860567c09dacbda008aba3191a279",
+       "id": "edge::be5aabc3c1689bd1",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/query_cmd.rs:9734465376cd647c"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:d842f1f1869d390ee08443adc219402e83c2db5ea1494b6ed3331606c4714070",
+       "id": "edge::c2c91fccd7bbbfb2",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "evidenced_by entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107 -> finding:31902fd9476cdd4ff0f6b35ac81f47c54797a6b0a49e1964a5bf105d8ea4cf4e",
+       "id": "edge::ca085f74e8a4503c",
+       "kind": "assertion",
+       "trigger": "entity:crates/nool-cli/src/seal_graph.rs:817154bed8050107"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram-policy-sdk/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "aram",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-aram/src/lib.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "auth",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-cli/src/git_import/author.rs"
+      },
+      {
+       "detail": "PrePush/Ciso",
+       "id": "billing",
+       "kind": "sensitive_path",
+       "trigger": "crates/nool-storage/src/billing_engine.rs"
+      }
+     ]
+    },
+    "evidence_plan": {
+     "plan": {
+      "HumanApproval": "aram,auth,billing,gate_denied"
+     },
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (6 props):",
+      "subject": "graph-query: transitive reachability evaluated in SQL (recursive CTE) instead of loading the whole edge table into Rust, plus a Calls edge kind and a per-file call-graph extractor that solidify populates; rebased onto main and merged with the NOOL-12 findings work"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (10 props):",
+      "subject": "Symbol-granular entity graph at the seal (seal_graph): Owns file\u2192symbol, Uses file\u2192imported symbol, dispatch Calls from trait/interface methods to implementations, per-file reconciliation that retires edges an edit removed, rebuild = per-file sync; symbol-mode blast radius walks from the symbol entity (path#Name supported) and query context reaches a file's symbols; edition-gate the contract/commit-template integration tests; move DeviceRegistration above admin_cmd test modules for clippy --all-targets"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Detached knots on per-writer chains, three-group push, host blob l",
+      "subject": "Create task: Detached knots on per-writer chains, three-group push, host blob limit"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Finish   landed=d9c6f63e",
+      "subject": "Finish task 2d1e3508 (landed d9c6f63e)"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 8,
+     "envelope_size": 204
+    },
+    "ms": {
+     "aram_ms": 1493,
+     "blast_ms": 11747,
+     "contracts_ms": 233,
+     "findings_ms": 85,
+     "index_ms": 10,
+     "judgment_ms": 95,
+     "plan_ms": 0,
+     "precheck_ms": 10
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  },
+  {
+   "idx": 29,
+   "n_paths": 3,
+   "paths_sample": [
+    "docs/reports/2026-09-13-benchmark-audit.md",
+    "docs/reports/2026-09-13-benchmark-audit/probe.py",
+    "docs/reports/2026-09-13-benchmark-audit/results.json"
+   ],
+   "exit_code": 0,
+   "wall_ms": 1738.63,
+   "semantic_signal": {
+    "blast_radius": {
+     "affected": 3,
+     "affected_nodes": [
+      "docs/reports/2026-09-13-benchmark-audit/probe.py",
+      "docs/reports/2026-09-13-benchmark-audit.md",
+      "docs/reports/2026-09-13-benchmark-audit/results.json"
+     ],
+     "declared": 3,
+     "status": "partial",
+     "tier": "LOW"
+    },
+    "envelope": {
+     "contracts": []
+    },
+    "evidence_plan": {
+     "plan": "PackageTests",
+     "selected_test_args": null,
+     "selected_test_detail": null
+    },
+    "field": null,
+    "intent_divergence": {
+     "diff_tokens": 8,
+     "intent_tokens": 3,
+     "low_overlap": false,
+     "overlap_tokens": 2,
+     "score": 66
+    },
+    "relevant_findings": [
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Architecture review at module altitude: fold derived edges into cr",
+      "subject": "Create task: Architecture review at module altitude: fold derived edges into crate and module-level facts with support counts and conservation spans"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Synthesis (3 props):",
+      "subject": "Add the 2026-09-13 benchmark audit report and its reproduction script (B5/B6/B8/Track D findings and the measurable improvement plan)"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   P2: research memo docs/reports/2026-09-15-incremental-admission-co",
+      "subject": "Create task: P2: research memo docs/reports/2026-09-15-incremental-admission-control.md and ledger findings"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Task:Create   Detached knots on per-writer chains, three-group push, host blob l",
+      "subject": "Create task: Detached knots on per-writer chains, three-group push, host blob limit"
+     },
+     {
+      "kind": "solidify",
+      "preview": "Mutation  doc  @ docs/reports/2026-09-15-incremental-admission-control.md",
+      "subject": "Add incremental admission control research memo"
+     }
+    ]
+   },
+   "proposal_stages": {
+    "counts": {
+     "contracts_count": 0,
+     "envelope_size": 3
+    },
+    "ms": {
+     "aram_ms": 1328,
+     "blast_ms": 54,
+     "contracts_ms": 76,
+     "findings_ms": 82,
+     "judgment_ms": 1,
+     "plan_ms": 0,
+     "precheck_ms": 0
+    }
+   },
+   "landed": false,
+   "refused": false,
+   "dnf": false
+  }
+ ],
+ "summary": {
+  "n_replayed": 30,
+  "n_measured": 30,
+  "n_refused": 0,
+  "wall_ms": {
+   "n": 30,
+   "median_ms": 5735.1,
+   "p10_ms": 1817.72,
+   "p90_ms": 10451.8,
+   "min_ms": 1738.63,
+   "max_ms": 14443.03
+  },
+  "envelope_affected": {
+   "n": 30,
+   "median_ms": 83.5,
+   "p10_ms": 7,
+   "p90_ms": 180,
+   "min_ms": 3,
+   "max_ms": 204
+  },
+  "envelope_declared": {
+   "n": 30,
+   "median_ms": 5.0,
+   "p10_ms": 2,
+   "p90_ms": 33,
+   "min_ms": 2,
+   "max_ms": 33
+  },
+  "envelope_affected_over_declared_ratio": {
+   "n": 30,
+   "median_ms": 19.22,
+   "p10_ms": 1.0,
+   "p90_ms": 39.0,
+   "min_ms": 1.0,
+   "max_ms": 87.5
+  },
+  "envelope_status_counts": {
+   "known": 21,
+   "partial": 9
+  },
+  "blast_tier_counts": {
+   "CRITICAL": 24,
+   "LOW": 6
+  },
+  "evidence_plan_counts": {
+   "PackageTests": 11,
+   "HumanApproval": 19
+  },
+  "contracts_count": {
+   "n": 30,
+   "median_ms": 4.0,
+   "p10_ms": 0,
+   "p90_ms": 7,
+   "min_ms": 0,
+   "max_ms": 8
+  },
+  "stage_ms": {
+   "aram_ms": {
+    "n": 30,
+    "median_ms": 1374.5,
+    "p10_ms": 1332,
+    "p90_ms": 1457,
+    "min_ms": 1328,
+    "max_ms": 1493
+   },
+   "blast_ms": {
+    "n": 30,
+    "median_ms": 3697.0,
+    "p10_ms": 90,
+    "p90_ms": 8215,
+    "min_ms": 54,
+    "max_ms": 11747
+   },
+   "contracts_ms": {
+    "n": 30,
+    "median_ms": 144.5,
+    "p10_ms": 77,
+    "p90_ms": 218,
+    "min_ms": 76,
+    "max_ms": 233
+   },
+   "findings_ms": {
+    "n": 30,
+    "median_ms": 85.0,
+    "p10_ms": 81,
+    "p90_ms": 92,
+    "min_ms": 79,
+    "max_ms": 99
+   },
+   "index_ms": {
+    "n": 26,
+    "median_ms": 9.5,
+    "p10_ms": 8,
+    "p90_ms": 11,
+    "min_ms": 8,
+    "max_ms": 28
+   },
+   "judgment_ms": {
+    "n": 30,
+    "median_ms": 20.0,
+    "p10_ms": 2,
+    "p90_ms": 67,
+    "min_ms": 1,
+    "max_ms": 95
+   },
+   "plan_ms": {
+    "n": 30,
+    "median_ms": 0.0,
+    "p10_ms": 0,
+    "p90_ms": 0,
+    "min_ms": 0,
+    "max_ms": 0
+   },
+   "precheck_ms": {
+    "n": 30,
+    "median_ms": 10.5,
+    "p10_ms": 0,
+    "p90_ms": 23,
+    "min_ms": 0,
+    "max_ms": 95
+   }
+  }
+ }
+}
