@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: merge the R=10,000 admission-cost tier into results/micro/b10_assurance_scaling.json for a real 3-point (100/1,000/10,000) scaling fit, and rewrite F2/F2b in the findings doc honestly: admission stays sub-linear over the full 100x range (~15x cost for 100x repo growth) but the growth rate itself worsens at the second decade (6.3x-7.0x per D vs 2.2x-2.3x in the first decade); the more durable finding is that admission's relative cheapness vs evidence checking widens with scale (3.6x -> 6.1x -> 12.75x), not that admission itself stays flat
-knot_id: 6f033eb611eaacc84ffd13ea974b4687e01d2a001ab511495cd54e54d7412f0c
-solidified_at: 1789524899519
+intent: fix fleet_run.py preflight_isolation: nool daemon status --json now pretty-prints multi-line, so parsing only the first line as a complete JSON object always failed (Expecting property name enclosed in double quotes) and permanently blocked benchmark launches while any daemon was running; parse from the first { to end of stdout instead
+knot_id: c75a5f326d50086fca455fe1855d24d1fc25820014fcf2554f765a0f4d066aad
+solidified_at: 1789526883765
 thread: main

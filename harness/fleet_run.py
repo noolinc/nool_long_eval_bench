@@ -780,9 +780,13 @@ def preflight_isolation(workspace_roots=()):
         status = sp.run(["nool", "daemon", "status", "--all", "--json"],
                         capture_output=True, text=True, timeout=15,
                         env=ENV)
-        line = next((l for l in status.stdout.splitlines()
-                     if l.strip().startswith("{")), "{}")
-        info = json.loads(line)
+        # `--json` pretty-prints (multi-line): the object opens on its own
+        # line, so grabbing just the first line starting with "{" and
+        # parsing that alone always failed with "Expecting property name
+        # enclosed in double quotes" -- take from the first "{" to the end
+        # of stdout instead, which is a complete object either way.
+        start = status.stdout.find("{")
+        info = json.loads(status.stdout[start:]) if start != -1 else {}
     except (sp.SubprocessError, ValueError, StopIteration) as e:
         info = {"ok": False, "error": str(e)}
     if not info.get("ok"):
