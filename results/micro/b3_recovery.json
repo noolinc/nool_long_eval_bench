@@ -1,18 +1,39 @@
 {
  "benchmark": "b3_recovery",
  "provenance": {
-  "timestamp_utc": "2026-09-06T17:16:12.537357+00:00",
+  "run_id": "9315fe76-5852-472a-8564-7d40f3ef2f3f",
+  "timestamp_utc": "2026-09-16T07:18:49.671224+00:00",
   "system_load": {
-   "load_1m": 3.92,
-   "load_5m": 3.12,
-   "load_15m": 3.87,
+   "load_1m": 3.3,
+   "load_5m": 2.05,
+   "load_15m": 1.75,
    "cpu_count": 12,
-   "load_per_core_1m": 0.33,
+   "load_per_core_1m": 0.28,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.2.0",
+  "nool_version": "nool 7.8.0",
+  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
+  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
+  "nool_build": {
+   "version": "7.8.0",
+   "edition": "enterprise",
+   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
+   "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+   "target": "aarch64-apple-darwin",
+   "dirty": false
+  },
+  "harness": {
+   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
+   "dirty": true
+  },
+  "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+  "env_overrides": {
+   "NOOL_NO_DAEMON": "1",
+   "GIT_TERMINAL_PROMPT": "0"
+  },
+  "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -26,7 +47,7 @@
   "linear_timeline": {
    "git": [
     {
-     "recovery_ms": 18.8,
+     "recovery_ms": 17.5,
      "commands": [
       "git revert"
      ],
@@ -35,13 +56,13 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 3b4937c] Revert \"L3 sabotage b.go\"",
-      " Date: Sun Sep 6 19:15:51 2026 +0200",
+      "[main 375a2db] Revert \"L3 sabotage b.go\"",
+      " Date: Wed Sep 16 09:18:33 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     },
     {
-     "recovery_ms": 20.7,
+     "recovery_ms": 17.3,
      "commands": [
       "git revert"
      ],
@@ -50,13 +71,13 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 3b4937c] Revert \"L3 sabotage b.go\"",
-      " Date: Sun Sep 6 19:15:51 2026 +0200",
+      "[main 375a2db] Revert \"L3 sabotage b.go\"",
+      " Date: Wed Sep 16 09:18:33 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     },
     {
-     "recovery_ms": 19.2,
+     "recovery_ms": 17.1,
      "commands": [
       "git revert"
      ],
@@ -65,13 +86,13 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 3b4937c] Revert \"L3 sabotage b.go\"",
-      " Date: Sun Sep 6 19:15:51 2026 +0200",
+      "[main 375a2db] Revert \"L3 sabotage b.go\"",
+      " Date: Wed Sep 16 09:18:33 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     },
     {
-     "recovery_ms": 19.0,
+     "recovery_ms": 18.7,
      "commands": [
       "git revert"
      ],
@@ -80,13 +101,13 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 3b4937c] Revert \"L3 sabotage b.go\"",
-      " Date: Sun Sep 6 19:15:51 2026 +0200",
+      "[main bb32749] Revert \"L3 sabotage b.go\"",
+      " Date: Wed Sep 16 09:18:34 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     },
     {
-     "recovery_ms": 18.0,
+     "recovery_ms": 17.5,
      "commands": [
       "git revert"
      ],
@@ -95,15 +116,15 @@
      "damage_removed": true,
      "unrelated_work_survived": true,
      "output_tail": [
-      "[main 476addd] Revert \"L3 sabotage b.go\"",
-      " Date: Sun Sep 6 19:15:52 2026 +0200",
+      "[main 29a34eb] Revert \"L3 sabotage b.go\"",
+      " Date: Wed Sep 16 09:18:34 2026 +0200",
       " 1 file changed, 1 insertion(+), 1 deletion(-)"
      ]
     }
    ],
    "nool": [
     {
-     "recovery_ms": 237.4,
+     "recovery_ms": 249.5,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -119,7 +140,7 @@
      ]
     },
     {
-     "recovery_ms": 241.1,
+     "recovery_ms": 252.9,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -135,7 +156,7 @@
      ]
     },
     {
-     "recovery_ms": 239.1,
+     "recovery_ms": 256.5,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -151,7 +172,7 @@
      ]
     },
     {
-     "recovery_ms": 242.4,
+     "recovery_ms": 247.4,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -167,7 +188,7 @@
      ]
     },
     {
-     "recovery_ms": 245.4,
+     "recovery_ms": 252.1,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -188,7 +209,7 @@
    "git": [],
    "nool": [
     {
-     "recovery_ms": 546.8,
+     "recovery_ms": 259.2,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -204,7 +225,7 @@
      ]
     },
     {
-     "recovery_ms": 237.8,
+     "recovery_ms": 236.9,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -220,7 +241,7 @@
      ]
     },
     {
-     "recovery_ms": 246.9,
+     "recovery_ms": 252.1,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -236,7 +257,7 @@
      ]
     },
     {
-     "recovery_ms": 242.0,
+     "recovery_ms": 255.0,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"
@@ -252,7 +273,7 @@
      ]
     },
     {
-     "recovery_ms": 240.1,
+     "recovery_ms": 240.2,
      "commands": [
       "nool pluck badwork --execute",
       "nool propose post-pluck"

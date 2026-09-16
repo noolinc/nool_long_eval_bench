@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: land N=25 nool_fleet rerun (2 reps) against nool 7.8.0, reusing the 6.14.1-era git_fleet N=25 baseline: 59/60 accepted both reps (same ticket t21 failed both times, agent-quality not a coordination regression -- zero merge conflicts, clean build/smoke both reps), 35-40pct cheaper than the reused git_fleet runs; findings note documents the comparison plus the stale-daemon and harness-JSON-parsing infra issues hit along the way
-knot_id: 5b6bdfdb535a46fbcfe185726242bd94ecfcaee0ae204302349099df6decb824
-solidified_at: 1789527879978
+intent: land Track B (b1-b9) micro-benchmark results run against nool 7.8.0: all scorer checks pass, B4 guardrails correct on every case, B5 swarm merge clean across all cells, B8/B9 blast false-positive 0.0 FPR / 1.0 recall across every tested language, no regressions observed
+knot_id: 7e89f18aa9f1f8f0f65ce254021de5e846c83a70b55cce3b7242b9ee42a17db8
+solidified_at: 1789543404330
 thread: main

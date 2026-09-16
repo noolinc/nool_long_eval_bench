@@ -1,31 +1,31 @@
 {
  "benchmark": "b6_context_retrieval",
  "provenance": {
-  "run_id": "2335974f-f526-4dd3-9c5f-cde585a8cefa",
-  "timestamp_utc": "2026-09-13T12:54:26.149755+00:00",
+  "run_id": "19550b00-2652-4e5b-be3d-04d67bf2482d",
+  "timestamp_utc": "2026-09-16T07:20:03.055343+00:00",
   "system_load": {
-   "load_1m": 2.19,
-   "load_5m": 2.25,
-   "load_15m": 2.25,
+   "load_1m": 2.74,
+   "load_5m": 2.13,
+   "load_15m": 1.8,
    "cpu_count": 12,
-   "load_per_core_1m": 0.18,
+   "load_per_core_1m": 0.23,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.4.0",
-  "binary": "/Users/arunbalakrishnan/Development/NoolWorkspace/Nool/target/debug/nool",
-  "binary_sha256": "2b42a99d0208396f804e997e172fe4f4a57878c770aa37d2d56c93b1ec3dac31",
+  "nool_version": "nool 7.8.0",
+  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
+  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
   "nool_build": {
-   "version": "7.4.0",
-   "edition": "community",
-   "git_sha": "8afc09210ac5344528dd53f2373344ee23b583f8",
+   "version": "7.8.0",
+   "edition": "enterprise",
+   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
    "target": "aarch64-apple-darwin",
    "dirty": false
   },
   "harness": {
-   "git_sha": "afe8e32eb8d0886cb6fb2a5da375c0a363b6429d",
+   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
    "dirty": true
   },
   "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
@@ -50,11 +50,11 @@
  "queries": {
   "nool_query_search": {
    "bytes": 245,
-   "stderr_bytes": 581,
-   "wall_ms": 26.8,
+   "stderr_bytes": 0,
+   "wall_ms": 15.0,
    "hit": true,
    "records": 1,
-   "first_knot": "658d0f5f",
+   "first_knot": "8a23a7cf",
    "exit_code": 0,
    "head": [
     "Query: semantic search(\"rate limiting\")",
@@ -63,8 +63,8 @@
   },
   "nool_query_context_file": {
    "bytes": 497,
-   "stderr_bytes": 581,
-   "wall_ms": 22.6,
+   "stderr_bytes": 0,
+   "wall_ms": 14.2,
    "hit": true,
    "records": 4,
    "heading_only": false,
@@ -77,8 +77,8 @@
   },
   "nool_query_context_symbol": {
    "bytes": 249,
-   "stderr_bytes": 581,
-   "wall_ms": 23.0,
+   "stderr_bytes": 0,
+   "wall_ms": 13.8,
    "hit": true,
    "records": 1,
    "heading_only": false,
@@ -91,8 +91,8 @@
   },
   "nool_query_context_nonexistent_symbol": {
    "bytes": 174,
-   "stderr_bytes": 682,
-   "wall_ms": 22.8,
+   "stderr_bytes": 73,
+   "wall_ms": 13.8,
    "hit": false,
    "records": 0,
    "heading_only": true,
@@ -104,19 +104,19 @@
   },
   "nool_search_then_materialize": {
    "bytes": 620,
-   "wall_ms": 65.2,
+   "wall_ms": 33.6,
    "hit": true,
-   "derived_from": "658d0f5f"
+   "derived_from": "8a23a7cf"
   },
   "baseline_grep_read": {
-   "bytes": 660,
-   "wall_ms": 14.5,
+   "bytes": 658,
+   "wall_ms": 13.9,
    "hit": true,
    "files_read": 2
   },
   "baseline_grep_bounded": {
-   "bytes": 659,
-   "wall_ms": 9.7,
+   "bytes": 653,
+   "wall_ms": 10.3,
    "hit": true,
    "context_lines": 6
   },

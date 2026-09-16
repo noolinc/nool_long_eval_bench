@@ -1,18 +1,39 @@
 {
  "benchmark": "b4_guardrails",
  "provenance": {
-  "timestamp_utc": "2026-09-06T17:16:17.968114+00:00",
+  "run_id": "19c0a8a6-d39b-4f17-9338-0cc628737879",
+  "timestamp_utc": "2026-09-16T07:18:55.427638+00:00",
   "system_load": {
-   "load_1m": 3.69,
-   "load_5m": 3.08,
-   "load_15m": 3.85,
+   "load_1m": 3.28,
+   "load_5m": 2.07,
+   "load_15m": 1.76,
    "cpu_count": 12,
-   "load_per_core_1m": 0.31,
+   "load_per_core_1m": 0.27,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.2.0",
+  "nool_version": "nool 7.8.0",
+  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
+  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
+  "nool_build": {
+   "version": "7.8.0",
+   "edition": "enterprise",
+   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
+   "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+   "target": "aarch64-apple-darwin",
+   "dirty": false
+  },
+  "harness": {
+   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
+   "dirty": true
+  },
+  "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+  "env_overrides": {
+   "NOOL_NO_DAEMON": "1",
+   "GIT_TERMINAL_PROMPT": "0"
+  },
+  "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -31,9 +52,9 @@
     "propose_exit": 0,
     "validate_exit": 0,
     "propose_tail": [
-     "  [Pre-check] \u2705 In-process parse OK (go)",
-     "  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...",
-     "  [Reify] \u2705 Full validation passed. Hash: 8ed805832d2a7c05ccfb2cec70aa6f5e582405b02c1f71610324e0aa13505b45"
+     "",
+     "[Auto] Solidifying proposal...",
+     "  [Reify] Full validation already recorded at propose; not re-running the integrity driver."
     ],
     "validate_tail": []
    },
@@ -48,7 +69,7 @@
     ],
     "validate_tail": [
      "",
-     "  5/5 Knot(s) validated.",
+     "  1/1 Knot(s) validated.",
      "  \u2705 Project integrity OK \u2014 deferred validation settled."
     ]
    }
@@ -80,9 +101,7 @@
      "Error: Precheck failed: Go syntax error: parse failed"
     ],
     "validate_tail": [
-     "",
-     "  \u26a0 Project integrity NOT checked \u2014 no integrity driver applied to these ",
-     "Knot(s). The DAG is well-formed; whether the code is sound is unverified."
+     "No Knots to validate."
     ]
    }
   },
@@ -99,7 +118,7 @@
     "propose_tail": [
      "  \u2500\u2500\u2500 115 B of driver output folded to 114 B (0.9% less; --verbose for raw) \u2500\u2500\u2500",
      "",
-     "Error: Reification failed for '.go'. Output hash: 97803cd655b3f10a37b0ff6f4f69f59915c6d801be9abf9040588542c1bc14ce"
+     "Error: Reification failed for '.go'. Output hash: 7769bf3c2b419f6d10646655e7e8cdec42587ecda57d9eb857c97b7d93f31806"
     ],
     "validate_tail": []
    },
@@ -114,7 +133,7 @@
     ],
     "validate_tail": [
      "",
-     "  5/5 Knot(s) validated.",
+     "  1/1 Knot(s) validated.",
      "  \u2705 Project integrity OK \u2014 deferred validation settled."
     ]
    }

@@ -1,31 +1,31 @@
 {
  "benchmark": "b5_swarm_merge",
  "provenance": {
-  "run_id": "c0df6cc9-4b25-48d5-83d2-0bf4c543027e",
-  "timestamp_utc": "2026-09-13T12:58:49.386891+00:00",
+  "run_id": "1b563fde-7e18-4c02-a5f9-5f83ee4ce386",
+  "timestamp_utc": "2026-09-16T07:19:58.571032+00:00",
   "system_load": {
-   "load_1m": 2.34,
-   "load_5m": 2.24,
-   "load_15m": 2.23,
+   "load_1m": 2.72,
+   "load_5m": 2.12,
+   "load_15m": 1.79,
    "cpu_count": 12,
-   "load_per_core_1m": 0.19,
+   "load_per_core_1m": 0.23,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.4.0",
-  "binary": "/Users/arunbalakrishnan/Development/NoolWorkspace/Nool/target/debug/nool",
-  "binary_sha256": "2b42a99d0208396f804e997e172fe4f4a57878c770aa37d2d56c93b1ec3dac31",
+  "nool_version": "nool 7.8.0",
+  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
+  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
   "nool_build": {
-   "version": "7.4.0",
-   "edition": "community",
-   "git_sha": "8afc09210ac5344528dd53f2373344ee23b583f8",
+   "version": "7.8.0",
+   "edition": "enterprise",
+   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
    "target": "aarch64-apple-darwin",
    "dirty": false
   },
   "harness": {
-   "git_sha": "afe8e32eb8d0886cb6fb2a5da375c0a363b6429d",
+   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
    "dirty": true
   },
   "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
@@ -59,11 +59,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 27.22,
-     "p10_ms": 18.75,
-     "p90_ms": 30.01,
-     "min_ms": 18.75,
-     "max_ms": 53.18
+     "median_ms": 26.63,
+     "p10_ms": 18.51,
+     "p90_ms": 27.43,
+     "min_ms": 18.51,
+     "max_ms": 28.23
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -261,213 +261,213 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 27.21,
+     "median_ms": 26.63,
+     "p10_ms": 18.69,
+     "p90_ms": 27.73,
+     "min_ms": 18.69,
+     "max_ms": 27.86
+    },
+    "exit0_despite_conflict": 0,
+    "branches": [
+     {
+      "branch": 1,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 2,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 3,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 4,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 5,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 6,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 7,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 8,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 9,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 10,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 11,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 12,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 13,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 14,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     },
+     {
+      "branch": 15,
+      "clean": true,
+      "tree_clean": true,
+      "landed": true,
+      "head_advanced": true,
+      "success": true,
+      "silent_noop": false,
+      "exit_code": 0,
+      "semantic_layer_pass": null,
+      "merge_reconcile_union": null
+     }
+    ]
+   },
+   {
+    "clean_merges": 15,
+    "successful_merges": 15,
+    "conflicts": 0,
+    "silent_noops": 0,
+    "refused": 0,
+    "inventory_present": 15,
+    "inventory_complete": true,
+    "vet_exit": 0,
+    "vet_tail": [],
+    "merge_latency": {
+     "n": 15,
+     "median_ms": 26.66,
      "p10_ms": 18.58,
-     "p90_ms": 27.57,
+     "p90_ms": 29.58,
      "min_ms": 18.58,
-     "max_ms": 27.7
-    },
-    "exit0_despite_conflict": 0,
-    "branches": [
-     {
-      "branch": 1,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 2,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 3,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 4,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 5,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 6,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 7,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 8,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 9,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 10,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 11,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 12,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 13,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 14,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     },
-     {
-      "branch": 15,
-      "clean": true,
-      "tree_clean": true,
-      "landed": true,
-      "head_advanced": true,
-      "success": true,
-      "silent_noop": false,
-      "exit_code": 0,
-      "semantic_layer_pass": null,
-      "merge_reconcile_union": null
-     }
-    ]
-   },
-   {
-    "clean_merges": 15,
-    "successful_merges": 15,
-    "conflicts": 0,
-    "silent_noops": 0,
-    "refused": 0,
-    "inventory_present": 15,
-    "inventory_complete": true,
-    "vet_exit": 0,
-    "vet_tail": [],
-    "merge_latency": {
-     "n": 15,
-     "median_ms": 27.05,
-     "p10_ms": 18.57,
-     "p90_ms": 27.51,
-     "min_ms": 18.57,
-     "max_ms": 27.77
+     "max_ms": 30.15
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -667,11 +667,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 253.23,
-     "p10_ms": 235.28,
-     "p90_ms": 258.39,
-     "min_ms": 235.28,
-     "max_ms": 258.79
+     "median_ms": 234.65,
+     "p10_ms": 222.7,
+     "p90_ms": 239.65,
+     "min_ms": 222.7,
+     "max_ms": 243.55
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -872,11 +872,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 253.44,
-     "p10_ms": 245.35,
-     "p90_ms": 256.48,
-     "min_ms": 245.35,
-     "max_ms": 276.48
+     "median_ms": 229.02,
+     "p10_ms": 217.22,
+     "p90_ms": 234.31,
+     "min_ms": 217.22,
+     "max_ms": 240.2
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -1077,11 +1077,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 249.82,
-     "p10_ms": 241.99,
-     "p90_ms": 259.24,
-     "min_ms": 241.99,
-     "max_ms": 268.36
+     "median_ms": 233.43,
+     "p10_ms": 215.03,
+     "p90_ms": 240.13,
+     "min_ms": 215.03,
+     "max_ms": 247.76
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -1284,11 +1284,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 20.83,
-     "p10_ms": 18.69,
-     "p90_ms": 21.65,
-     "min_ms": 18.69,
-     "max_ms": 21.95
+     "median_ms": 20.59,
+     "p10_ms": 19.23,
+     "p90_ms": 21.05,
+     "min_ms": 19.23,
+     "max_ms": 24.36
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -1486,11 +1486,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 20.77,
-     "p10_ms": 18.81,
-     "p90_ms": 22.32,
-     "min_ms": 18.81,
-     "max_ms": 22.53
+     "median_ms": 20.47,
+     "p10_ms": 18.75,
+     "p90_ms": 20.55,
+     "min_ms": 18.75,
+     "max_ms": 21.03
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -1688,11 +1688,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 20.84,
-     "p10_ms": 18.72,
-     "p90_ms": 20.97,
-     "min_ms": 18.72,
-     "max_ms": 21.53
+     "median_ms": 20.71,
+     "p10_ms": 18.64,
+     "p90_ms": 21.84,
+     "min_ms": 18.64,
+     "max_ms": 21.9
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -1892,11 +1892,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 226.41,
-     "p10_ms": 215.43,
-     "p90_ms": 231.5,
-     "min_ms": 215.43,
-     "max_ms": 237.73
+     "median_ms": 203.11,
+     "p10_ms": 188.92,
+     "p90_ms": 216.46,
+     "min_ms": 188.92,
+     "max_ms": 228.83
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -2097,11 +2097,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 226.91,
-     "p10_ms": 210.4,
-     "p90_ms": 232.3,
-     "min_ms": 210.4,
-     "max_ms": 235.09
+     "median_ms": 201.95,
+     "p10_ms": 190.41,
+     "p90_ms": 207.47,
+     "min_ms": 190.41,
+     "max_ms": 213.03
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -2302,11 +2302,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 226.29,
-     "p10_ms": 216.52,
-     "p90_ms": 232.63,
-     "min_ms": 216.52,
-     "max_ms": 237.94
+     "median_ms": 204.88,
+     "p10_ms": 199.46,
+     "p90_ms": 208.43,
+     "min_ms": 199.46,
+     "max_ms": 209.81
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -2509,11 +2509,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 20.84,
-     "p10_ms": 18.78,
-     "p90_ms": 21.14,
-     "min_ms": 18.78,
-     "max_ms": 27.9
+     "median_ms": 20.73,
+     "p10_ms": 18.67,
+     "p90_ms": 22.95,
+     "min_ms": 18.67,
+     "max_ms": 23.02
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -2711,11 +2711,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 20.8,
-     "p10_ms": 19.14,
-     "p90_ms": 22.21,
-     "min_ms": 19.14,
-     "max_ms": 23.07
+     "median_ms": 20.43,
+     "p10_ms": 18.97,
+     "p90_ms": 20.66,
+     "min_ms": 18.97,
+     "max_ms": 20.74
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -2913,11 +2913,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 20.72,
-     "p10_ms": 19.0,
-     "p90_ms": 21.48,
-     "min_ms": 19.0,
-     "max_ms": 23.35
+     "median_ms": 20.53,
+     "p10_ms": 18.45,
+     "p90_ms": 21.72,
+     "min_ms": 18.45,
+     "max_ms": 23.47
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -3117,11 +3117,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 228.41,
-     "p10_ms": 218.05,
-     "p90_ms": 234.3,
-     "min_ms": 218.05,
-     "max_ms": 236.75
+     "median_ms": 206.1,
+     "p10_ms": 199.17,
+     "p90_ms": 210.47,
+     "min_ms": 199.17,
+     "max_ms": 212.09
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -3322,11 +3322,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 224.66,
-     "p10_ms": 214.18,
-     "p90_ms": 230.72,
-     "min_ms": 214.18,
-     "max_ms": 234.96
+     "median_ms": 205.17,
+     "p10_ms": 198.55,
+     "p90_ms": 210.71,
+     "min_ms": 198.55,
+     "max_ms": 211.36
     },
     "exit0_despite_conflict": 0,
     "branches": [
@@ -3527,11 +3527,11 @@
     "vet_tail": [],
     "merge_latency": {
      "n": 15,
-     "median_ms": 225.53,
-     "p10_ms": 209.27,
-     "p90_ms": 229.39,
-     "min_ms": 209.27,
-     "max_ms": 234.05
+     "median_ms": 205.58,
+     "p10_ms": 193.1,
+     "p90_ms": 211.91,
+     "min_ms": 193.1,
+     "max_ms": 220.42
     },
     "exit0_despite_conflict": 0,
     "branches": [

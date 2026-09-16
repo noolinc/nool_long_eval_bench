@@ -1,18 +1,39 @@
 {
  "benchmark": "b2_concurrency",
  "provenance": {
-  "timestamp_utc": "2026-09-06T17:15:50.885255+00:00",
+  "run_id": "349d1c9f-2698-4ae8-aefd-5c7864a3a316",
+  "timestamp_utc": "2026-09-16T07:18:32.987859+00:00",
   "system_load": {
-   "load_1m": 4.62,
-   "load_5m": 3.17,
-   "load_15m": 3.91,
+   "load_1m": 3.39,
+   "load_5m": 1.99,
+   "load_15m": 1.72,
    "cpu_count": 12,
-   "load_per_core_1m": 0.39,
+   "load_per_core_1m": 0.28,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.2.0",
+  "nool_version": "nool 7.8.0",
+  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
+  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
+  "nool_build": {
+   "version": "7.8.0",
+   "edition": "enterprise",
+   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
+   "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+   "target": "aarch64-apple-darwin",
+   "dirty": false
+  },
+  "harness": {
+   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
+   "dirty": true
+  },
+  "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+  "env_overrides": {
+   "NOOL_NO_DAEMON": "1",
+   "GIT_TERMINAL_PROMPT": "0"
+  },
+  "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -31,61 +52,61 @@
  },
  "cells": {
   "git_n2": {
-   "wall_time_ms": 409.8,
+   "wall_time_ms": 354.4,
    "ops_expected": 12,
    "ops_landed": 12,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 1,
-   "total_retries": 3,
+   "ops_swept_into_other_commit": 2,
+   "total_retries": 2,
    "op_latency": {
     "n": 12,
-    "median_ms": 36.04,
-    "p10_ms": 30.67,
-    "p90_ms": 37.36,
-    "min_ms": 30.67,
-    "max_ms": 39.77
+    "median_ms": 36.65,
+    "p10_ms": 29.75,
+    "p90_ms": 37.65,
+    "min_ms": 29.75,
+    "max_ms": 41.65
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 11
+   "history_entries_added": 10
   },
   "git_n5": {
-   "wall_time_ms": 678.4,
+   "wall_time_ms": 845.9,
    "ops_expected": 30,
    "ops_landed": 30,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 15,
-   "total_retries": 14,
+   "ops_swept_into_other_commit": 14,
+   "total_retries": 22,
    "op_latency": {
     "n": 30,
-    "median_ms": 37.34,
-    "p10_ms": 30.22,
-    "p90_ms": 44.77,
-    "min_ms": 18.2,
-    "max_ms": 47.01
+    "median_ms": 36.13,
+    "p10_ms": 28.95,
+    "p90_ms": 43.63,
+    "min_ms": 17.04,
+    "max_ms": 62.43
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 15
+   "history_entries_added": 16
   },
   "git_n15": {
-   "wall_time_ms": 1304.0,
+   "wall_time_ms": 1243.9,
    "ops_expected": 90,
    "ops_landed": 90,
    "writers_gave_up": 0,
-   "ops_swept_into_other_commit": 51,
-   "total_retries": 79,
+   "ops_swept_into_other_commit": 58,
+   "total_retries": 58,
    "op_latency": {
     "n": 90,
-    "median_ms": 60.45,
-    "p10_ms": 43.91,
-    "p90_ms": 77.99,
-    "min_ms": 35.14,
-    "max_ms": 87.7
+    "median_ms": 57.86,
+    "p10_ms": 35.51,
+    "p90_ms": 79.72,
+    "min_ms": 17.98,
+    "max_ms": 90.78
    },
    "files_with_lost_updates": 0,
-   "history_entries_added": 39
+   "history_entries_added": 32
   },
   "nool_n2": {
-   "wall_time_ms": 755.5,
+   "wall_time_ms": 789.1,
    "ops_expected": 12,
    "ops_landed": 12,
    "writers_gave_up": 0,
@@ -93,17 +114,17 @@
    "total_retries": 0,
    "op_latency": {
     "n": 12,
-    "median_ms": 117.34,
-    "p10_ms": 93.37,
-    "p90_ms": 151.11,
-    "min_ms": 93.37,
-    "max_ms": 170.5
+    "median_ms": 130.09,
+    "p10_ms": 101.73,
+    "p90_ms": 133.28,
+    "min_ms": 101.73,
+    "max_ms": 165.18
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 12
   },
   "nool_n5": {
-   "wall_time_ms": 1745.2,
+   "wall_time_ms": 1631.9,
    "ops_expected": 30,
    "ops_landed": 30,
    "writers_gave_up": 0,
@@ -111,17 +132,17 @@
    "total_retries": 0,
    "op_latency": {
     "n": 30,
-    "median_ms": 125.72,
-    "p10_ms": 110.98,
-    "p90_ms": 526.49,
-    "min_ms": 98.77,
-    "max_ms": 566.82
+    "median_ms": 188.4,
+    "p10_ms": 113.72,
+    "p90_ms": 432.0,
+    "min_ms": 110.51,
+    "max_ms": 524.29
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 30
   },
   "nool_n15": {
-   "wall_time_ms": 4433.1,
+   "wall_time_ms": 3918.9,
    "ops_expected": 90,
    "ops_landed": 90,
    "writers_gave_up": 0,
@@ -129,11 +150,11 @@
    "total_retries": 0,
    "op_latency": {
     "n": 90,
-    "median_ms": 490.06,
-    "p10_ms": 220.36,
-    "p90_ms": 1108.39,
-    "min_ms": 109.53,
-    "max_ms": 2073.91
+    "median_ms": 391.04,
+    "p10_ms": 195.1,
+    "p90_ms": 993.62,
+    "min_ms": 128.22,
+    "max_ms": 2284.11
    },
    "files_with_lost_updates": 0,
    "history_entries_added": 90

@@ -1,18 +1,39 @@
 {
  "benchmark": "b1_overhead",
  "provenance": {
-  "timestamp_utc": "2026-09-06T17:15:39.913887+00:00",
+  "run_id": "69bc13ff-8df7-4420-940c-1db692dbf121",
+  "timestamp_utc": "2026-09-16T07:18:22.337498+00:00",
   "system_load": {
-   "load_1m": 3.37,
-   "load_5m": 2.87,
-   "load_15m": 3.81,
+   "load_1m": 2.05,
+   "load_5m": 1.68,
+   "load_15m": 1.61,
    "cpu_count": 12,
-   "load_per_core_1m": 0.28,
+   "load_per_core_1m": 0.17,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.2.0",
+  "nool_version": "nool 7.8.0",
+  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
+  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
+  "nool_build": {
+   "version": "7.8.0",
+   "edition": "enterprise",
+   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
+   "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+   "target": "aarch64-apple-darwin",
+   "dirty": false
+  },
+  "harness": {
+   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
+   "dirty": false
+  },
+  "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+  "env_overrides": {
+   "NOOL_NO_DAEMON": "1",
+   "GIT_TERMINAL_PROMPT": "0"
+  },
+  "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
   "git_version": "git version 2.50.1 (Apple Git-155)",
   "go_version": "go version go1.26.2 darwin/arm64",
   "python_version": "3.11.2",
@@ -30,55 +51,55 @@
  "hook_latency_with_payload": {
   "claude_hook": {
    "n": 20,
-   "median_ms": 20.12,
-   "p10_ms": 18.81,
-   "p90_ms": 39.72,
-   "min_ms": 18.62,
-   "max_ms": 68.27,
+   "median_ms": 16.61,
+   "p10_ms": 16.02,
+   "p90_ms": 17.08,
+   "min_ms": 15.91,
+   "max_ms": 18.72,
    "exit_codes_seen": [
     0
    ]
   },
   "codex_hook": {
    "n": 20,
-   "median_ms": 15.17,
-   "p10_ms": 8.83,
-   "p90_ms": 40.59,
-   "min_ms": 8.57,
-   "max_ms": 65.79,
+   "median_ms": 7.28,
+   "p10_ms": 7.13,
+   "p90_ms": 7.56,
+   "min_ms": 7.09,
+   "max_ms": 8.92,
    "exit_codes_seen": [
     0
    ]
   },
   "gemini_hook": {
    "n": 20,
-   "median_ms": 8.31,
-   "p10_ms": 7.79,
-   "p90_ms": 9.32,
-   "min_ms": 7.69,
-   "max_ms": 9.4,
+   "median_ms": 7.4,
+   "p10_ms": 7.24,
+   "p90_ms": 7.89,
+   "min_ms": 7.17,
+   "max_ms": 7.98,
    "exit_codes_seen": [
     0
    ]
   },
   "opencode_hook": {
    "n": 20,
-   "median_ms": 8.5,
-   "p10_ms": 7.6,
-   "p90_ms": 9.0,
-   "min_ms": 7.51,
-   "max_ms": 9.12,
+   "median_ms": 7.24,
+   "p10_ms": 7.1,
+   "p90_ms": 7.51,
+   "min_ms": 7.03,
+   "max_ms": 7.57,
    "exit_codes_seen": [
     0
    ]
   },
   "pi_hook": {
    "n": 20,
-   "median_ms": 8.57,
-   "p10_ms": 8.07,
-   "p90_ms": 9.55,
-   "min_ms": 7.89,
-   "max_ms": 11.47,
+   "median_ms": 7.31,
+   "p10_ms": 7.13,
+   "p90_ms": 7.56,
+   "min_ms": 7.12,
+   "max_ms": 7.74,
    "exit_codes_seen": [
     0
    ]
@@ -88,43 +109,43 @@
   "1_files": {
    "git_add_commit": {
     "n": 10,
-    "median_ms": 26.11,
-    "p10_ms": 22.1,
-    "p90_ms": 73.81,
-    "min_ms": 22.1,
-    "max_ms": 73.81
+    "median_ms": 21.25,
+    "p10_ms": 20.2,
+    "p90_ms": 23.11,
+    "min_ms": 20.2,
+    "max_ms": 23.11
    },
    "git_precommit_fast": {
     "n": 10,
-    "median_ms": 46.77,
-    "p10_ms": 40.09,
-    "p90_ms": 403.67,
-    "min_ms": 40.09,
-    "max_ms": 403.67
+    "median_ms": 37.46,
+    "p10_ms": 36.47,
+    "p90_ms": 441.97,
+    "min_ms": 36.47,
+    "max_ms": 441.97
    },
    "git_precommit_full": {
     "n": 10,
-    "median_ms": 37.44,
-    "p10_ms": 34.41,
-    "p90_ms": 289.92,
-    "min_ms": 34.41,
-    "max_ms": 289.92
+    "median_ms": 30.24,
+    "p10_ms": 29.73,
+    "p90_ms": 309.79,
+    "min_ms": 29.73,
+    "max_ms": 309.79
    },
    "nool_propose_fast_solidify": {
     "n": 10,
-    "median_ms": 250.82,
-    "p10_ms": 161.13,
-    "p90_ms": 449.58,
-    "min_ms": 161.13,
-    "max_ms": 449.58
+    "median_ms": 240.25,
+    "p10_ms": 233.65,
+    "p90_ms": 357.72,
+    "min_ms": 233.65,
+    "max_ms": 357.72
    },
    "nool_propose_full_solidify": {
     "n": 10,
-    "median_ms": 487.13,
-    "p10_ms": 169.87,
-    "p90_ms": 921.53,
-    "min_ms": 169.87,
-    "max_ms": 921.53
+    "median_ms": 315.23,
+    "p10_ms": 232.52,
+    "p90_ms": 323.32,
+    "min_ms": 232.52,
+    "max_ms": 323.32
    },
    "nool_auto_justify_used": true,
    "nool_nonzero_exits": 0,
@@ -133,43 +154,43 @@
   "10_files": {
    "git_add_commit": {
     "n": 10,
-    "median_ms": 23.49,
-    "p10_ms": 21.01,
-    "p90_ms": 65.7,
-    "min_ms": 21.01,
-    "max_ms": 65.7
+    "median_ms": 21.52,
+    "p10_ms": 20.74,
+    "p90_ms": 36.77,
+    "min_ms": 20.74,
+    "max_ms": 36.77
    },
    "git_precommit_fast": {
     "n": 10,
-    "median_ms": 41.96,
-    "p10_ms": 38.18,
-    "p90_ms": 208.74,
-    "min_ms": 38.18,
-    "max_ms": 208.74
+    "median_ms": 37.79,
+    "p10_ms": 36.67,
+    "p90_ms": 207.0,
+    "min_ms": 36.67,
+    "max_ms": 207.0
    },
    "git_precommit_full": {
     "n": 10,
-    "median_ms": 33.41,
-    "p10_ms": 31.7,
-    "p90_ms": 166.42,
-    "min_ms": 31.7,
-    "max_ms": 166.42
+    "median_ms": 31.91,
+    "p10_ms": 30.04,
+    "p90_ms": 170.45,
+    "min_ms": 30.04,
+    "max_ms": 170.45
    },
    "nool_propose_fast_solidify": {
     "n": 10,
-    "median_ms": 251.23,
-    "p10_ms": 161.24,
-    "p90_ms": 535.2,
-    "min_ms": 161.24,
-    "max_ms": 535.2
+    "median_ms": 368.42,
+    "p10_ms": 339.36,
+    "p90_ms": 408.36,
+    "min_ms": 339.36,
+    "max_ms": 408.36
    },
    "nool_propose_full_solidify": {
     "n": 10,
-    "median_ms": 318.52,
-    "p10_ms": 244.95,
-    "p90_ms": 381.63,
-    "min_ms": 244.95,
-    "max_ms": 381.63
+    "median_ms": 443.72,
+    "p10_ms": 336.36,
+    "p90_ms": 477.85,
+    "min_ms": 336.36,
+    "max_ms": 477.85
    },
    "nool_auto_justify_used": true,
    "nool_nonzero_exits": 0,
@@ -178,43 +199,43 @@
   "100_files": {
    "git_add_commit": {
     "n": 5,
-    "median_ms": 23.91,
-    "p10_ms": 23.24,
-    "p90_ms": 25.45,
-    "min_ms": 23.24,
-    "max_ms": 25.45
+    "median_ms": 22.7,
+    "p10_ms": 20.67,
+    "p90_ms": 24.1,
+    "min_ms": 20.67,
+    "max_ms": 24.1
    },
    "git_precommit_fast": {
     "n": 5,
-    "median_ms": 42.61,
-    "p10_ms": 41.35,
-    "p90_ms": 228.24,
-    "min_ms": 41.35,
-    "max_ms": 228.24
+    "median_ms": 40.35,
+    "p10_ms": 39.59,
+    "p90_ms": 220.25,
+    "min_ms": 39.59,
+    "max_ms": 220.25
    },
    "git_precommit_full": {
     "n": 5,
-    "median_ms": 33.86,
-    "p10_ms": 32.74,
-    "p90_ms": 186.28,
-    "min_ms": 32.74,
-    "max_ms": 186.28
+    "median_ms": 31.76,
+    "p10_ms": 31.35,
+    "p90_ms": 192.79,
+    "min_ms": 31.35,
+    "max_ms": 192.79
    },
    "nool_propose_fast_solidify": {
     "n": 5,
-    "median_ms": 468.77,
-    "p10_ms": 272.79,
-    "p90_ms": 490.91,
-    "min_ms": 272.79,
-    "max_ms": 490.91
+    "median_ms": 1637.38,
+    "p10_ms": 1427.47,
+    "p90_ms": 1680.1,
+    "min_ms": 1427.47,
+    "max_ms": 1680.1
    },
    "nool_propose_full_solidify": {
     "n": 5,
-    "median_ms": 564.92,
-    "p10_ms": 275.14,
-    "p90_ms": 592.34,
-    "min_ms": 275.14,
-    "max_ms": 592.34
+    "median_ms": 1785.54,
+    "p10_ms": 1418.37,
+    "p90_ms": 1794.94,
+    "min_ms": 1418.37,
+    "max_ms": 1794.94
    },
    "nool_auto_justify_used": true,
    "nool_nonzero_exits": 0,
