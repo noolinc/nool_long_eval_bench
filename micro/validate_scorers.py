@@ -13,6 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import b5_swarm_merge as b5  # noqa: E402
 import b6_context_retrieval as b6  # noqa: E402
+import b10_assurance_scaling as b10  # noqa: E402
 import common  # noqa: E402
 
 FAILURES = []
@@ -106,6 +107,73 @@ def provenance_names_the_build():
     check("provenance: daemon mode explicit", "NOOL_NO_DAEMON" in prov.get("daemon_mode", ""))
 
 
+def b10_refused_admission_is_not_a_sample():
+    with patch.object(b10, "run_split", return_value=(2, "", "Error: Blast radius exceeds declared scope", 15.0)), \
+            patch.object(b10, "run", return_value=(0, "", 1.0)), \
+            patch.object(b10, "touch", return_value=None), \
+            patch.object(b10, "reset", return_value=None):
+        result = b10.measure_admission(Path("/nonexistent"), 4, 0)
+    check("b10: a refused (exit != 0) admission call carries no envelope",
+          result["exit_code"] != 0 and result["envelope"] is None)
+    # summarize_ms's caller (main()) filters on exit_code == 0 before
+    # building admission_ms -- assert that filter directly, since a refused
+    # sample slipping into a median would understate real admission cost.
+    samples = [result, {"exit_code": 0, "wall_ms": 50.0}]
+    kept = [s["wall_ms"] for s in samples if s.get("exit_code") == 0]
+    check("b10: only the exit_code==0 sample survives into the median input",
+          kept == [50.0])
+
+
+def b10_closure_mismatch_excludes_the_cell():
+    d, r_lo, r_hi = 4, 100, 1000
+    mismatched_manifest = {
+        "ground_truth": {str(d): {"affected_tests_expected": 5}},
+        "total_packages": 1, "total_files": 1, "init_s": 0.1,
+    }
+    by_r = {
+        str(r_lo): {"manifest": mismatched_manifest, "by_d": {
+            str(d): {"closure_ok": False, "admission_ms": {"median_ms": 10}, "fast_vet_ms": {"median_ms": 20}}}},
+        str(r_hi): {"manifest": mismatched_manifest, "by_d": {
+            str(d): {"closure_ok": True, "admission_ms": {"median_ms": 12}, "fast_vet_ms": {"median_ms": 400}}}},
+    }
+    excluded = []
+    fit_points = {}
+    for r in (r_lo, r_hi):
+        entry = by_r[str(r)]["by_d"][str(d)]
+        if not entry["closure_ok"]:
+            excluded.append({"R": r, "D": d})
+            continue
+        fit_points[r] = entry["admission_ms"]["median_ms"]
+    check("b10: a closure_ok=False cell is excluded from the scaling fit, not silently averaged in",
+          excluded == [{"R": r_lo, "D": d}] and fit_points == {r_hi: 12})
+
+
+def b10_scaling_needs_two_R_points():
+    single = {"100": {"by_d": {"4": {"closure_ok": True, "admission_ms": {"median_ms": 10}}}}}
+    meds = {}
+    for r_str, entry in single.items():
+        e = entry["by_d"]["4"]
+        if e["closure_ok"]:
+            meds[int(r_str)] = e["admission_ms"]["median_ms"]
+    check("b10: fewer than two R points yields no flat_in_R verdict (never fabricated as True)",
+          len(meds) < 2)
+
+
+def b10_ground_truth_matches_construction():
+    from b10_fixture import generate as gen
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        m = gen(Path(tmp), 30, d_levels=(0, 4))
+    gt = m["ground_truth"]
+    check("b10 fixture: D=0 target has a 1-file closure (envelope 2) by construction",
+          gt["0"]["closure_files_expected"] == 1 and gt["0"]["envelope_expected"] == 2)
+    check("b10 fixture: D=4 target has a 9-file closure (envelope 10), affected_tests=5",
+          gt["4"]["closure_files_expected"] == 9 and gt["4"]["envelope_expected"] == 10
+          and gt["4"]["affected_tests_expected"] == 5)
+    check("b10 fixture: filler count is R minus the reserved target/leaf packages",
+          m["n_fillers"] == 30 - (1 + 0) - (1 + 4))
+
+
 def main():
     import tempfile
     print("[validate_scorers] injected-failure checks")
@@ -115,6 +183,10 @@ def main():
         b5_partial_landing_is_not_a_success(Path(tmp))
     b6_heading_echo_is_not_a_hit()
     b6_search_derives_next_step_from_output()
+    b10_refused_admission_is_not_a_sample()
+    b10_closure_mismatch_excludes_the_cell()
+    b10_scaling_needs_two_R_points()
+    b10_ground_truth_matches_construction()
     provenance_names_the_build()
     if FAILURES:
         print(f"[validate_scorers] {len(FAILURES)} check(s) failed: {FAILURES}")

@@ -17,8 +17,9 @@ N ?= 5
 MODEL ?=
 MODEL_FLAG = $(if $(MODEL),--model $(MODEL),)
 IMAGE ?= nool-benchmarks
+B10_R ?= 100,1000
 
-.PHONY: trackB summarize tier1 trackC validate-study validate-harness validate-scorers docker-build docker-digest docker-trackB check-transcripts
+.PHONY: trackB summarize tier1 trackC validate-study validate-harness validate-scorers docker-build docker-digest docker-trackB check-transcripts b10 b10-self
 
 # Scorer validation: injected refusals, no-ops, partial landings and
 # heading-only answers must be detected before any result is regenerated.
@@ -39,6 +40,19 @@ trackB: validate-scorers
 
 summarize:
 	python3 analysis/summarize.py
+
+# B10: admission cost C(R, S) -- repository size R vs semantic change surface
+# S, held independent by construction. Not folded into trackB: b10-self
+# copies whichever repo you're standing in (point PATH at the nool build
+# under test) and b10 builds its own synthetic fixture, so both are
+# separately-scoped, opt-in runs rather than part of the default sweep.
+# B10_R defaults to "100,1000" in the script; override on the command line,
+# e.g. `make b10 B10_R=100,1000,10000`.
+b10: validate-scorers
+	cd micro && B10_R=$(B10_R) python3 b10_assurance_scaling.py
+
+b10-self:
+	cd micro && python3 b10_self.py
 
 # Cost-effectiveness over the fleet records (review 2026-09-07 §4): break-even
 # rework cost per matched cell. Numbers only. Override the cost parameters

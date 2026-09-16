@@ -274,6 +274,40 @@ python3 b7_regression_localization.py # nool debug bisect vs git bisect
 python3 ../analysis/summarize.py
 ```
 
+Admission cost — does it scale with the change or the repository (`make b10`):
+
+```bash
+cd micro
+python3 b10_self.py                          # replays this repo's own real knots (no fixture)
+B10_R=100,1000 python3 b10_assurance_scaling.py  # C(R, S): repo size R vs change surface S
+```
+
+`b10_self.py` needs no fixture: it copies the Nool repo you're working in (excluding
+`target/`, `.git`, and anything over a few hundred MB) and replays the touched-path sets of
+its most recent landed knots as gate-only `propose --full --json --auto-justify` calls
+against a scratch copy — real envelope sizes, real `evidence_plan` tiers, real per-stage
+timings, on a real production repository, without solidifying anything.
+
+`b10_assurance_scaling.py` builds a synthetic Go module of `R` single-file packages (one
+target cluster per fan-in level `D ∈ {0, 4, 16, 64}`, controlled independently of `R`) via
+`nool init` — zero proposal knots, so fixture size is never limited by the per-project knot
+cap — then measures `gate_only` (admission: envelope + contracts + evidence plan, with
+`[reification] enabled = false`) against `fast_vet` (the real evidence floor: `--fast` still
+runs `go vet ./...` regardless of that flag) and a matched git control, at each `R`. `B10_R`
+(default `100,1000`; `10000` is supported but not run by default — see the note below),
+`B10_D`, `B10_REPS`, and `B10_TIMEOUT_S` are all overridable via env var, matching B9's
+`B9_ONLY` pattern.
+
+**Both `--fast` and `[reification] enabled` are load-bearing footguns.** `--fast` on a
+compiled/bundle file always materializes and runs the native integrity driver
+(`cargo check`/`go vet`), never consulting `[reification].enabled` — that flag is checked
+only on the `mode != Fast` branch. Using `--fast` for a gate-only measurement runs a real,
+potentially cold-cache toolchain check anyway; `--full` with `[reification] enabled = false`
+is the actual admission-only combination. Getting this wrong on a real Rust workspace (not
+this synthetic Go fixture) cost a 109-second cold `cargo check` against an empty scratch
+`.nool/target` and exhausted a machine's disk mid-run — confirmed the hard way once, worth
+not repeating.
+
 Each script builds isolated throwaway workspaces under the system temp dir,
 times with monotonic clocks (ms), and writes one JSON file to
 `results/micro/` including provenance (nool/git/python versions, platform,

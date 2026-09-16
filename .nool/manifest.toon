@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Add B10 part 1: self-replay admission cost benchmark against Nool's own repository
-knot_id: 57d1c1550863a6343971a7be4bebfddf93c68a077f1d6baf0bd72f2afa68f573
-solidified_at: 1789514293020
+intent: B10 part 2: synthetic R-scaling admission-cost benchmark (b10_asymptotic), scorer checks, and doc/README/Makefile wiring
+knot_id: 001d66e509d55570edbcdd49178c0134f1fa85f0de2c7d597aa8e70915b85ce3
+solidified_at: 1789518510981
 thread: main
