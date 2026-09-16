@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: land Track C 2x2 grid (single_git/single_nool/multi_git/multi_nool x redux_go, 5 reps each, claude-sonnet-5) against nool 7.8.0: 20/20 hidden-test passes, 5/5 build and 5/5 tests in every cell, every multi-agent run merged 2/2 clean in both arms, 0 timeouts. Total $9.24: single ~$0.17-0.19/run; multi_git $0.63/run (35.8 turns avg); multi_nool $0.86/run (41.4 turns avg) -- on this 2-agent task the nool arm spends more agent effort with no correctness separation, consistent with the prior Track C finding that coordination shows no value where the baseline does not fail. One anomaly, reported as measured: multi_git r3's second agent exited 1 after 41 turns (empty stderr) yet that run still built, passed tests and merged clean.
-knot_id: fa402509663ccc785ba2342b1acfc30869dce39610bbfff5a4e43a34e556097d
-solidified_at: 1789553377709
+intent: fleet_run.py preflight_isolation: detect a running daemon with pgrep -x nool-daemon (process name) instead of pgrep -f (full argv). -f matched the very shell that launched the harness whenever its script text mentioned the daemon (e.g. a pgrep/pkill guard), after which daemon status truthfully reported stopped and preflight refused with 'stale daemons' -- four false refusals on 2026-09-16, a fresh shell PID each time, regardless of NOOL_NO_DAEMON or a verified-zero daemon count. Caught by a 50ms spawn trap: the phantom's argv was the zsh wrapper script. Sibling of the multi-line-JSON preflight bug fixed earlier today in the same function.
+knot_id: d1a02c55bedda0a433e2332b1957a71031adac4f5c30e7899463eb2b5e5a8953
+solidified_at: 1789556277196
 thread: main

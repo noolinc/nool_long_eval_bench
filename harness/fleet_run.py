@@ -772,7 +772,13 @@ def preflight_isolation(workspace_roots=()):
     itself. Anything else is recorded in the run's provenance rather than
     killed."""
     import subprocess as sp
-    pids = sp.run(["pgrep", "-f", "nool-daemon"], capture_output=True,
+    # `-x` matches the process NAME exactly. `-f` matched any process whose
+    # full argv contained the text "nool-daemon" -- including the very shell
+    # that launched this harness when its script mentioned the daemon (e.g. a
+    # `pgrep -f nool-daemon` guard), which then made `daemon status` report
+    # "stopped" and refused every launch as "stale daemons" (four false
+    # refusals on 2026-09-16, each caught mid-startup with a fresh shell PID).
+    pids = sp.run(["pgrep", "-x", "nool-daemon"], capture_output=True,
                   text=True).stdout.split()
     if not pids:
         return {"daemon_pids": [], "daemon_repos": []}
