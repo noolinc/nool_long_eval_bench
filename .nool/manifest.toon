@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: fix fleet_run.py preflight_isolation: nool daemon status --json now pretty-prints multi-line, so parsing only the first line as a complete JSON object always failed (Expecting property name enclosed in double quotes) and permanently blocked benchmark launches while any daemon was running; parse from the first { to end of stdout instead
-knot_id: c75a5f326d50086fca455fe1855d24d1fc25820014fcf2554f765a0f4d066aad
-solidified_at: 1789526883765
+intent: land N=25 nool_fleet rerun (2 reps) against nool 7.8.0, reusing the 6.14.1-era git_fleet N=25 baseline: 59/60 accepted both reps (same ticket t21 failed both times, agent-quality not a coordination regression -- zero merge conflicts, clean build/smoke both reps), 35-40pct cheaper than the reused git_fleet runs; findings note documents the comparison plus the stale-daemon and harness-JSON-parsing infra issues hit along the way
+knot_id: 5b6bdfdb535a46fbcfe185726242bd94ecfcaee0ae204302349099df6decb824
+solidified_at: 1789527879978
 thread: main
