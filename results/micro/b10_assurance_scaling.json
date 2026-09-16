@@ -43,7 +43,8 @@
  "config": {
   "R_levels": [
    100,
-   1000
+   1000,
+   10000
   ],
   "D_levels": [
    0,
@@ -1382,6 +1383,670 @@
      }
     }
    }
+  },
+  "10000": {
+   "manifest": {
+    "r_packages_requested": 10000,
+    "d_levels": [
+     0,
+     4,
+     16,
+     64
+    ],
+    "n_fillers": 9912,
+    "n_targets": 4,
+    "n_leaf_packages": 84,
+    "total_packages": 10000,
+    "total_files": 20001,
+    "ground_truth": {
+     "0": {
+      "target_symbol": "F_t0",
+      "target_file": "t0/t0.go",
+      "closure_files_expected": 1,
+      "envelope_expected": 2,
+      "affected_tests_expected": 1,
+      "closure_files": [
+       "t0/t0_test.go"
+      ]
+     },
+     "4": {
+      "target_symbol": "F_t4",
+      "target_file": "t4/t4.go",
+      "closure_files_expected": 9,
+      "envelope_expected": 10,
+      "affected_tests_expected": 5,
+      "closure_files": [
+       "t4/t4_test.go",
+       "t4_dep_0/dep.go",
+       "t4_dep_0/dep_test.go",
+       "t4_dep_1/dep.go",
+       "t4_dep_1/dep_test.go",
+       "t4_dep_2/dep.go",
+       "t4_dep_2/dep_test.go",
+       "t4_dep_3/dep.go",
+       "t4_dep_3/dep_test.go"
+      ]
+     },
+     "16": {
+      "target_symbol": "F_t16",
+      "target_file": "t16/t16.go",
+      "closure_files_expected": 33,
+      "envelope_expected": 34,
+      "affected_tests_expected": 17,
+      "closure_files": [
+       "t16/t16_test.go",
+       "t16_dep_0/dep.go",
+       "t16_dep_0/dep_test.go",
+       "t16_dep_1/dep.go",
+       "t16_dep_1/dep_test.go",
+       "t16_dep_2/dep.go",
+       "t16_dep_2/dep_test.go",
+       "t16_dep_3/dep.go",
+       "t16_dep_3/dep_test.go",
+       "t16_dep_4/dep.go",
+       "t16_dep_4/dep_test.go",
+       "t16_dep_5/dep.go",
+       "t16_dep_5/dep_test.go",
+       "t16_dep_6/dep.go",
+       "t16_dep_6/dep_test.go",
+       "t16_dep_7/dep.go",
+       "t16_dep_7/dep_test.go",
+       "t16_dep_8/dep.go",
+       "t16_dep_8/dep_test.go",
+       "t16_dep_9/dep.go",
+       "t16_dep_9/dep_test.go",
+       "t16_dep_10/dep.go",
+       "t16_dep_10/dep_test.go",
+       "t16_dep_11/dep.go",
+       "t16_dep_11/dep_test.go",
+       "t16_dep_12/dep.go",
+       "t16_dep_12/dep_test.go",
+       "t16_dep_13/dep.go",
+       "t16_dep_13/dep_test.go",
+       "t16_dep_14/dep.go",
+       "t16_dep_14/dep_test.go",
+       "t16_dep_15/dep.go",
+       "t16_dep_15/dep_test.go"
+      ]
+     },
+     "64": {
+      "target_symbol": "F_t64",
+      "target_file": "t64/t64.go",
+      "closure_files_expected": 129,
+      "envelope_expected": 130,
+      "affected_tests_expected": 65,
+      "closure_files": [
+       "t64/t64_test.go",
+       "t64_dep_0/dep.go",
+       "t64_dep_0/dep_test.go",
+       "t64_dep_1/dep.go",
+       "t64_dep_1/dep_test.go",
+       "t64_dep_2/dep.go",
+       "t64_dep_2/dep_test.go",
+       "t64_dep_3/dep.go",
+       "t64_dep_3/dep_test.go",
+       "t64_dep_4/dep.go",
+       "t64_dep_4/dep_test.go",
+       "t64_dep_5/dep.go",
+       "t64_dep_5/dep_test.go",
+       "t64_dep_6/dep.go",
+       "t64_dep_6/dep_test.go",
+       "t64_dep_7/dep.go",
+       "t64_dep_7/dep_test.go",
+       "t64_dep_8/dep.go",
+       "t64_dep_8/dep_test.go",
+       "t64_dep_9/dep.go",
+       "t64_dep_9/dep_test.go",
+       "t64_dep_10/dep.go",
+       "t64_dep_10/dep_test.go",
+       "t64_dep_11/dep.go",
+       "t64_dep_11/dep_test.go",
+       "t64_dep_12/dep.go",
+       "t64_dep_12/dep_test.go",
+       "t64_dep_13/dep.go",
+       "t64_dep_13/dep_test.go",
+       "t64_dep_14/dep.go",
+       "t64_dep_14/dep_test.go",
+       "t64_dep_15/dep.go",
+       "t64_dep_15/dep_test.go",
+       "t64_dep_16/dep.go",
+       "t64_dep_16/dep_test.go",
+       "t64_dep_17/dep.go",
+       "t64_dep_17/dep_test.go",
+       "t64_dep_18/dep.go",
+       "t64_dep_18/dep_test.go",
+       "t64_dep_19/dep.go",
+       "t64_dep_19/dep_test.go",
+       "t64_dep_20/dep.go",
+       "t64_dep_20/dep_test.go",
+       "t64_dep_21/dep.go",
+       "t64_dep_21/dep_test.go",
+       "t64_dep_22/dep.go",
+       "t64_dep_22/dep_test.go",
+       "t64_dep_23/dep.go",
+       "t64_dep_23/dep_test.go",
+       "t64_dep_24/dep.go",
+       "t64_dep_24/dep_test.go",
+       "t64_dep_25/dep.go",
+       "t64_dep_25/dep_test.go",
+       "t64_dep_26/dep.go",
+       "t64_dep_26/dep_test.go",
+       "t64_dep_27/dep.go",
+       "t64_dep_27/dep_test.go",
+       "t64_dep_28/dep.go",
+       "t64_dep_28/dep_test.go",
+       "t64_dep_29/dep.go",
+       "t64_dep_29/dep_test.go",
+       "t64_dep_30/dep.go",
+       "t64_dep_30/dep_test.go",
+       "t64_dep_31/dep.go",
+       "t64_dep_31/dep_test.go",
+       "t64_dep_32/dep.go",
+       "t64_dep_32/dep_test.go",
+       "t64_dep_33/dep.go",
+       "t64_dep_33/dep_test.go",
+       "t64_dep_34/dep.go",
+       "t64_dep_34/dep_test.go",
+       "t64_dep_35/dep.go",
+       "t64_dep_35/dep_test.go",
+       "t64_dep_36/dep.go",
+       "t64_dep_36/dep_test.go",
+       "t64_dep_37/dep.go",
+       "t64_dep_37/dep_test.go",
+       "t64_dep_38/dep.go",
+       "t64_dep_38/dep_test.go",
+       "t64_dep_39/dep.go",
+       "t64_dep_39/dep_test.go",
+       "t64_dep_40/dep.go",
+       "t64_dep_40/dep_test.go",
+       "t64_dep_41/dep.go",
+       "t64_dep_41/dep_test.go",
+       "t64_dep_42/dep.go",
+       "t64_dep_42/dep_test.go",
+       "t64_dep_43/dep.go",
+       "t64_dep_43/dep_test.go",
+       "t64_dep_44/dep.go",
+       "t64_dep_44/dep_test.go",
+       "t64_dep_45/dep.go",
+       "t64_dep_45/dep_test.go",
+       "t64_dep_46/dep.go",
+       "t64_dep_46/dep_test.go",
+       "t64_dep_47/dep.go",
+       "t64_dep_47/dep_test.go",
+       "t64_dep_48/dep.go",
+       "t64_dep_48/dep_test.go",
+       "t64_dep_49/dep.go",
+       "t64_dep_49/dep_test.go",
+       "t64_dep_50/dep.go",
+       "t64_dep_50/dep_test.go",
+       "t64_dep_51/dep.go",
+       "t64_dep_51/dep_test.go",
+       "t64_dep_52/dep.go",
+       "t64_dep_52/dep_test.go",
+       "t64_dep_53/dep.go",
+       "t64_dep_53/dep_test.go",
+       "t64_dep_54/dep.go",
+       "t64_dep_54/dep_test.go",
+       "t64_dep_55/dep.go",
+       "t64_dep_55/dep_test.go",
+       "t64_dep_56/dep.go",
+       "t64_dep_56/dep_test.go",
+       "t64_dep_57/dep.go",
+       "t64_dep_57/dep_test.go",
+       "t64_dep_58/dep.go",
+       "t64_dep_58/dep_test.go",
+       "t64_dep_59/dep.go",
+       "t64_dep_59/dep_test.go",
+       "t64_dep_60/dep.go",
+       "t64_dep_60/dep_test.go",
+       "t64_dep_61/dep.go",
+       "t64_dep_61/dep_test.go",
+       "t64_dep_62/dep.go",
+       "t64_dep_62/dep_test.go",
+       "t64_dep_63/dep.go",
+       "t64_dep_63/dep_test.go"
+      ]
+     }
+    },
+    "init_s": 2187.0
+   },
+   "build_seconds": 2208.4,
+   "by_d": {
+    "0": {
+     "closure_ok": true,
+     "probe": {
+      "exit": 0,
+      "raw": "1/10000 test files: dependents closure of 1 touched path(s)\n  t0/t0_test.go (go): TestF_t0\n[nool-analytics] dev build -- would send: {\"api_key\":\"<redacted>\",\"distinct_id\":\"7f9c74b1-6e6d-42ed-ba74-0f42cce266bb\",\"event\":\"cli_command\",\"properties\":{\"$ip\":\"0.0.0.0\",\"$is_server\":true,\"$lib\":\"posthog-rs\",",
+      "affected_tests_reported": 1
+     },
+     "admission": [
+      {
+       "exit_code": 0,
+       "wall_ms": 4553.93,
+       "envelope": {
+        "affected": 2,
+        "affected_nodes": [
+         "t0/t0.go",
+         "t0/t0_test.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "ELEVATED"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 1774.83,
+       "envelope": {
+        "affected": 2,
+        "affected_nodes": [
+         "t0/t0_test.go",
+         "t0/t0.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "ELEVATED"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 1725.95,
+       "envelope": {
+        "affected": 2,
+        "affected_nodes": [
+         "t0/t0.go",
+         "t0/t0_test.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "ELEVATED"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      }
+     ],
+     "admission_ms": {
+      "n": 3,
+      "median_ms": 1774.83,
+      "p10_ms": 1725.95,
+      "p90_ms": 4553.93,
+      "min_ms": 1725.95,
+      "max_ms": 4553.93
+     },
+     "fast_vet": [
+      {
+       "exit_code": 0,
+       "wall_ms": 34761.07
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 22661.3
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 20931.23
+      }
+     ],
+     "fast_vet_ms": {
+      "n": 3,
+      "median_ms": 22661.3,
+      "p10_ms": 20931.23,
+      "p90_ms": 34761.07,
+      "min_ms": 20931.23,
+      "max_ms": 34761.07
+     },
+     "git_control": {
+      "commit_ms": 261.9,
+      "vet_exit": 1,
+      "vet_ms": 14925.28,
+      "oracle_exit": 0,
+      "oracle_ms": 732.79
+     }
+    },
+    "4": {
+     "closure_ok": true,
+     "probe": {
+      "exit": 0,
+      "raw": "5/10000 test files: dependents closure of 1 touched path(s)\n  t4/t4_test.go (go): TestF_t4\n  t4_dep_0/dep_test.go (go): TestG_t4_0\n  t4_dep_1/dep_test.go (go): TestG_t4_1\n  t4_dep_2/dep_test.go (go): TestG_t4_2\n  t4_dep_3/dep_test.go (go): TestG_t4_3\n[nool-analytics] dev build -- would send: {\"api_k",
+      "affected_tests_reported": 5
+     },
+     "admission": [
+      {
+       "exit_code": 0,
+       "wall_ms": 1653.99,
+       "envelope": {
+        "affected": 10,
+        "affected_nodes": [
+         "t4_dep_0/dep_test.go",
+         "t4_dep_1/dep.go",
+         "t4_dep_2/dep.go",
+         "t4_dep_0/dep.go",
+         "t4_dep_3/dep.go",
+         "t4_dep_3/dep_test.go",
+         "t4/t4.go",
+         "t4/t4_test.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 1597.21,
+       "envelope": {
+        "affected": 10,
+        "affected_nodes": [
+         "t4_dep_2/dep_test.go",
+         "t4_dep_0/dep.go",
+         "t4_dep_0/dep_test.go",
+         "t4_dep_1/dep.go",
+         "t4/t4.go",
+         "t4_dep_1/dep_test.go",
+         "t4_dep_3/dep_test.go",
+         "t4_dep_2/dep.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 1611.55,
+       "envelope": {
+        "affected": 10,
+        "affected_nodes": [
+         "t4_dep_0/dep.go",
+         "t4/t4.go",
+         "t4_dep_3/dep_test.go",
+         "t4/t4_test.go",
+         "t4_dep_3/dep.go",
+         "t4_dep_0/dep_test.go",
+         "t4_dep_2/dep.go",
+         "t4_dep_2/dep_test.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      }
+     ],
+     "admission_ms": {
+      "n": 3,
+      "median_ms": 1611.55,
+      "p10_ms": 1597.21,
+      "p90_ms": 1653.99,
+      "min_ms": 1597.21,
+      "max_ms": 1653.99
+     },
+     "fast_vet": [
+      {
+       "exit_code": 0,
+       "wall_ms": 24501.28
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 28807.64
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 20898.25
+      }
+     ],
+     "fast_vet_ms": {
+      "n": 3,
+      "median_ms": 24501.28,
+      "p10_ms": 20898.25,
+      "p90_ms": 28807.64,
+      "min_ms": 20898.25,
+      "max_ms": 28807.64
+     },
+     "git_control": {
+      "commit_ms": 85.79,
+      "vet_exit": 1,
+      "vet_ms": 27107.12,
+      "oracle_exit": 1,
+      "oracle_ms": 6173.73
+     }
+    },
+    "16": {
+     "closure_ok": true,
+     "probe": {
+      "exit": 0,
+      "raw": "17/10000 test files: dependents closure of 1 touched path(s)\n  t16/t16_test.go (go): TestF_t16\n  t16_dep_0/dep_test.go (go): TestG_t16_0\n  t16_dep_1/dep_test.go (go): TestG_t16_1\n  t16_dep_10/dep_test.go (go): TestG_t16_10\n  t16_dep_11/dep_test.go (go): TestG_t16_11\n  t16_dep_12/dep_test.go (go): Te",
+      "affected_tests_reported": 17
+     },
+     "admission": [
+      {
+       "exit_code": 0,
+       "wall_ms": 2682.78,
+       "envelope": {
+        "affected": 34,
+        "affected_nodes": [
+         "t16_dep_8/dep.go",
+         "t16_dep_12/dep.go",
+         "t16_dep_4/dep.go",
+         "t16_dep_0/dep.go",
+         "t16_dep_5/dep_test.go",
+         "t16/t16.go",
+         "t16_dep_14/dep.go",
+         "t16_dep_11/dep_test.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 2040.83,
+       "envelope": {
+        "affected": 34,
+        "affected_nodes": [
+         "t16_dep_14/dep_test.go",
+         "t16_dep_6/dep_test.go",
+         "t16_dep_3/dep.go",
+         "t16_dep_4/dep.go",
+         "t16_dep_1/dep_test.go",
+         "t16_dep_5/dep.go",
+         "t16_dep_5/dep_test.go",
+         "t16_dep_11/dep.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 2041.35,
+       "envelope": {
+        "affected": 34,
+        "affected_nodes": [
+         "t16_dep_10/dep.go",
+         "t16_dep_6/dep.go",
+         "t16_dep_0/dep_test.go",
+         "t16_dep_7/dep_test.go",
+         "t16/t16.go",
+         "t16/t16_test.go",
+         "t16_dep_12/dep.go",
+         "t16_dep_13/dep.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      }
+     ],
+     "admission_ms": {
+      "n": 3,
+      "median_ms": 2041.35,
+      "p10_ms": 2040.83,
+      "p90_ms": 2682.78,
+      "min_ms": 2040.83,
+      "max_ms": 2682.78
+     },
+     "fast_vet": [
+      {
+       "exit_code": 0,
+       "wall_ms": 23246.1
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 20647.68
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 22028.47
+      }
+     ],
+     "fast_vet_ms": {
+      "n": 3,
+      "median_ms": 22028.47,
+      "p10_ms": 20647.68,
+      "p90_ms": 23246.1,
+      "min_ms": 20647.68,
+      "max_ms": 23246.1
+     },
+     "git_control": {
+      "commit_ms": 81.87,
+      "vet_exit": 1,
+      "vet_ms": 14592.71,
+      "oracle_exit": 1,
+      "oracle_ms": 543.18
+     }
+    },
+    "64": {
+     "closure_ok": true,
+     "probe": {
+      "exit": 0,
+      "raw": "65/10000 test files: dependents closure of 1 touched path(s)\n  t64/t64_test.go (go): TestF_t64\n  t64_dep_0/dep_test.go (go): TestG_t64_0\n  t64_dep_1/dep_test.go (go): TestG_t64_1\n  t64_dep_10/dep_test.go (go): TestG_t64_10\n  t64_dep_11/dep_test.go (go): TestG_t64_11\n  t64_dep_12/dep_test.go (go): Te",
+      "affected_tests_reported": 65
+     },
+     "admission": [
+      {
+       "exit_code": 0,
+       "wall_ms": 2330.48,
+       "envelope": {
+        "affected": 130,
+        "affected_nodes": [
+         "t64_dep_37/dep_test.go",
+         "t64_dep_20/dep.go",
+         "t64_dep_30/dep_test.go",
+         "t64_dep_42/dep_test.go",
+         "t64_dep_33/dep.go",
+         "t64_dep_13/dep.go",
+         "t64_dep_50/dep_test.go",
+         "t64/t64_test.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 2218.77,
+       "envelope": {
+        "affected": 130,
+        "affected_nodes": [
+         "t64_dep_32/dep.go",
+         "t64_dep_34/dep_test.go",
+         "t64_dep_48/dep.go",
+         "t64_dep_33/dep.go",
+         "t64_dep_3/dep.go",
+         "t64_dep_38/dep.go",
+         "t64_dep_27/dep_test.go",
+         "t64_dep_14/dep.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 2216.47,
+       "envelope": {
+        "affected": 130,
+        "affected_nodes": [
+         "t64_dep_27/dep_test.go",
+         "t64_dep_44/dep.go",
+         "t64_dep_54/dep.go",
+         "t64_dep_42/dep.go",
+         "t64_dep_2/dep.go",
+         "t64_dep_45/dep_test.go",
+         "t64_dep_6/dep_test.go",
+         "t64_dep_34/dep.go"
+        ],
+        "declared": 1,
+        "status": "known",
+        "tier": "CRITICAL"
+       },
+       "contracts_count": 0,
+       "plan": "PackageTests"
+      }
+     ],
+     "admission_ms": {
+      "n": 3,
+      "median_ms": 2218.77,
+      "p10_ms": 2216.47,
+      "p90_ms": 2330.48,
+      "min_ms": 2216.47,
+      "max_ms": 2330.48
+     },
+     "fast_vet": [
+      {
+       "exit_code": 0,
+       "wall_ms": 21442.37
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 21800.79
+      },
+      {
+       "exit_code": 0,
+       "wall_ms": 22702.74
+      }
+     ],
+     "fast_vet_ms": {
+      "n": 3,
+      "median_ms": 21800.79,
+      "p10_ms": 21442.37,
+      "p90_ms": 22702.74,
+      "min_ms": 21442.37,
+      "max_ms": 22702.74
+     },
+     "git_control": {
+      "commit_ms": 84.95,
+      "vet_exit": 1,
+      "vet_ms": 14514.53,
+      "oracle_exit": 1,
+      "oracle_ms": 667.93
+     }
+    }
+   }
   }
  },
  "scaling": {
@@ -1396,11 +2061,15 @@
      "1000": {
       "admission_median_ms": 267.69,
       "fast_vet_median_ms": 1685.47
+     },
+     "10000": {
+      "admission_median_ms": 1774.83,
+      "fast_vet_median_ms": 22661.3
      }
     },
-    "admission_ratio_hi_over_lo": 2.3,
+    "admission_ratio_hi_over_lo": 15.24,
     "admission_flat_in_R": false,
-    "fast_vet_ratio_hi_over_lo": 3.79
+    "fast_vet_ratio_hi_over_lo": 51.02
    },
    "4": {
     "medians_by_R": {
@@ -1411,11 +2080,15 @@
      "1000": {
       "admission_median_ms": 254.51,
       "fast_vet_median_ms": 1594.98
+     },
+     "10000": {
+      "admission_median_ms": 1611.55,
+      "fast_vet_median_ms": 24501.28
      }
     },
-    "admission_ratio_hi_over_lo": 2.19,
+    "admission_ratio_hi_over_lo": 13.88,
     "admission_flat_in_R": false,
-    "fast_vet_ratio_hi_over_lo": 4.16
+    "fast_vet_ratio_hi_over_lo": 63.97
    },
    "16": {
     "medians_by_R": {
@@ -1426,11 +2099,30 @@
      "1000": {
       "admission_median_ms": 292.61,
       "fast_vet_median_ms": 1702.26
+     },
+     "10000": {
+      "admission_median_ms": 2041.35,
+      "fast_vet_median_ms": 22028.47
      }
     },
-    "admission_ratio_hi_over_lo": 2.28,
+    "admission_ratio_hi_over_lo": 15.92,
     "admission_flat_in_R": false,
-    "fast_vet_ratio_hi_over_lo": 3.56
+    "fast_vet_ratio_hi_over_lo": 46.12
+   },
+   "64": {
+    "medians_by_R": {
+     "1000": {
+      "admission_median_ms": 323.81,
+      "fast_vet_median_ms": 1683.55
+     },
+     "10000": {
+      "admission_median_ms": 2218.77,
+      "fast_vet_median_ms": 21800.79
+     }
+    },
+    "admission_ratio_hi_over_lo": 6.85,
+    "admission_flat_in_R": false,
+    "fast_vet_ratio_hi_over_lo": 12.95
    }
   },
   "excluded": [

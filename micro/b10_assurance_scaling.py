@@ -44,7 +44,7 @@ def reinit_lightweight_git(ws: Path) -> None:
 
 def nool_init(ws: Path) -> float:
     t0 = time.monotonic()
-    code, out, _ = run(["nool", "init"], ws, timeout=600)
+    code, out, _ = run(["nool", "init"], ws, timeout=int(os.environ.get("B10_INIT_TIMEOUT_S", "600")))
     if code != 0:
         raise RuntimeError(f"nool init failed:\n{out}")
     return time.monotonic() - t0

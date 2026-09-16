@@ -1,6 +1,7 @@
 # B10 status: admission cost vs repository size and change surface
 
-**Status:** first data, two of three planned parts built and run · 2026-09-16
+**Status:** two of three planned parts built and run, including the full R ∈ {100, 1,000,
+10,000} scaling sweep · 2026-09-16
 **Pre-registration:** the admission-control research session's plan (`docs/superpowers/plans/` on the Nool product repo, 2026-09-15, "incremental admission control"), which specified `b10_self`, `b10_asymptotic`, and `b10_oss`, the pre-registered pass rule (`flat_in_R := ratio_10k_over_100 <= 2.0`), and the fixture design this doc implements.
 **Scripts:** `micro/b10_self.py`, `micro/b10_fixture.py`, `micro/b10_assurance_scaling.py`. Results: `results/micro/b10_self.json`, `results/micro/b10_assurance_scaling.json`.
 
@@ -23,22 +24,47 @@ resolution time (`plan_ms`) was 0ms. The plan is a pure function over already-co
 inputs; it adds no measurable cost of its own. This was true regardless of repository size or
 change surface.
 
-**F2 — Admission cost is clearly sub-linear in repository size, but not flat by the
-pre-registered 2x bar.** On the synthetic fixture (`b10_assurance_scaling`, R = 100 vs
-R = 1,000 Go packages, three fan-in levels D = {0, 4, 16}, 3 reps each), the gate-only
-admission median grew **2.19x–2.30x** for a **10x** increase in repository size. That is a
-real, measurable win over proportional scaling, but it misses the `<= 2.0x` pass bar this
-session pre-registered before running anything — report it as measured, not rounded down to
-"flat." The evidence floor (`fast_vet`: `--fast` still runs `go vet ./...` regardless of the
-`[reification]` flag) grew **3.56x–4.16x** over the same 10x — a clearly different, faster
-regime, consistent with the thesis that admission and evidence are priced differently even
-though neither is perfectly flat at this scale.
+**F2 — Admission cost is sub-linear in repository size across the full 100x range measured,
+but the advantage shrinks sharply as the repository grows further; the second decade is
+markedly worse than the first.** On the synthetic fixture (`b10_assurance_scaling`,
+R = 100 / 1,000 / 10,000 Go packages, three fan-in levels D = {0, 4, 16}, 3 reps each), the
+gate-only admission median (D-averaged) grew:
 
-| D | R=100 admission median | R=1000 admission median | ratio | R=100 fast_vet median | R=1000 fast_vet median | ratio |
+| R | admission median | ratio vs. prior decade | fast_vet median | ratio vs. prior decade |
+|---|---|---|---|---|
+| 100 | 120.3ms | — | 434.9ms | — |
+| 1,000 | 271.6ms | 2.26x | 1,660.9ms | 3.82x |
+| 10,000 | 1,809.2ms | 6.66x | 23,063.7ms | 13.89x |
+
+The first decade (100→1,000) missed the pre-registered `<= 2.0x` "flat" bar narrowly
+(2.19x–2.30x per D). The second decade (1,000→10,000) misses it badly — **6.3x–7.0x** per
+D, roughly three times worse a ratio for the same 10x size step. Over the full 100x range
+(R=100→10,000), admission cost grew **~15x** and evidence cost (`fast_vet`: `--fast` still
+runs `go vet ./...` regardless of the `[reification]` flag) grew **~53x**. Both are still
+sub-linear in the strict sense (15x and 53x are both less than the 100x size increase), but
+neither is a stable exponent — the growth *rate* itself increased at larger R for both
+measures, and this data does not support extrapolating the first-decade ratio to
+arbitrarily large repositories. Report as measured: real, substantial sub-linear scaling
+with a decaying advantage, not "flat."
+
+**F2b — What does hold up, and gets *better* with scale: admission stays proportionally
+far cheaper than evidence.** The evidence-to-admission cost ratio (D-averaged) was 3.62x at
+R=100, 6.12x at R=1,000, and **12.75x at R=10,000** — admission's relative cheapness
+*increased* with repository size even though its absolute cost also grew. That is the more
+defensible form of this session's thesis at 100x scale: not "admission cost is flat," but
+"admission cost grows markedly slower than the evidence cost it gates," and that gap widens,
+not narrows, as the repository gets larger.
+
+| D | R=100 admission median | R=1000 admission median | R=10000 admission median | R=100 fast_vet median | R=1000 fast_vet median | R=10000 fast_vet median |
 |---|---|---|---|---|---|---|
-| 0 | 116.5ms | 267.7ms | 2.30x | 444.1ms | 1685.5ms | 3.79x |
-| 4 | 116.1ms | 254.5ms | 2.19x | 383.0ms | 1595.0ms | 4.16x |
-| 16 | 128.2ms | 292.6ms | 2.28x | 477.7ms | 1702.3ms | 3.56x |
+| 0 | 116.5ms | 267.7ms | 1,774.8ms | 444.1ms | 1,685.5ms | 22,661.3ms |
+| 4 | 116.1ms | 254.5ms | 1,611.5ms | 383.0ms | 1,595.0ms | 24,501.3ms |
+| 16 | 128.2ms | 292.6ms | 2,041.3ms | 477.7ms | 1,702.3ms | 22,028.5ms |
+
+D=64 is excluded from R=100 (the 40%-selection-ratio fallback fires there, per F3) but is
+present at R=1,000 (323.8ms admission / 1,683.6ms fast_vet) and R=10,000 (2,218.8ms
+admission / 21,800.8ms fast_vet) — a 6.85x admission ratio and 12.95x fast_vet ratio for
+that one available decade, consistent with the other three D levels.
 
 **F3 — The 40% test-selection fallback is itself repository-size-dependent, and it fired
 exactly where the design predicted.** At R=100, D=64's 65 affected tests are ~65% of the
@@ -72,10 +98,20 @@ term is present at both R=100 and R=1,000 and mostly cancels out of the ratio.
 | Part | Status | What it can claim |
 |---|---|---|
 | `b10_self` | Built, run (30/30 knots) | Real envelope/plan/contracts distributions on a real repository; real evidence-plan routing; a raw (not scaling-corrected) cold-cost profile |
-| `b10_asymptotic` | Built, run at R ∈ {100, 1,000} | The scaling ratios in F2/F3 above, with ground truth verified by construction and mismatches excluded rather than averaged in |
-| `b10_asymptotic` at R = 10,000 | Not run this session | `B10_R=100,1000,10000` is supported by the script; deferred for time, not for a known blocker — Go's toolchain is far lighter than this workspace's own Rust dependency tree, so this should be safe, but has not been verified at that scale |
+| `b10_asymptotic` | Built, run at R ∈ {100, 1,000, 10,000} | The scaling ratios in F2/F2b/F3 above, with ground truth verified by construction and mismatches excluded rather than averaged in |
 | `b10_oss` (a real 10–50 kLOC OSS Go service) | Not started | Same design as `b10_self`, pointed at a third-party repository instead of Nool's own |
 | N-concurrency cell, unknown-path cell | Not built | In the original pre-registration; deferred |
+
+**Note on the R=10,000 run:** the first two attempts at this tier (600s and 1,800s init
+timeouts) did not complete — not a resource crash (CPU/memory stayed healthy throughout),
+but `nool init`'s own bootstrap step genuinely exceeding both budgets on a 20,001-file
+repository. A third attempt at a 3,600s budget succeeded and produced the R=10,000 data
+above. That slow bootstrap is a separate, real defect from the admission-cost question this
+benchmark measures — filed and fixed as bug 589673de in the Nool product repo (a
+mutex-shared discovery cache replacing a per-file `Ledger::open`, plus phase-level
+resumability so a killed `init` no longer has to restart from zero) — and is not itself
+part of the C(R,S) admission-cost measurement, since `b10_assurance_scaling` measures
+steady-state `propose` cost *after* `nool init` has already built the entity graph.
 
 ## Methodology notes and known pitfalls
 
@@ -90,6 +126,9 @@ term is present at both R=100 and R=1,000 and mostly cancels out of the ratio.
   affected-test count against the value the fixture generator computed by construction; a
   mismatch excludes that cell from the scaling fit (`excluded` in the results JSON) rather
   than silently degrading the fit.
-- **Reps are small (3) and R levels are two** (100, 1,000) for this first data — enough to see
-  the direction and magnitude of the effect, not enough for tight confidence intervals. Treat
-  the ratios above as a first measurement to be tightened, not a final number.
+- **Reps are small (3)** for this first data — enough to see the direction and magnitude of
+  the effect at each of the three R levels (100, 1,000, 10,000), not enough for tight
+  confidence intervals. Treat the ratios above as a first measurement to be tightened, not a
+  final number, and note that the R=10,000 tier is a single run (not yet repeated across
+  separate fixture builds), unlike R=100/1,000 which this session's earlier runs also
+  measured once each.
