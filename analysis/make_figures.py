@@ -466,8 +466,8 @@ def fig_b6():
 
 
 def _nice_max(v):
-    for step in (1, 2, 2.5, 5):
-        for mag in range(0, 7):
+    for mag in range(-1, 7):
+        for step in (1, 2, 2.5, 5):
             top = step * 10 ** mag
             if top >= v:
                 return top
@@ -515,37 +515,65 @@ def fig_b10():
         "b10_admission_vs_R.svg",
         "B10: admission cost vs repository size R, at fixed change surface D",
         f"propose --full --json, reification off; pre-registered flat bound: R={rs[-1]} <= 2x R={rs[0]}; {stamp}",
-        [f"R = {r:,}" for r in rs], adm, ymax=top, yticks=_ticks(top),
+        [f"R={r // 1000}k" if r >= 1000 else f"R={r}" for r in rs], adm, ymax=top, yticks=_ticks(top),
         ylabel="admission ms (median)", value_fmt=lambda v: f"{v:.0f}")
 
-    ev = series_for("full_propose", unit=1000.0)
+    # Evidence is measured at every R only for the D values every R shares
+    # (above EVIDENCE_FULL_MAX_R it runs cold, one D, one rep). A cell that
+    # timed out is drawn AT the timeout and labelled DNF, never as a value.
+    # A cell with no landed sample is drawn at its wall time (or the
+    # timeout, for a DNF) and labelled, never passed off as a median.
+    cap = b10["config"].get("evidence_timeout_s", 900)
+    labels = {}
+    ev = []
+    for i, d in enumerate(ds):
+        vals = []
+        for r in rs:
+            e = by_r[str(r)]["by_d"].get(str(d)) or {}
+            m = (e.get("full_propose_ms") or {}).get("median_ms")
+            samples = e.get("full_propose") or []
+            if m is not None:
+                vals.append(m / 1000.0)
+            elif any(x.get("outcome") == "dnf" for x in samples):
+                vals.append(float(cap))
+                labels[float(cap)] = "DNF"
+            elif samples:
+                v = round(max(x.get("wall_ms") or 0 for x in samples) / 1000.0, 1)
+                vals.append(v)
+                labels[v] = f"{v:.0f} failed"
+            else:
+                vals.append(None)
+        if all(v is not None for v in vals):
+            ev.append((f"nool evidence, D = {d}", colors[i], vals))
     vet = [med(r, ds[0], "git_vet") for r in rs]
     if all(v is not None for v in vet):
         ev.append(("git: go vet ./...", GIT, [v / 1000.0 for v in vet]))
-    top = _nice_max(max(v for _, _, vs in ev for v in vs))
-    line_series(
-        "b10_evidence_vs_R.svg",
-        "B10: evidence cost vs repository size R (native driver + tests)",
-        f"propose --full --json, reification on, vs a git go vet control; {stamp}",
-        [f"R = {r:,}" for r in rs], ev, ymax=top, yticks=_ticks(top),
-        ylabel="seconds (median)", value_fmt=lambda v: f"{v:.1f}")
+    if ev:
+        top = _nice_max(max(v for _, _, vs in ev for v in vs))
+        line_series(
+            "b10_evidence_vs_R.svg",
+            "B10: evidence cost vs repository size R (native driver + ghost tests)",
+            f"propose --full --json, reification on (cold above R=100, 1 rep); 'failed' = refused run's wall; {stamp}",
+            [f"R={r // 1000}k" if r >= 1000 else f"R={r}" for r in rs], ev, ymax=top, yticks=_ticks(top),
+            ylabel="seconds",
+            value_fmt=lambda v: labels.get(v, f"{v:.1f}"))
 
     vs_s = []
     for i, r in enumerate(rs):
         vals = [med(r, d, "admission") for d in ds]
         if all(v is not None for v in vals):
             vs_s.append((f"R = {r:,}", colors[i], vals))
-    envs = [2 * d + 2 for d in ds]
     top = _nice_max(max(v for _, _, vs in vs_s for v in vs))
     line_series(
         "b10_vs_S.svg",
         "B10: admission cost vs change surface S (callers of the edited symbol)",
-        f"x = D callers (envelope 2D+2 files); one line per repository size; {stamp}",
-        [f"D={d} ({e})" for d, e in zip(ds, envs)], vs_s, ymax=top, yticks=_ticks(top),
+        f"x = D callers of the edited symbol (envelope = 2D+2 files); one line per repository size; {stamp}",
+        [f"D={d}" for d in ds], vs_s, ymax=top, yticks=_ticks(top),
         ylabel="admission ms (median)", value_fmt=lambda v: f"{v:.0f}")
 
 
 def main():
+    fig_b10()  # first: independent of the fleet/B-series inputs below
     recs = fleet_records()
     fig_acceptance(recs)
     fig_composition(recs)
@@ -558,7 +586,6 @@ def main():
     fig_8d_degradation(recs)
     fig_8d_conflicts(recs)
     fig_8d_composition(recs)
-    fig_b10()
 
 
 if __name__ == "__main__":

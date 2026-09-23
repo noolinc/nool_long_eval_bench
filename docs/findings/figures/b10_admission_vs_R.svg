@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="340" viewBox="0 0 700 340" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif">
+<rect width="700" height="340" fill="#fcfcfb"/>
+<text x="16.0" y="24.0" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">B10: admission cost vs repository size R, at fixed change surface D</text>
+<text x="16.0" y="41.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">propose --full --json, reification off; pre-registered flat bound: R=10000 &lt;= 2x R=100; nool 7.9.2, median of 3 reps</text>
+<text x="44.0" y="297.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">0</text>
+<line x1="52.0" y1="235.0" x2="684.0" y2="235.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="238.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">500</text>
+<line x1="52.0" y1="176.0" x2="684.0" y2="176.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="179.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">1000</text>
+<line x1="52.0" y1="117.0" x2="684.0" y2="117.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="120.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">1500</text>
+<line x1="52.0" y1="58.0" x2="684.0" y2="58.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="44.0" y="61.5" font-size="10.5" fill="#898781" text-anchor="end" font-weight="normal">2000</text>
+<line x1="52.0" y1="294.0" x2="684.0" y2="294.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="16.0" y="52.0" font-size="10.5" fill="#898781" text-anchor="start" font-weight="normal">admission ms (median)</text>
+<text x="52.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">R=100</text>
+<text x="368.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">R=1k</text>
+<text x="684.0" y="311.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal">R=10k</text>
+<line x1="52.0" y1="268.5" x2="368.0" y2="275.4" stroke="#86b6ef" stroke-width="2.5"/>
+<line x1="368.0" y1="275.4" x2="684.0" y2="202.5" stroke="#86b6ef" stroke-width="2.5"/>
+<circle cx="52.0" cy="268.5" r="4" fill="#86b6ef"/>
+<text x="52.0" y="258.5" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">216</text>
+<circle cx="368.0" cy="275.4" r="4" fill="#86b6ef"/>
+<text x="368.0" y="265.4" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">158</text>
+<circle cx="684.0" cy="202.5" r="4" fill="#86b6ef"/>
+<text x="684.0" y="192.5" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">775</text>
+<line x1="52.0" y1="268.8" x2="368.0" y2="275.0" stroke="#3987e5" stroke-width="2.5"/>
+<line x1="368.0" y1="275.0" x2="684.0" y2="207.1" stroke="#3987e5" stroke-width="2.5"/>
+<circle cx="52.0" cy="268.8" r="4" fill="#3987e5"/>
+<text x="52.0" y="258.8" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">214</text>
+<circle cx="368.0" cy="275.0" r="4" fill="#3987e5"/>
+<text x="368.0" y="265.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">161</text>
+<circle cx="684.0" cy="207.1" r="4" fill="#3987e5"/>
+<text x="684.0" y="197.1" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">737</text>
+<line x1="52.0" y1="280.7" x2="368.0" y2="272.9" stroke="#1c5cab" stroke-width="2.5"/>
+<line x1="368.0" y1="272.9" x2="684.0" y2="165.2" stroke="#1c5cab" stroke-width="2.5"/>
+<circle cx="52.0" cy="280.7" r="4" fill="#1c5cab"/>
+<text x="52.0" y="270.7" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">113</text>
+<circle cx="368.0" cy="272.9" r="4" fill="#1c5cab"/>
+<text x="368.0" y="262.9" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">179</text>
+<circle cx="684.0" cy="165.2" r="4" fill="#1c5cab"/>
+<text x="684.0" y="155.2" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1091</text>
+<line x1="52.0" y1="280.5" x2="368.0" y2="271.8" stroke="#0d366b" stroke-width="2.5"/>
+<line x1="368.0" y1="271.8" x2="684.0" y2="166.2" stroke="#0d366b" stroke-width="2.5"/>
+<circle cx="52.0" cy="280.5" r="4" fill="#0d366b"/>
+<text x="52.0" y="270.5" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">115</text>
+<circle cx="368.0" cy="271.8" r="4" fill="#0d366b"/>
+<text x="368.0" y="261.8" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">188</text>
+<circle cx="684.0" cy="166.2" r="4" fill="#0d366b"/>
+<text x="684.0" y="156.2" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal">1083</text>
+<rect x="52.0" y="319.0" width="10" height="10" rx="2" fill="#86b6ef"/>
+<text x="67.0" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">D = 0</text>
+<rect x="116.9" y="319.0" width="10" height="10" rx="2" fill="#3987e5"/>
+<text x="131.9" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">D = 4</text>
+<rect x="181.8" y="319.0" width="10" height="10" rx="2" fill="#1c5cab"/>
+<text x="196.8" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">D = 16</text>
+<rect x="253.1" y="319.0" width="10" height="10" rx="2" fill="#0d366b"/>
+<text x="268.1" y="328.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">D = 64</text>
+</svg>

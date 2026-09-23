@@ -24,6 +24,7 @@ import json
 import os
 import re
 import shutil
+import sqlite3
 import sys
 import time
 from pathlib import Path
@@ -59,7 +60,8 @@ EXCLUDE_DIRS = {
 # confirmed 6GB on the source repo this session; safe to skip, it rebuilds
 # on demand). `session_transcript.jsonl` and `incoming` are this session's
 # own agent-transcript/spool state, irrelevant to what's being measured.
-EXCLUDE_NOOL_SUBDIRS = {"tmp", "try", "runs", "target", "session_transcript.jsonl", "incoming"}
+EXCLUDE_NOOL_SUBDIRS = {"tmp", "try", "runs", "target", "session_transcript.jsonl", "incoming",
+                        "code", "locks"}  # live `nool code` sessions (sockets) and lock files
 
 
 def copy_repo_snapshot(dest: Path) -> None:
@@ -73,13 +75,27 @@ def copy_repo_snapshot(dest: Path) -> None:
             nool_dest = dest / ".nool"
             nool_dest.mkdir(exist_ok=True)
             for sub in entry.iterdir():
-                if sub.name in EXCLUDE_NOOL_SUBDIRS:
-                    continue
+                if sub.name in EXCLUDE_NOOL_SUBDIRS or sub.name.startswith("nool.db-"):
+                    continue  # -wal/-shm/-journal: folded in by the backup below
                 dst = nool_dest / sub.name
-                if sub.is_dir():
-                    shutil.copytree(sub, dst, symlinks=True)
-                else:
-                    shutil.copy2(sub, dst)
+                try:
+                    if sub.name == "nool.db":
+                        # The source ledger is live (other agents write it):
+                        # a file copy can tear it or race its WAL away. The
+                        # SQLite online backup is one consistent snapshot.
+                        src = sqlite3.connect(f"file:{sub}?mode=ro", uri=True)
+                        out = sqlite3.connect(str(dst))
+                        with out:
+                            src.backup(out)
+                        out.close()
+                        src.close()
+                    elif sub.is_dir():
+                        shutil.copytree(sub, dst, symlinks=True, ignore_dangling_symlinks=True,
+                                        ignore=shutil.ignore_patterns("*.sock", "*.lock"))
+                    else:
+                        shutil.copy2(sub, dst)
+                except FileNotFoundError:
+                    continue  # vanished mid-copy (lock/temp file of a live writer)
             continue
         dst = dest / name
         if entry.is_dir():
@@ -171,6 +187,8 @@ COMMENT_BY_EXT = {
     ".ts": "// b10_self probe\n",
     ".toml": "# b10_self probe\n",
     ".md": "<!-- b10_self probe -->\n",
+    # formats with no comment syntax: a trailing newline is a real, valid diff
+    ".json": "\n", ".jsonl": "\n", ".lock": "\n", ".snap": "\n",
 }
 
 
@@ -219,6 +237,9 @@ def measure_one(repo: Path, knot: dict, idx: int, r_files: int) -> dict:
         "idx": idx, "knot": knot["knot"], "knot_kind": knot["kind"],
         "n_paths": len(paths), "paths_sample": paths[:5],
         "outcome": adm["outcome"], "exit_code": adm["exit_code"], "wall_ms": adm["wall_ms"],
+        # exit 3 here is usually a lease copied from the live source ledger
+        # (another agent is working on those files right now), not a gate verdict
+        "refusal_reason": adm["stderr_tail"] or None,
         "region_size": region, "region_over_R": round(region / r_files, 5) if region is not None else None,
         "envelope_status": adm["envelope_status"], "contracts_count": adm["contracts_count"],
         "plan": adm["plan"], "stages": adm["stages"],

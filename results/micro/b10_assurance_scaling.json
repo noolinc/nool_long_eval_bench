@@ -1,31 +1,31 @@
 {
  "benchmark": "b10_assurance_scaling",
  "provenance": {
-  "run_id": "fce884ec-0bc7-4e9a-877b-db6c63956c9a",
-  "timestamp_utc": "2026-09-16T00:26:05.752755+00:00",
+  "run_id": "59ddff3a-57ea-417f-a055-dfea6b1727f2",
+  "timestamp_utc": "2026-09-23T16:48:23.338840+00:00",
   "system_load": {
-   "load_1m": 4.36,
-   "load_5m": 2.99,
-   "load_15m": 2.18,
+   "load_1m": 10.27,
+   "load_5m": 9.31,
+   "load_15m": 11.18,
    "cpu_count": 12,
-   "load_per_core_1m": 0.36,
+   "load_per_core_1m": 0.86,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.7.0",
-  "binary": "/Users/arunbalakrishnan/Development/NoolWorkspace/Nool/target/debug/nool",
-  "binary_sha256": "b161d04b9b90a7108815f05fa3f137c6ad860091b5809bea468c693298f2a98b",
+  "nool_version": "nool 7.9.2",
+  "binary": "/Users/arunbalakrishnan/Research/nool_benchmarks/work/bin/nool",
+  "binary_sha256": "7099323cf35bb04d115792d2ca50dc0e1646fa45dab65080bce4a9fe6565f53e",
   "nool_build": {
-   "version": "7.7.0",
-   "edition": "community",
-   "git_sha": "951fdb3fabe8146cd914051ae911d54520cc28bb",
+   "version": "7.9.2",
+   "edition": "enterprise",
+   "git_sha": "f4205bf863e71ee08cbfb198247a9f5722266696",
    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
    "target": "aarch64-apple-darwin",
    "dirty": false
   },
   "harness": {
-   "git_sha": "1222d4026e38318b9893c12da058c5fc38d46065",
+   "git_sha": "e66b8b984342a718e68edbfd8e82273c9b9a0ce0",
    "dirty": true
   },
   "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
@@ -40,6 +40,7 @@
   "os_version": "26.6.2",
   "execution": "local (containerization deferred; see spec \u00a78)"
  },
+ "part": "b10_asymptotic",
  "config": {
   "R_levels": [
    100,
@@ -53,7 +54,48 @@
    64
   ],
   "reps": 3,
-  "timeout_s": 120
+  "timeout_s": 300,
+  "evidence_timeout_s": 900,
+  "go_caches": "warmed per R by one untimed `go test ./...`",
+  "concurrency_n": 4,
+  "temp_root": "/tmp/noolbench_b10",
+  "admission_mode": "--full --json, [reification] enabled=false",
+  "evidence_mode": "--full --json, [reification] enabled=true",
+  "frozen_binary_source": "~/.local/bin/nool (released install)"
+ },
+ "binary_gate": {
+  "valid": true,
+  "reasons": [],
+  "start": {
+   "path": "/Users/arunbalakrishnan/Research/nool_benchmarks/work/bin/nool",
+   "sha256": "7099323cf35bb04d115792d2ca50dc0e1646fa45dab65080bce4a9fe6565f53e",
+   "build": {
+    "version": "7.9.2",
+    "edition": "enterprise",
+    "git_sha": "f4205bf863e71ee08cbfb198247a9f5722266696",
+    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+    "target": "aarch64-apple-darwin",
+    "dirty": false
+   }
+  },
+  "end": {
+   "path": "/Users/arunbalakrishnan/Research/nool_benchmarks/work/bin/nool",
+   "sha256": "7099323cf35bb04d115792d2ca50dc0e1646fa45dab65080bce4a9fe6565f53e",
+   "build": {
+    "version": "7.9.2",
+    "edition": "enterprise",
+    "git_sha": "f4205bf863e71ee08cbfb198247a9f5722266696",
+    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+    "target": "aarch64-apple-darwin",
+    "dirty": false
+   }
+  }
+ },
+ "valid": true,
+ "fallback": {
+  "cells": 12,
+  "full_fallback": 1,
+  "rate": 0.083
  },
  "by_R": {
   "100": {
@@ -280,444 +322,1535 @@
       ]
      }
     },
-    "init_s": 4.2
+    "init_s": 0.7,
+    "restored_from_snapshot": "r100_8450c64eb7063854.tar",
+    "restore_s": 0.2
    },
-   "build_seconds": 4.4,
    "by_d": {
     "0": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "1/100 test files: dependents closure of 1 touched path(s)\n  t0/t0_test.go (go): TestF_t0\n[nool-analytics] dev build -- would send: {\"api_key\":\"<redacted>\",\"distinct_id\":\"7f9c74b1-6e6d-42ed-ba74-0f42cce266bb\",\"event\":\"cli_command\",\"properties\":{\"$ip\":\"0.0.0.0\",\"$is_server\":true,\"$lib\":\"posthog-rs\",\"$",
-      "affected_tests_reported": 1
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       2
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 1,
+     "envelope_expected": 2,
+     "envelope_observed": 2,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 41.19,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 50.09,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 38.1,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 41.19,
+      "p10_ms": 38.1,
+      "p90_ms": 50.09,
+      "min_ms": 38.1,
+      "max_ms": 50.09
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 145.32,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0.go",
-         "t0/t0_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 230.16,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 41,
+         "contracts_ms": 0,
+         "findings_ms": 7,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 116.46,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0.go",
-         "t0/t0_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 216.31,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 44,
+         "contracts_ms": 2,
+         "findings_ms": 5,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 115.05,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0.go",
-         "t0/t0_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 187.21,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 33,
+         "contracts_ms": 0,
+         "findings_ms": 5,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 116.46,
-      "p10_ms": 115.05,
-      "p90_ms": 145.32,
-      "min_ms": 115.05,
-      "max_ms": 145.32
+      "median_ms": 216.31,
+      "p10_ms": 187.21,
+      "p90_ms": 230.16,
+      "min_ms": 187.21,
+      "max_ms": 230.16
      },
-     "fast_vet": [
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 816.68
+       "wall_ms": 1249.12,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2,
+         "selection_full": 0,
+         "tests_selected": 1
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 28,
+         "contracts_ms": 0,
+         "driver_ms": 824,
+         "findings_ms": 5,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 1
+        }
+       },
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 444.14
+       "wall_ms": 1015.88,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2,
+         "selection_full": 0,
+         "tests_selected": 1
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 34,
+         "contracts_ms": 5,
+         "driver_ms": 641,
+         "findings_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 1
+        }
+       },
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 431.45
+       "wall_ms": 1100.1,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2,
+         "selection_full": 0,
+         "tests_selected": 1
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 22,
+         "contracts_ms": 1,
+         "driver_ms": 707,
+         "findings_ms": 4,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 1
+        }
+       },
+       "stderr_tail": ""
       }
      ],
-     "fast_vet_ms": {
+     "full_propose_ms": {
       "n": 3,
-      "median_ms": 444.14,
-      "p10_ms": 431.45,
-      "p90_ms": 816.68,
-      "min_ms": 431.45,
-      "max_ms": 816.68
+      "median_ms": 1100.1,
+      "p10_ms": 1015.88,
+      "p90_ms": 1249.12,
+      "min_ms": 1015.88,
+      "max_ms": 1249.12
+     },
+     "full_propose_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 25.21,
-      "vet_exit": 1,
-      "vet_ms": 182.98,
-      "oracle_exit": 0,
-      "oracle_ms": 507.16
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 54.57,
+       "p10_ms": 49.31,
+       "p90_ms": 91.82,
+       "min_ms": 49.31,
+       "max_ms": 91.82
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 284.86,
+       "p10_ms": 236.46,
+       "p90_ms": 295.81,
+       "min_ms": 236.46,
+       "max_ms": 295.81
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 469.01,
+       "p10_ms": 449.82,
+       "p90_ms": 1003.29,
+       "min_ms": 449.82,
+       "max_ms": 1003.29
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "4": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "5/100 test files: dependents closure of 1 touched path(s)\n  t4/t4_test.go (go): TestF_t4\n  t4_dep_0/dep_test.go (go): TestG_t4_0\n  t4_dep_1/dep_test.go (go): TestG_t4_1\n  t4_dep_2/dep_test.go (go): TestG_t4_2\n  t4_dep_3/dep_test.go (go): TestG_t4_3\n[nool-analytics] dev build -- would send: {\"api_key",
-      "affected_tests_reported": 5
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       10
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 5,
+     "envelope_expected": 10,
+     "envelope_observed": 10,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 47.82,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 30.95,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 42.15,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 42.15,
+      "p10_ms": 30.95,
+      "p90_ms": 47.82,
+      "min_ms": 30.95,
+      "max_ms": 47.82
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 116.11,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_2/dep_test.go",
-         "t4_dep_0/dep.go",
-         "t4/t4_test.go",
-         "t4_dep_0/dep_test.go",
-         "t4_dep_1/dep_test.go",
-         "t4_dep_1/dep.go",
-         "t4/t4.go",
-         "t4_dep_3/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 181.12,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 50,
+         "contracts_ms": 3,
+         "findings_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 114.44,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_1/dep.go",
-         "t4/t4_test.go",
-         "t4_dep_0/dep_test.go",
-         "t4_dep_1/dep_test.go",
-         "t4_dep_3/dep_test.go",
-         "t4_dep_2/dep_test.go",
-         "t4/t4.go",
-         "t4_dep_0/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 213.77,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 40,
+         "contracts_ms": 1,
+         "findings_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 116.23,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_2/dep_test.go",
-         "t4_dep_0/dep_test.go",
-         "t4_dep_1/dep_test.go",
-         "t4_dep_3/dep_test.go",
-         "t4_dep_2/dep.go",
-         "t4/t4_test.go",
-         "t4/t4.go",
-         "t4_dep_3/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 236.64,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 50,
+         "contracts_ms": 1,
+         "findings_ms": 4,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 116.11,
-      "p10_ms": 114.44,
-      "p90_ms": 116.23,
-      "min_ms": 114.44,
-      "max_ms": 116.23
+      "median_ms": 213.77,
+      "p10_ms": 181.12,
+      "p90_ms": 236.64,
+      "min_ms": 181.12,
+      "max_ms": 236.64
      },
-     "fast_vet": [
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 379.45
+       "wall_ms": 1028.33,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10,
+         "selection_full": 0,
+         "tests_selected": 5
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 42,
+         "contracts_ms": 1,
+         "driver_ms": 645,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 3
+        }
+       },
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 383.02
+       "wall_ms": 1155.54,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10,
+         "selection_full": 0,
+         "tests_selected": 5
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 29,
+         "contracts_ms": 1,
+         "driver_ms": 761,
+         "findings_ms": 9,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 2
+        }
+       },
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 436.13
+       "wall_ms": 1107.31,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10,
+         "selection_full": 0,
+         "tests_selected": 5
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 33,
+         "contracts_ms": 1,
+         "driver_ms": 688,
+         "findings_ms": 4,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 5
+        }
+       },
+       "stderr_tail": ""
       }
      ],
-     "fast_vet_ms": {
+     "full_propose_ms": {
       "n": 3,
-      "median_ms": 383.02,
-      "p10_ms": 379.45,
-      "p90_ms": 436.13,
-      "min_ms": 379.45,
-      "max_ms": 436.13
+      "median_ms": 1107.31,
+      "p10_ms": 1028.33,
+      "p90_ms": 1155.54,
+      "min_ms": 1028.33,
+      "max_ms": 1155.54
+     },
+     "full_propose_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 24.33,
-      "vet_exit": 1,
-      "vet_ms": 161.53,
-      "oracle_exit": 1,
-      "oracle_ms": 518.56
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 43.06,
+       "p10_ms": 36.4,
+       "p90_ms": 62.82,
+       "min_ms": 36.4,
+       "max_ms": 62.82
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 286.57,
+       "p10_ms": 268.14,
+       "p90_ms": 305.27,
+       "min_ms": 268.14,
+       "max_ms": 305.27
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 1351.65,
+       "p10_ms": 1110.45,
+       "p90_ms": 1769.94,
+       "min_ms": 1110.45,
+       "max_ms": 1769.94
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "16": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "17/100 test files: dependents closure of 1 touched path(s)\n  t16/t16_test.go (go): TestF_t16\n  t16_dep_0/dep_test.go (go): TestG_t16_0\n  t16_dep_1/dep_test.go (go): TestG_t16_1\n  t16_dep_10/dep_test.go (go): TestG_t16_10\n  t16_dep_11/dep_test.go (go): TestG_t16_11\n  t16_dep_12/dep_test.go (go): Test",
-      "affected_tests_reported": 17
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       34
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 17,
+     "envelope_expected": 34,
+     "envelope_observed": 34,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 31.66,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 22.63,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 23.99,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 23.99,
+      "p10_ms": 22.63,
+      "p90_ms": 31.66,
+      "min_ms": 22.63,
+      "max_ms": 31.66
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 133.69,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_11/dep_test.go",
-         "t16_dep_12/dep.go",
-         "t16_dep_3/dep.go",
-         "t16_dep_11/dep.go",
-         "t16_dep_0/dep.go",
-         "t16_dep_1/dep_test.go",
-         "t16_dep_14/dep.go",
-         "t16_dep_15/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 110.02,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 18,
+         "contracts_ms": 3,
+         "findings_ms": 2,
+         "index_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 128.19,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_11/dep_test.go",
-         "t16_dep_10/dep_test.go",
-         "t16_dep_14/dep_test.go",
-         "t16_dep_11/dep.go",
-         "t16_dep_8/dep.go",
-         "t16_dep_4/dep.go",
-         "t16_dep_0/dep_test.go",
-         "t16_dep_13/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 120.25,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 24,
+         "contracts_ms": 1,
+         "findings_ms": 3,
+         "index_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 128.03,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_1/dep.go",
-         "t16_dep_5/dep_test.go",
-         "t16_dep_11/dep_test.go",
-         "t16_dep_1/dep_test.go",
-         "t16_dep_8/dep_test.go",
-         "t16_dep_6/dep.go",
-         "t16_dep_10/dep.go",
-         "t16_dep_4/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 112.51,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 17,
+         "contracts_ms": 1,
+         "findings_ms": 2,
+         "index_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 128.19,
-      "p10_ms": 128.03,
-      "p90_ms": 133.69,
-      "min_ms": 128.03,
-      "max_ms": 133.69
+      "median_ms": 112.51,
+      "p10_ms": 110.02,
+      "p90_ms": 120.25,
+      "min_ms": 110.02,
+      "max_ms": 120.25
      },
-     "fast_vet": [
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 397.64
+       "wall_ms": 735.28,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34,
+         "selection_full": 0,
+         "tests_selected": 17
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 23,
+         "contracts_ms": 2,
+         "driver_ms": 485,
+         "findings_ms": 3,
+         "index_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 1
+        }
+       },
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 481.04
+       "wall_ms": 788.88,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34,
+         "selection_full": 0,
+         "tests_selected": 17
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 19,
+         "contracts_ms": 1,
+         "driver_ms": 564,
+         "findings_ms": 2,
+         "index_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 1
+        }
+       },
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 477.66
+       "wall_ms": 838.67,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34,
+         "selection_full": 0,
+         "tests_selected": 17
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 18,
+         "contracts_ms": 2,
+         "driver_ms": 601,
+         "findings_ms": 3,
+         "index_ms": 4,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 1
+        }
+       },
+       "stderr_tail": ""
       }
      ],
-     "fast_vet_ms": {
+     "full_propose_ms": {
       "n": 3,
-      "median_ms": 477.66,
-      "p10_ms": 397.64,
-      "p90_ms": 481.04,
-      "min_ms": 397.64,
-      "max_ms": 481.04
+      "median_ms": 788.88,
+      "p10_ms": 735.28,
+      "p90_ms": 838.67,
+      "min_ms": 735.28,
+      "max_ms": 838.67
+     },
+     "full_propose_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 24.72,
-      "vet_exit": 1,
-      "vet_ms": 167.4,
-      "oracle_exit": 1,
-      "oracle_ms": 494.06
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 29.85,
+       "p10_ms": 27.28,
+       "p90_ms": 32.92,
+       "min_ms": 27.28,
+       "max_ms": 32.92
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 181.39,
+       "p10_ms": 181.19,
+       "p90_ms": 181.91,
+       "min_ms": 181.19,
+       "max_ms": 181.91
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 3140.06,
+       "p10_ms": 3021.77,
+       "p90_ms": 4877.93,
+       "min_ms": 3021.77,
+       "max_ms": 4877.93
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "64": {
-     "closure_ok": false,
-     "probe": {
-      "exit": 0,
-      "raw": "full: selection would cover 65% of the suite (> 40%)\n[nool-analytics] dev build -- would send: {\"api_key\":\"<redacted>\",\"distinct_id\":\"7f9c74b1-6e6d-42ed-ba74-0f42cce266bb\",\"event\":\"cli_command\",\"properties\":{\"$ip\":\"0.0.0.0\",\"$is_server\":true,\"$lib\":\"posthog-rs\",\"$lib_version\":\"<posthog-rs crate vers",
-      "affected_tests_reported": null
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       130
+      ]
+     },
+     "selection_class": "full_fallback",
+     "o_change_selection": false,
+     "affected_tests_expected": 65,
+     "envelope_expected": 130,
+     "envelope_observed": 130,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 100.23,
+       "mode": "full",
+       "reason": "selection would cover 65% of the suite (> 40%)",
+       "tests": []
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 28.53,
+       "mode": "full",
+       "reason": "selection would cover 65% of the suite (> 40%)",
+       "tests": []
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 28.97,
+       "mode": "full",
+       "reason": "selection would cover 65% of the suite (> 40%)",
+       "tests": []
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 28.97,
+      "p10_ms": 28.53,
+      "p90_ms": 100.23,
+      "min_ms": 28.53,
+      "max_ms": 100.23
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 152.03,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_57/dep.go",
-         "t64_dep_44/dep.go",
-         "t64_dep_52/dep_test.go",
-         "t64_dep_57/dep_test.go",
-         "t64_dep_61/dep_test.go",
-         "t64_dep_22/dep.go",
-         "t64_dep_5/dep.go",
-         "t64_dep_10/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 205.07,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 24,
+         "contracts_ms": 7,
+         "findings_ms": 60,
+         "index_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 156.36,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_21/dep.go",
-         "t64_dep_46/dep_test.go",
-         "t64_dep_7/dep.go",
-         "t64_dep_32/dep_test.go",
-         "t64_dep_19/dep.go",
-         "t64_dep_15/dep.go",
-         "t64_dep_21/dep_test.go",
-         "t64_dep_29/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 114.81,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 22,
+         "contracts_ms": 4,
+         "findings_ms": 2,
+         "index_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 152.29,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_18/dep.go",
-         "t64_dep_52/dep.go",
-         "t64_dep_32/dep_test.go",
-         "t64_dep_29/dep_test.go",
-         "t64_dep_39/dep.go",
-         "t64_dep_19/dep_test.go",
-         "t64_dep_44/dep_test.go",
-         "t64_dep_32/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 114.13,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 17,
+         "contracts_ms": 4,
+         "findings_ms": 2,
+         "index_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 152.29,
-      "p10_ms": 152.03,
-      "p90_ms": 156.36,
-      "min_ms": 152.03,
-      "max_ms": 156.36
+      "median_ms": 114.81,
+      "p10_ms": 114.13,
+      "p90_ms": 205.07,
+      "min_ms": 114.13,
+      "max_ms": 205.07
      },
-     "fast_vet": [
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 473.94
+       "wall_ms": 961.22,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130,
+         "selection_full": 1
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 19,
+         "contracts_ms": 6,
+         "driver_ms": 607,
+         "findings_ms": 8,
+         "index_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 3
+        }
+       },
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 406.77
+       "wall_ms": 871.25,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130,
+         "selection_full": 1
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 23,
+         "contracts_ms": 5,
+         "driver_ms": 600,
+         "findings_ms": 3,
+         "index_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 3
+        }
+       },
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 462.87
+       "wall_ms": 732.0,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130,
+         "selection_full": 1
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 19,
+         "contracts_ms": 5,
+         "driver_ms": 503,
+         "findings_ms": 3,
+         "index_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 3
+        }
+       },
+       "stderr_tail": ""
       }
      ],
-     "fast_vet_ms": {
+     "full_propose_ms": {
       "n": 3,
-      "median_ms": 462.87,
-      "p10_ms": 406.77,
-      "p90_ms": 473.94,
-      "min_ms": 406.77,
-      "max_ms": 473.94
+      "median_ms": 871.25,
+      "p10_ms": 732.0,
+      "p90_ms": 961.22,
+      "min_ms": 732.0,
+      "max_ms": 961.22
+     },
+     "full_propose_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 24.32,
-      "vet_exit": 1,
-      "vet_ms": 165.22,
-      "oracle_exit": 1,
-      "oracle_ms": 461.49
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 45.53,
+       "p10_ms": 31.18,
+       "p90_ms": 83.92,
+       "min_ms": 31.18,
+       "max_ms": 83.92
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 417.21,
+       "p10_ms": 209.5,
+       "p90_ms": 808.46,
+       "min_ms": 209.5,
+       "max_ms": 808.46
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 16413.07,
+       "p10_ms": 11814.03,
+       "p90_ms": 18911.67,
+       "min_ms": 11814.03,
+       "max_ms": 18911.67
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     }
+   },
+   "go_warmup": {
+    "exit_code": 0,
+    "timed_out": false,
+    "seconds": 0.7
+   },
+   "evidence_scope": {
+    "cold": false,
+    "d": [
+     0,
+     4,
+     16,
+     64
+    ],
+    "reps": 3
+   },
+   "leases_after_abort": 1,
+   "leases_after_release": 0,
+   "unknown_path": {
+    "samples": [
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 341.76,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 26,
+        "contracts_ms": 4,
+        "findings_ms": 78,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 2
+       }
+      },
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 206.44,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 22,
+        "contracts_ms": 0,
+        "findings_ms": 3,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 0
+       }
+      },
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 257.89,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 69,
+        "contracts_ms": 2,
+        "findings_ms": 5,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 0
+       }
+      },
+      "stderr_tail": ""
+     }
+    ],
+    "counts": {
+     "landed": 3,
+     "refused": 0,
+     "dnf": 0,
+     "no_signal": 0
+    },
+    "wall_ms": {
+     "n": 3,
+     "median_ms": 257.89,
+     "p10_ms": 206.44,
+     "p90_ms": 341.76,
+     "min_ms": 206.44,
+     "max_ms": 341.76
+    },
+    "status_counts": {
+     "unknown": 3
+    },
+    "plan_counts": {
+     "PackageTests": 3
+    }
+   },
+   "concurrency": {
+    "n": 4,
+    "steer": true,
+    "batch_wall_ms": 333.6,
+    "samples": [
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 294.62,
+      "envelope": 2,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 295.52,
+      "envelope": 10,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 331.72,
+      "envelope": 34,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 310.94,
+      "envelope": 130,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     }
+    ],
+    "counts": {
+     "landed": 4,
+     "refused": 0,
+     "dnf": 0,
+     "no_signal": 0
+    },
+    "wall_ms": {
+     "n": 4,
+     "median_ms": 303.23,
+     "p10_ms": 294.62,
+     "p90_ms": 331.72,
+     "min_ms": 294.62,
+     "max_ms": 331.72
+    }
+   },
+   "validate_all": {
+    "fast_land": {
+     "outcome": "landed",
+     "wall_ms": 1094.66
+    },
+    "validate_all": {
+     "outcome": "landed",
+     "wall_ms": 34.12,
+     "tail": "Validating 2 Knot(s)...\n  \u2705 167c646a\n  \u2705 8a817d54\n\n  2/2 Knot(s) validated.\n"
+    }
+   },
+   "fallback": {
+    "cells": 4,
+    "full_fallback": 1,
+    "rate": 0.25
    }
   },
   "1000": {
@@ -944,444 +2077,1383 @@
       ]
      }
     },
-    "init_s": 58.0
+    "init_s": 15.3,
+    "restored_from_snapshot": "r1000_175b5ed97fe14bf5.tar",
+    "restore_s": 1.6
    },
-   "build_seconds": 60.2,
    "by_d": {
     "0": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "1/1000 test files: dependents closure of 1 touched path(s)\n  t0/t0_test.go (go): TestF_t0\n[nool-analytics] dev build -- would send: {\"api_key\":\"<redacted>\",\"distinct_id\":\"7f9c74b1-6e6d-42ed-ba74-0f42cce266bb\",\"event\":\"cli_command\",\"properties\":{\"$ip\":\"0.0.0.0\",\"$is_server\":true,\"$lib\":\"posthog-rs\",\"",
-      "affected_tests_reported": 1
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       2
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 1,
+     "envelope_expected": 2,
+     "envelope_observed": 2,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 76.22,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 74.81,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 65.89,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 74.81,
+      "p10_ms": 65.89,
+      "p90_ms": 76.22,
+      "min_ms": 65.89,
+      "max_ms": 76.22
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 487.32,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0_test.go",
-         "t0/t0.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 163.87,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 20,
+         "contracts_ms": 6,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 267.69,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0_test.go",
-         "t0/t0.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 157.7,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 17,
+         "contracts_ms": 7,
+         "findings_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 255.48,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0_test.go",
-         "t0/t0.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 149.02,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 15,
+         "contracts_ms": 6,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 267.69,
-      "p10_ms": 255.48,
-      "p90_ms": 487.32,
-      "min_ms": 255.48,
-      "max_ms": 487.32
+      "median_ms": 157.7,
+      "p10_ms": 149.02,
+      "p90_ms": 163.87,
+      "min_ms": 149.02,
+      "max_ms": 163.87
      },
-     "fast_vet": [
-      {
-       "exit_code": 0,
-       "wall_ms": 2422.05
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 1685.47
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 1675.4
-      }
-     ],
-     "fast_vet_ms": {
-      "n": 3,
-      "median_ms": 1685.47,
-      "p10_ms": 1675.4,
-      "p90_ms": 2422.05,
-      "min_ms": 1675.4,
-      "max_ms": 2422.05
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [],
+     "full_propose_ms": null,
+     "full_propose_counts": {
+      "landed": 0,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 53.33,
-      "vet_exit": 1,
-      "vet_ms": 734.06,
-      "oracle_exit": 0,
-      "oracle_ms": 827.97
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 46.55,
+       "p10_ms": 36.79,
+       "p90_ms": 234.17,
+       "min_ms": 36.79,
+       "max_ms": 234.17
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 2249.19,
+       "p10_ms": 1239.16,
+       "p90_ms": 2254.88,
+       "min_ms": 1239.16,
+       "max_ms": 2254.88
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 416.11,
+       "p10_ms": 349.66,
+       "p90_ms": 778.01,
+       "min_ms": 349.66,
+       "max_ms": 778.01
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "4": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "5/1000 test files: dependents closure of 1 touched path(s)\n  t4/t4_test.go (go): TestF_t4\n  t4_dep_0/dep_test.go (go): TestG_t4_0\n  t4_dep_1/dep_test.go (go): TestG_t4_1\n  t4_dep_2/dep_test.go (go): TestG_t4_2\n  t4_dep_3/dep_test.go (go): TestG_t4_3\n[nool-analytics] dev build -- would send: {\"api_ke",
-      "affected_tests_reported": 5
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       10
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 5,
+     "envelope_expected": 10,
+     "envelope_observed": 10,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 95.89,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 69.37,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 70.16,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 70.16,
+      "p10_ms": 69.37,
+      "p90_ms": 95.89,
+      "min_ms": 69.37,
+      "max_ms": 95.89
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 253.57,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_2/dep_test.go",
-         "t4_dep_1/dep.go",
-         "t4_dep_2/dep.go",
-         "t4/t4.go",
-         "t4_dep_3/dep_test.go",
-         "t4_dep_0/dep_test.go",
-         "t4_dep_3/dep.go",
-         "t4/t4_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 169.81,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 17,
+         "contracts_ms": 15,
+         "findings_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 254.51,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_2/dep.go",
-         "t4/t4_test.go",
-         "t4/t4.go",
-         "t4_dep_0/dep_test.go",
-         "t4_dep_1/dep_test.go",
-         "t4_dep_1/dep.go",
-         "t4_dep_0/dep.go",
-         "t4_dep_2/dep_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 151.72,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 16,
+         "contracts_ms": 7,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 268.34,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_2/dep_test.go",
-         "t4_dep_2/dep.go",
-         "t4_dep_0/dep.go",
-         "t4_dep_1/dep.go",
-         "t4/t4_test.go",
-         "t4_dep_3/dep.go",
-         "t4_dep_3/dep_test.go",
-         "t4_dep_0/dep_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 160.9,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 18,
+         "contracts_ms": 7,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 254.51,
-      "p10_ms": 253.57,
-      "p90_ms": 268.34,
-      "min_ms": 253.57,
-      "max_ms": 268.34
+      "median_ms": 160.9,
+      "p10_ms": 151.72,
+      "p90_ms": 169.81,
+      "min_ms": 151.72,
+      "max_ms": 169.81
      },
-     "fast_vet": [
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 1585.52
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 1594.98
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 1660.77
+       "wall_ms": 287221.03,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10,
+         "selection_full": 0,
+         "tests_selected": 5
+        },
+        "ms": {
+         "aram_ms": 1,
+         "blast_ms": 17,
+         "contracts_ms": 7,
+         "driver_ms": 286120,
+         "findings_ms": 131,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0,
+         "test_select_ms": 6
+        }
+       },
+       "stderr_tail": ""
       }
      ],
-     "fast_vet_ms": {
-      "n": 3,
-      "median_ms": 1594.98,
-      "p10_ms": 1585.52,
-      "p90_ms": 1660.77,
-      "min_ms": 1585.52,
-      "max_ms": 1660.77
+     "full_propose_ms": {
+      "n": 1,
+      "median_ms": 287221.03,
+      "p10_ms": null,
+      "p90_ms": null,
+      "min_ms": 287221.03,
+      "max_ms": 287221.03
+     },
+     "full_propose_counts": {
+      "landed": 1,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 38.43,
-      "vet_exit": 1,
-      "vet_ms": 699.3,
-      "oracle_exit": 1,
-      "oracle_ms": 497.52
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 36.55,
+       "p10_ms": 32.56,
+       "p90_ms": 56.77,
+       "min_ms": 32.56,
+       "max_ms": 56.77
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 1146.46,
+       "p10_ms": 1086.74,
+       "p90_ms": 2314.54,
+       "min_ms": 1086.74,
+       "max_ms": 2314.54
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 1021.76,
+       "p10_ms": 970.32,
+       "p90_ms": 1073.07,
+       "min_ms": 970.32,
+       "max_ms": 1073.07
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "16": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "17/1000 test files: dependents closure of 1 touched path(s)\n  t16/t16_test.go (go): TestF_t16\n  t16_dep_0/dep_test.go (go): TestG_t16_0\n  t16_dep_1/dep_test.go (go): TestG_t16_1\n  t16_dep_10/dep_test.go (go): TestG_t16_10\n  t16_dep_11/dep_test.go (go): TestG_t16_11\n  t16_dep_12/dep_test.go (go): Tes",
-      "affected_tests_reported": 17
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       34
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 17,
+     "envelope_expected": 34,
+     "envelope_observed": 34,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 754.24,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 67.8,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 68.35,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 68.35,
+      "p10_ms": 67.8,
+      "p90_ms": 754.24,
+      "min_ms": 67.8,
+      "max_ms": 754.24
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 304.98,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_13/dep_test.go",
-         "t16_dep_2/dep_test.go",
-         "t16_dep_6/dep.go",
-         "t16_dep_14/dep.go",
-         "t16_dep_0/dep_test.go",
-         "t16_dep_1/dep.go",
-         "t16_dep_11/dep_test.go",
-         "t16_dep_14/dep_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 300.47,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 28,
+         "contracts_ms": 31,
+         "findings_ms": 65,
+         "index_ms": 28,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 291.26,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_2/dep_test.go",
-         "t16_dep_3/dep.go",
-         "t16_dep_8/dep_test.go",
-         "t16_dep_7/dep_test.go",
-         "t16_dep_8/dep.go",
-         "t16_dep_15/dep_test.go",
-         "t16_dep_9/dep_test.go",
-         "t16_dep_7/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 179.1,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 21,
+         "contracts_ms": 10,
+         "findings_ms": 2,
+         "index_ms": 19,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 292.61,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_2/dep_test.go",
-         "t16_dep_6/dep_test.go",
-         "t16/t16.go",
-         "t16_dep_15/dep.go",
-         "t16_dep_5/dep.go",
-         "t16_dep_5/dep_test.go",
-         "t16_dep_13/dep_test.go",
-         "t16_dep_1/dep_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 176.44,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 15,
+         "contracts_ms": 7,
+         "findings_ms": 2,
+         "index_ms": 18,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 292.61,
-      "p10_ms": 291.26,
-      "p90_ms": 304.98,
-      "min_ms": 291.26,
-      "max_ms": 304.98
+      "median_ms": 179.1,
+      "p10_ms": 176.44,
+      "p90_ms": 300.47,
+      "min_ms": 176.44,
+      "max_ms": 300.47
      },
-     "fast_vet": [
-      {
-       "exit_code": 0,
-       "wall_ms": 1606.97
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 1763.83
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 1702.26
-      }
-     ],
-     "fast_vet_ms": {
-      "n": 3,
-      "median_ms": 1702.26,
-      "p10_ms": 1606.97,
-      "p90_ms": 1763.83,
-      "min_ms": 1606.97,
-      "max_ms": 1763.83
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [],
+     "full_propose_ms": null,
+     "full_propose_counts": {
+      "landed": 0,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 40.5,
-      "vet_exit": 1,
-      "vet_ms": 698.65,
-      "oracle_exit": 1,
-      "oracle_ms": 517.64
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 34.93,
+       "p10_ms": 34.54,
+       "p90_ms": 36.99,
+       "min_ms": 34.54,
+       "max_ms": 36.99
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 1307.86,
+       "p10_ms": 1205.01,
+       "p90_ms": 1314.01,
+       "min_ms": 1205.01,
+       "max_ms": 1314.01
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 3072.12,
+       "p10_ms": 3011.73,
+       "p90_ms": 3161.0,
+       "min_ms": 3011.73,
+       "max_ms": 3161.0
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "64": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "65/1000 test files: dependents closure of 1 touched path(s)\n  t64/t64_test.go (go): TestF_t64\n  t64_dep_0/dep_test.go (go): TestG_t64_0\n  t64_dep_1/dep_test.go (go): TestG_t64_1\n  t64_dep_10/dep_test.go (go): TestG_t64_10\n  t64_dep_11/dep_test.go (go): TestG_t64_11\n  t64_dep_12/dep_test.go (go): Tes",
-      "affected_tests_reported": 65
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       130
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 65,
+     "envelope_expected": 130,
+     "envelope_observed": 130,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 213.21,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t64/t64_test.go",
+        "t64_dep_0/dep_test.go",
+        "t64_dep_1/dep_test.go",
+        "t64_dep_10/dep_test.go",
+        "t64_dep_11/dep_test.go",
+        "t64_dep_12/dep_test.go",
+        "t64_dep_13/dep_test.go",
+        "t64_dep_14/dep_test.go",
+        "t64_dep_15/dep_test.go",
+        "t64_dep_16/dep_test.go",
+        "t64_dep_17/dep_test.go",
+        "t64_dep_18/dep_test.go",
+        "t64_dep_19/dep_test.go",
+        "t64_dep_2/dep_test.go",
+        "t64_dep_20/dep_test.go",
+        "t64_dep_21/dep_test.go",
+        "t64_dep_22/dep_test.go",
+        "t64_dep_23/dep_test.go",
+        "t64_dep_24/dep_test.go",
+        "t64_dep_25/dep_test.go",
+        "t64_dep_26/dep_test.go",
+        "t64_dep_27/dep_test.go",
+        "t64_dep_28/dep_test.go",
+        "t64_dep_29/dep_test.go",
+        "t64_dep_3/dep_test.go",
+        "t64_dep_30/dep_test.go",
+        "t64_dep_31/dep_test.go",
+        "t64_dep_32/dep_test.go",
+        "t64_dep_33/dep_test.go",
+        "t64_dep_34/dep_test.go",
+        "t64_dep_35/dep_test.go",
+        "t64_dep_36/dep_test.go",
+        "t64_dep_37/dep_test.go",
+        "t64_dep_38/dep_test.go",
+        "t64_dep_39/dep_test.go",
+        "t64_dep_4/dep_test.go",
+        "t64_dep_40/dep_test.go",
+        "t64_dep_41/dep_test.go",
+        "t64_dep_42/dep_test.go",
+        "t64_dep_43/dep_test.go",
+        "t64_dep_44/dep_test.go",
+        "t64_dep_45/dep_test.go",
+        "t64_dep_46/dep_test.go",
+        "t64_dep_47/dep_test.go",
+        "t64_dep_48/dep_test.go",
+        "t64_dep_49/dep_test.go",
+        "t64_dep_5/dep_test.go",
+        "t64_dep_50/dep_test.go",
+        "t64_dep_51/dep_test.go",
+        "t64_dep_52/dep_test.go",
+        "t64_dep_53/dep_test.go",
+        "t64_dep_54/dep_test.go",
+        "t64_dep_55/dep_test.go",
+        "t64_dep_56/dep_test.go",
+        "t64_dep_57/dep_test.go",
+        "t64_dep_58/dep_test.go",
+        "t64_dep_59/dep_test.go",
+        "t64_dep_6/dep_test.go",
+        "t64_dep_60/dep_test.go",
+        "t64_dep_61/dep_test.go",
+        "t64_dep_62/dep_test.go",
+        "t64_dep_63/dep_test.go",
+        "t64_dep_7/dep_test.go",
+        "t64_dep_8/dep_test.go",
+        "t64_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 74.89,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t64/t64_test.go",
+        "t64_dep_0/dep_test.go",
+        "t64_dep_1/dep_test.go",
+        "t64_dep_10/dep_test.go",
+        "t64_dep_11/dep_test.go",
+        "t64_dep_12/dep_test.go",
+        "t64_dep_13/dep_test.go",
+        "t64_dep_14/dep_test.go",
+        "t64_dep_15/dep_test.go",
+        "t64_dep_16/dep_test.go",
+        "t64_dep_17/dep_test.go",
+        "t64_dep_18/dep_test.go",
+        "t64_dep_19/dep_test.go",
+        "t64_dep_2/dep_test.go",
+        "t64_dep_20/dep_test.go",
+        "t64_dep_21/dep_test.go",
+        "t64_dep_22/dep_test.go",
+        "t64_dep_23/dep_test.go",
+        "t64_dep_24/dep_test.go",
+        "t64_dep_25/dep_test.go",
+        "t64_dep_26/dep_test.go",
+        "t64_dep_27/dep_test.go",
+        "t64_dep_28/dep_test.go",
+        "t64_dep_29/dep_test.go",
+        "t64_dep_3/dep_test.go",
+        "t64_dep_30/dep_test.go",
+        "t64_dep_31/dep_test.go",
+        "t64_dep_32/dep_test.go",
+        "t64_dep_33/dep_test.go",
+        "t64_dep_34/dep_test.go",
+        "t64_dep_35/dep_test.go",
+        "t64_dep_36/dep_test.go",
+        "t64_dep_37/dep_test.go",
+        "t64_dep_38/dep_test.go",
+        "t64_dep_39/dep_test.go",
+        "t64_dep_4/dep_test.go",
+        "t64_dep_40/dep_test.go",
+        "t64_dep_41/dep_test.go",
+        "t64_dep_42/dep_test.go",
+        "t64_dep_43/dep_test.go",
+        "t64_dep_44/dep_test.go",
+        "t64_dep_45/dep_test.go",
+        "t64_dep_46/dep_test.go",
+        "t64_dep_47/dep_test.go",
+        "t64_dep_48/dep_test.go",
+        "t64_dep_49/dep_test.go",
+        "t64_dep_5/dep_test.go",
+        "t64_dep_50/dep_test.go",
+        "t64_dep_51/dep_test.go",
+        "t64_dep_52/dep_test.go",
+        "t64_dep_53/dep_test.go",
+        "t64_dep_54/dep_test.go",
+        "t64_dep_55/dep_test.go",
+        "t64_dep_56/dep_test.go",
+        "t64_dep_57/dep_test.go",
+        "t64_dep_58/dep_test.go",
+        "t64_dep_59/dep_test.go",
+        "t64_dep_6/dep_test.go",
+        "t64_dep_60/dep_test.go",
+        "t64_dep_61/dep_test.go",
+        "t64_dep_62/dep_test.go",
+        "t64_dep_63/dep_test.go",
+        "t64_dep_7/dep_test.go",
+        "t64_dep_8/dep_test.go",
+        "t64_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 75.89,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t64/t64_test.go",
+        "t64_dep_0/dep_test.go",
+        "t64_dep_1/dep_test.go",
+        "t64_dep_10/dep_test.go",
+        "t64_dep_11/dep_test.go",
+        "t64_dep_12/dep_test.go",
+        "t64_dep_13/dep_test.go",
+        "t64_dep_14/dep_test.go",
+        "t64_dep_15/dep_test.go",
+        "t64_dep_16/dep_test.go",
+        "t64_dep_17/dep_test.go",
+        "t64_dep_18/dep_test.go",
+        "t64_dep_19/dep_test.go",
+        "t64_dep_2/dep_test.go",
+        "t64_dep_20/dep_test.go",
+        "t64_dep_21/dep_test.go",
+        "t64_dep_22/dep_test.go",
+        "t64_dep_23/dep_test.go",
+        "t64_dep_24/dep_test.go",
+        "t64_dep_25/dep_test.go",
+        "t64_dep_26/dep_test.go",
+        "t64_dep_27/dep_test.go",
+        "t64_dep_28/dep_test.go",
+        "t64_dep_29/dep_test.go",
+        "t64_dep_3/dep_test.go",
+        "t64_dep_30/dep_test.go",
+        "t64_dep_31/dep_test.go",
+        "t64_dep_32/dep_test.go",
+        "t64_dep_33/dep_test.go",
+        "t64_dep_34/dep_test.go",
+        "t64_dep_35/dep_test.go",
+        "t64_dep_36/dep_test.go",
+        "t64_dep_37/dep_test.go",
+        "t64_dep_38/dep_test.go",
+        "t64_dep_39/dep_test.go",
+        "t64_dep_4/dep_test.go",
+        "t64_dep_40/dep_test.go",
+        "t64_dep_41/dep_test.go",
+        "t64_dep_42/dep_test.go",
+        "t64_dep_43/dep_test.go",
+        "t64_dep_44/dep_test.go",
+        "t64_dep_45/dep_test.go",
+        "t64_dep_46/dep_test.go",
+        "t64_dep_47/dep_test.go",
+        "t64_dep_48/dep_test.go",
+        "t64_dep_49/dep_test.go",
+        "t64_dep_5/dep_test.go",
+        "t64_dep_50/dep_test.go",
+        "t64_dep_51/dep_test.go",
+        "t64_dep_52/dep_test.go",
+        "t64_dep_53/dep_test.go",
+        "t64_dep_54/dep_test.go",
+        "t64_dep_55/dep_test.go",
+        "t64_dep_56/dep_test.go",
+        "t64_dep_57/dep_test.go",
+        "t64_dep_58/dep_test.go",
+        "t64_dep_59/dep_test.go",
+        "t64_dep_6/dep_test.go",
+        "t64_dep_60/dep_test.go",
+        "t64_dep_61/dep_test.go",
+        "t64_dep_62/dep_test.go",
+        "t64_dep_63/dep_test.go",
+        "t64_dep_7/dep_test.go",
+        "t64_dep_8/dep_test.go",
+        "t64_dep_9/dep_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 75.89,
+      "p10_ms": 74.89,
+      "p90_ms": 213.21,
+      "min_ms": 74.89,
+      "max_ms": 213.21
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 337.19,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_20/dep_test.go",
-         "t64_dep_51/dep_test.go",
-         "t64_dep_18/dep.go",
-         "t64_dep_4/dep.go",
-         "t64_dep_44/dep_test.go",
-         "t64_dep_27/dep_test.go",
-         "t64_dep_45/dep_test.go",
-         "t64_dep_6/dep_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 295.47,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 24,
+         "contracts_ms": 39,
+         "findings_ms": 60,
+         "index_ms": 28,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 323.81,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_63/dep_test.go",
-         "t64_dep_40/dep_test.go",
-         "t64_dep_46/dep.go",
-         "t64_dep_53/dep.go",
-         "t64_dep_6/dep_test.go",
-         "t64_dep_41/dep.go",
-         "t64_dep_33/dep_test.go",
-         "t64_dep_44/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 185.04,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 20,
+         "contracts_ms": 12,
+         "findings_ms": 2,
+         "index_ms": 19,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 323.29,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_36/dep.go",
-         "t64_dep_40/dep.go",
-         "t64_dep_35/dep.go",
-         "t64_dep_5/dep.go",
-         "t64_dep_32/dep.go",
-         "t64_dep_9/dep_test.go",
-         "t64_dep_5/dep_test.go",
-         "t64_dep_2/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 188.11,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 22,
+         "contracts_ms": 14,
+         "findings_ms": 2,
+         "index_ms": 19,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 323.81,
-      "p10_ms": 323.29,
-      "p90_ms": 337.19,
-      "min_ms": 323.29,
-      "max_ms": 337.19
+      "median_ms": 188.11,
+      "p10_ms": 185.04,
+      "p90_ms": 295.47,
+      "min_ms": 185.04,
+      "max_ms": 295.47
      },
-     "fast_vet": [
-      {
-       "exit_code": 0,
-       "wall_ms": 1734.79
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 1683.55
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 1653.55
-      }
-     ],
-     "fast_vet_ms": {
-      "n": 3,
-      "median_ms": 1683.55,
-      "p10_ms": 1653.55,
-      "p90_ms": 1734.79,
-      "min_ms": 1653.55,
-      "max_ms": 1734.79
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [],
+     "full_propose_ms": null,
+     "full_propose_counts": {
+      "landed": 0,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 33.92,
-      "vet_exit": 1,
-      "vet_ms": 688.25,
-      "oracle_exit": 1,
-      "oracle_ms": 459.09
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 39.87,
+       "p10_ms": 36.51,
+       "p90_ms": 72.4,
+       "min_ms": 36.51,
+       "max_ms": 72.4
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 2059.25,
+       "p10_ms": 1261.2,
+       "p90_ms": 2411.81,
+       "min_ms": 1261.2,
+       "max_ms": 2411.81
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 13443.47,
+       "p10_ms": 11309.57,
+       "p90_ms": 16496.0,
+       "min_ms": 11309.57,
+       "max_ms": 16496.0
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     }
+   },
+   "go_warmup": {
+    "skipped": true,
+    "reason": "R > 100: evidence measured cold"
+   },
+   "evidence_scope": {
+    "cold": true,
+    "d": [
+     4
+    ],
+    "reps": 1
+   },
+   "leases_after_abort": 1,
+   "leases_after_release": 0,
+   "unknown_path": {
+    "samples": [
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 339.43,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 21,
+        "contracts_ms": 22,
+        "findings_ms": 68,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 1
+       }
+      },
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 153.0,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 16,
+        "contracts_ms": 6,
+        "findings_ms": 2,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 0
+       }
+      },
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 152.24,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 16,
+        "contracts_ms": 7,
+        "findings_ms": 2,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 0
+       }
+      },
+      "stderr_tail": ""
+     }
+    ],
+    "counts": {
+     "landed": 3,
+     "refused": 0,
+     "dnf": 0,
+     "no_signal": 0
+    },
+    "wall_ms": {
+     "n": 3,
+     "median_ms": 153.0,
+     "p10_ms": 152.24,
+     "p90_ms": 339.43,
+     "min_ms": 152.24,
+     "max_ms": 339.43
+    },
+    "status_counts": {
+     "unknown": 3
+    },
+    "plan_counts": {
+     "PackageTests": 3
+    }
+   },
+   "concurrency": {
+    "n": 4,
+    "steer": true,
+    "batch_wall_ms": 253.61,
+    "samples": [
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 251.5,
+      "envelope": 2,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 182.96,
+      "envelope": 10,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 251.18,
+      "envelope": 34,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 252.35,
+      "envelope": 130,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     }
+    ],
+    "counts": {
+     "landed": 4,
+     "refused": 0,
+     "dnf": 0,
+     "no_signal": 0
+    },
+    "wall_ms": {
+     "n": 4,
+     "median_ms": 251.34,
+     "p10_ms": 182.96,
+     "p90_ms": 252.35,
+     "min_ms": 182.96,
+     "max_ms": 252.35
+    }
+   },
+   "validate_all": {
+    "fast_land": {
+     "outcome": "landed",
+     "wall_ms": 3217.34
+    },
+    "validate_all": {
+     "outcome": "landed",
+     "wall_ms": 50.54,
+     "tail": "Validating 2 Knot(s)...\n  \u2705 81f1502b\n  \u2705 17da5782\n\n  2/2 Knot(s) validated.\n"
+    }
+   },
+   "fallback": {
+    "cells": 4,
+    "full_fallback": 0,
+    "rate": 0.0
    }
   },
   "10000": {
@@ -1608,444 +3680,1357 @@
       ]
      }
     },
-    "init_s": 2187.0
+    "init_s": 1155.2,
+    "restored_from_snapshot": null
    },
-   "build_seconds": 2208.4,
    "by_d": {
     "0": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "1/10000 test files: dependents closure of 1 touched path(s)\n  t0/t0_test.go (go): TestF_t0\n[nool-analytics] dev build -- would send: {\"api_key\":\"<redacted>\",\"distinct_id\":\"7f9c74b1-6e6d-42ed-ba74-0f42cce266bb\",\"event\":\"cli_command\",\"properties\":{\"$ip\":\"0.0.0.0\",\"$is_server\":true,\"$lib\":\"posthog-rs\",",
-      "affected_tests_reported": 1
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       2
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 1,
+     "envelope_expected": 2,
+     "envelope_observed": 2,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 538.04,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 531.24,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 538.09,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t0/t0_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 538.04,
+      "p10_ms": 531.24,
+      "p90_ms": 538.09,
+      "min_ms": 531.24,
+      "max_ms": 538.09
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 4553.93,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0.go",
-         "t0/t0_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 775.37,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 18,
+         "contracts_ms": 95,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 1774.83,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0_test.go",
-         "t0/t0.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 774.67,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 17,
+         "contracts_ms": 110,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 1725.95,
-       "envelope": {
-        "affected": 2,
-        "affected_nodes": [
-         "t0/t0.go",
-         "t0/t0_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "ELEVATED"
+       "wall_ms": 798.08,
+       "envelope": 2,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 2
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 17,
+         "contracts_ms": 100,
+         "findings_ms": 3,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 1774.83,
-      "p10_ms": 1725.95,
-      "p90_ms": 4553.93,
-      "min_ms": 1725.95,
-      "max_ms": 4553.93
+      "median_ms": 775.37,
+      "p10_ms": 774.67,
+      "p90_ms": 798.08,
+      "min_ms": 774.67,
+      "max_ms": 798.08
      },
-     "fast_vet": [
-      {
-       "exit_code": 0,
-       "wall_ms": 34761.07
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 22661.3
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 20931.23
-      }
-     ],
-     "fast_vet_ms": {
-      "n": 3,
-      "median_ms": 22661.3,
-      "p10_ms": 20931.23,
-      "p90_ms": 34761.07,
-      "min_ms": 20931.23,
-      "max_ms": 34761.07
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [],
+     "full_propose_ms": null,
+     "full_propose_counts": {
+      "landed": 0,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 261.9,
-      "vet_exit": 1,
-      "vet_ms": 14925.28,
-      "oracle_exit": 0,
-      "oracle_ms": 732.79
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 81.86,
+       "p10_ms": 79.74,
+       "p90_ms": 423.71,
+       "min_ms": 79.74,
+       "max_ms": 423.71
+      },
+      "vet_ms": {
+       "n": 2,
+       "median_ms": 91667.2,
+       "p10_ms": null,
+       "p90_ms": null,
+       "min_ms": 33295.43,
+       "max_ms": 150038.97
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 810.03,
+       "p10_ms": 715.58,
+       "p90_ms": 1074.77,
+       "min_ms": 715.58,
+       "max_ms": 1074.77
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 2,
+        "refused": 0,
+        "dnf": 1,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        null,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "4": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "5/10000 test files: dependents closure of 1 touched path(s)\n  t4/t4_test.go (go): TestF_t4\n  t4_dep_0/dep_test.go (go): TestG_t4_0\n  t4_dep_1/dep_test.go (go): TestG_t4_1\n  t4_dep_2/dep_test.go (go): TestG_t4_2\n  t4_dep_3/dep_test.go (go): TestG_t4_3\n[nool-analytics] dev build -- would send: {\"api_k",
-      "affected_tests_reported": 5
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       10
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 5,
+     "envelope_expected": 10,
+     "envelope_observed": 10,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 1032.41,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 538.58,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 528.34,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t4/t4_test.go",
+        "t4_dep_0/dep_test.go",
+        "t4_dep_1/dep_test.go",
+        "t4_dep_2/dep_test.go",
+        "t4_dep_3/dep_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 538.58,
+      "p10_ms": 528.34,
+      "p90_ms": 1032.41,
+      "min_ms": 528.34,
+      "max_ms": 1032.41
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 1653.99,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_0/dep_test.go",
-         "t4_dep_1/dep.go",
-         "t4_dep_2/dep.go",
-         "t4_dep_0/dep.go",
-         "t4_dep_3/dep.go",
-         "t4_dep_3/dep_test.go",
-         "t4/t4.go",
-         "t4/t4_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 991.69,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 23,
+         "contracts_ms": 259,
+         "findings_ms": 74,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 1597.21,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_2/dep_test.go",
-         "t4_dep_0/dep.go",
-         "t4_dep_0/dep_test.go",
-         "t4_dep_1/dep.go",
-         "t4/t4.go",
-         "t4_dep_1/dep_test.go",
-         "t4_dep_3/dep_test.go",
-         "t4_dep_2/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 736.53,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 17,
+         "contracts_ms": 121,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 1611.55,
-       "envelope": {
-        "affected": 10,
-        "affected_nodes": [
-         "t4_dep_0/dep.go",
-         "t4/t4.go",
-         "t4_dep_3/dep_test.go",
-         "t4/t4_test.go",
-         "t4_dep_3/dep.go",
-         "t4_dep_0/dep_test.go",
-         "t4_dep_2/dep.go",
-         "t4_dep_2/dep_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 708.67,
+       "envelope": 10,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 10
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 18,
+         "contracts_ms": 93,
+         "findings_ms": 2,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 1611.55,
-      "p10_ms": 1597.21,
-      "p90_ms": 1653.99,
-      "min_ms": 1597.21,
-      "max_ms": 1653.99
+      "median_ms": 736.53,
+      "p10_ms": 708.67,
+      "p90_ms": 991.69,
+      "min_ms": 708.67,
+      "max_ms": 991.69
      },
-     "fast_vet": [
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [
       {
-       "exit_code": 0,
-       "wall_ms": 24501.28
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 28807.64
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 20898.25
+       "outcome": "refused",
+       "exit_code": 2,
+       "wall_ms": 644642.78,
+       "envelope": null,
+       "envelope_status": null,
+       "contracts_count": null,
+       "plan": null,
+       "stages": null,
+       "stderr_tail": "Error: Reification failed for '.go'. Output hash: 4e7bdc5011635cb074bb8318996a87830c90126e942263bf06e613ddea853f95\n"
       }
      ],
-     "fast_vet_ms": {
-      "n": 3,
-      "median_ms": 24501.28,
-      "p10_ms": 20898.25,
-      "p90_ms": 28807.64,
-      "min_ms": 20898.25,
-      "max_ms": 28807.64
+     "full_propose_ms": null,
+     "full_propose_counts": {
+      "landed": 0,
+      "refused": 1,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 85.79,
-      "vet_exit": 1,
-      "vet_ms": 27107.12,
-      "oracle_exit": 1,
-      "oracle_ms": 6173.73
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 108.4,
+       "p10_ms": 74.58,
+       "p90_ms": 123.79,
+       "min_ms": 74.58,
+       "max_ms": 123.79
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 37253.68,
+       "p10_ms": 34460.89,
+       "p90_ms": 43350.55,
+       "min_ms": 34460.89,
+       "max_ms": 43350.55
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 1972.03,
+       "p10_ms": 1507.61,
+       "p90_ms": 2043.13,
+       "min_ms": 1507.61,
+       "max_ms": 2043.13
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "16": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "17/10000 test files: dependents closure of 1 touched path(s)\n  t16/t16_test.go (go): TestF_t16\n  t16_dep_0/dep_test.go (go): TestG_t16_0\n  t16_dep_1/dep_test.go (go): TestG_t16_1\n  t16_dep_10/dep_test.go (go): TestG_t16_10\n  t16_dep_11/dep_test.go (go): TestG_t16_11\n  t16_dep_12/dep_test.go (go): Te",
-      "affected_tests_reported": 17
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       34
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 17,
+     "envelope_expected": 34,
+     "envelope_observed": 34,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 1076.47,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 516.81,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 523.67,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t16/t16_test.go",
+        "t16_dep_0/dep_test.go",
+        "t16_dep_1/dep_test.go",
+        "t16_dep_10/dep_test.go",
+        "t16_dep_11/dep_test.go",
+        "t16_dep_12/dep_test.go",
+        "t16_dep_13/dep_test.go",
+        "t16_dep_14/dep_test.go",
+        "t16_dep_15/dep_test.go",
+        "t16_dep_2/dep_test.go",
+        "t16_dep_3/dep_test.go",
+        "t16_dep_4/dep_test.go",
+        "t16_dep_5/dep_test.go",
+        "t16_dep_6/dep_test.go",
+        "t16_dep_7/dep_test.go",
+        "t16_dep_8/dep_test.go",
+        "t16_dep_9/dep_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 523.67,
+      "p10_ms": 516.81,
+      "p90_ms": 1076.47,
+      "min_ms": 516.81,
+      "max_ms": 1076.47
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 2682.78,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_8/dep.go",
-         "t16_dep_12/dep.go",
-         "t16_dep_4/dep.go",
-         "t16_dep_0/dep.go",
-         "t16_dep_5/dep_test.go",
-         "t16/t16.go",
-         "t16_dep_14/dep.go",
-         "t16_dep_11/dep_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 2120.5,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 1,
+         "blast_ms": 37,
+         "contracts_ms": 610,
+         "findings_ms": 156,
+         "index_ms": 627,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 2040.83,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_14/dep_test.go",
-         "t16_dep_6/dep_test.go",
-         "t16_dep_3/dep.go",
-         "t16_dep_4/dep.go",
-         "t16_dep_1/dep_test.go",
-         "t16_dep_5/dep.go",
-         "t16_dep_5/dep_test.go",
-         "t16_dep_11/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 1021.03,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 17,
+         "contracts_ms": 95,
+         "findings_ms": 3,
+         "index_ms": 209,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 2041.35,
-       "envelope": {
-        "affected": 34,
-        "affected_nodes": [
-         "t16_dep_10/dep.go",
-         "t16_dep_6/dep.go",
-         "t16_dep_0/dep_test.go",
-         "t16_dep_7/dep_test.go",
-         "t16/t16.go",
-         "t16/t16_test.go",
-         "t16_dep_12/dep.go",
-         "t16_dep_13/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 1091.11,
+       "envelope": 34,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 34
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 18,
+         "contracts_ms": 98,
+         "findings_ms": 2,
+         "index_ms": 211,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 2041.35,
-      "p10_ms": 2040.83,
-      "p90_ms": 2682.78,
-      "min_ms": 2040.83,
-      "max_ms": 2682.78
+      "median_ms": 1091.11,
+      "p10_ms": 1021.03,
+      "p90_ms": 2120.5,
+      "min_ms": 1021.03,
+      "max_ms": 2120.5
      },
-     "fast_vet": [
-      {
-       "exit_code": 0,
-       "wall_ms": 23246.1
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 20647.68
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 22028.47
-      }
-     ],
-     "fast_vet_ms": {
-      "n": 3,
-      "median_ms": 22028.47,
-      "p10_ms": 20647.68,
-      "p90_ms": 23246.1,
-      "min_ms": 20647.68,
-      "max_ms": 23246.1
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [],
+     "full_propose_ms": null,
+     "full_propose_counts": {
+      "landed": 0,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 81.87,
-      "vet_exit": 1,
-      "vet_ms": 14592.71,
-      "oracle_exit": 1,
-      "oracle_ms": 543.18
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 77.2,
+       "p10_ms": 69.29,
+       "p90_ms": 84.92,
+       "min_ms": 69.29,
+       "max_ms": 84.92
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 29375.26,
+       "p10_ms": 28206.13,
+       "p90_ms": 34213.83,
+       "min_ms": 28206.13,
+       "max_ms": 34213.83
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 6090.41,
+       "p10_ms": 5998.11,
+       "p90_ms": 6240.48,
+       "min_ms": 5998.11,
+       "max_ms": 6240.48
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     },
     "64": {
-     "closure_ok": true,
-     "probe": {
-      "exit": 0,
-      "raw": "65/10000 test files: dependents closure of 1 touched path(s)\n  t64/t64_test.go (go): TestF_t64\n  t64_dep_0/dep_test.go (go): TestG_t64_0\n  t64_dep_1/dep_test.go (go): TestG_t64_1\n  t64_dep_10/dep_test.go (go): TestG_t64_10\n  t64_dep_11/dep_test.go (go): TestG_t64_11\n  t64_dep_12/dep_test.go (go): Te",
-      "affected_tests_reported": 65
+     "closure": {
+      "ok": true,
+      "reason": null,
+      "envelope_values": [
+       130
+      ]
+     },
+     "selection_class": "exact",
+     "o_change_selection": true,
+     "affected_tests_expected": 65,
+     "envelope_expected": 130,
+     "envelope_observed": 130,
+     "affected_tests": [
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 960.35,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t64/t64_test.go",
+        "t64_dep_0/dep_test.go",
+        "t64_dep_1/dep_test.go",
+        "t64_dep_10/dep_test.go",
+        "t64_dep_11/dep_test.go",
+        "t64_dep_12/dep_test.go",
+        "t64_dep_13/dep_test.go",
+        "t64_dep_14/dep_test.go",
+        "t64_dep_15/dep_test.go",
+        "t64_dep_16/dep_test.go",
+        "t64_dep_17/dep_test.go",
+        "t64_dep_18/dep_test.go",
+        "t64_dep_19/dep_test.go",
+        "t64_dep_2/dep_test.go",
+        "t64_dep_20/dep_test.go",
+        "t64_dep_21/dep_test.go",
+        "t64_dep_22/dep_test.go",
+        "t64_dep_23/dep_test.go",
+        "t64_dep_24/dep_test.go",
+        "t64_dep_25/dep_test.go",
+        "t64_dep_26/dep_test.go",
+        "t64_dep_27/dep_test.go",
+        "t64_dep_28/dep_test.go",
+        "t64_dep_29/dep_test.go",
+        "t64_dep_3/dep_test.go",
+        "t64_dep_30/dep_test.go",
+        "t64_dep_31/dep_test.go",
+        "t64_dep_32/dep_test.go",
+        "t64_dep_33/dep_test.go",
+        "t64_dep_34/dep_test.go",
+        "t64_dep_35/dep_test.go",
+        "t64_dep_36/dep_test.go",
+        "t64_dep_37/dep_test.go",
+        "t64_dep_38/dep_test.go",
+        "t64_dep_39/dep_test.go",
+        "t64_dep_4/dep_test.go",
+        "t64_dep_40/dep_test.go",
+        "t64_dep_41/dep_test.go",
+        "t64_dep_42/dep_test.go",
+        "t64_dep_43/dep_test.go",
+        "t64_dep_44/dep_test.go",
+        "t64_dep_45/dep_test.go",
+        "t64_dep_46/dep_test.go",
+        "t64_dep_47/dep_test.go",
+        "t64_dep_48/dep_test.go",
+        "t64_dep_49/dep_test.go",
+        "t64_dep_5/dep_test.go",
+        "t64_dep_50/dep_test.go",
+        "t64_dep_51/dep_test.go",
+        "t64_dep_52/dep_test.go",
+        "t64_dep_53/dep_test.go",
+        "t64_dep_54/dep_test.go",
+        "t64_dep_55/dep_test.go",
+        "t64_dep_56/dep_test.go",
+        "t64_dep_57/dep_test.go",
+        "t64_dep_58/dep_test.go",
+        "t64_dep_59/dep_test.go",
+        "t64_dep_6/dep_test.go",
+        "t64_dep_60/dep_test.go",
+        "t64_dep_61/dep_test.go",
+        "t64_dep_62/dep_test.go",
+        "t64_dep_63/dep_test.go",
+        "t64_dep_7/dep_test.go",
+        "t64_dep_8/dep_test.go",
+        "t64_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 515.29,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t64/t64_test.go",
+        "t64_dep_0/dep_test.go",
+        "t64_dep_1/dep_test.go",
+        "t64_dep_10/dep_test.go",
+        "t64_dep_11/dep_test.go",
+        "t64_dep_12/dep_test.go",
+        "t64_dep_13/dep_test.go",
+        "t64_dep_14/dep_test.go",
+        "t64_dep_15/dep_test.go",
+        "t64_dep_16/dep_test.go",
+        "t64_dep_17/dep_test.go",
+        "t64_dep_18/dep_test.go",
+        "t64_dep_19/dep_test.go",
+        "t64_dep_2/dep_test.go",
+        "t64_dep_20/dep_test.go",
+        "t64_dep_21/dep_test.go",
+        "t64_dep_22/dep_test.go",
+        "t64_dep_23/dep_test.go",
+        "t64_dep_24/dep_test.go",
+        "t64_dep_25/dep_test.go",
+        "t64_dep_26/dep_test.go",
+        "t64_dep_27/dep_test.go",
+        "t64_dep_28/dep_test.go",
+        "t64_dep_29/dep_test.go",
+        "t64_dep_3/dep_test.go",
+        "t64_dep_30/dep_test.go",
+        "t64_dep_31/dep_test.go",
+        "t64_dep_32/dep_test.go",
+        "t64_dep_33/dep_test.go",
+        "t64_dep_34/dep_test.go",
+        "t64_dep_35/dep_test.go",
+        "t64_dep_36/dep_test.go",
+        "t64_dep_37/dep_test.go",
+        "t64_dep_38/dep_test.go",
+        "t64_dep_39/dep_test.go",
+        "t64_dep_4/dep_test.go",
+        "t64_dep_40/dep_test.go",
+        "t64_dep_41/dep_test.go",
+        "t64_dep_42/dep_test.go",
+        "t64_dep_43/dep_test.go",
+        "t64_dep_44/dep_test.go",
+        "t64_dep_45/dep_test.go",
+        "t64_dep_46/dep_test.go",
+        "t64_dep_47/dep_test.go",
+        "t64_dep_48/dep_test.go",
+        "t64_dep_49/dep_test.go",
+        "t64_dep_5/dep_test.go",
+        "t64_dep_50/dep_test.go",
+        "t64_dep_51/dep_test.go",
+        "t64_dep_52/dep_test.go",
+        "t64_dep_53/dep_test.go",
+        "t64_dep_54/dep_test.go",
+        "t64_dep_55/dep_test.go",
+        "t64_dep_56/dep_test.go",
+        "t64_dep_57/dep_test.go",
+        "t64_dep_58/dep_test.go",
+        "t64_dep_59/dep_test.go",
+        "t64_dep_6/dep_test.go",
+        "t64_dep_60/dep_test.go",
+        "t64_dep_61/dep_test.go",
+        "t64_dep_62/dep_test.go",
+        "t64_dep_63/dep_test.go",
+        "t64_dep_7/dep_test.go",
+        "t64_dep_8/dep_test.go",
+        "t64_dep_9/dep_test.go"
+       ]
+      },
+      {
+       "outcome": "landed",
+       "exit_code": 0,
+       "wall_ms": 528.31,
+       "mode": "selected",
+       "reason": "dependents closure of 1 touched path(s)",
+       "tests": [
+        "t64/t64_test.go",
+        "t64_dep_0/dep_test.go",
+        "t64_dep_1/dep_test.go",
+        "t64_dep_10/dep_test.go",
+        "t64_dep_11/dep_test.go",
+        "t64_dep_12/dep_test.go",
+        "t64_dep_13/dep_test.go",
+        "t64_dep_14/dep_test.go",
+        "t64_dep_15/dep_test.go",
+        "t64_dep_16/dep_test.go",
+        "t64_dep_17/dep_test.go",
+        "t64_dep_18/dep_test.go",
+        "t64_dep_19/dep_test.go",
+        "t64_dep_2/dep_test.go",
+        "t64_dep_20/dep_test.go",
+        "t64_dep_21/dep_test.go",
+        "t64_dep_22/dep_test.go",
+        "t64_dep_23/dep_test.go",
+        "t64_dep_24/dep_test.go",
+        "t64_dep_25/dep_test.go",
+        "t64_dep_26/dep_test.go",
+        "t64_dep_27/dep_test.go",
+        "t64_dep_28/dep_test.go",
+        "t64_dep_29/dep_test.go",
+        "t64_dep_3/dep_test.go",
+        "t64_dep_30/dep_test.go",
+        "t64_dep_31/dep_test.go",
+        "t64_dep_32/dep_test.go",
+        "t64_dep_33/dep_test.go",
+        "t64_dep_34/dep_test.go",
+        "t64_dep_35/dep_test.go",
+        "t64_dep_36/dep_test.go",
+        "t64_dep_37/dep_test.go",
+        "t64_dep_38/dep_test.go",
+        "t64_dep_39/dep_test.go",
+        "t64_dep_4/dep_test.go",
+        "t64_dep_40/dep_test.go",
+        "t64_dep_41/dep_test.go",
+        "t64_dep_42/dep_test.go",
+        "t64_dep_43/dep_test.go",
+        "t64_dep_44/dep_test.go",
+        "t64_dep_45/dep_test.go",
+        "t64_dep_46/dep_test.go",
+        "t64_dep_47/dep_test.go",
+        "t64_dep_48/dep_test.go",
+        "t64_dep_49/dep_test.go",
+        "t64_dep_5/dep_test.go",
+        "t64_dep_50/dep_test.go",
+        "t64_dep_51/dep_test.go",
+        "t64_dep_52/dep_test.go",
+        "t64_dep_53/dep_test.go",
+        "t64_dep_54/dep_test.go",
+        "t64_dep_55/dep_test.go",
+        "t64_dep_56/dep_test.go",
+        "t64_dep_57/dep_test.go",
+        "t64_dep_58/dep_test.go",
+        "t64_dep_59/dep_test.go",
+        "t64_dep_6/dep_test.go",
+        "t64_dep_60/dep_test.go",
+        "t64_dep_61/dep_test.go",
+        "t64_dep_62/dep_test.go",
+        "t64_dep_63/dep_test.go",
+        "t64_dep_7/dep_test.go",
+        "t64_dep_8/dep_test.go",
+        "t64_dep_9/dep_test.go"
+       ]
+      }
+     ],
+     "affected_tests_ms": {
+      "n": 3,
+      "median_ms": 528.31,
+      "p10_ms": 515.29,
+      "p90_ms": 960.35,
+      "min_ms": 515.29,
+      "max_ms": 960.35
+     },
+     "affected_tests_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "admission": [
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 2330.48,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_37/dep_test.go",
-         "t64_dep_20/dep.go",
-         "t64_dep_30/dep_test.go",
-         "t64_dep_42/dep_test.go",
-         "t64_dep_33/dep.go",
-         "t64_dep_13/dep.go",
-         "t64_dep_50/dep_test.go",
-         "t64/t64_test.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 1607.24,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 27,
+         "contracts_ms": 284,
+         "findings_ms": 69,
+         "index_ms": 550,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 2218.77,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_32/dep.go",
-         "t64_dep_34/dep_test.go",
-         "t64_dep_48/dep.go",
-         "t64_dep_33/dep.go",
-         "t64_dep_3/dep.go",
-         "t64_dep_38/dep.go",
-         "t64_dep_27/dep_test.go",
-         "t64_dep_14/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 937.23,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 18,
+         "contracts_ms": 96,
+         "findings_ms": 2,
+         "index_ms": 202,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       },
       {
+       "outcome": "landed",
        "exit_code": 0,
-       "wall_ms": 2216.47,
-       "envelope": {
-        "affected": 130,
-        "affected_nodes": [
-         "t64_dep_27/dep_test.go",
-         "t64_dep_44/dep.go",
-         "t64_dep_54/dep.go",
-         "t64_dep_42/dep.go",
-         "t64_dep_2/dep.go",
-         "t64_dep_45/dep_test.go",
-         "t64_dep_6/dep_test.go",
-         "t64_dep_34/dep.go"
-        ],
-        "declared": 1,
-        "status": "known",
-        "tier": "CRITICAL"
+       "wall_ms": 1082.95,
+       "envelope": 130,
+       "envelope_status": "known",
+       "contracts_count": 2,
+       "plan": "AttestationRequired",
+       "stages": {
+        "counts": {
+         "contracts_count": 2,
+         "envelope_size": 130
+        },
+        "ms": {
+         "aram_ms": 0,
+         "blast_ms": 18,
+         "contracts_ms": 97,
+         "findings_ms": 2,
+         "index_ms": 263,
+         "judgment_ms": 0,
+         "plan_ms": 0,
+         "precheck_ms": 0
+        }
        },
-       "contracts_count": 0,
-       "plan": "PackageTests"
+       "stderr_tail": ""
       }
      ],
      "admission_ms": {
       "n": 3,
-      "median_ms": 2218.77,
-      "p10_ms": 2216.47,
-      "p90_ms": 2330.48,
-      "min_ms": 2216.47,
-      "max_ms": 2330.48
+      "median_ms": 1082.95,
+      "p10_ms": 937.23,
+      "p90_ms": 1607.24,
+      "min_ms": 937.23,
+      "max_ms": 1607.24
      },
-     "fast_vet": [
-      {
-       "exit_code": 0,
-       "wall_ms": 21442.37
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 21800.79
-      },
-      {
-       "exit_code": 0,
-       "wall_ms": 22702.74
-      }
-     ],
-     "fast_vet_ms": {
-      "n": 3,
-      "median_ms": 21800.79,
-      "p10_ms": 21442.37,
-      "p90_ms": 22702.74,
-      "min_ms": 21442.37,
-      "max_ms": 22702.74
+     "admission_counts": {
+      "landed": 3,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
+     },
+     "full_propose": [],
+     "full_propose_ms": null,
+     "full_propose_counts": {
+      "landed": 0,
+      "refused": 0,
+      "dnf": 0,
+      "no_signal": 0
      },
      "git_control": {
-      "commit_ms": 84.95,
-      "vet_exit": 1,
-      "vet_ms": 14514.53,
-      "oracle_exit": 1,
-      "oracle_ms": 667.93
+      "commit_ms": {
+       "n": 3,
+       "median_ms": 72.13,
+       "p10_ms": 70.73,
+       "p90_ms": 77.84,
+       "min_ms": 70.73,
+       "max_ms": 77.84
+      },
+      "vet_ms": {
+       "n": 3,
+       "median_ms": 28956.81,
+       "p10_ms": 28674.56,
+       "p90_ms": 32664.36,
+       "min_ms": 28674.56,
+       "max_ms": 32664.36
+      },
+      "oracle_test_ms": {
+       "n": 3,
+       "median_ms": 9615.99,
+       "p10_ms": 9424.05,
+       "p90_ms": 16288.08,
+       "min_ms": 9424.05,
+       "max_ms": 16288.08
+      },
+      "counts": {
+       "commit": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "vet": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       },
+       "oracle_test": {
+        "landed": 3,
+        "refused": 0,
+        "dnf": 0,
+        "no_signal": 0
+       }
+      },
+      "exits": [
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ],
+       [
+        0,
+        0,
+        0
+       ]
+      ]
      }
     }
+   },
+   "go_warmup": {
+    "skipped": true,
+    "reason": "R > 100: evidence measured cold"
+   },
+   "evidence_scope": {
+    "cold": true,
+    "d": [
+     4
+    ],
+    "reps": 1
+   },
+   "leases_after_abort": 1,
+   "leases_after_release": 0,
+   "unknown_path": {
+    "samples": [
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 1305.9,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 22,
+        "contracts_ms": 283,
+        "findings_ms": 50,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 2
+       }
+      },
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 752.69,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 16,
+        "contracts_ms": 87,
+        "findings_ms": 3,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 0
+       }
+      },
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 744.73,
+      "envelope": 1,
+      "envelope_status": "unknown",
+      "contracts_count": 0,
+      "plan": "PackageTests",
+      "stages": {
+       "counts": {
+        "contracts_count": 0,
+        "envelope_size": 1
+       },
+       "ms": {
+        "aram_ms": 0,
+        "blast_ms": 18,
+        "contracts_ms": 93,
+        "findings_ms": 3,
+        "judgment_ms": 0,
+        "plan_ms": 0,
+        "precheck_ms": 0
+       }
+      },
+      "stderr_tail": ""
+     }
+    ],
+    "counts": {
+     "landed": 3,
+     "refused": 0,
+     "dnf": 0,
+     "no_signal": 0
+    },
+    "wall_ms": {
+     "n": 3,
+     "median_ms": 752.69,
+     "p10_ms": 744.73,
+     "p90_ms": 1305.9,
+     "min_ms": 744.73,
+     "max_ms": 1305.9
+    },
+    "status_counts": {
+     "unknown": 3
+    },
+    "plan_counts": {
+     "PackageTests": 3
+    }
+   },
+   "concurrency": {
+    "n": 4,
+    "steer": true,
+    "batch_wall_ms": 2640.63,
+    "samples": [
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 1233.51,
+      "envelope": 2,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 1296.6,
+      "envelope": 10,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 2634.82,
+      "envelope": 34,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     },
+     {
+      "outcome": "landed",
+      "exit_code": 0,
+      "wall_ms": 2542.17,
+      "envelope": 130,
+      "envelope_status": "known",
+      "contracts_count": 2,
+      "plan": "AttestationRequired",
+      "stderr_tail": ""
+     }
+    ],
+    "counts": {
+     "landed": 4,
+     "refused": 0,
+     "dnf": 0,
+     "no_signal": 0
+    },
+    "wall_ms": {
+     "n": 4,
+     "median_ms": 1919.38,
+     "p10_ms": 1233.51,
+     "p90_ms": 2634.82,
+     "min_ms": 1233.51,
+     "max_ms": 2634.82
+    }
+   },
+   "validate_all": {
+    "fast_land": {
+     "outcome": "landed",
+     "wall_ms": 41356.32
+    },
+    "validate_all": {
+     "outcome": "landed",
+     "wall_ms": 314.26,
+     "tail": "Validating 2 Knot(s)...\n  \u2705 c6cf180d\n  \u2705 05fe9f71\n\n  2/2 Knot(s) validated.\n"
+    }
+   },
+   "fallback": {
+    "cells": 4,
+    "full_fallback": 0,
+    "rate": 0.0
    }
   }
  },
@@ -2055,82 +5040,193 @@
    "0": {
     "medians_by_R": {
      "100": {
-      "admission_median_ms": 116.46,
-      "fast_vet_median_ms": 444.14
+      "admission": 216.31,
+      "affected_tests": 41.19,
+      "full_propose": 1100.1,
+      "git_vet": 284.86
      },
      "1000": {
-      "admission_median_ms": 267.69,
-      "fast_vet_median_ms": 1685.47
+      "admission": 157.7,
+      "affected_tests": 74.81,
+      "full_propose": null,
+      "git_vet": 2249.19
      },
      "10000": {
-      "admission_median_ms": 1774.83,
-      "fast_vet_median_ms": 22661.3
+      "admission": 775.37,
+      "affected_tests": 538.04,
+      "full_propose": null,
+      "git_vet": 91667.2
      }
     },
-    "admission_ratio_hi_over_lo": 15.24,
-    "admission_flat_in_R": false,
-    "fast_vet_ratio_hi_over_lo": 51.02
+    "R_lo": 100,
+    "R_hi": 10000,
+    "admission_ratio_hi_over_lo": 3.58,
+    "affected_tests_ratio_hi_over_lo": 13.06,
+    "full_propose_ratio_hi_over_lo": null,
+    "git_vet_ratio_hi_over_lo": 321.8,
+    "admission_flat_in_R": false
    },
    "4": {
     "medians_by_R": {
      "100": {
-      "admission_median_ms": 116.11,
-      "fast_vet_median_ms": 383.02
+      "admission": 213.77,
+      "affected_tests": 42.15,
+      "full_propose": 1107.31,
+      "git_vet": 286.57
      },
      "1000": {
-      "admission_median_ms": 254.51,
-      "fast_vet_median_ms": 1594.98
+      "admission": 160.9,
+      "affected_tests": 70.16,
+      "full_propose": 287221.03,
+      "git_vet": 1146.46
      },
      "10000": {
-      "admission_median_ms": 1611.55,
-      "fast_vet_median_ms": 24501.28
+      "admission": 736.53,
+      "affected_tests": 538.58,
+      "full_propose": null,
+      "git_vet": 37253.68
      }
     },
-    "admission_ratio_hi_over_lo": 13.88,
-    "admission_flat_in_R": false,
-    "fast_vet_ratio_hi_over_lo": 63.97
+    "R_lo": 100,
+    "R_hi": 10000,
+    "admission_ratio_hi_over_lo": 3.45,
+    "affected_tests_ratio_hi_over_lo": 12.78,
+    "full_propose_ratio_hi_over_lo": null,
+    "git_vet_ratio_hi_over_lo": 130.0,
+    "admission_flat_in_R": false
    },
    "16": {
     "medians_by_R": {
      "100": {
-      "admission_median_ms": 128.19,
-      "fast_vet_median_ms": 477.66
+      "admission": 112.51,
+      "affected_tests": 23.99,
+      "full_propose": 788.88,
+      "git_vet": 181.39
      },
      "1000": {
-      "admission_median_ms": 292.61,
-      "fast_vet_median_ms": 1702.26
+      "admission": 179.1,
+      "affected_tests": 68.35,
+      "full_propose": null,
+      "git_vet": 1307.86
      },
      "10000": {
-      "admission_median_ms": 2041.35,
-      "fast_vet_median_ms": 22028.47
+      "admission": 1091.11,
+      "affected_tests": 523.67,
+      "full_propose": null,
+      "git_vet": 29375.26
      }
     },
-    "admission_ratio_hi_over_lo": 15.92,
-    "admission_flat_in_R": false,
-    "fast_vet_ratio_hi_over_lo": 46.12
+    "R_lo": 100,
+    "R_hi": 10000,
+    "admission_ratio_hi_over_lo": 9.7,
+    "affected_tests_ratio_hi_over_lo": 21.83,
+    "full_propose_ratio_hi_over_lo": null,
+    "git_vet_ratio_hi_over_lo": 161.95,
+    "admission_flat_in_R": false
    },
    "64": {
     "medians_by_R": {
+     "100": {
+      "admission": 114.81,
+      "affected_tests": 28.97,
+      "full_propose": 871.25,
+      "git_vet": 417.21
+     },
      "1000": {
-      "admission_median_ms": 323.81,
-      "fast_vet_median_ms": 1683.55
+      "admission": 188.11,
+      "affected_tests": 75.89,
+      "full_propose": null,
+      "git_vet": 2059.25
      },
      "10000": {
-      "admission_median_ms": 2218.77,
-      "fast_vet_median_ms": 21800.79
+      "admission": 1082.95,
+      "affected_tests": 528.31,
+      "full_propose": null,
+      "git_vet": 28956.81
      }
     },
-    "admission_ratio_hi_over_lo": 6.85,
-    "admission_flat_in_R": false,
-    "fast_vet_ratio_hi_over_lo": 12.95
+    "R_lo": 100,
+    "R_hi": 10000,
+    "admission_ratio_hi_over_lo": 9.43,
+    "affected_tests_ratio_hi_over_lo": 18.24,
+    "full_propose_ratio_hi_over_lo": null,
+    "git_vet_ratio_hi_over_lo": 69.41,
+    "admission_flat_in_R": false
    }
   },
-  "excluded": [
-   {
-    "R": 100,
-    "D": 64,
-    "reason": "closure_mismatch"
+  "by_r": {
+   "100": {
+    "admission_vs_envelope_points": [
+     [
+      2,
+      216.31
+     ],
+     [
+      10,
+      213.77
+     ],
+     [
+      34,
+      112.51
+     ],
+     [
+      130,
+      114.81
+     ]
+    ],
+    "admission_ms_per_envelope_file": -0.7301,
+    "dC_dS_positive": false,
+    "admission_ratio_Dmax_over_Dmin": 0.53
+   },
+   "1000": {
+    "admission_vs_envelope_points": [
+     [
+      2,
+      157.7
+     ],
+     [
+      10,
+      160.9
+     ],
+     [
+      34,
+      179.1
+     ],
+     [
+      130,
+      188.11
+     ]
+    ],
+    "admission_ms_per_envelope_file": 0.2201,
+    "dC_dS_positive": true,
+    "admission_ratio_Dmax_over_Dmin": 1.19
+   },
+   "10000": {
+    "admission_vs_envelope_points": [
+     [
+      2,
+      775.37
+     ],
+     [
+      10,
+      736.53
+     ],
+     [
+      34,
+      1091.11
+     ],
+     [
+      130,
+      1082.95
+     ]
+    ],
+    "admission_ms_per_envelope_file": 2.3632,
+    "dC_dS_positive": true,
+    "admission_ratio_Dmax_over_Dmin": 1.4
    }
-  ]
+  },
+  "excluded": [],
+  "H1_flat_in_R_all_D": false,
+  "H2_dC_dS_positive_all_R": false
  }
 }

@@ -51,6 +51,13 @@ R_LEVELS = [int(x) for x in os.environ.get("B10_R", "100,1000").split(",") if x]
 D_SUBSET = [int(x) for x in os.environ.get("B10_D", ",".join(map(str, D_LEVELS))).split(",") if x != ""]
 REPS = int(os.environ.get("B10_REPS", "3"))
 TIMEOUT_S = int(os.environ.get("B10_TIMEOUT_S", "300"))
+EVIDENCE_TIMEOUT_S = int(os.environ.get("B10_EVIDENCE_TIMEOUT_S", "900"))
+# Evidence (driver + ghost tests) is package-wide for Go, so above
+# EVIDENCE_FULL_MAX_R it is measured cold, at one D, for fewer reps: a full
+# grid there costs hours of `go test ./...` and measures the same thing.
+EVIDENCE_FULL_MAX_R = int(os.environ.get("B10_EVIDENCE_FULL_MAX_R", "100"))
+EVIDENCE_D_LARGE = [int(x) for x in os.environ.get("B10_EVIDENCE_D_LARGE", "4").split(",") if x != ""]
+EVIDENCE_REPS_LARGE = int(os.environ.get("B10_EVIDENCE_REPS_LARGE", "1"))
 CONCURRENCY_N = int(os.environ.get("B10_N", "4"))
 FLAT_IN_R_THRESHOLD = 2.0
 
@@ -370,10 +377,10 @@ def abort_candidates(ws: Path, agent_ids=()) -> None:
         run(["nool", "announce", "release", "--all", "--agent-id", a], ws, timeout=60)
 
 
-def propose_json(ws: Path, paths, intent, env=None) -> dict:
+def propose_json(ws: Path, paths, intent, env=None, timeout=None) -> dict:
     cmd = ["nool", "propose", "--path", *paths, "--intent", intent,
            "--json", "--full", "--auto-justify"]
-    t = timed(cmd, ws, env=env)
+    t = timed(cmd, ws, timeout=timeout, env=env)
     parsed = parse_json_lines(t["stdout"])
     sig = parsed.get("semantic_signal") or {}
     br = sig.get("blast_radius") or {}
@@ -421,7 +428,7 @@ def measure_full_propose(ws: Path, d: int, rep: int) -> dict:
     tfile = f"t{d}/t{d}.go"
     touch(ws, tfile)
     try:
-        return propose_json(ws, [tfile], f"b10 full D={d} rep={rep}")
+        return propose_json(ws, [tfile], f"b10 full D={d} rep={rep}", timeout=EVIDENCE_TIMEOUT_S)
     finally:
         abort_candidates(ws)
         reset(ws, tfile)
@@ -536,6 +543,19 @@ def run_r(ws: Path, r: int) -> dict:
           f"init {manifest.get('init_s')}s, snapshot={manifest.get('restored_from_snapshot')} "
           f"({time.monotonic() - t0:.1f}s)")
     res = {"manifest": manifest, "by_d": {}}
+    # Warm Go's build and test caches once, untimed, so evidence cells and
+    # the git control both measure a developer's warm-cache cost, not the
+    # first cold compile of R packages.
+    large = r > EVIDENCE_FULL_MAX_R
+    if large:
+        res["go_warmup"] = {"skipped": True, "reason": f"R > {EVIDENCE_FULL_MAX_R}: evidence measured cold"}
+    else:
+        w = timed(["go", "test", "./..."], ws, timeout=EVIDENCE_TIMEOUT_S * 2)
+        res["go_warmup"] = {"exit_code": w["code"], "timed_out": w["timed_out"],
+                            "seconds": round(w["wall_ms"] / 1000, 1) if w["wall_ms"] else None}
+    res["evidence_scope"] = {"cold": large, "d": EVIDENCE_D_LARGE if large else D_SUBSET,
+                             "reps": EVIDENCE_REPS_LARGE if large else REPS}
+    print(f"  go test ./... warm-up: {res['go_warmup']}")
     # Probe once: does `propose --abort` release the lease propose filed?
     tprobe = f"t{D_SUBSET[0]}/t{D_SUBSET[0]}.go"
     touch(ws, tprobe)
@@ -555,7 +575,8 @@ def run_r(ws: Path, r: int) -> dict:
         for s in sel_samples[1:]:
             s.pop("_sel", None)
         admission = [measure_admission(ws, d, rep) for rep in range(REPS)]
-        full = [measure_full_propose(ws, d, rep) for rep in range(REPS)]
+        full = [measure_full_propose(ws, d, rep) for rep in range(res["evidence_scope"]["reps"])] \
+            if d in res["evidence_scope"]["d"] else []
         git_ctrl = measure_git_controls(ws, d, REPS)
         closure = closure_check(manifest, d, sel_class, admission)
         envs = [a["envelope"] for a in admission if a["outcome"] == "landed"]
@@ -624,7 +645,8 @@ def main():
     payload = {
         "part": "b10_asymptotic",
         "config": {"R_levels": R_LEVELS, "D_levels": D_SUBSET, "reps": REPS,
-                   "timeout_s": TIMEOUT_S, "concurrency_n": CONCURRENCY_N,
+                   "timeout_s": TIMEOUT_S, "evidence_timeout_s": EVIDENCE_TIMEOUT_S,
+                   "go_caches": "warmed per R by one untimed `go test ./...`", "concurrency_n": CONCURRENCY_N,
                    "temp_root": str(TMP_ROOT), "admission_mode": "--full --json, [reification] enabled=false",
                    "evidence_mode": "--full --json, [reification] enabled=true",
                    "frozen_binary_source": os.environ.get("B10_NOOL_SOURCE", "~/.local/bin/nool (released install)")},

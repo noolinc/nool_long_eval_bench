@@ -308,11 +308,17 @@ The parts:
   commit`, `go vet ./...`, `go test` of the oracle packages); per R: an unknown-path cell (a
   file the index has never seen), an N=4 concurrency cell with `[steer]` enabled and distinct
   agent ids, and `validate --all` after one `--fast` landing (the latency B4 discards).
+  Evidence is package-wide for Go (the ghost run is `go test ./... -run <selected names>`, Nool
+  bug `ab2c1842`), so the full evidence grid runs only at R = 100 with warm Go caches; above
+  that it runs cold, at D = 4, for one rep (`B10_EVIDENCE_FULL_MAX_R`), and a refused or timed
+  out evidence run is plotted at its wall time and labelled, never as a median.
 - **b10_self** (`micro/b10_self.py`): copies the Nool repository and its ledger (no `target/`,
   no `.git`), replays the touched-path sets of the last ≥ 30 Mutation/Synthesis knots as
   admission-only proposes, and records region size, region size over tracked files, envelope
   status, contracts, evidence plan, selection mode (`selected` / `full_fallback` / `empty`) and
-  wall time.
+  wall time. The ledger is copied with SQLite's online backup (it is live), so leases other
+  agents hold at copy time come along: a replay refused with exit 3 is such a lease and is
+  counted as refused with its reason (`refusal_reason`), not dropped.
 - **b10_oss** (one 10–50 kLOC OSS Go service, last 100 commits) is specified in the task but not
   implemented yet.
 
