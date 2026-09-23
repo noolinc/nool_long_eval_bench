@@ -172,6 +172,82 @@ def b7():
     table(rows, ["arm", "correct", "named", "wall_ms", "steps", "via_attestation"])
 
 
+def b10():
+    d = load("b10_assurance_scaling")
+    if d:
+        prov = d.get("provenance", {})
+        gate = d.get("binary_gate") or {}
+        build = prov.get("nool_build") or {}
+        print(f"== B10 admission cost C(R, S): b10_asymptotic (nool {build.get('version')} "
+              f"{str(build.get('git_sha', ''))[:8]}, binary {str(prov.get('binary_sha256', ''))[:12]}) ==")
+        if "valid" in d and not d["valid"]:
+            print(f"!! INVALID RESULT: binary gate failed: {gate.get('reasons')}\n")
+        rows = []
+        for r in sorted(d["by_R"], key=int):
+            for dd in sorted(d["by_R"][r]["by_d"], key=int):
+                e = d["by_R"][r]["by_d"][dd]
+                closure = e.get("closure") or {"ok": e.get("closure_ok")}
+                c = e.get("admission_counts") or {}
+                ms = lambda k: (e.get(k) or {}).get("median_ms", "-")  # noqa: E731
+                vet = ((e.get("git_control") or {}).get("vet_ms") or {})
+                vet = vet.get("median_ms", "-") if isinstance(vet, dict) else vet
+                rows.append([r, dd, e.get("envelope_observed", "-"), e.get("selection_class", "-"),
+                             closure.get("ok"), ms("admission_ms"), ms("affected_tests_ms"),
+                             ms("full_propose_ms"), vet,
+                             f"{c.get('landed', '-')}/{c.get('refused', '-')}/{c.get('dnf', '-')}"])
+        table(rows, ["R", "D", "envelope", "selection", "closure_ok", "admission_ms",
+                     "select_ms", "evidence_ms", "git_vet_ms", "landed/refused/dnf"])
+        sc = d["scaling"]
+        rows = [[dd, v.get("R_lo", "-"), v.get("R_hi", "-"), v.get("admission_ratio_hi_over_lo", "-"),
+                 v.get("admission_flat_in_R"), v.get("affected_tests_ratio_hi_over_lo", "-"),
+                 v.get("full_propose_ratio_hi_over_lo", "-"), v.get("git_vet_ratio_hi_over_lo", "-")]
+                for dd, v in sorted(sc["by_d"].items(), key=lambda kv: int(kv[0]))]
+        table(rows, ["D", "R_lo", "R_hi", "admission_x", f"flat(<={sc['flat_in_R_threshold']})",
+                     "select_x", "evidence_x", "git_vet_x"])
+        rows = [[r, v.get("admission_ms_per_envelope_file"), v.get("admission_ratio_Dmax_over_Dmin"),
+                 v.get("dC_dS_positive")] for r, v in sorted((sc.get("by_r") or {}).items(), key=lambda kv: int(kv[0]))]
+        if rows:
+            table(rows, ["R", "ms_per_envelope_file", "Dmax/Dmin", "dC/dS>0"])
+        per_r = []
+        for r in sorted(d["by_R"], key=int):
+            v = d["by_R"][r]
+            u, cc, va = v.get("unknown_path") or {}, v.get("concurrency") or {}, v.get("validate_all") or {}
+            per_r.append([r, (v.get("fallback") or {}).get("rate", "-"), u.get("status_counts", "-"),
+                          (u.get("wall_ms") or {}).get("median_ms", "-"),
+                          f"{(cc.get('counts') or {}).get('landed', '-')}/{cc.get('n', '-')}",
+                          cc.get("batch_wall_ms", "-"),
+                          (va.get("validate_all") or {}).get("wall_ms", "-"),
+                          v.get("leases_after_abort", "-")])
+        table(per_r, ["R", "fallback_rate", "unknown_status", "unknown_ms", "conc_landed",
+                      "conc_batch_ms", "validate_all_ms", "leases_after_abort"])
+        print(f"H1 admission flat in R (all D): {sc.get('H1_flat_in_R_all_D')}   "
+              f"H2 dC/dS > 0 (all R): {sc.get('H2_dC_dS_positive_all_R')}   "
+              f"excluded: {sc.get('excluded')}\n")
+    s = load("b10_self")
+    if s:
+        sm = s["summary"]
+        build = (s.get("provenance", {}).get("nool_build") or {})
+        print(f"== B10 b10_self: {sm['n_replayed']} replayed mutation knots of the Nool repo "
+              f"(nool {build.get('version')}) ==")
+        if "valid" in s and not s["valid"]:
+            print("!! INVALID RESULT: binary gate failed\n")
+        c = sm.get("counts") or {}
+        reg, frac = sm.get("region_size") or sm.get("envelope_affected") or {}, sm.get("region_over_R") or {}
+        rows = [["tracked files (R)", sm.get("repository_tracked_files", "-")],
+                ["landed/refused/dnf", f"{c.get('landed', sm.get('n_measured'))}/"
+                                       f"{c.get('refused', sm.get('n_refused'))}/{c.get('dnf', '-')}"],
+                ["admission wall median/p90 ms", f"{(sm.get('wall_ms') or {}).get('median_ms')}/"
+                                                 f"{(sm.get('wall_ms') or {}).get('p90_ms')}"],
+                ["region size median/p90/max", f"{reg.get('median_ms')}/{reg.get('p90_ms')}/{reg.get('max_ms')}"],
+                ["region/R median/p90/max", f"{frac.get('median_ms', '-')}/{frac.get('p90_ms', '-')}/"
+                                            f"{frac.get('max_ms', '-')}"],
+                ["full-suite fallback rate", sm.get("full_suite_fallback_rate", "-")],
+                ["empty selection rate", sm.get("empty_selection_rate", "-")],
+                ["envelope status", sm.get("envelope_status_counts")],
+                ["evidence plan", sm.get("evidence_plan_counts")]]
+        table(rows, ["b10_self", "value"])
+
+
 def trackc():
     p = RESULTS / "trackc" / "runs.jsonl"
     if not p.exists():
@@ -695,7 +771,7 @@ def trackd_protocol_inference():
 
 
 def main():
-    for f in (b1, b2, b3, b4, b5, b6, b7, trackc, trackd, trackd_quality,
+    for f in (b1, b2, b3, b4, b5, b6, b7, b10, trackc, trackd, trackd_quality,
               trackd_inference, trackd_stratified_inference,
               trackd_protocol_inference):
         f()

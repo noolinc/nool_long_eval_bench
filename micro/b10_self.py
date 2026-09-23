@@ -3,7 +3,8 @@
 Copies the Nool repo's working tree + `.nool` ledger (excluding `target/`,
 `.git`, and other build/ephemeral state) into a scratch directory, then
 replays the touched-path sets of the most recent real Synthesis/Mutation
-knots as `propose --path <files> --json --fast` WITHOUT solidifying: each
+knots as `propose --path <files> --json --full` with `[reification]
+enabled = false` (the admission-only combination) WITHOUT solidifying: each
 measurement appends a trivial one-line comment to every file in the set (a
 real, syntactically-safe diff), proposes, captures the two JSON lines nool
 prints (`semantic_signal`, `proposal_stages`), then `propose --abort` +
@@ -23,19 +24,23 @@ import json
 import os
 import re
 import shutil
-import subprocess
 import sys
 import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from common import ENV, TempRoot, emit, run, run_split, summarize_ms, version_of  # noqa: E402
+import common  # noqa: E402
+from common import emit, run, summarize_ms  # noqa: E402
+import b10_assurance_scaling as b10  # noqa: E402  (frozen binary, outcome + selection classifiers)
 
 ORIGINAL_REPO = Path(
     os.environ.get("B10_SOURCE_REPO", "/Users/arunbalakrishnan/Development/NoolWorkspace/Nool")
 )
-REPLAY_COUNT = int(os.environ.get("B10_SELF_REPLAY_COUNT", "30"))
-TIMEOUT_S = int(os.environ.get("B10_SELF_TIMEOUT_S", "60"))
+REPLAY_COUNT = int(os.environ.get("B10_SELF_REPLAY_COUNT", "40"))
+MIN_REPLAYS = 30  # acceptance floor (task 3de0ac0d)
+LOG_LIMIT = int(os.environ.get("B10_SELF_LOG_LIMIT", "1500"))
+TIMEOUT_S = int(os.environ.get("B10_SELF_TIMEOUT_S", "120"))
+TMP_ROOT = Path(os.environ.get("B10_SELF_TMP", "/tmp/noolbench_b10self"))
 
 # Never copy these: target/ is tens of GB of build artifacts, .git is history
 # we don't need (a fresh single-commit init gives git-diff-based change
@@ -89,7 +94,10 @@ def reinit_lightweight_git(ws: Path) -> None:
     run(["git", "init", "-q", "-b", "main"], ws, check=True)
     run(["git", "config", "user.email", "b10-self@nool-benchmarks.local"], ws, check=True)
     run(["git", "config", "user.name", "B10Self"], ws, check=True)
-    (ws / ".gitignore").write_text(".nool/candidate.knot\n")
+    gi = ws / ".gitignore"
+    # Append, never replace: the copied repo's own ignore rules decide what
+    # counts as a tracked file (the R reported for region_over_R).
+    gi.write_text((gi.read_text() if gi.exists() else "") + "\n.nool/\n")
     run(["git", "add", "-A"], ws, check=True)
     code, out, _ = run(["git", "commit", "-qm", "b10_self snapshot"], ws)
     if code != 0:
@@ -112,35 +120,48 @@ def disable_reification(ws: Path) -> None:
     path.write_text(text)
 
 
-MUTATION_LINE = re.compile(r"^\s*-?\s*Mutation\s+(?:doc\s+|test\s+)?@\s+(\S+)")
+ENTRY_LINE = re.compile(r"^([0-9a-f]{8}) \[[^\]]+\]\s+(\S+)")
+MUTATION_PATH = re.compile(r"Mutation\s+(?:[a-z]+\s+)?@\s+(\S+)")
 
 
-def recent_touched_path_sets(repo: Path, n: int) -> list[list[str]]:
-    """Parse `nool log --compact` for the last n Synthesis/Mutation entries'
-    touched paths, filtered to files that actually exist in the snapshot."""
-    code, out, _ = run(["nool", "log", "--compact"], repo, timeout=60)
-    if code != 0:
-        raise RuntimeError(f"nool log failed:\n{out}")
-    sets: list[list[str]] = []
-    current: list[str] = []
-    for line in out.splitlines():
-        m = MUTATION_LINE.match(line)
+def parse_mutation_knots(log_text: str) -> list[dict]:
+    """Split `nool log --compact` into entries and keep Mutation/Synthesis
+    knots with their touched paths (Task/Bug/attestation entries dropped)."""
+    knots, cur = [], None
+    for line in log_text.splitlines():
+        m = ENTRY_LINE.match(line)
         if m:
-            current.append(m.group(1))
-            continue
-        if current and (line.strip() == "" or re.match(r"^[0-9a-f]{8}\s+\[", line)):
-            sets.append(current)
-            current = []
-            if len(sets) >= n:
-                break
-    if current and len(sets) < n:
-        sets.append(current)
-    existing_sets = []
-    for paths in sets:
-        keep = [p for p in paths if (repo / p).is_file()]
+            if cur and cur["paths"]:
+                knots.append(cur)
+            kind = m.group(2)
+            cur = {"knot": m.group(1), "kind": kind, "paths": []} \
+                if kind in ("Mutation", "Synthesis") else None
+        if cur is not None:
+            cur["paths"] += [p for p in MUTATION_PATH.findall(line) if p not in cur["paths"]]
+    if cur and cur["paths"]:
+        knots.append(cur)
+    return knots
+
+
+def recent_touched_path_sets(repo: Path, n: int) -> list[dict]:
+    """The last n mutation knots whose touched files all still exist."""
+    code, out, _ = run(["nool", "log", "--compact", "--limit", str(LOG_LIMIT)], repo, timeout=300)
+    if code != 0:
+        raise RuntimeError(f"nool log failed:\n{out[-2000:]}")
+    usable = []
+    for k in parse_mutation_knots(out):
+        keep = [p for p in k["paths"] if (repo / p).is_file()]
         if keep:
-            existing_sets.append(keep)
-    return existing_sets[:n]
+            usable.append({**k, "paths": keep, "paths_dropped": len(k["paths"]) - len(keep)})
+        if len(usable) >= n:
+            break
+    return usable
+
+
+def repository_size(repo: Path) -> dict:
+    code, out, _ = run(["git", "ls-files"], repo, timeout=120)
+    files = [f for f in out.splitlines() if f and not f.startswith(".nool/")] if code == 0 else []
+    return {"tracked_files": len(files)}
 
 
 COMMENT_BY_EXT = {
@@ -168,152 +189,142 @@ def reset(repo: Path, paths: list[str]) -> None:
     run(["git", "checkout", "--", *paths], repo, check=True)
 
 
-def measure_one(repo: Path, paths: list[str], idx: int) -> dict:
+def measure_one(repo: Path, knot: dict, idx: int, r_files: int) -> dict:
+    """Replay one knot's touched-path set as an admission-only propose
+    (--full --json, reification off), plus the affected-tests selection."""
+    paths = knot["paths"]
     touch(repo, paths)
-    # --fast is NOT gate-only for a compiled/bundle file: propose_cmd.rs's
-    # mode==Fast branch materializes a scratchpad and runs fast_validate
-    # (cargo check-equivalent) unconditionally, never consulting
-    # config.reification.enabled at all -- that flag is only checked in the
-    # mode!=Fast branch. Confirmed this session (109s cold cargo check ate
-    # the disk before this fix). --full + [reification] enabled=false is
-    # the actual gate-only combination.
-    cmd = ["nool", "propose", "--path", *paths, "--intent", f"b10-self replay {idx}",
-           "--json", "--full", "--auto-justify"]
-    t0 = time.monotonic()
-    code, stdout, stderr, ms = run_split(cmd, repo, timeout=TIMEOUT_S)
-    result = {
-        "idx": idx, "n_paths": len(paths), "paths_sample": paths[:5],
-        "exit_code": code, "wall_ms": round(ms, 2),
-        "semantic_signal": None, "proposal_stages": None,
-        "landed": False, "refused": code != 0, "dnf": False,
-    }
-    for line in stdout.splitlines():
-        if not line.startswith("{"):
-            continue
+    try:
+        adm = b10.propose_json(repo, paths, f"b10-self replay {idx} ({knot['knot']})")
+    finally:
+        b10.abort_candidates(repo)
+        reset(repo, paths)
+    t = b10.timed(["nool", "query", "affected-tests", "--paths", ",".join(paths), "--format", "json"], repo)
+    sel = None
+    if t["code"] == 0 and "{" in t["stdout"]:
         try:
-            obj = json.loads(line)
+            sel = json.loads(t["stdout"][t["stdout"].find("{"):])
         except json.JSONDecodeError:
-            continue
-        if "semantic_signal" in obj:
-            result["semantic_signal"] = obj["semantic_signal"]
-        elif "proposal_stages" in obj:
-            result["proposal_stages"] = obj["proposal_stages"]
-    if code != 0 and os.environ.get("B10_SELF_DEBUG"):
-        print(f"    -- refused, exit={code} --", file=sys.stderr)
-        print("    STDOUT:", stdout[-2000:], file=sys.stderr)
-        print("    STDERR:", stderr[-2000:], file=sys.stderr)
-    run(["nool", "propose", "--abort"], repo, timeout=30)
-    reset(repo, paths)
-    return result
+            sel = None
+    if sel is None:
+        selection = "unparsed" if not t["timed_out"] else "dnf"
+    elif sel.get("mode") == "full" or sel.get("run_all"):
+        selection = "full_fallback"
+    elif not sel.get("tests"):
+        selection = "empty"  # no test can see the change: never an O(change) win
+    else:
+        selection = "selected"
+    region = adm["envelope"]
+    return {
+        "idx": idx, "knot": knot["knot"], "knot_kind": knot["kind"],
+        "n_paths": len(paths), "paths_sample": paths[:5],
+        "outcome": adm["outcome"], "exit_code": adm["exit_code"], "wall_ms": adm["wall_ms"],
+        "region_size": region, "region_over_R": round(region / r_files, 5) if region is not None else None,
+        "envelope_status": adm["envelope_status"], "contracts_count": adm["contracts_count"],
+        "plan": adm["plan"], "stages": adm["stages"],
+        "selection_mode": selection, "selection_reason": (sel or {}).get("reason"),
+        "tests_selected": len((sel or {}).get("tests") or []),
+        "selection_wall_ms": t["wall_ms"],
+    }
 
 
-def summarize(results: list[dict]) -> dict:
-    ok = [r for r in results if r["semantic_signal"] is not None]
-    envelope_sizes = [r["semantic_signal"]["blast_radius"]["affected"] for r in ok]
-    declared_sizes = [r["semantic_signal"]["blast_radius"]["declared"] for r in ok]
-    statuses = [r["semantic_signal"]["blast_radius"]["status"] for r in ok]
-    tiers = [r["semantic_signal"]["blast_radius"]["tier"] for r in ok]
-    def plan_variant(plan):
-        # A plan is either a bare variant name ("Precheck", "PackageTests",
-        # ...) or, for the two variants that carry a reason, a single-key
-        # dict ({"HumanApproval": "aram,auth"} / {"AttestationRequired": "..."})
-        # -- normalize to just the variant name for counting.
-        return next(iter(plan)) if isinstance(plan, dict) else plan
-
-    plans = [plan_variant(r["semantic_signal"]["evidence_plan"]["plan"]) for r in ok]
-    contracts_counts = [len(r["semantic_signal"]["envelope"]["contracts"]) for r in ok]
-    wall = [r["wall_ms"] for r in results]
-    ratio = [
-        (r["semantic_signal"]["blast_radius"]["affected"] / r["n_paths"])
-        for r in ok if r["n_paths"] > 0
-    ]
-    stage_ms: dict[str, list[float]] = {}
-    for r in ok:
-        stages = r.get("proposal_stages") or {}
-        for k, v in (stages.get("ms") or {}).items():
-            stage_ms.setdefault(k, []).append(v)
+def summarize(results: list[dict], r_files: int) -> dict:
+    ok = [r for r in results if r["outcome"] == "landed"]
 
     def counts(items):
         out: dict[str, int] = {}
         for it in items:
-            out[it] = out.get(it, 0) + 1
+            out[str(it)] = out.get(str(it), 0) + 1
         return out
 
+    stage_ms: dict[str, list[float]] = {}
+    for r in ok:
+        for k, v in ((r.get("stages") or {}).get("ms") or {}).items():
+            stage_ms.setdefault(k, []).append(v)
+    sel = [r["selection_mode"] for r in results]
+    region = [r["region_size"] for r in ok if r["region_size"] is not None]
+    frac = [r["region_over_R"] for r in ok if r["region_over_R"] is not None]
     return {
         "n_replayed": len(results),
-        "n_measured": len(ok),
-        "n_refused": sum(1 for r in results if r["refused"]),
-        "wall_ms": summarize_ms(wall),
-        "envelope_affected": summarize_ms(envelope_sizes) if envelope_sizes else None,
-        "envelope_declared": summarize_ms(declared_sizes) if declared_sizes else None,
-        "envelope_affected_over_declared_ratio": summarize_ms(ratio) if ratio else None,
-        "envelope_status_counts": counts(statuses),
-        "blast_tier_counts": counts(tiers),
-        "evidence_plan_counts": counts(plans),
-        "contracts_count": summarize_ms(contracts_counts) if contracts_counts else None,
-        "stage_ms": {k: summarize_ms(v) for k, v in stage_ms.items()},
+        "meets_min_replays": len(results) >= MIN_REPLAYS,
+        "repository_tracked_files": r_files,
+        "counts": b10.outcome_counts(results),
+        "wall_ms": b10.timing(results),
+        # summarize_ms's *_ms keys are plain order statistics here (counts, fractions)
+        "region_size": summarize_ms(region),
+        "region_over_R": summarize_ms(frac),
+        "region_over_R_values": sorted(frac),
+        "envelope_status_counts": counts(r["envelope_status"] for r in ok),
+        "evidence_plan_counts": counts(r["plan"] for r in ok),
+        "contracts_count": summarize_ms([r["contracts_count"] for r in ok if r["contracts_count"] is not None]),
+        "selection_mode_counts": counts(sel),
+        "full_suite_fallback_rate": round(sel.count("full_fallback") / len(sel), 3) if sel else None,
+        "empty_selection_rate": round(sel.count("empty") / len(sel), 3) if sel else None,
+        "stage_ms": {k: summarize_ms(v) for k, v in sorted(stage_ms.items())},
     }
 
 
 def main():
-    nool_bin = shutil.which("nool")
-    if not nool_bin:
-        print("ERROR: nool not on PATH", file=sys.stderr)
-        sys.exit(1)
-    print(f"[b10_self] nool binary: {nool_bin}")
-    print(f"[b10_self] nool version: {version_of(['nool', 'version', '--json'])[:200]}")
+    if os.environ.get("B10_RESULTS_DIR"):  # sanity runs never overwrite committed results
+        common.RESULTS_DIR = Path(os.environ["B10_RESULTS_DIR"]).resolve()
+    b10.use_frozen_binary()
+    b10.check_temp_root(TMP_ROOT)
+    gate_start = b10.binary_identity(b10.FROZEN_BIN)
+    if not b10.binary_gate(gate_start, gate_start)["valid"] and not os.environ.get("B10_ALLOW_UNFROZEN"):
+        raise SystemExit(f"b10_self: refusing unfrozen binary {gate_start}")
+    print(f"[b10_self] nool: {b10.FROZEN_BIN} {gate_start['build'].get('version')} "
+          f"sha256={gate_start['sha256'][:16]}")
     print(f"[b10_self] source repo: {ORIGINAL_REPO}")
 
-    with TempRoot("b10self") as tmp:
-        ws = tmp / "repo"
-        print(f"[b10_self] copying snapshot into {ws} (excluding target/, .git — this repo is large)...")
+    shutil.rmtree(TMP_ROOT, ignore_errors=True)
+    try:
+        ws = TMP_ROOT / "repo"
+        print(f"[b10_self] copying snapshot into {ws} (excluding target/, .git) ...")
         t0 = time.monotonic()
         copy_repo_snapshot(ws)
         copy_s = time.monotonic() - t0
-        print(f"[b10_self] copy done in {copy_s:.1f}s")
         reinit_lightweight_git(ws)
         disable_reification(ws)
+        size = repository_size(ws)
+        print(f"[b10_self] copy {copy_s:.1f}s, {size['tracked_files']} tracked files")
 
-        print(f"[b10_self] parsing the last {REPLAY_COUNT} touched-path sets from nool log...")
-        path_sets = recent_touched_path_sets(ws, REPLAY_COUNT)
-        print(f"[b10_self] got {len(path_sets)} usable sets (existing files, non-empty)")
-        if not path_sets:
-            print("ERROR: no usable touched-path sets found", file=sys.stderr)
-            sys.exit(1)
+        knots = recent_touched_path_sets(ws, REPLAY_COUNT)
+        print(f"[b10_self] {len(knots)} usable mutation knots (requested {REPLAY_COUNT})")
+        if len(knots) < MIN_REPLAYS:
+            raise SystemExit(f"b10_self: only {len(knots)} usable mutation knots (< {MIN_REPLAYS})")
 
         results = []
-        for i, paths in enumerate(path_sets):
-            try:
-                r = measure_one(ws, paths, i)
-            except subprocess.TimeoutExpired:
-                r = {
-                    "idx": i, "n_paths": len(paths), "paths_sample": paths[:5],
-                    "exit_code": None, "wall_ms": None,
-                    "semantic_signal": None, "proposal_stages": None,
-                    "landed": False, "refused": False, "dnf": True,
-                }
-                run(["nool", "propose", "--abort"], ws, timeout=30)
-                reset(ws, paths)
+        for i, k in enumerate(knots):
+            r = measure_one(ws, k, i, size["tracked_files"])
             results.append(r)
-            sig = r.get("semantic_signal")
-            aff = sig["blast_radius"]["affected"] if sig else "N/A"
-            plan = sig["evidence_plan"]["plan"] if sig else "N/A"
-            print(f"  [{i:3d}] {len(paths):3d} paths -> affected={aff} plan={plan} "
-                  f"wall={r['wall_ms']}ms exit={r['exit_code']}")
+            print(f"  [{i:3d}] {k['knot']} {r['n_paths']:3d} paths -> region={r['region_size']} "
+                  f"({r['region_over_R']}) status={r['envelope_status']} plan={r['plan']} "
+                  f"sel={r['selection_mode']} wall={r['wall_ms']}ms {r['outcome']}")
+    finally:
+        shutil.rmtree(TMP_ROOT, ignore_errors=True)
 
-        summary = summarize(results)
-        payload = {
-            "config": {
-                "source_repo": str(ORIGINAL_REPO),
-                "replay_count_requested": REPLAY_COUNT,
-                "timeout_s": TIMEOUT_S,
-                "copy_seconds": round(copy_s, 1),
-            },
-            "results": results,
-            "summary": summary,
-        }
-        emit("b10_self", payload)
-        print(json.dumps(summary, indent=1))
+    gate = b10.binary_gate(gate_start, b10.binary_identity(b10.FROZEN_BIN))
+    summary = summarize(results, size["tracked_files"])
+    payload = {
+        "part": "b10_self",
+        "config": {
+            "source_repo": str(ORIGINAL_REPO),
+            "replay_count_requested": REPLAY_COUNT, "log_limit": LOG_LIMIT,
+            "timeout_s": TIMEOUT_S, "copy_seconds": round(copy_s, 1),
+            "temp_root": str(TMP_ROOT),
+            "admission_mode": "--full --json --auto-justify, [reification] enabled=false, not solidified",
+        },
+        "binary_gate": gate,
+        "valid": gate["valid"],
+        "results": results,
+        "summary": summary,
+    }
+    emit("b10_self", payload)
+    print(json.dumps({k: summary[k] for k in ("n_replayed", "counts", "region_over_R",
+                                             "full_suite_fallback_rate", "envelope_status_counts")},
+                     indent=1))
+    if not gate["valid"]:
+        sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ Runs without nool (everything is mocked or pure) so it can gate any change
 to the scorers before a result is regenerated: `make validate-scorers`.
 """
 
+import subprocess
 import sys
 from pathlib import Path
 from unittest.mock import patch
@@ -107,56 +108,131 @@ def provenance_names_the_build():
     check("provenance: daemon mode explicit", "NOOL_NO_DAEMON" in prov.get("daemon_mode", ""))
 
 
-def b10_refused_admission_is_not_a_sample():
-    with patch.object(b10, "run_split", return_value=(2, "", "Error: Blast radius exceeds declared scope", 15.0)), \
-            patch.object(b10, "run", return_value=(0, "", 1.0)), \
-            patch.object(b10, "touch", return_value=None), \
-            patch.object(b10, "reset", return_value=None):
+def _b10_patched(run_split_result=None, run_split_exc=None):
+    rs = patch.object(b10, "run_split", side_effect=run_split_exc) if run_split_exc \
+        else patch.object(b10, "run_split", return_value=run_split_result)
+    return (rs, patch.object(b10, "run", return_value=(0, "", 1.0)),
+            patch.object(b10, "touch", return_value=None),
+            patch.object(b10, "reset", return_value=None))
+
+
+SIGNAL = '{"semantic_signal": {"blast_radius": {"affected": 10, "status": "known"}, ' \
+         '"envelope": {"contracts": []}, "evidence_plan": {"plan": "PackageTests"}}}\n'
+
+
+def b10_refused_propose_is_not_a_landing():
+    # A refused propose that still printed a full semantic_signal.
+    rs, r, t, rst = _b10_patched((2, SIGNAL, "Error: Blast radius exceeds declared scope", 15.0))
+    with rs, r, t, rst:
         result = b10.measure_admission(Path("/nonexistent"), 4, 0)
-    check("b10: a refused (exit != 0) admission call carries no envelope",
-          result["exit_code"] != 0 and result["envelope"] is None)
-    # summarize_ms's caller (main()) filters on exit_code == 0 before
-    # building admission_ms -- assert that filter directly, since a refused
-    # sample slipping into a median would understate real admission cost.
-    samples = [result, {"exit_code": 0, "wall_ms": 50.0}]
-    kept = [s["wall_ms"] for s in samples if s.get("exit_code") == 0]
-    check("b10: only the exit_code==0 sample survives into the median input",
-          kept == [50.0])
+    check("b10: exit 2 with a semantic_signal on stdout is refused, not landed",
+          result["outcome"] == "refused")
+    check("b10: exit 3 (coordination conflict) is refused",
+          b10.classify_outcome(3, SIGNAL, False) == "refused")
+    check("b10: exit 0 without a semantic_signal is no_signal, not landed",
+          b10.classify_outcome(0, "ok\n", False) == "no_signal")
+    landed = {"outcome": "landed", "wall_ms": 50.0}
+    t_ = b10.timing([result, landed])
+    check("b10: only the landed sample enters summarize_ms",
+          t_ is not None and t_["n"] == 1 and t_["median_ms"] == 50.0)
+    counts = b10.outcome_counts([result, landed])
+    check("b10: landed/refused counts reflect the classification",
+          counts["landed"] == 1 and counts["refused"] == 1)
 
 
-def b10_closure_mismatch_excludes_the_cell():
-    d, r_lo, r_hi = 4, 100, 1000
-    mismatched_manifest = {
-        "ground_truth": {str(d): {"affected_tests_expected": 5}},
-        "total_packages": 1, "total_files": 1, "init_s": 0.1,
-    }
+def b10_timeout_is_not_a_sample():
+    exc = subprocess.TimeoutExpired(cmd="nool propose", timeout=1)
+    rs, r, t, rst = _b10_patched(run_split_exc=exc)
+    with rs, r, t, rst:
+        result = b10.measure_admission(Path("/nonexistent"), 4, 0)
+    check("b10: a timed-out propose is dnf with no wall time",
+          result["outcome"] == "dnf" and result["wall_ms"] is None)
+    check("b10: a dnf never becomes a timing sample",
+          b10.timing([result]) is None and b10.outcome_counts([result])["dnf"] == 1)
+    check("b10: a timeout that somehow carries a wall time is still excluded",
+          b10.timing([{"outcome": "dnf", "wall_ms": 120000.0}]) is None)
+
+
+def b10_empty_selection_is_not_o_change():
+    check("b10: an empty selected list is `empty`, not an O(change) selection",
+          b10.classify_selection({"mode": "selected", "tests": []}, 5) == "empty")
+    check("b10: a full-suite fallback (tests: [] + run_all) is `full_fallback`, not exact",
+          b10.classify_selection({"mode": "full", "run_all": True, "tests": []}, 5) == "full_fallback")
+    check("b10: a selection of the wrong size is a mismatch",
+          b10.classify_selection({"mode": "selected", "tests": [{}] * 3}, 5) == "mismatch")
+    check("b10: only the constructed-size selection is exact",
+          b10.classify_selection({"mode": "selected", "tests": [{}] * 5}, 5) == "exact")
+    manifest = {"ground_truth": {"4": {"envelope_expected": 10}}}
+    adm = [{"outcome": "landed", "envelope": 10}]
+    check("b10: an empty selection fails the closure check (excluded from the fit)",
+          b10.closure_check(manifest, 4, "empty", adm)["ok"] is False)
+    check("b10: a refused admission's envelope never satisfies the closure check",
+          b10.closure_check(manifest, 4, "exact",
+                            [{"outcome": "refused", "envelope": 10}])["ok"] is False)
+
+
+def b10_stale_binary_is_rejected():
+    good = {"path": "/bench/work/bin/nool", "sha256": "a" * 64,
+            "build": {"version": "7.9.2", "git_sha": "f" * 40, "dirty": False}}
+    check("b10: an unchanged, clean, frozen binary passes the gate",
+          b10.binary_gate(good, good)["valid"])
+    swapped = {**good, "sha256": "b" * 64}
+    check("b10: a binary replaced mid-run invalidates the result",
+          "binary_changed_during_run" in b10.binary_gate(good, swapped)["reasons"])
+    dirty = {**good, "build": {**good["build"], "dirty": True}}
+    check("b10: a dirty-tree build is rejected",
+          not b10.binary_gate(dirty, dirty)["valid"])
+    unknown = {**good, "build": {"unavailable": "x"}}
+    check("b10: a build that cannot report dirtiness is rejected",
+          not b10.binary_gate(unknown, unknown)["valid"])
+    tgt = {**good, "path": "/src/Nool/target/debug/nool"}
+    check("b10: a mutable cargo target/ binary is rejected",
+          "mutable_cargo_target_binary" in b10.binary_gate(tgt, tgt)["reasons"])
+
+
+def b10_var_folders_temp_root_is_rejected():
+    for bad in ("/var/folders/x1/abc/T/noolbench_b10", "/private/var/folders/x1/abc/T/nb"):
+        try:
+            b10.check_temp_root(bad)
+            ok = False
+        except ValueError:
+            ok = True
+        check(f"b10: temp root {bad.split('/T/')[0]}/... is refused", ok)
+    import tempfile
+    sys_tmp = tempfile.gettempdir()
+    if sys_tmp.startswith(("/var/folders", "/private/var/folders")):
+        try:
+            b10.check_temp_root(sys_tmp)
+            ok = False
+        except ValueError:
+            ok = True
+        check("b10: this machine's default tempfile dir is refused", ok)
+    try:
+        b10.check_temp_root("/tmp/noolbench_b10")
+        ok = True
+    except ValueError:
+        ok = False
+    check("b10: the pinned /tmp root is accepted", ok)
+
+
+def b10_scoring_excludes_mismatch_keeps_fallback():
+    def cell(ok, reason, adm, env):
+        return {"closure": {"ok": ok, "reason": reason}, "admission_ms": {"median_ms": adm},
+                "affected_tests_ms": {"median_ms": 5}, "full_propose_ms": {"median_ms": 100},
+                "git_control": {"vet_ms": {"median_ms": 50}}, "envelope_observed": env,
+                "selection_class": "exact" if ok else "mismatch"}
     by_r = {
-        str(r_lo): {"manifest": mismatched_manifest, "by_d": {
-            str(d): {"closure_ok": False, "admission_ms": {"median_ms": 10}, "fast_vet_ms": {"median_ms": 20}}}},
-        str(r_hi): {"manifest": mismatched_manifest, "by_d": {
-            str(d): {"closure_ok": True, "admission_ms": {"median_ms": 12}, "fast_vet_ms": {"median_ms": 400}}}},
+        "100": {"by_d": {"0": cell(True, None, 100, 2), "4": cell(False, "selection_empty", 1, 10)}},
+        "1000": {"by_d": {"0": cell(True, None, 150, 2), "4": cell(True, None, 400, 10)}},
     }
-    excluded = []
-    fit_points = {}
-    for r in (r_lo, r_hi):
-        entry = by_r[str(r)]["by_d"][str(d)]
-        if not entry["closure_ok"]:
-            excluded.append({"R": r, "D": d})
-            continue
-        fit_points[r] = entry["admission_ms"]["median_ms"]
-    check("b10: a closure_ok=False cell is excluded from the scaling fit, not silently averaged in",
-          excluded == [{"R": r_lo, "D": d}] and fit_points == {r_hi: 12})
-
-
-def b10_scaling_needs_two_R_points():
-    single = {"100": {"by_d": {"4": {"closure_ok": True, "admission_ms": {"median_ms": 10}}}}}
-    meds = {}
-    for r_str, entry in single.items():
-        e = entry["by_d"]["4"]
-        if e["closure_ok"]:
-            meds[int(r_str)] = e["admission_ms"]["median_ms"]
+    sc = b10.score(by_r)
+    check("b10: a failed closure cell is excluded from the scaling fit and listed",
+          sc["excluded"] == [{"R": 100, "D": 4, "reason": "selection_empty"}]
+          and list(sc["by_d"]["4"]["medians_by_R"]) == [1000])
     check("b10: fewer than two R points yields no flat_in_R verdict (never fabricated as True)",
-          len(meds) < 2)
+          sc["by_d"]["4"]["admission_flat_in_R"] is None and sc["H1_flat_in_R_all_D"] is None)
+    check("b10: the pre-registered ratio is hi/lo admission median, <= 2 is flat",
+          sc["by_d"]["0"]["admission_ratio_hi_over_lo"] == 1.5 and sc["by_d"]["0"]["admission_flat_in_R"])
 
 
 def b10_ground_truth_matches_construction():
@@ -183,9 +259,12 @@ def main():
         b5_partial_landing_is_not_a_success(Path(tmp))
     b6_heading_echo_is_not_a_hit()
     b6_search_derives_next_step_from_output()
-    b10_refused_admission_is_not_a_sample()
-    b10_closure_mismatch_excludes_the_cell()
-    b10_scaling_needs_two_R_points()
+    b10_refused_propose_is_not_a_landing()
+    b10_timeout_is_not_a_sample()
+    b10_empty_selection_is_not_o_change()
+    b10_stale_binary_is_rejected()
+    b10_var_folders_temp_root_is_rejected()
+    b10_scoring_excludes_mismatch_keeps_fallback()
     b10_ground_truth_matches_construction()
     provenance_names_the_build()
     if FAILURES:

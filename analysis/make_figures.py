@@ -465,6 +465,86 @@ def fig_b6():
     s.save("b6_context_bytes.svg")
 
 
+def _nice_max(v):
+    for step in (1, 2, 2.5, 5):
+        for mag in range(0, 7):
+            top = step * 10 ** mag
+            if top >= v:
+                return top
+    return v
+
+
+def _ticks(top):
+    return [top * i / 4 for i in range(5)]
+
+
+def fig_b10():
+    """B10 C(R, S): admission (gate-only) and evidence (driver + tests) cost
+    against repository size R, and admission against change surface S.
+    Only cells whose closure check passed are plotted (as scored)."""
+    p = REPO / "results/micro/b10_assurance_scaling.json"
+    if not p.exists():
+        return
+    b10 = json.loads(p.read_text())
+    by_r, sc = b10["by_R"], b10["scaling"]
+    rs = sorted(int(r) for r in by_r)
+    ds = sorted(int(d) for d in sc["by_d"])
+    build = (b10["provenance"].get("nool_build") or {}).get("version", "?")
+    stamp = f"nool {build}, median of {b10['config']['reps']} reps"
+    colors = ORDINAL + [INK2] * 8
+
+    def med(r, d, key):
+        e = by_r[str(r)]["by_d"].get(str(d))
+        if not e or not e["closure"]["ok"]:
+            return None
+        if key == "git_vet":
+            return (e["git_control"].get("vet_ms") or {}).get("median_ms")
+        return (e.get(key + "_ms") or {}).get("median_ms")
+
+    def series_for(key, unit=1.0):
+        out = []
+        for i, d in enumerate(ds):
+            vals = [med(r, d, key) for r in rs]
+            if all(v is not None for v in vals):
+                out.append((f"D = {d}", colors[i], [v / unit for v in vals]))
+        return out
+
+    adm = series_for("admission")
+    top = _nice_max(max(v for _, _, vs in adm for v in vs))
+    line_series(
+        "b10_admission_vs_R.svg",
+        "B10: admission cost vs repository size R, at fixed change surface D",
+        f"propose --full --json, reification off; pre-registered flat bound: R={rs[-1]} <= 2x R={rs[0]}; {stamp}",
+        [f"R = {r:,}" for r in rs], adm, ymax=top, yticks=_ticks(top),
+        ylabel="admission ms (median)", value_fmt=lambda v: f"{v:.0f}")
+
+    ev = series_for("full_propose", unit=1000.0)
+    vet = [med(r, ds[0], "git_vet") for r in rs]
+    if all(v is not None for v in vet):
+        ev.append(("git: go vet ./...", GIT, [v / 1000.0 for v in vet]))
+    top = _nice_max(max(v for _, _, vs in ev for v in vs))
+    line_series(
+        "b10_evidence_vs_R.svg",
+        "B10: evidence cost vs repository size R (native driver + tests)",
+        f"propose --full --json, reification on, vs a git go vet control; {stamp}",
+        [f"R = {r:,}" for r in rs], ev, ymax=top, yticks=_ticks(top),
+        ylabel="seconds (median)", value_fmt=lambda v: f"{v:.1f}")
+
+    vs_s = []
+    for i, r in enumerate(rs):
+        vals = [med(r, d, "admission") for d in ds]
+        if all(v is not None for v in vals):
+            vs_s.append((f"R = {r:,}", colors[i], vals))
+    envs = [2 * d + 2 for d in ds]
+    top = _nice_max(max(v for _, _, vs in vs_s for v in vs))
+    line_series(
+        "b10_vs_S.svg",
+        "B10: admission cost vs change surface S (callers of the edited symbol)",
+        f"x = D callers (envelope 2D+2 files); one line per repository size; {stamp}",
+        [f"D={d} ({e})" for d, e in zip(ds, envs)], vs_s, ymax=top, yticks=_ticks(top),
+        ylabel="admission ms (median)", value_fmt=lambda v: f"{v:.0f}")
+
+
 def main():
     recs = fleet_records()
     fig_acceptance(recs)
@@ -478,6 +558,7 @@ def main():
     fig_8d_degradation(recs)
     fig_8d_conflicts(recs)
     fig_8d_composition(recs)
+    fig_b10()
 
 
 if __name__ == "__main__":

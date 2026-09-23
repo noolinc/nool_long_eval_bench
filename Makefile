@@ -17,9 +17,7 @@ N ?= 5
 MODEL ?=
 MODEL_FLAG = $(if $(MODEL),--model $(MODEL),)
 IMAGE ?= nool-benchmarks
-B10_R ?= 100,1000
-
-.PHONY: trackB summarize tier1 trackC validate-study validate-harness validate-scorers docker-build docker-digest docker-trackB check-transcripts b10 b10-self
+.PHONY: trackB summarize tier1 trackC validate-study validate-harness validate-scorers docker-build docker-digest docker-trackB check-transcripts b10 b10-sanity b10-self b10-freeze
 
 # Scorer validation: injected refusals, no-ops, partial landings and
 # heading-only answers must be detected before any result is regenerated.
@@ -42,14 +40,28 @@ summarize:
 	python3 analysis/summarize.py
 
 # B10: admission cost C(R, S) -- repository size R vs semantic change surface
-# S, held independent by construction. Not folded into trackB: b10-self
-# copies whichever repo you're standing in (point PATH at the nool build
-# under test) and b10 builds its own synthetic fixture, so both are
-# separately-scoped, opt-in runs rather than part of the default sweep.
-# B10_R defaults to "100,1000" in the script; override on the command line,
-# e.g. `make b10 B10_R=100,1000,10000`.
+# S, held independent by construction. Opt-in, not part of trackB: b10 builds
+# a synthetic fixture up to R=10,000 packages (the R=10k `nool init` is the
+# long pole; fixtures are snapshotted under work/b10_snapshots/ and restored
+# on re-runs) and b10-self copies the Nool repo named by B10_SOURCE_REPO.
+# Both run ONE frozen binary, work/bin/nool (make b10-freeze copies the
+# installed release there); a dirty, cargo-target or mid-run-replaced binary
+# invalidates the result. b10-sanity is a 2-minute smoke run whose output
+# goes to work/b10_sanity/, never results/.
+B10_R ?= 100,1000,10000
+B10_FREEZE_FROM ?= $(shell command -v nool)
+
+b10-freeze:
+	mkdir -p work/bin && cp "$(B10_FREEZE_FROM)" work/bin/.nool.tmp \
+		&& chmod 755 work/bin/.nool.tmp && mv -f work/bin/.nool.tmp work/bin/nool
+	work/bin/nool version --json && shasum -a 256 work/bin/nool
+
 b10: validate-scorers
 	cd micro && B10_R=$(B10_R) python3 b10_assurance_scaling.py
+
+b10-sanity: validate-scorers
+	cd micro && B10_R=100 B10_D=0,4 B10_REPS=1 B10_RESULTS_DIR=../work/b10_sanity \
+		python3 b10_assurance_scaling.py
 
 b10-self:
 	cd micro && python3 b10_self.py

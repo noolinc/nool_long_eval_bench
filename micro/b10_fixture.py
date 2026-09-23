@@ -35,7 +35,7 @@ FILLER_FAN_OUT = 2
 def _pkg_go(name: str, fn: str, body: str, imports: list[str] | None = None) -> str:
     imp = ""
     if imports:
-        lines = "\n".join(f'\t_ "bench/{p}"' for p in imports)
+        lines = "\n".join(f'\t"bench/{p}"' for p in imports)
         imp = f"import (\n{lines}\n)\n\n"
     return f"package {name}\n\n{imp}func {fn}() int {{\n\t{body}\n}}\n"
 

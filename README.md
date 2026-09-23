@@ -274,39 +274,74 @@ python3 b7_regression_localization.py # nool debug bisect vs git bisect
 python3 ../analysis/summarize.py
 ```
 
-Admission cost — does it scale with the change or the repository (`make b10`):
+Admission cost — does it scale with the change or the repository (B10, task `3de0ac0d`):
 
 ```bash
-cd micro
-python3 b10_self.py                          # replays this repo's own real knots (no fixture)
-B10_R=100,1000 python3 b10_assurance_scaling.py  # C(R, S): repo size R vs change surface S
+make b10-freeze                  # copy the installed release to work/bin/nool (the only binary B10 runs)
+make b10-sanity                  # ~2 min smoke run, R=100, output in work/b10_sanity/ (never results/)
+make b10                         # b10_asymptotic, R in {100, 1000, 10000} -> results/micro/b10_assurance_scaling.json
+make b10-self                    # b10_self, replays >= 30 real mutation knots -> results/micro/b10_self.json
+python3 analysis/summarize.py    # prints the B10 tables; analysis/make_figures.py draws the three B10 figures
 ```
 
-`b10_self.py` needs no fixture: it copies the Nool repo you're working in (excluding
-`target/`, `.git`, and anything over a few hundred MB) and replays the touched-path sets of
-its most recent landed knots as gate-only `propose --full --json --auto-justify` calls
-against a scratch copy — real envelope sizes, real `evidence_plan` tiers, real per-stage
-timings, on a real production repository, without solidifying anything.
+B10 asks whether the cost of *admitting* a change, C, grows with the repository R or with the
+change's semantic surface S (the edited symbol's reverse calls/uses region and the contracts
+attached to it — not the file's fan-in). Pre-registered before any run: **H1** admission is flat
+in R at fixed S (for every D, median at the largest R ≤ 2x the median at the smallest R) and
+**H2** dC/dS > 0 (least-squares slope of the admission median over envelope size is positive at
+every R). Admission is measured as `propose --full --json` with `[reification] enabled = false`
+(envelope + contracts + evidence plan, no native driver); evidence work (driver + selected tests)
+is measured separately as the same call with reification on. `--fast` is *not* gate-only: on a
+compiled file it still runs the native driver (`go vet`, `cargo check`) whatever
+`[reification].enabled` says, so a B10 cell never uses it for admission.
 
-`b10_assurance_scaling.py` builds a synthetic Go module of `R` single-file packages (one
-target cluster per fan-in level `D ∈ {0, 4, 16, 64}`, controlled independently of `R`) via
-`nool init` — zero proposal knots, so fixture size is never limited by the per-project knot
-cap — then measures `gate_only` (admission: envelope + contracts + evidence plan, with
-`[reification] enabled = false`) against `fast_vet` (the real evidence floor: `--fast` still
-runs `go vet ./...` regardless of that flag) and a matched git control, at each `R`. `B10_R`
-(default `100,1000`; `10000` is supported but not run by default — see the note below),
-`B10_D`, `B10_REPS`, and `B10_TIMEOUT_S` are all overridable via env var, matching B9's
-`B9_ONLY` pattern.
+The parts:
 
-**Both `--fast` and `[reification] enabled` are load-bearing footguns.** `--fast` on a
-compiled/bundle file always materializes and runs the native integrity driver
-(`cargo check`/`go vet`), never consulting `[reification].enabled` — that flag is checked
-only on the `mode != Fast` branch. Using `--fast` for a gate-only measurement runs a real,
-potentially cold-cache toolchain check anyway; `--full` with `[reification] enabled = false`
-is the actual admission-only combination. Getting this wrong on a real Rust workspace (not
-this synthetic Go fixture) cost a 109-second cold `cargo check` against an empty scratch
-`.nool/target` and exhausted a machine's disk mid-run — confirmed the hard way once, worth
-not repeating.
+- **b10_asymptotic** (`micro/b10_assurance_scaling.py`, fixture `micro/b10_fixture.py`): a Go
+  module of R single-file packages; one target cluster per D ∈ {0, 4, 16, 64} callers, each
+  caller in its own package with an external test package (real imports), plus fillers that
+  import each other but never a target. The ground truth — envelope 2D+2 files, D+1 affected
+  tests — is fixed by construction and independent of R; one `[attestation.obligations]` row per
+  target attaches a contract. Built with `nool init`, snapshotted per R under
+  `work/b10_snapshots/`, restored in place. Cells per (R, D): `admission`, `affected_tests`
+  (`query affected-tests --format json`), `full_propose` (evidence) and a git control (`git
+  commit`, `go vet ./...`, `go test` of the oracle packages); per R: an unknown-path cell (a
+  file the index has never seen), an N=4 concurrency cell with `[steer]` enabled and distinct
+  agent ids, and `validate --all` after one `--fast` landing (the latency B4 discards).
+- **b10_self** (`micro/b10_self.py`): copies the Nool repository and its ledger (no `target/`,
+  no `.git`), replays the touched-path sets of the last ≥ 30 Mutation/Synthesis knots as
+  admission-only proposes, and records region size, region size over tracked files, envelope
+  status, contracts, evidence plan, selection mode (`selected` / `full_fallback` / `empty`) and
+  wall time.
+- **b10_oss** (one 10–50 kLOC OSS Go service, last 100 commits) is specified in the task but not
+  implemented yet.
+
+Scoring rules, each with an injected-fault check in `micro/validate_scorers.py`: a non-zero exit
+is `refused` even when it printed a full `semantic_signal`; a timeout is `dnf` and never a timing
+sample; only a selection of exactly the constructed size counts as O(change) (an empty list or a
+full-suite fallback never does); a cell failing its closure check is excluded from the fit and
+listed, while full-suite fallbacks stay in and are reported as a rate; the binary must be frozen,
+built from a clean tree, outside any cargo `target/` and unchanged between the start and the end
+of the run, or the result carries `valid: false` and the script exits 1; the temp root is pinned
+to `/tmp/noolbench_b10` and anything under `/var/folders` is refused (bug `f33a225a`: the
+`/var` → `/private/var` symlink makes path-keyed state disagree with itself).
+
+**What B10 can claim.** b10_asymptotic shows *asymptotics only*: how admission and evidence
+cost move as R grows by two orders of magnitude while S is held fixed, and as S grows at fixed R,
+on one synthetic shape (single-file Go packages, a chain of filler imports) and one machine.
+The ratios are the result; the absolute milliseconds depend on the machine's load, which every
+result records (`provenance.system_load`). b10_self shows the distribution of region size and
+selection mode on one real repository, at one point in its history, for the changes its own
+authors actually made.
+
+**What B10 cannot claim.** Nothing about real repositories' absolute admission latency (the
+synthetic graph is sparser and more regular than real code); nothing about languages other than
+Go (b10_asymptotic) or Rust (b10_self); nothing about whether the admitted changes were correct
+(admission cells never solidify, so "landed" means *admitted*: exit 0 with a semantic signal,
+then aborted); nothing about concurrency beyond N=4 on one machine; and nothing about OSS
+history until b10_oss exists. A flat admission curve would not show that evidence is cheap —
+the evidence cells are reported separately precisely because they are expected to grow with R
+(the Go driver and the ghost test run are package-wide).
 
 Each script builds isolated throwaway workspaces under the system temp dir,
 times with monotonic clocks (ms), and writes one JSON file to

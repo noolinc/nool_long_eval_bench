@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: fleet_run.py preflight_isolation: detect a running daemon with pgrep -x nool-daemon (process name) instead of pgrep -f (full argv). -f matched the very shell that launched the harness whenever its script text mentioned the daemon (e.g. a pgrep/pkill guard), after which daemon status truthfully reported stopped and preflight refused with 'stale daemons' -- four false refusals on 2026-09-16, a fresh shell PID each time, regardless of NOOL_NO_DAEMON or a verified-zero daemon count. Caught by a 50ms spawn trap: the phantom's argv was the zsh wrapper script. Sibling of the multi-line-JSON preflight bug fixed earlier today in the same function.
-knot_id: d1a02c55bedda0a433e2332b1957a71031adac4f5c30e7899463eb2b5e5a8953
-solidified_at: 1789556277196
+intent: B10 (task 3de0ac0d): b10_asymptotic on a frozen binary with outcome/selection classifiers, binary gate, pinned /tmp root, per-R snapshots, affected-tests/evidence/unknown-path/concurrency/validate-all cells and pre-registered H1/H2 scoring; fixture fillers compile (real imports); b10_self replays >=30 mutation knots with region/R and full-suite fallback rate; validate_scorers injected faults; B10 figures + summarize table; Makefile b10/b10-sanity/b10-self/b10-freeze; README claims and non-claims
+knot_id: fd49b26b30468aa7c3e2cbbaacd4ee4c8edf73101f3766513b36f08d22365e03
+solidified_at: 1790176124363
 thread: main
