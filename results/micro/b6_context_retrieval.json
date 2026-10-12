@@ -1,31 +1,31 @@
 {
  "benchmark": "b6_context_retrieval",
  "provenance": {
-  "run_id": "19550b00-2652-4e5b-be3d-04d67bf2482d",
-  "timestamp_utc": "2026-09-16T07:20:03.055343+00:00",
+  "run_id": "7f3fb74f-4093-4fe3-bca5-6d389c4c5eb3",
+  "timestamp_utc": "2026-10-12T18:58:38.175865+00:00",
   "system_load": {
-   "load_1m": 2.74,
-   "load_5m": 2.13,
-   "load_15m": 1.8,
+   "load_1m": 3.94,
+   "load_5m": 3.31,
+   "load_15m": 5.45,
    "cpu_count": 12,
-   "load_per_core_1m": 0.23,
+   "load_per_core_1m": 0.33,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.8.0",
-  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
-  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
+  "nool_version": "nool 7.19.0",
+  "binary": "/Users/arunbalakrishnan/Research/nool_benchmarks/work/bin/nool",
+  "binary_sha256": "d161c3f1e4d8b129733ddf2c5a2bfe650415f137e825f65285316c9bb835c870",
   "nool_build": {
-   "version": "7.8.0",
+   "version": "7.19.0",
    "edition": "enterprise",
-   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
+   "git_sha": "1fb8ed48e9e47a4b209b13bc1fe4e7cb1db28559",
    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
    "target": "aarch64-apple-darwin",
    "dirty": false
   },
   "harness": {
-   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
+   "git_sha": "e70a7047fa28cd68cf343d85ec155658c78cc494",
    "dirty": true
   },
   "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
@@ -51,10 +51,10 @@
   "nool_query_search": {
    "bytes": 245,
    "stderr_bytes": 0,
-   "wall_ms": 15.0,
+   "wall_ms": 16.1,
    "hit": true,
    "records": 1,
-   "first_knot": "8a23a7cf",
+   "first_knot": "ed00cfd2",
    "exit_code": 0,
    "head": [
     "Query: semantic search(\"rate limiting\")",
@@ -64,7 +64,7 @@
   "nool_query_context_file": {
    "bytes": 497,
    "stderr_bytes": 0,
-   "wall_ms": 14.2,
+   "wall_ms": 15.2,
    "hit": true,
    "records": 4,
    "heading_only": false,
@@ -76,9 +76,9 @@
    ]
   },
   "nool_query_context_symbol": {
-   "bytes": 249,
+   "bytes": 292,
    "stderr_bytes": 0,
-   "wall_ms": 13.8,
+   "wall_ms": 15.5,
    "hit": true,
    "records": 1,
    "heading_only": false,
@@ -92,7 +92,7 @@
   "nool_query_context_nonexistent_symbol": {
    "bytes": 174,
    "stderr_bytes": 73,
-   "wall_ms": 13.8,
+   "wall_ms": 14.9,
    "hit": false,
    "records": 0,
    "heading_only": true,
@@ -104,19 +104,19 @@
   },
   "nool_search_then_materialize": {
    "bytes": 620,
-   "wall_ms": 33.6,
+   "wall_ms": 35.0,
    "hit": true,
-   "derived_from": "8a23a7cf"
+   "derived_from": "ed00cfd2"
   },
   "baseline_grep_read": {
-   "bytes": 658,
-   "wall_ms": 13.9,
+   "bytes": 660,
+   "wall_ms": 15.0,
    "hit": true,
    "files_read": 2
   },
   "baseline_grep_bounded": {
-   "bytes": 653,
-   "wall_ms": 10.3,
+   "bytes": 659,
+   "wall_ms": 10.4,
    "hit": true,
    "context_lines": 6
   },

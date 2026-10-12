@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: B10 results (task 3de0ac0d) on frozen nool 7.9.2 (f4205bf8, clean): b10_asymptotic at R=100/1000/10000 x D=0/4/16/64 (H1 flat-in-R rejected: admission 3.5-9.7x; H2 dC/dS>0 only at R>=1000; all closure checks pass), b10_self 40 Nool mutation knots (region/R median 0.06, fallback 17.5%); evidence cold above R=100; three B10 figures; b10_self snapshots the live ledger with the SQLite backup API and records refusal reasons
-knot_id: 561d7532e1c5bdeef038bdf5c8340924c8b9d536d2ee9d195e1215e7e0cf4575
-solidified_at: 1790182851888
+intent: Track B (B1-B9) regenerated on the nool 7.19.0 release binary (sha d161c3f1), replacing the 7.8.0 baseline: every precision, recall, FPR and correctness cell unchanged; latency +10-15% with git controls drifting similarly; B2 n15 op median +33% and hook latency +3 ms filed as engine task c0cf9bb3
+knot_id: 6d619e06a15785e0319fba1f63833e34b33950579617b5cb7af2c455426535ac
+solidified_at: 1791833166801
 thread: main

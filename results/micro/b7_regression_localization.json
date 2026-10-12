@@ -1,31 +1,31 @@
 {
  "benchmark": "b7_regression_localization",
  "provenance": {
-  "run_id": "fca9b26d-860b-4fb2-8247-b7ccbbf5683f",
-  "timestamp_utc": "2026-09-16T07:20:11.872539+00:00",
+  "run_id": "9e1dbf0b-d779-4b8e-a71c-719e499f017c",
+  "timestamp_utc": "2026-10-12T18:58:48.056008+00:00",
   "system_load": {
-   "load_1m": 2.55,
-   "load_5m": 2.11,
-   "load_15m": 1.8,
+   "load_1m": 3.95,
+   "load_5m": 3.33,
+   "load_15m": 5.43,
    "cpu_count": 12,
-   "load_per_core_1m": 0.21,
+   "load_per_core_1m": 0.33,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.8.0",
-  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
-  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
+  "nool_version": "nool 7.19.0",
+  "binary": "/Users/arunbalakrishnan/Research/nool_benchmarks/work/bin/nool",
+  "binary_sha256": "d161c3f1e4d8b129733ddf2c5a2bfe650415f137e825f65285316c9bb835c870",
   "nool_build": {
-   "version": "7.8.0",
+   "version": "7.19.0",
    "edition": "enterprise",
-   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
+   "git_sha": "1fb8ed48e9e47a4b209b13bc1fe4e7cb1db28559",
    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
    "target": "aarch64-apple-darwin",
    "dirty": false
   },
   "harness": {
-   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
+   "git_sha": "e70a7047fa28cd68cf343d85ec155658c78cc494",
    "dirty": true
   },
   "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
@@ -47,24 +47,24 @@
  "arms": {
   "git": {
    "culprit_found": true,
-   "wall_ms": 2134.1,
+   "wall_ms": 2668.4,
    "bisect_steps": 3,
    "exit_code": 0
   },
   "nool": {
    "culprit_found": true,
-   "wall_ms": 1704.1,
+   "wall_ms": 1793.1,
    "bisect_steps_reported": 0,
    "exit_code": 0,
-   "knot_named": "4d9b175854b42548",
+   "knot_named": "ea6c4424c5c8de7c",
    "knot_named_intent": "landing 7: add Extra7",
    "attested_for": null,
    "resolved_intent": null,
    "truth_intent": "landing 7",
    "output_tail": [
-    "  \ud83d\udc1b First bad Knot: 4d9b175854b42548",
+    "  \ud83d\udc1b First bad Knot: ea6c4424c5c8de7c",
     "  Intent: \"Mutation @ lib.go\"",
-    "  Time: 2026-09-16 07:20:08 UTC",
+    "  Time: 2026-10-12 18:58:44 UTC",
     "\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550"
    ]
   }

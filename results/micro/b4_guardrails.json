@@ -1,31 +1,31 @@
 {
  "benchmark": "b4_guardrails",
  "provenance": {
-  "run_id": "19c0a8a6-d39b-4f17-9338-0cc628737879",
-  "timestamp_utc": "2026-09-16T07:18:55.427638+00:00",
+  "run_id": "ecec6c88-cf3f-4e19-b0aa-f6162836279c",
+  "timestamp_utc": "2026-10-12T18:57:24.321472+00:00",
   "system_load": {
-   "load_1m": 3.28,
-   "load_5m": 2.07,
-   "load_15m": 1.76,
+   "load_1m": 3.27,
+   "load_5m": 3.15,
+   "load_15m": 5.6,
    "cpu_count": 12,
    "load_per_core_1m": 0.27,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.8.0",
-  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
-  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
+  "nool_version": "nool 7.19.0",
+  "binary": "/Users/arunbalakrishnan/Research/nool_benchmarks/work/bin/nool",
+  "binary_sha256": "d161c3f1e4d8b129733ddf2c5a2bfe650415f137e825f65285316c9bb835c870",
   "nool_build": {
-   "version": "7.8.0",
+   "version": "7.19.0",
    "edition": "enterprise",
-   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
+   "git_sha": "1fb8ed48e9e47a4b209b13bc1fe4e7cb1db28559",
    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
    "target": "aarch64-apple-darwin",
    "dirty": false
   },
   "harness": {
-   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
+   "git_sha": "e70a7047fa28cd68cf343d85ec155658c78cc494",
    "dirty": true
   },
   "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
@@ -85,9 +85,9 @@
     "propose_exit": 2,
     "validate_exit": 0,
     "propose_tail": [
-     "  [Reify] \ud83d\udce6 Detected compiled language '.go'. Enabling project-level reification...",
      "  [Reify] \ud83d\udccd Project root detected: .",
-     "Error: Precheck failed: Go syntax error: parse failed"
+     "  \u2713 Released the lease this propose filed: no candidate was queued.",
+     "Error: Precheck failed: lib.go: Go syntax error: parse failed"
     ],
     "validate_tail": []
    },
@@ -96,9 +96,9 @@
     "propose_exit": 2,
     "validate_exit": 0,
     "propose_tail": [
-     "  [Reify] \ud83d\udce6 Detected compiled language '.go'. Enabling project-level reification...",
      "  [Reify] \ud83d\udccd Project root detected: .",
-     "Error: Precheck failed: Go syntax error: parse failed"
+     "  \u2713 Released the lease this propose filed: no candidate was queued.",
+     "Error: Precheck failed: lib.go: Go syntax error: parse failed"
     ],
     "validate_tail": [
      "No Knots to validate."
@@ -116,9 +116,9 @@
     "propose_exit": 2,
     "validate_exit": 0,
     "propose_tail": [
-     "  \u2500\u2500\u2500 115 B of driver output folded to 114 B (0.9% less; --verbose for raw) \u2500\u2500\u2500",
      "",
-     "Error: Reification failed for '.go'. Output hash: 7769bf3c2b419f6d10646655e7e8cdec42587ecda57d9eb857c97b7d93f31806"
+     "  \u2713 Released the lease this propose filed: no candidate was queued.",
+     "Error: Reification failed for '.go'. Output hash: 0834f76666d1cc9fe9245d98d9a955c231b6afef7da96b4fb0bb222242caf397"
     ],
     "validate_tail": []
    },

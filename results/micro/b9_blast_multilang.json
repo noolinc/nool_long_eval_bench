@@ -1,31 +1,31 @@
 {
  "benchmark": "b9_blast_multilang",
  "provenance": {
-  "run_id": "7d58a15c-d452-4f20-aad0-39c59bef30e2",
-  "timestamp_utc": "2026-09-16T07:22:37.809969+00:00",
+  "run_id": "e0946e1a-b21c-4a27-bcb6-c78fb854451a",
+  "timestamp_utc": "2026-10-12T19:02:37.684750+00:00",
   "system_load": {
-   "load_1m": 2.43,
-   "load_5m": 2.22,
-   "load_15m": 1.88,
+   "load_1m": 4.43,
+   "load_5m": 3.73,
+   "load_15m": 5.09,
    "cpu_count": 12,
-   "load_per_core_1m": 0.2,
+   "load_per_core_1m": 0.37,
    "quiet": true
   },
   "platform": "macOS-26.6.2-arm64-arm-64bit",
   "machine": "arm64",
-  "nool_version": "nool 7.8.0",
-  "binary": "/Users/arunbalakrishnan/.local/bin/nool",
-  "binary_sha256": "4a3d03c31e687eecd86846dea264f864f7beeea08e7e4c53252b3172fc3b831f",
+  "nool_version": "nool 7.19.0",
+  "binary": "/Users/arunbalakrishnan/Research/nool_benchmarks/work/bin/nool",
+  "binary_sha256": "d161c3f1e4d8b129733ddf2c5a2bfe650415f137e825f65285316c9bb835c870",
   "nool_build": {
-   "version": "7.8.0",
+   "version": "7.19.0",
    "edition": "enterprise",
-   "git_sha": "f0ab09664718b0a740735e08c4aff49b71d0fd09",
+   "git_sha": "1fb8ed48e9e47a4b209b13bc1fe4e7cb1db28559",
    "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
    "target": "aarch64-apple-darwin",
    "dirty": false
   },
   "harness": {
-   "git_sha": "57bbfce58eb53f9a492dbf8f74694559c3ea93a0",
+   "git_sha": "e70a7047fa28cd68cf343d85ec155658c78cc494",
    "dirty": true
   },
   "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
@@ -309,11 +309,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.py,helper.py) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.py,helper.py) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.6
+       "query_ms": 17.0,
+       "debug_ms": 20.6
       },
       {
        "target": "helper.py",
@@ -344,11 +344,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.py) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.py) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.4
+       "query_ms": 15.8,
+       "debug_ms": 16.0
       },
       {
        "target": "handler.py",
@@ -374,8 +374,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 14.3
+       "query_ms": 17.4,
+       "debug_ms": 16.1
       },
       {
        "target": "unrelated.py",
@@ -401,8 +401,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 13.8
+       "query_ms": 18.4,
+       "debug_ms": 16.3
       }
      ]
     },
@@ -453,11 +453,11 @@
         "dependents": "3",
         "symbol_reachable": "3",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.py,leaf_1.py,leaf_2.py) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=3, dependents=3, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.py,leaf_1.py,leaf_2.py) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.4
+       "query_ms": 17.3,
+       "debug_ms": 16.0
       },
       {
        "target": "leaf_0.py",
@@ -483,8 +483,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.4
+       "query_ms": 15.7,
+       "debug_ms": 15.1
       },
       {
        "target": "unrelated_star.py",
@@ -510,8 +510,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 13.9
+       "query_ms": 16.3,
+       "debug_ms": 16.0
       }
      ]
     },
@@ -549,14 +549,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 14.7
+       "query_ms": 16.5,
+       "debug_ms": 15.7
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 4.8
   },
   {
    "language": "javascript",
@@ -602,12 +602,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.js,helper.js) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.js,helper.js) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.3
+       "query_ms": 17.2,
+       "debug_ms": 16.1
       },
       {
        "target": "helper.js",
@@ -637,12 +637,12 @@
         "risk": "32",
         "dependents": "1",
         "symbol_reachable": "1",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.js) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.js) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=4, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.4
+       "query_ms": 16.9,
+       "debug_ms": 16.0
       },
       {
        "target": "handler.js",
@@ -664,12 +664,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.5,
-       "debug_ms": 13.8
+       "query_ms": 16.1,
+       "debug_ms": 16.0
       },
       {
        "target": "unrelated.js",
@@ -691,12 +691,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.2
+       "query_ms": 16.6,
+       "debug_ms": 16.2
       }
      ]
     },
@@ -746,12 +746,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.js,leaf_1.js,leaf_2.js) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.js,leaf_1.js,leaf_2.js) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=4, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 15.9,
-       "debug_ms": 14.3
+       "query_ms": 17.7,
+       "debug_ms": 16.4
       },
       {
        "target": "leaf_0.js",
@@ -773,12 +773,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.6
+       "query_ms": 17.7,
+       "debug_ms": 16.5
       },
       {
        "target": "unrelated_star.js",
@@ -800,12 +800,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.2
+       "query_ms": 17.0,
+       "debug_ms": 16.2
       }
      ]
     },
@@ -839,18 +839,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "9",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=9"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.1
+       "query_ms": 17.0,
+       "debug_ms": 15.7
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 4.5
   },
   {
    "language": "typescript",
@@ -896,12 +896,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ts,helper.ts) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ts,helper.ts) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.7
+       "query_ms": 19.1,
+       "debug_ms": 18.0
       },
       {
        "target": "helper.ts",
@@ -931,12 +931,12 @@
         "risk": "32",
         "dependents": "1",
         "symbol_reachable": "1",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ts) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ts) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.7
+       "query_ms": 18.6,
+       "debug_ms": 17.4
       },
       {
        "target": "handler.ts",
@@ -958,12 +958,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 13.9
+       "query_ms": 18.4,
+       "debug_ms": 16.8
       },
       {
        "target": "unrelated.ts",
@@ -985,12 +985,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.0
+       "query_ms": 18.0,
+       "debug_ms": 16.8
       }
      ]
     },
@@ -1040,12 +1040,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.ts,leaf_1.ts,leaf_2.ts) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.ts,leaf_1.ts,leaf_2.ts) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.3
+       "query_ms": 17.3,
+       "debug_ms": 16.4
       },
       {
        "target": "leaf_0.ts",
@@ -1067,12 +1067,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.5
+       "query_ms": 17.1,
+       "debug_ms": 16.4
       },
       {
        "target": "unrelated_star.ts",
@@ -1094,12 +1094,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.4
+       "query_ms": 16.8,
+       "debug_ms": 16.1
       }
      ]
     },
@@ -1133,18 +1133,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "9",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=9"
        },
        "debug_exit": 0,
-       "query_ms": 15.9,
-       "debug_ms": 14.0
+       "query_ms": 18.7,
+       "debug_ms": 16.0
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 3.6
   },
   {
    "language": "java",
@@ -1190,12 +1190,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.java,Helper.java) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.java,Helper.java) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=4, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 14.2
+       "query_ms": 19.1,
+       "debug_ms": 16.3
       },
       {
        "target": "Helper.java",
@@ -1225,12 +1225,12 @@
         "risk": "32",
         "dependents": "1",
         "symbol_reachable": "1",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.java) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.java) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.7
+       "query_ms": 17.5,
+       "debug_ms": 16.5
       },
       {
        "target": "Handler.java",
@@ -1252,12 +1252,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.6,
-       "debug_ms": 14.8
+       "query_ms": 16.5,
+       "debug_ms": 16.9
       },
       {
        "target": "Unrelated.java",
@@ -1279,12 +1279,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.2
+       "query_ms": 18.4,
+       "debug_ms": 16.5
       }
      ]
     },
@@ -1334,12 +1334,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.java,Leaf_1.java,Leaf_2.java) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.java,Leaf_1.java,Leaf_2.java) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=4, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.5
+       "query_ms": 19.1,
+       "debug_ms": 16.4
       },
       {
        "target": "Leaf_0.java",
@@ -1361,12 +1361,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 14.2
+       "query_ms": 17.2,
+       "debug_ms": 16.3
       },
       {
        "target": "Unrelated_star.java",
@@ -1388,12 +1388,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.2
+       "query_ms": 17.0,
+       "debug_ms": 16.2
       }
      ]
     },
@@ -1427,18 +1427,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "9",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=9"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.1
+       "query_ms": 17.8,
+       "debug_ms": 15.6
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 8.8
   },
   {
    "language": "csharp",
@@ -1485,11 +1485,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.cs,Helper.cs) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.cs,Helper.cs) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.6
+       "query_ms": 17.0,
+       "debug_ms": 16.7
       },
       {
        "target": "Helper.cs",
@@ -1523,8 +1523,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.cs) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.4
+       "query_ms": 16.4,
+       "debug_ms": 16.9
       },
       {
        "target": "Handler.cs",
@@ -1550,8 +1550,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.7
+       "query_ms": 16.7,
+       "debug_ms": 17.3
       },
       {
        "target": "Unrelated.cs",
@@ -1577,8 +1577,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.8
+       "query_ms": 16.7,
+       "debug_ms": 16.2
       }
      ]
     },
@@ -1632,8 +1632,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.cs,Leaf_1.cs,Leaf_2.cs) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.4
+       "query_ms": 18.1,
+       "debug_ms": 17.1
       },
       {
        "target": "Leaf_0.cs",
@@ -1659,8 +1659,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.4
+       "query_ms": 16.5,
+       "debug_ms": 16.3
       },
       {
        "target": "Unrelated_star.cs",
@@ -1683,11 +1683,11 @@
         "dependents": "0",
         "symbol_reachable": "0",
         "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.0
+       "query_ms": 16.2,
+       "debug_ms": 16.3
       }
      ]
     },
@@ -1725,14 +1725,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.6
+       "query_ms": 17.5,
+       "debug_ms": 16.5
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.0
   },
   {
    "language": "cpp",
@@ -1778,12 +1778,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.hpp,helper.hpp) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.hpp,helper.hpp) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.4
+       "query_ms": 17.9,
+       "debug_ms": 16.4
       },
       {
        "target": "helper.hpp",
@@ -1813,12 +1813,12 @@
         "risk": "32",
         "dependents": "1",
         "symbol_reachable": "1",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.hpp) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.hpp) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.6
+       "query_ms": 17.1,
+       "debug_ms": 15.9
       },
       {
        "target": "handler.hpp",
@@ -1840,12 +1840,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 17.4,
-       "debug_ms": 16.1
+       "query_ms": 17.5,
+       "debug_ms": 16.0
       },
       {
        "target": "unrelated.hpp",
@@ -1867,12 +1867,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.0
+       "query_ms": 17.2,
+       "debug_ms": 16.3
       }
      ]
     },
@@ -1922,12 +1922,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.hpp,leaf_1.hpp,leaf_2.hpp) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.hpp,leaf_1.hpp,leaf_2.hpp) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.2
+       "query_ms": 19.1,
+       "debug_ms": 17.3
       },
       {
        "target": "leaf_0.hpp",
@@ -1949,12 +1949,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.6
+       "query_ms": 16.8,
+       "debug_ms": 16.1
       },
       {
        "target": "unrelated_star.hpp",
@@ -1976,12 +1976,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.1
+       "query_ms": 17.1,
+       "debug_ms": 17.0
       }
      ]
     },
@@ -2015,18 +2015,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "9",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=9"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 13.9
+       "query_ms": 18.0,
+       "debug_ms": 15.8
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 4.7
   },
   {
    "language": "c",
@@ -2072,12 +2072,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.h,helper.h) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.h,helper.h) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.1
+       "query_ms": 18.5,
+       "debug_ms": 16.1
       },
       {
        "target": "helper.h",
@@ -2107,12 +2107,12 @@
         "risk": "32",
         "dependents": "1",
         "symbol_reachable": "1",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.h) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.h) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=6, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.2
+       "query_ms": 16.7,
+       "debug_ms": 16.4
       },
       {
        "target": "handler.h",
@@ -2134,12 +2134,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.2
+       "query_ms": 16.9,
+       "debug_ms": 16.0
       },
       {
        "target": "unrelated.h",
@@ -2161,12 +2161,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.3
+       "query_ms": 16.5,
+       "debug_ms": 16.3
       }
      ]
     },
@@ -2216,12 +2216,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.h,leaf_1.h,leaf_2.h) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.h,leaf_1.h,leaf_2.h) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 14.0
+       "query_ms": 19.6,
+       "debug_ms": 17.6
       },
       {
        "target": "leaf_0.h",
@@ -2243,12 +2243,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.3
+       "query_ms": 18.5,
+       "debug_ms": 16.5
       },
       {
        "target": "unrelated_star.h",
@@ -2270,12 +2270,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.5
+       "query_ms": 17.0,
+       "debug_ms": 17.0
       }
      ]
     },
@@ -2309,18 +2309,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "9",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=9"
        },
        "debug_exit": 0,
-       "query_ms": 18.1,
-       "debug_ms": 14.4
+       "query_ms": 18.4,
+       "debug_ms": 16.2
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 4.6
   },
   {
    "language": "php",
@@ -2367,11 +2367,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.php,helper.php) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.php,helper.php) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.4
+       "query_ms": 18.2,
+       "debug_ms": 17.0
       },
       {
        "target": "helper.php",
@@ -2402,11 +2402,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.php) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.php) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.1
+       "query_ms": 17.1,
+       "debug_ms": 16.6
       },
       {
        "target": "handler.php",
@@ -2432,8 +2432,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.3
+       "query_ms": 17.2,
+       "debug_ms": 16.5
       },
       {
        "target": "unrelated.php",
@@ -2459,8 +2459,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.2
+       "query_ms": 17.1,
+       "debug_ms": 15.8
       }
      ]
     },
@@ -2514,8 +2514,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.php,leaf_1.php,leaf_2.php) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 15.2
+       "query_ms": 17.5,
+       "debug_ms": 16.1
       },
       {
        "target": "leaf_0.php",
@@ -2541,8 +2541,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.1
+       "query_ms": 16.8,
+       "debug_ms": 16.1
       },
       {
        "target": "unrelated_star.php",
@@ -2568,8 +2568,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.5
+       "query_ms": 17.3,
+       "debug_ms": 16.8
       }
      ]
     },
@@ -2607,14 +2607,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.3
+       "query_ms": 17.2,
+       "debug_ms": 16.0
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.1
   },
   {
    "language": "rust",
@@ -2667,11 +2667,11 @@
         "dependents": "3",
         "symbol_reachable": "3",
         "unrelated_later": "6",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Cargo.lock,src) \u2229 Hull(main), risk=42, spectral=1.414, heat_reach=4, modularity=1.000, components=1, edge_count=6, symbol_reachable=3, symbol_query_us=3, dependents=3, unrelated_later=6"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Cargo.lock,src) \u2229 Hull(main), risk=42, spectral=1.414, heat_reach=4, modularity=1.000, components=1, edge_count=6, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 16.0,
-       "debug_ms": 14.4
+       "query_ms": 19.0,
+       "debug_ms": 16.9
       },
       {
        "target": "src/helper.rs",
@@ -2688,7 +2688,6 @@
         "src/lib.rs"
        ],
        "descendant_paths": [
-        "Cargo.lock",
         "src/handler.rs",
         "src/lib.rs"
        ],
@@ -2707,11 +2706,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Cargo.lock,src) \u2229 Hull(main), risk=37, spectral=1.732, heat_reach=4, modularity=1.000, components=1, edge_count=6, symbol_reachable=2, symbol_query_us=6, dependents=2, unrelated_later=5"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=37, spectral=1.732, heat_reach=4, modularity=1.000, components=1, edge_count=6, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.9,
-       "debug_ms": 14.7
+       "query_ms": 18.1,
+       "debug_ms": 17.2
       },
       {
        "target": "src/handler.rs",
@@ -2745,8 +2744,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=4, modularity=1.000, components=1, edge_count=6, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.5
+       "query_ms": 18.4,
+       "debug_ms": 17.2
       },
       {
        "target": "src/unrelated.rs",
@@ -2777,11 +2776,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=1.000, heat_reach=4, modularity=1.000, components=1, edge_count=6, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=1.000, heat_reach=4, modularity=1.000, components=1, edge_count=6, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.8
+       "query_ms": 18.4,
+       "debug_ms": 16.4
       }
      ]
     },
@@ -2841,8 +2840,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(Cargo.lock,src) \u2229 Hull(main), risk=47, spectral=2.000, heat_reach=5, modularity=1.000, components=1, edge_count=8, symbol_reachable=4, symbol_query_us=3, dependents=4, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 16.9,
-       "debug_ms": 14.9
+       "query_ms": 18.0,
+       "debug_ms": 15.8
       },
       {
        "target": "src/leaf_0.rs",
@@ -2876,8 +2875,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=5, modularity=1.000, components=1, edge_count=8, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=8"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.5
+       "query_ms": 16.8,
+       "debug_ms": 16.9
       },
       {
        "target": "src/unrelated_star.rs",
@@ -2908,11 +2907,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=1.000, heat_reach=5, modularity=1.000, components=1, edge_count=8, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=1.000, heat_reach=5, modularity=1.000, components=1, edge_count=8, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 16.2,
-       "debug_ms": 15.4
+       "query_ms": 17.3,
+       "debug_ms": 17.2
       }
      ]
     },
@@ -2959,14 +2958,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(src) \u2229 Hull(main), risk=32, spectral=1.000, heat_reach=5, modularity=1.000, components=1, edge_count=5, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=10"
        },
        "debug_exit": 0,
-       "query_ms": 16.6,
-       "debug_ms": 14.4
+       "query_ms": 19.2,
+       "debug_ms": 16.3
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 5.4
+   "seconds": 7.4
   },
   {
    "language": "kotlin",
@@ -3012,12 +3011,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.kt,Helper.kt) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.kt,Helper.kt) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 14.3
+       "query_ms": 18.3,
+       "debug_ms": 16.4
       },
       {
        "target": "Helper.kt",
@@ -3047,12 +3046,12 @@
         "risk": "32",
         "dependents": "1",
         "symbol_reachable": "1",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.kt) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.kt) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 14.1
+       "query_ms": 16.4,
+       "debug_ms": 15.8
       },
       {
        "target": "Handler.kt",
@@ -3074,12 +3073,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 15.2
+       "query_ms": 16.8,
+       "debug_ms": 17.0
       },
       {
        "target": "Unrelated.kt",
@@ -3101,12 +3100,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.1
+       "query_ms": 17.5,
+       "debug_ms": 16.7
       }
      ]
     },
@@ -3156,12 +3155,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.kt,Leaf_1.kt,Leaf_2.kt) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.kt,Leaf_1.kt,Leaf_2.kt) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=6, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.1
+       "query_ms": 19.2,
+       "debug_ms": 16.7
       },
       {
        "target": "Leaf_0.kt",
@@ -3183,12 +3182,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 18.5,
-       "debug_ms": 14.8
+       "query_ms": 17.2,
+       "debug_ms": 16.4
       },
       {
        "target": "Unrelated_star.kt",
@@ -3210,12 +3209,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.6
+       "query_ms": 17.3,
+       "debug_ms": 16.0
       }
      ]
     },
@@ -3249,18 +3248,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "9",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=9"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 13.9
+       "query_ms": 17.9,
+       "debug_ms": 17.2
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 49.3
   },
   {
    "language": "swift",
@@ -3310,8 +3309,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.swift,Helper.swift) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.6
+       "query_ms": 17.0,
+       "debug_ms": 16.2
       },
       {
        "target": "Helper.swift",
@@ -3342,11 +3341,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.swift) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.swift) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.0
+       "query_ms": 17.2,
+       "debug_ms": 16.1
       },
       {
        "target": "Handler.swift",
@@ -3372,8 +3371,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.1
+       "query_ms": 16.5,
+       "debug_ms": 15.8
       },
       {
        "target": "Unrelated.swift",
@@ -3399,8 +3398,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.1
+       "query_ms": 16.0,
+       "debug_ms": 16.3
       }
      ]
     },
@@ -3451,11 +3450,11 @@
         "dependents": "3",
         "symbol_reachable": "3",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.swift,Leaf_1.swift,Leaf_2.swift) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.swift,Leaf_1.swift,Leaf_2.swift) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=3, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.7
+       "query_ms": 17.6,
+       "debug_ms": 15.9
       },
       {
        "target": "Leaf_0.swift",
@@ -3481,8 +3480,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.4
+       "query_ms": 17.5,
+       "debug_ms": 16.0
       },
       {
        "target": "Unrelated_star.swift",
@@ -3508,8 +3507,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.8
+       "query_ms": 17.7,
+       "debug_ms": 16.8
       }
      ]
     },
@@ -3544,17 +3543,17 @@
         "dependents": "0",
         "symbol_reachable": "0",
         "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=2, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.9,
-       "debug_ms": 14.3
+       "query_ms": 18.4,
+       "debug_ms": 16.4
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.0
   },
   {
    "language": "ruby",
@@ -3604,8 +3603,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.rb,helper.rb) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.6
+       "query_ms": 17.7,
+       "debug_ms": 16.0
       },
       {
        "target": "helper.rb",
@@ -3636,11 +3635,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.rb) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.rb) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.6
+       "query_ms": 17.0,
+       "debug_ms": 17.0
       },
       {
        "target": "handler.rb",
@@ -3666,8 +3665,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.1
+       "query_ms": 17.1,
+       "debug_ms": 16.5
       },
       {
        "target": "unrelated.rb",
@@ -3693,8 +3692,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.1
+       "query_ms": 17.0,
+       "debug_ms": 16.2
       }
      ]
     },
@@ -3748,8 +3747,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.rb,leaf_1.rb,leaf_2.rb) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 14.7
+       "query_ms": 18.0,
+       "debug_ms": 16.1
       },
       {
        "target": "leaf_0.rb",
@@ -3775,8 +3774,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.6,
-       "debug_ms": 14.2
+       "query_ms": 16.3,
+       "debug_ms": 16.3
       },
       {
        "target": "unrelated_star.rb",
@@ -3802,8 +3801,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.4
+       "query_ms": 17.0,
+       "debug_ms": 16.8
       }
      ]
     },
@@ -3841,14 +3840,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.4
+       "query_ms": 18.5,
+       "debug_ms": 16.7
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.6
   },
   {
    "language": "dart",
@@ -3895,11 +3894,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.dart,helper.dart) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.dart,helper.dart) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 16.2,
-       "debug_ms": 15.4
+       "query_ms": 25.7,
+       "debug_ms": 33.6
       },
       {
        "target": "helper.dart",
@@ -3930,11 +3929,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.dart) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.dart) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=7, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.9,
-       "debug_ms": 13.8
+       "query_ms": 36.9,
+       "debug_ms": 29.3
       },
       {
        "target": "handler.dart",
@@ -3960,8 +3959,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.6
+       "query_ms": 27.3,
+       "debug_ms": 31.5
       },
       {
        "target": "unrelated.dart",
@@ -3987,8 +3986,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.5
+       "query_ms": 27.4,
+       "debug_ms": 36.1
       }
      ]
     },
@@ -4039,11 +4038,11 @@
         "dependents": "3",
         "symbol_reachable": "3",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.dart,leaf_1.dart,leaf_2.dart) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.dart,leaf_1.dart,leaf_2.dart) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=4, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 16.4,
-       "debug_ms": 14.8
+       "query_ms": 17.7,
+       "debug_ms": 16.9
       },
       {
        "target": "leaf_0.dart",
@@ -4069,8 +4068,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.3
+       "query_ms": 16.7,
+       "debug_ms": 16.0
       },
       {
        "target": "unrelated_star.dart",
@@ -4096,8 +4095,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.1
+       "query_ms": 16.2,
+       "debug_ms": 15.8
       }
      ]
     },
@@ -4135,14 +4134,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.7
+       "query_ms": 17.2,
+       "debug_ms": 15.9
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 4.0
   },
   {
    "language": "scala",
@@ -4188,12 +4187,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.scala,Helper.scala) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.scala,Helper.scala) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.3
+       "query_ms": 17.8,
+       "debug_ms": 15.9
       },
       {
        "target": "Helper.scala",
@@ -4227,8 +4226,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(Handler.scala) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.3
+       "query_ms": 16.6,
+       "debug_ms": 15.6
       },
       {
        "target": "Handler.scala",
@@ -4254,8 +4253,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.1
+       "query_ms": 17.0,
+       "debug_ms": 16.0
       },
       {
        "target": "Unrelated.scala",
@@ -4281,8 +4280,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.7
+       "query_ms": 17.1,
+       "debug_ms": 17.0
       }
      ]
     },
@@ -4332,12 +4331,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.scala,Leaf_1.scala,Leaf_2.scala) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(Leaf_0.scala,Leaf_1.scala,Leaf_2.scala) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.1
+       "query_ms": 17.6,
+       "debug_ms": 15.9
       },
       {
        "target": "Leaf_0.scala",
@@ -4363,8 +4362,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.0
+       "query_ms": 17.3,
+       "debug_ms": 16.3
       },
       {
        "target": "Unrelated_star.scala",
@@ -4390,8 +4389,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.9
+       "query_ms": 17.2,
+       "debug_ms": 16.0
       }
      ]
     },
@@ -4425,18 +4424,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 14.1
+       "query_ms": 17.0,
+       "debug_ms": 16.1
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 3.5
   },
   {
    "language": "lua",
@@ -4486,8 +4485,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.lua,helper.lua) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 15.0
+       "query_ms": 16.8,
+       "debug_ms": 15.7
       },
       {
        "target": "helper.lua",
@@ -4521,8 +4520,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.lua) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.1
+       "query_ms": 16.3,
+       "debug_ms": 16.1
       },
       {
        "target": "handler.lua",
@@ -4548,8 +4547,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 14.1
+       "query_ms": 16.9,
+       "debug_ms": 16.4
       },
       {
        "target": "unrelated.lua",
@@ -4575,8 +4574,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.0
+       "query_ms": 16.8,
+       "debug_ms": 15.9
       }
      ]
     },
@@ -4627,11 +4626,11 @@
         "dependents": "3",
         "symbol_reachable": "3",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.lua,leaf_1.lua,leaf_2.lua) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.lua,leaf_1.lua,leaf_2.lua) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=4, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.9,
-       "debug_ms": 14.5
+       "query_ms": 54.5,
+       "debug_ms": 19.2
       },
       {
        "target": "leaf_0.lua",
@@ -4654,11 +4653,11 @@
         "dependents": "0",
         "symbol_reachable": "0",
         "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=3, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.6
+       "query_ms": 31.4,
+       "debug_ms": 18.4
       },
       {
        "target": "unrelated_star.lua",
@@ -4684,8 +4683,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.7
+       "query_ms": 18.3,
+       "debug_ms": 19.5
       }
      ]
     },
@@ -4723,14 +4722,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.2
+       "query_ms": 17.8,
+       "debug_ms": 17.3
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.3
   },
   {
    "language": "r",
@@ -4777,11 +4776,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.r,helper.r) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.r,helper.r) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=4, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 16.0,
-       "debug_ms": 14.7
+       "query_ms": 19.3,
+       "debug_ms": 17.5
       },
       {
        "target": "helper.r",
@@ -4815,8 +4814,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.r) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.9
+       "query_ms": 19.0,
+       "debug_ms": 17.1
       },
       {
        "target": "handler.r",
@@ -4842,8 +4841,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.2
+       "query_ms": 18.9,
+       "debug_ms": 18.0
       },
       {
        "target": "unrelated.r",
@@ -4869,8 +4868,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.3
+       "query_ms": 19.6,
+       "debug_ms": 17.9
       }
      ]
     },
@@ -4924,8 +4923,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.r,leaf_1.r,leaf_2.r) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 16.0,
-       "debug_ms": 14.9
+       "query_ms": 17.7,
+       "debug_ms": 17.5
       },
       {
        "target": "leaf_0.r",
@@ -4951,8 +4950,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.4
+       "query_ms": 17.5,
+       "debug_ms": 16.8
       },
       {
        "target": "unrelated_star.r",
@@ -4978,8 +4977,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.0
+       "query_ms": 17.4,
+       "debug_ms": 15.9
       }
      ]
     },
@@ -5017,14 +5016,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.2
+       "query_ms": 17.7,
+       "debug_ms": 16.9
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.2
   },
   {
    "language": "shell",
@@ -5071,11 +5070,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.sh,helper.sh) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=1, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.sh,helper.sh) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.7
+       "query_ms": 18.4,
+       "debug_ms": 17.5
       },
       {
        "target": "helper.sh",
@@ -5106,11 +5105,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.sh) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.sh) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=3, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.2
+       "query_ms": 17.7,
+       "debug_ms": 16.7
       },
       {
        "target": "handler.sh",
@@ -5136,8 +5135,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 13.9
+       "query_ms": 17.7,
+       "debug_ms": 16.6
       },
       {
        "target": "unrelated.sh",
@@ -5163,8 +5162,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.4
+       "query_ms": 18.3,
+       "debug_ms": 16.5
       }
      ]
     },
@@ -5215,11 +5214,11 @@
         "dependents": "3",
         "symbol_reachable": "3",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.sh,leaf_1.sh,leaf_2.sh) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.sh,leaf_1.sh,leaf_2.sh) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=3, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 16.5,
-       "debug_ms": 14.6
+       "query_ms": 18.3,
+       "debug_ms": 17.7
       },
       {
        "target": "leaf_0.sh",
@@ -5245,8 +5244,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.4
+       "query_ms": 18.5,
+       "debug_ms": 16.8
       },
       {
        "target": "unrelated_star.sh",
@@ -5272,8 +5271,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.2
+       "query_ms": 18.5,
+       "debug_ms": 17.4
       }
      ]
     },
@@ -5311,14 +5310,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 16.3,
-       "debug_ms": 14.6
+       "query_ms": 18.0,
+       "debug_ms": 17.1
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.3
   },
   {
    "language": "powershell",
@@ -5365,11 +5364,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ps1,helper.ps1) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ps1,helper.ps1) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.7
+       "query_ms": 27.3,
+       "debug_ms": 23.2
       },
       {
        "target": "helper.ps1",
@@ -5400,11 +5399,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ps1) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ps1) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.8
+       "query_ms": 21.5,
+       "debug_ms": 22.3
       },
       {
        "target": "handler.ps1",
@@ -5430,8 +5429,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.4
+       "query_ms": 32.2,
+       "debug_ms": 24.6
       },
       {
        "target": "unrelated.ps1",
@@ -5457,8 +5456,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.1
+       "query_ms": 33.4,
+       "debug_ms": 25.1
       }
      ]
     },
@@ -5512,8 +5511,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.ps1,leaf_1.ps1,leaf_2.ps1) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 16.1,
-       "debug_ms": 14.7
+       "query_ms": 18.5,
+       "debug_ms": 16.4
       },
       {
        "target": "leaf_0.ps1",
@@ -5539,8 +5538,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 13.9
+       "query_ms": 17.6,
+       "debug_ms": 16.5
       },
       {
        "target": "unrelated_star.ps1",
@@ -5566,8 +5565,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 14.2
+       "query_ms": 19.0,
+       "debug_ms": 16.4
       }
      ]
     },
@@ -5605,14 +5604,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.6
+       "query_ms": 18.4,
+       "debug_ms": 18.0
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 4.1
   },
   {
    "language": "objective-c",
@@ -5662,8 +5661,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.m,helper.m) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.4
+       "query_ms": 19.4,
+       "debug_ms": 17.0
       },
       {
        "target": "helper.m",
@@ -5697,8 +5696,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.m) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.4
+       "query_ms": 20.9,
+       "debug_ms": 17.7
       },
       {
        "target": "handler.m",
@@ -5724,8 +5723,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.1
+       "query_ms": 17.9,
+       "debug_ms": 19.4
       },
       {
        "target": "unrelated.m",
@@ -5751,8 +5750,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 13.9
+       "query_ms": 54.6,
+       "debug_ms": 35.6
       }
      ]
     },
@@ -5806,8 +5805,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.m,leaf_1.m,leaf_2.m) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.7
+       "query_ms": 18.5,
+       "debug_ms": 17.5
       },
       {
        "target": "leaf_0.m",
@@ -5833,8 +5832,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.2
+       "query_ms": 17.9,
+       "debug_ms": 18.4
       },
       {
        "target": "unrelated_star.m",
@@ -5860,8 +5859,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.0
+       "query_ms": 18.0,
+       "debug_ms": 17.0
       }
      ]
     },
@@ -5899,14 +5898,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.3
+       "query_ms": 16.8,
+       "debug_ms": 16.2
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.7
   },
   {
    "language": "elixir",
@@ -5952,12 +5951,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ex,helper.ex) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ex,helper.ex) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=4, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 14.9
+       "query_ms": 18.6,
+       "debug_ms": 16.9
       },
       {
        "target": "helper.ex",
@@ -5987,12 +5986,12 @@
         "risk": "32",
         "dependents": "1",
         "symbol_reachable": "1",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ex) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.ex) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.0
+       "query_ms": 17.8,
+       "debug_ms": 16.9
       },
       {
        "target": "handler.ex",
@@ -6014,12 +6013,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.2
+       "query_ms": 17.4,
+       "debug_ms": 16.8
       },
       {
        "target": "unrelated.ex",
@@ -6041,12 +6040,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.2
+       "query_ms": 17.2,
+       "debug_ms": 16.3
       }
      ]
     },
@@ -6096,12 +6095,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.ex,leaf_1.ex,leaf_2.ex) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.ex,leaf_1.ex,leaf_2.ex) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=3, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 16.2,
-       "debug_ms": 14.4
+       "query_ms": 19.2,
+       "debug_ms": 17.2
       },
       {
        "target": "leaf_0.ex",
@@ -6123,12 +6122,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.2
+       "query_ms": 17.7,
+       "debug_ms": 16.7
       },
       {
        "target": "unrelated_star.ex",
@@ -6150,12 +6149,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.4
+       "query_ms": 17.2,
+       "debug_ms": 16.1
       }
      ]
     },
@@ -6189,18 +6188,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "9",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=9"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.3
+       "query_ms": 19.0,
+       "debug_ms": 16.5
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 3.7
   },
   {
    "language": "erlang",
@@ -6250,8 +6249,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.erl,helper.erl) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.5
+       "query_ms": 18.4,
+       "debug_ms": 17.3
       },
       {
        "target": "helper.erl",
@@ -6285,8 +6284,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.erl) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 13.9
+       "query_ms": 18.4,
+       "debug_ms": 16.6
       },
       {
        "target": "handler.erl",
@@ -6312,8 +6311,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 14.3
+       "query_ms": 17.7,
+       "debug_ms": 18.9
       },
       {
        "target": "unrelated.erl",
@@ -6339,8 +6338,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.2
+       "query_ms": 17.3,
+       "debug_ms": 15.9
       }
      ]
     },
@@ -6394,8 +6393,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.erl,leaf_1.erl,leaf_2.erl) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.9
+       "query_ms": 17.9,
+       "debug_ms": 17.2
       },
       {
        "target": "leaf_0.erl",
@@ -6421,8 +6420,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.2
+       "query_ms": 17.1,
+       "debug_ms": 16.4
       },
       {
        "target": "unrelated_star.erl",
@@ -6448,8 +6447,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.3
+       "query_ms": 17.3,
+       "debug_ms": 17.4
       }
      ]
     },
@@ -6487,14 +6486,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.8,
-       "debug_ms": 14.7
+       "query_ms": 18.2,
+       "debug_ms": 16.5
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.7
+   "seconds": 3.1
   },
   {
    "language": "clojure",
@@ -6540,12 +6539,12 @@
         "risk": "37",
         "dependents": "2",
         "symbol_reachable": "2",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.clj,helper.clj) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "unrelated_later": "5",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.clj,helper.clj) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.2
+       "query_ms": 22.1,
+       "debug_ms": 17.4
       },
       {
        "target": "helper.clj",
@@ -6575,12 +6574,12 @@
         "risk": "32",
         "dependents": "1",
         "symbol_reachable": "1",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.clj) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "unrelated_later": "4",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.clj) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=2, dependents=1, unrelated_later=4"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.6
+       "query_ms": 18.1,
+       "debug_ms": 16.5
       },
       {
        "target": "handler.clj",
@@ -6602,12 +6601,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
+        "unrelated_later": "3",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 14.3
+       "query_ms": 18.0,
+       "debug_ms": 16.9
       },
       {
        "target": "unrelated.clj",
@@ -6629,12 +6628,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.3
+       "query_ms": 17.7,
+       "debug_ms": 16.9
       }
      ]
     },
@@ -6684,12 +6683,12 @@
         "risk": "42",
         "dependents": "3",
         "symbol_reachable": "3",
-        "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.clj,leaf_1.clj,leaf_2.clj) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "unrelated_later": "6",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.clj,leaf_1.clj,leaf_2.clj) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=4, dependents=3, unrelated_later=6"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.8
+       "query_ms": 17.9,
+       "debug_ms": 16.3
       },
       {
        "target": "leaf_0.clj",
@@ -6711,12 +6710,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "3",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
+        "unrelated_later": "7",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=7"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 14.4
+       "query_ms": 17.8,
+       "debug_ms": 16.5
       },
       {
        "target": "unrelated_star.clj",
@@ -6738,12 +6737,12 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "0",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
+        "unrelated_later": "1",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.3
+       "query_ms": 17.7,
+       "debug_ms": 16.0
       }
      ]
     },
@@ -6777,18 +6776,18 @@
         "risk": "12",
         "dependents": "0",
         "symbol_reachable": "0",
-        "unrelated_later": "5",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
+        "unrelated_later": "9",
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=9"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 14.3
+       "query_ms": 18.6,
+       "debug_ms": 15.5
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 3.0
+   "seconds": 3.7
   },
   {
    "language": "svelte",
@@ -6835,11 +6834,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.svelte,helper.svelte) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.svelte,helper.svelte) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.4
+       "query_ms": 18.5,
+       "debug_ms": 16.2
       },
       {
        "target": "helper.svelte",
@@ -6873,8 +6872,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.svelte) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.8,
-       "debug_ms": 13.8
+       "query_ms": 16.9,
+       "debug_ms": 16.2
       },
       {
        "target": "handler.svelte",
@@ -6900,8 +6899,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 14.9,
-       "debug_ms": 14.0
+       "query_ms": 16.8,
+       "debug_ms": 15.8
       },
       {
        "target": "unrelated.svelte",
@@ -6927,8 +6926,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 14.7,
-       "debug_ms": 14.3
+       "query_ms": 16.5,
+       "debug_ms": 15.5
       }
      ]
     },
@@ -6979,11 +6978,11 @@
         "dependents": "3",
         "symbol_reachable": "3",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.svelte,leaf_1.svelte,leaf_2.svelte) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.svelte,leaf_1.svelte,leaf_2.svelte) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=3, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 16.4,
-       "debug_ms": 14.9
+       "query_ms": 17.1,
+       "debug_ms": 16.2
       },
       {
        "target": "leaf_0.svelte",
@@ -7009,8 +7008,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.3,
-       "debug_ms": 14.8
+       "query_ms": 17.2,
+       "debug_ms": 15.8
       },
       {
        "target": "unrelated_star.svelte",
@@ -7036,8 +7035,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.6
+       "query_ms": 16.4,
+       "debug_ms": 15.8
       }
      ]
     },
@@ -7075,14 +7074,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 16.2,
-       "debug_ms": 14.0
+       "query_ms": 17.3,
+       "debug_ms": 16.0
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.7
+   "seconds": 3.1
   },
   {
    "language": "css",
@@ -7129,11 +7128,11 @@
         "dependents": "2",
         "symbol_reachable": "2",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.css,helper.css) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=2, dependents=2, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.css,helper.css) \u2229 Hull(main), risk=37, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=2, symbol_query_us=3, dependents=2, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.2
+       "query_ms": 18.6,
+       "debug_ms": 16.4
       },
       {
        "target": "helper.css",
@@ -7164,11 +7163,11 @@
         "dependents": "1",
         "symbol_reachable": "1",
         "unrelated_later": "1",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.css) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=1, dependents=1, unrelated_later=1"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(handler.css) \u2229 Hull(main), risk=32, spectral=1.414, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=1, symbol_query_us=3, dependents=1, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.2
+       "query_ms": 17.5,
+       "debug_ms": 16.7
       },
       {
        "target": "handler.css",
@@ -7194,8 +7193,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=2, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=1"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 13.9
+       "query_ms": 16.9,
+       "debug_ms": 16.4
       },
       {
        "target": "unrelated.css",
@@ -7221,8 +7220,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=2, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.0,
-       "debug_ms": 14.0
+       "query_ms": 16.3,
+       "debug_ms": 16.1
       }
      ]
     },
@@ -7273,11 +7272,11 @@
         "dependents": "3",
         "symbol_reachable": "3",
         "unrelated_later": "2",
-        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.css,leaf_1.css,leaf_2.css) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=2, dependents=3, unrelated_later=2"
+        "line": "BLAST_TOPOLOGY: Impact: Boundary(leaf_0.css,leaf_1.css,leaf_2.css) \u2229 Hull(main), risk=42, spectral=1.732, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=3, symbol_query_us=3, dependents=3, unrelated_later=2"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.5
+       "query_ms": 18.0,
+       "debug_ms": 16.6
       },
       {
        "target": "leaf_0.css",
@@ -7303,8 +7302,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=1.000, heat_reach=3, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=3"
        },
        "debug_exit": 0,
-       "query_ms": 15.5,
-       "debug_ms": 14.4
+       "query_ms": 16.7,
+       "debug_ms": 16.5
       },
       {
        "target": "unrelated_star.css",
@@ -7330,8 +7329,8 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, spectral=0.000, heat_reach=0, modularity=1.000, components=1, edge_count=3, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=0"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.0
+       "query_ms": 17.0,
+       "debug_ms": 16.0
       }
      ]
     },
@@ -7369,14 +7368,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.6
+       "query_ms": 17.1,
+       "debug_ms": 15.8
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 2.6
+   "seconds": 3.2
   },
   {
    "language": "html",
@@ -7415,14 +7414,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.4,
-       "debug_ms": 14.9
+       "query_ms": 17.2,
+       "debug_ms": 15.7
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 0.9
+   "seconds": 1.1
   },
   {
    "language": "json",
@@ -7461,14 +7460,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.2,
-       "debug_ms": 14.4
+       "query_ms": 18.3,
+       "debug_ms": 16.2
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 0.9
+   "seconds": 1.0
   },
   {
    "language": "markdown",
@@ -7507,14 +7506,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.0
+       "query_ms": 18.0,
+       "debug_ms": 16.1
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 0.8
+   "seconds": 1.2
   },
   {
    "language": "toml",
@@ -7553,14 +7552,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.1,
-       "debug_ms": 14.0
+       "query_ms": 17.7,
+       "debug_ms": 16.9
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 0.8
+   "seconds": 1.1
   },
   {
    "language": "yaml",
@@ -7599,14 +7598,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.7,
-       "debug_ms": 14.3
+       "query_ms": 16.9,
+       "debug_ms": 15.9
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 0.8
+   "seconds": 1.0
   },
   {
    "language": "xml",
@@ -7645,14 +7644,14 @@
         "line": "BLAST_TOPOLOGY: Impact: Boundary(None) \u2229 Hull(None), risk=12, symbol_reachable=0, symbol_query_us=1, dependents=0, unrelated_later=5"
        },
        "debug_exit": 0,
-       "query_ms": 15.6,
-       "debug_ms": 13.9
+       "query_ms": 17.8,
+       "debug_ms": 16.1
       }
      ]
     }
    ],
    "errors": [],
-   "seconds": 0.8
+   "seconds": 1.0
   }
  ]
 }
