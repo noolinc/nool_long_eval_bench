@@ -49,9 +49,9 @@ The short version of what a week of testing found:
 - Nool's mechanism-level tests also show real, measurable wins in
   tracking who-changed-what under heavy concurrency and in undoing a bad
   change without losing later good ones — alongside a real cost:
-  landing a change through Nool takes roughly 6x longer than a git commit
-  that runs a comparable pre-commit stack (11x for a 100-file change), in
-  fast mode. The absolute figure — a few hundred milliseconds — sits
+  landing a change through Nool takes roughly 6–10x longer than a git
+  commit that runs a comparable pre-commit stack for typical 1–10 file
+  changes (about 40x for a 100-file change), in fast mode. The absolute figure — a few hundred milliseconds — sits
   inside the noise of the model call that precedes any agent commit.
 
 Everything below is the full, unedited methodology and data behind those
@@ -179,22 +179,31 @@ rates are what carry over to a differently-sized corpus, counts don't.
    pass," because those two numbers can disagree.
 6. **Nool's smaller, isolated mechanism tests show real wins in some
    areas and real costs in others.** Tracking who-changed-what stays
-   accurate under heavy concurrent editing (plain git misattributes up
-   to **56%** of operations at 15 simultaneous writers; Nool: **0%**).
-   Looking up relevant code context uses far less data (163–408 bytes
+   accurate under heavy concurrent editing (plain git misattributes
+   **57–64%** of operations at 15 simultaneous writers across the last
+   two runs; Nool: **0%**, with no retries and nothing lost).
+   Looking up relevant code context uses far less data (245–497 bytes
    vs. 660 for a plain search-and-read). Recovering from a bad change
    without losing later good work succeeded in every recent test
    (**100%**, was **0%** on older versions); merges among many
    contended branches also now converge cleanly every time (**100%**,
    was **7%** = git-equivalent, on older versions). Regression
-   localization (bisect), a known open issue on earlier versions, works
-   again on 7.1.4: it named the culprit knot in `1617 ms` against git
-   bisect's `1979 ms`. The costs: landing a change through Nool takes
-   roughly **6x** longer than a git commit running a comparable
-   pre-commit stack — `250–483 ms` fast-mode vs `40–45 ms` hooked git
-   (`23–26 ms` bare) — rising to **11x** for a 100-file change, and
-   **10–15x** in full mode against a `go vet` baseline. Measured on
-   nool 7.1.4 on an idle machine (`quiet: true`). At a few hundred
+   localization (bisect), a known open issue on earlier versions, has
+   held since 7.1.4: on 7.19.0 it named the culprit knot in `1793 ms`
+   against git bisect's `2668 ms`, in zero bisect steps. The costs:
+   landing a change through Nool takes roughly **6–10x** longer than a
+   git commit running a comparable pre-commit stack — `266–409 ms`
+   fast-mode for 1–10 files vs `41–42 ms` hooked git (`23–24 ms` bare)
+   — rising to about **40x** for a 100-file change (`1850 ms` vs
+   `47 ms`), and **10–14x** (1–10 files) to **54x** (100 files) in full
+   mode against a `go vet` baseline. Each agent hook adds `10.6–20.2 ms`
+   per call. Measured on nool 7.19.0 (2026-10-12) on an idle machine
+   (`quiet: true`); the 7.8.0 run of 2026-09-16 produced the same
+   correctness, precision and recall values cell for cell, with timings
+   within 5–15% in both the nool and the git arms except two cells (hook
+   latency +3.3 ms on every hook, B2's 15-writer op median +33%) that
+   are open as Nool task `c0cf9bb3` — see
+   `docs/findings/2026-10-12-trackb-7.19.0-rerun.md`. At a few hundred
    milliseconds absolute this is dominated by the model call that
    precedes any agent commit. This study found and reported several real product bugs along
    the way (most already fixed by the vendor).
@@ -207,16 +216,20 @@ rates are what carry over to a differently-sized corpus, counts don't.
    `gofmt` syntax precheck plus a forbidden-path / change-width policy gate,
    mirroring Nool's fast path) and `git_precommit_full` (adds `go vet`,
    standing in for reification). Against that baseline the fast-mode ratio
-   falls to roughly **6x** (11x at 100 files) rather than the 10–20x a
+   falls to roughly **6–10x** for 1–10 files rather than the 11–17x a
    bare-git comparison implies, because a realistic enterprise pre-commit
-   stack already costs about 2x a bare commit. Two
+   stack already costs about 2x a bare commit (at 100 files both
+   comparisons are large — about 40x hooked, 71x bare — because the hooked
+   stack stays near `47 ms` while Nool's landing grows with the files it
+   parses). Two
    honest limits: neither git arm signs (no GPG key is assumed), so both
    still do strictly less than Nool and the ratios remain an upper bound;
    and `go vet` on a tiny synthetic repo is far cheaper than real
    reification, so `git_precommit_full` understates a genuine full-mode
-   baseline. **The hooked-arm figures above were collected on a loaded
-   machine (`quiet: false`) and need a re-run on an idle box before they
-   are cited.**
+   baseline. The hooked arms were first collected on a loaded machine
+   (`quiet: false`, 7.1.4) and have since been re-run on an idle machine
+   twice — 7.8.0 on 2026-09-16 and 7.19.0 on 2026-10-12, both
+   `quiet: true` — and the ratios in finding 6 are from the 7.19.0 run.
 
    *Measurement correction (2026-09-05).* An earlier revision of `b1`
    quoted 7–10x from a cell that did not measure what its name claimed.
@@ -419,9 +432,13 @@ Java/Rust repositories must retain their upstream prompts and acceptance
 criteria and must be committed before multilingual or independent-replication
 claims are made.
 
-Current status: Track B complete on four product versions (6.13.0,
-6.14.0, 6.14.1, 7.0.0) with per-version snapshots under
-`results/replications/`. Track C grid run three times (19/20, 20/20,
+Current status: Track B complete on seven product versions (6.13.0,
+6.14.0, 6.14.1, 7.0.0, 7.1.4, 7.8.0, 7.19.0) — the early runs are
+snapshots under `results/replications/`, the later ones landing commits
+indexed in `results/replications/MANIFEST.md`, and the 7.8.0 → 7.19.0
+comparison (every correctness cell identical, timings within
+environmental drift but for two flagged cells) is written up in
+`docs/findings/2026-10-12-trackb-7.19.0-rerun.md`. Track C grid run three times (19/20, 20/20,
 18/20; no arm separation). Track D fleet: pilot plus pre-registered
 scale-up 1 complete (first arm separation — see the findings report);
 scale-up 2's pre-registered concurrency ladder (N ∈ {10, 25, 35, 50}) has
@@ -500,12 +517,15 @@ SlopCodeBench) are Tier 2 — see the spec.
 
 ## Threats to validity
 
-**Known observation — `nool query context` misses at file granularity.**
-In B6, `nool_query_context_symbol` and `nool_query_search` both retrieve the
-ground truth (`ratelimit.go#ApplyRateLimit`) at 163 and 245 bytes against the
-grep-and-read baseline's 658, but `nool_query_context_file` returns
-`hit: false`. File-level is the more natural first reach for an agent, so the
-token-efficiency result should be read as conditional on querying by symbol.
+**Resolved observation — `nool query context` used to miss at file
+granularity.** On 7.1.4, `nool_query_context_symbol` and `nool_query_search`
+retrieved the ground truth (`ratelimit.go#ApplyRateLimit`) at 163 and 245
+bytes against the grep-and-read baseline's 658, but `nool_query_context_file`
+returned `hit: false`, so the token-efficiency result was conditional on
+querying by symbol — the more natural first reach for an agent being the
+file. On 7.8.0 and 7.19.0 the file-level query hits (4 records, 497 bytes
+against 660), the symbol query hits at 292 bytes, and the negative control (a
+nonexistent symbol) is still reported unresolved rather than answered.
 
 **Known gap — the coordination arms assume identity is configured correctly.**
 `nool_gated` measures Nool with each agent under a distinct coordination

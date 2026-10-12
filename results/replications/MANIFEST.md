@@ -95,6 +95,33 @@ the rounding check to admit both readings, validated green against the
 fd169904's t10 failure is agent-quality (serialized dispatch, clean
 merge, semantic miss). Raw: results/trackc/fleet_runs.jsonl.
 
+## Track B cross-version reruns (2026-09-16 nool 7.8.0; 2026-10-12 nool 7.19.0)
+
+Both reruns overwrite `../micro/b1..b9*.json` in place; the per-version
+snapshot is the landing commit, not a directory:
+
+| Condition | 7.8.0 run | 7.19.0 run |
+|---|---|---|
+| Landing commit | `1dd90c3` | `fee5c83` |
+| Date (UTC) | 2026-09-16 (07:18–07:22) | 2026-10-12 (18:56–19:02) |
+| nool | 7.8.0 | 7.19.0 (release binary, sha256 `d161c3f1…`, build `1fb8ed48`, clean) |
+| Load per core (1 min) | 0.17–0.28, `quiet: true` on every file | 0.22–0.37, `quiet: true` on every file |
+| B10 fixture | exponential fillers (pre-`5b66a0bc`) | B1–B9 unaffected; B10 smoke rerun on the fixed fixture, see below |
+
+Recover a snapshot with `git show 1dd90c3:results/micro/b2_concurrency.json`.
+Every correctness, precision, recall, false-positive and merge cell is
+identical between the two runs; timings moved 5–15% in both the nool and the
+git control arms (environment), with two cells beyond that drift (B1 hook
+latency +3.3 ms on every hook; B2 `nool_n15` op median +33%) filed as Nool
+task `c0cf9bb3`. Full comparison:
+`../../docs/findings/2026-10-12-trackb-7.19.0-rerun.md`.
+
+**B10 smoke on 7.19.0 (2026-10-12, `work/b10_sanity/`, not `results/`):** the
+first attempt ran under load 19.8 because the fixture's filler packages were a
+cross-package Fibonacci and `go test ./...` never finished (bug `b0d15306`,
+fixed in `5b66a0bc`); the rerun on the fixed fixture was quiet (0.28/core),
+warm-up 30.3 s, both cells exact selection with an intact closure.
+
 ## Incident index
 
 - `results/trackc/invalidated_2026-08-20_user-config-contamination/` —

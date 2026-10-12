@@ -132,3 +132,14 @@ steady-state `propose` cost *after* `nool init` has already built the entity gra
   final number, and note that the R=10,000 tier is a single run (not yet repeated across
   separate fixture builds), unlike R=100/1,000 which this session's earlier runs also
   measured once each.
+- **The fixture's filler tests were exponential until 2026-10-12.** Each filler `H_i` called
+  both imported predecessors, so it was a cross-package Fibonacci and `go test ./...` could
+  not finish once a fixture had more than about 45 fillers; a timed-out warm-up then left
+  the spinning test binaries behind, pinning the CPU of the run that followed (bug
+  `b0d15306`). Fixed in knot `5b66a0bc`: fillers reference the imported functions without
+  calling them, so the import edges and the ground truth (closure files, envelope,
+  `affected_tests`) are unchanged while every filler test is O(1). The committed
+  `results/micro/b10_assurance_scaling.json` (nool 7.9.2) predates the fix: its admission
+  cells never ran filler tests, but any `full_fallback` evidence cell and the per-R warm-up
+  did, so re-run `make b10` before citing an evidence figure from a fallback cell. The
+  2026-10-12 smoke run on nool 7.19.0 (`work/b10_sanity/`) is the first on the fixed fixture.

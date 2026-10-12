@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Link fix 5b66a0bc to bug b0d15306
-knot_id: 9e3564d7ff87cec61e179c42f56bf4bc249002fbd75af3647611ff67a2313053
-solidified_at: 1791841025612
-thread: 
+intent: Benchmark report for the Track B rerun on nool 7.19.0: README finding 6 and the hooked-git caveat now quote the 7.19.0 run (6-10x hooked git for 1-10 files, ~40x at 100 files; hooks 10.6-20.2 ms; B2 misattribution 57-64%; B6 245-497 bytes with the file query hitting), status line lists seven benchmarked versions, the B6 file-granularity threat is marked resolved; new docs/findings/2026-10-12-trackb-7.19.0-rerun.md with the cell-by-cell comparison, the two flagged cells (task c0cf9bb3), the B10 smoke rerun and the fixture Fibonacci defect (bug b0d15306, fix 5b66a0bc); MANIFEST indexes the 7.8.0 and 7.19.0 landing commits; B10 findings pitfalls note which committed cells the fixture defect touched.
+knot_id: d3fd17f8efb7329ef8d3feff9306f9526ac2fd53518c2b96dfd0ed81c0b22c7e
+solidified_at: 1791842564619
+thread: main
