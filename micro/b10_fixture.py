@@ -95,15 +95,21 @@ def generate(root: Path, r_packages: int, d_levels: tuple[int, ...] = D_LEVELS,
             (ddir / "dep_test.go").write_text(_test_go(f"t{d}_dep_{j}", leaf_fn))
 
     # Fillers: each imports up to `filler_fan_out` earlier fillers (real
-    # cross-package edges, real O(R) edge count), never a target.
+    # cross-package edges, real O(R) edge count), never a target. The body
+    # references the imported functions without calling them: calling both
+    # made H_i a cross-package Fibonacci (fib(i) calls), so `go test ./...`
+    # never finished past i ~ 45 and the timed-out warm-up leaked spinning
+    # test binaries (bug b0d15306). Each test must stay O(1).
     for i in range(n_fillers):
         fdir = root / f"f_{i}"
         fdir.mkdir(exist_ok=True)
         deps = [f"f_{i - k}" for k in range(1, filler_fan_out + 1) if i - k >= 0]
         fn = f"H_{i}"
-        body = "return 1" if not deps else " + ".join([f"f_{i - k}.H_{i - k}()" for k in range(1, filler_fan_out + 1) if i - k >= 0]) or "return 1"
-        if deps and not body.startswith("return"):
-            body = f"return {body}"
+        if deps:
+            refs = ", ".join(f"f_{i - k}.H_{i - k}" for k in range(1, filler_fan_out + 1) if i - k >= 0)
+            body = f"return 1 + len([]func() int{{{refs}}})"
+        else:
+            body = "return 1"
         (fdir / "f.go").write_text(_pkg_go(f"f_{i}", fn, body, imports=deps))
         (fdir / "f_test.go").write_text(_test_go(f"f_{i}", fn))
 

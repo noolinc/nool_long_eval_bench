@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: Bug report: b10 warm-up timeout leaks the fixture's go test binaries; they pin the CPU after the run
-knot_id: 20e7d3e1c286098f129396c34e72ba9994d1961cd4b4c02edce25b16f55f6739
-solidified_at: 1791834070006
-thread: 
+intent: Fix bug b0d15306 root cause: b10 filler packages called both imported H functions, making H_i a cross-package Fibonacci (fib(i) calls) so go test ./... on R>=~45 fillers never finished; the timed-out warm-up then leaked spinning test binaries. Fillers now reference the imported functions without calling them (same import edges, O(1) tests).
+knot_id: 5b66a0bc0d860d7288b231d207bd3b7345a21152bec5c9d58191f97bd92607ea
+solidified_at: 1791840923977
+thread: main
