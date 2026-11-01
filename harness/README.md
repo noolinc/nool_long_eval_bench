@@ -44,11 +44,34 @@ batch without this was invalidated — see
 Any new adapter must document the equivalent isolation mechanism for its CLI
 before its data is analyzed.
 
-Implemented: `claude` (Claude Code CLI, stream-json accounting) and
-`opencode` (opencode CLI ≥1.18, `run --format json` event accounting).
-To add gemini/codex/pi: implement the same contract with that CLI's
-headless mode and native usage accounting, then register it in
-`run_experiment.py:ADAPTERS`.
+Implemented: `claude` (Claude Code CLI, stream-json accounting),
+`opencode` (opencode CLI ≥1.18, `run --format json` event accounting), and
+`codex` (Codex CLI `exec --json`, workspace-write sandbox). Codex sessions
+use a private `CODEX_HOME` with only the auth file copied in, plus
+`--ignore-user-config` and `--ignore-rules`; workspace instructions remain
+visible. The adapter honors the auth mode in that file: an active ChatGPT
+login takes precedence over API-key variables inherited from the shell. It
+reads Codex's top-level JSONL events for turns, completed tool items and token
+usage. Cost stays `null` when the CLI does not emit it. Codex may also omit a
+reported model field, so `model_reported` remains `null` in that case.
+
+The first recorded Codex pilot used `gpt-5.6-luna`, the Luna slug exposed by
+Codex CLI 0.152.1 on the test machine; `gpt-6-luna` was not in that CLI's
+model list. The `redux_go` 2×2 pilot passed all four cells once. Its raw
+transcripts have token usage, but the initial run records have null usage
+fields because they were collected before the top-level event parser fix.
+See [the results overview](../docs/findings/2026-11-01-benchmark-results.md)
+for counts and the limits of this pilot.
+
+Example:
+
+```bash
+python3 run_experiment.py --harness codex --model gpt-5.6-luna \
+    --tasks redux_go --cells all --reps 1
+```
+
+To add gemini/pi: implement the same contract with that CLI's headless mode
+and native usage accounting, then register it in `run_experiment.py:ADAPTERS`.
 
 **opencode isolation mechanism:** user-level configuration is excluded by
 pointing `XDG_CONFIG_HOME` at a throwaway directory for each session
@@ -130,3 +153,45 @@ retry paths are all reachable at zero cost. Its records go to
 validate harness plumbing and are excluded from evidence by protocol rule
 (`exclude_scripted_adapter_from_evidence`). Every arm has at least one
 recorded scripted validation run.
+
+### Nool as the orchestrator: `nool_code_fleet` and `nool_quorum`
+
+Every other arm is orchestrated by this harness: it launches the agents
+(Claude Code or OpenCode) and calls Nool only for leases, isolation and
+landing. These two arms hand orchestration to Nool:
+
+- `nool_code_fleet` — the whole backlog is one `nool code --fleet` run, one
+  `--fleet-task id=<footprint>: <ticket>` per ticket, `--width N`. Nool
+  plans the waves, runs each child session in its own worktree, verifies,
+  reviews, lands in dependency order and runs one integrated check.
+- `nool_quorum` — one `nool fleet start --isolation worktree --nodes
+  <footprint>` per ticket, up to N at once. Nool files the builder's lease
+  (exit 3 = held elsewhere, re-queued), runs it in its own worktree, asks
+  one reviewer (same model) and promotes on approval. The builder lands its
+  own work with `nool propose` through `shell.exec`.
+
+Both drive the model through Nool's own agent loop, not the harness
+adapter, so the agent harness differs from the other arms: compare them as
+"Nool end to end", not as a Nool-vs-git ablation. Pass the model id Nool
+uses with `--nool-model` (default: `--model`) and, for `nool_quorum`, the
+executor with `--nool-executor openrouter|claude-sdk`. Their Nool processes
+run under a throwaway `HOME` holding only `~/.nool/{config,credentials}.toml`
+and the identity key, so the operator's `~/.claude`, `~/.codex` and
+`~/.gemini` instruction files never reach a benchmark agent (Nool bug
+b247a6de).
+
+`--harness scripted` works for both: `adapters/nool_model_stub.py` serves an
+OpenAI-compatible endpoint on localhost that replays the scripted
+solutions, so both arms run end to end at $0 (8/8 accepted on the v1
+corpus, 2026-10-15, nool 7.20.0).
+
+Known 7.20.0 limits these arms work around, each a filed Nool bug:
+`nool_quorum` appends `[tools.shell]` and `[harness.sandbox]` write paths
+(the repo's `.nool`, `.git` and `/dev`) because the builder's jail
+otherwise refuses its own `nool propose` and every ticket ends
+`nothing-to-land` while `fleet start` still reports success (c910ff6f,
+ae592af1). `nool fleet plan --run` is not used: it gives each builder only
+the task id as its prompt (4c9a1270). And while the operator's shared
+`nool-daemon` runs, any Nool arm's setup registers its workspace with it
+despite `NOOL_NO_DAEMON` and `preflight_isolation` refuses the run
+(59fb39bc).

@@ -4,7 +4,10 @@
 **Objective**: Conformance probe (Track G) testing whether nool's semantic layer helps coding agents discover and respect architectural decisions in an existing codebase. Three axes: (1) constraint conformance (D1–D5), (2) prompt surface reduction (fat vs. thin prompts), (3) session handoff recovery.  
 **Agent**: opencode `x-preview-f-free` (free tier, zero cost).  
 **Corpus**: `giftshop` Go service (4-commit decision history + `DECISIONS.md`), D1–D5 architectural decisions, GIFT-101 task (gift-crediting endpoint).  
-**Cells**: 5 conditions × 1 run each.
+**Initial cells**: 5 conditions × 1 run each. The raw ledger now has 9 rows
+because Git-fat and Git-thin runs were repeated during pilot refinement. The
+additional outcomes are recorded in §7 below; do not read the initial table as
+the complete run ledger.
 
 ---
 
@@ -80,3 +83,19 @@ Result: all reference implementations pass (conforming: 4/4 behavioral + 3/3 sta
 2. **Enrich the corpus** to ~15 commits for a denser feature graph; note as a limitation in the pilot report.
 3. **Generalize the S2 refinement** across other repos/DTO patterns to confirm the float64‑token → arithmetic‑pattern swap is robust.
 4. **Handoff protocol v2**: add explicit `.nool` state capture/restore to recover the unknown-email edge case.
+
+## 7 Complete raw-ledger note (2026-11-01)
+
+The committed `results/trackg/runs.jsonl` contains nine records. The initial
+five-condition table above covers the first pass; later entries add three
+`git_fat` runs and one `git_thin` run. Across those entries, `git_thin` passed
+4/4 behavioral tests in both runs. The four `git_fat` entries include three
+4/4 outcomes and one 3/4 outcome. `nool_thin`, `handoff_git` and
+`handoff_nool` each passed 3/4, with the unknown-email graceful-failure test
+as the behavioral miss.
+
+All nine entries still show the S1 layering and S2 money-arithmetic
+violations. Because this pilot was adjusted while it was being run, these
+entries are not a preregistered replication set and should not be averaged as
+if they were identical-condition repeats. The raw ledger is the authority for
+individual outcomes.

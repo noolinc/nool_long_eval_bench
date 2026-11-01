@@ -1,61 +1,41 @@
 # Nool Benchmark Suite
 
-Reproducible benchmarks measuring whether [Nool](https://nool.dev) — a
-semantic-agentic VCS and coordination layer for coding agents — materially
-improves coding-agent outcomes versus plain git, across agent harnesses
-(Claude Code first; Gemini CLI, Codex CLI, Pi via the same adapter contract).
+This repository compares [Nool](https://nool.dev) with Git using local
+mechanism tests, synthetic agent-fleet studies and coding-agent pilots. The
+current Track C adapters are Claude Code, OpenCode and Codex. These tracks
+measure different things; read their results separately.
 
 **Design spec / pre-registration:**
 `docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md` —
 hypotheses H1–H7 and the analysis plan were committed before any Tier 1 data
 was collected. Read it before the numbers.
 
+**Enterprise build-versus-buy evaluation:**
+[CLI-grounded coverage review and runnable profile](docs/enterprise-benchmarks.md)
+adds source-size/navigation, trusted CI evidence, audit replay/tampering,
+independent approval/resume and lease-pressure probes, plus a matched-run ownership
+cost calculator. Start with `make -f enterprise/Makefile smoke`; the full profile
+is opt-in. Synthetic probes are kept separate from agent/fleet evidence.
+
+**Results across the suite:** [current results and limits](docs/findings/2026-11-01-benchmark-results.md)
+summarizes Tracks B, C, D and G plus the November enterprise probes. It links
+to the detailed reports and raw artifacts; the tracks are not combined into a
+single score.
+
 ## In plain terms
 
-Picture 20-60 AI coding agents all working on the same codebase at once,
-each fixing a different ticket. Two things can go wrong: two agents edit
-the same code and their changes collide (a "conflict"), or two changes
-each look fine on their own but break something when combined (silent
-"poisoning" — the build still passes, but a shared behavior is now
-wrong). This suite measures how often that happens under **plain git**
-versus **Nool**, a tool that tries to prevent it by having agents check
-in with each other before they start.
+The results do not point to one universal winner. Deterministic mechanism
+tests show Nool can prevent some merge and attribution failures, while its
+landing path costs more time than a comparable Git hook. In the fleet tests,
+a Git scheduler matches Nool when file plans are accurate; Nool's lead under
+noisy plans is small and still based on few repetitions. The November Codex
+pilot passed all four cells once, which is a useful harness check, not evidence
+of a product advantage.
 
-The short version of what a week of testing found:
-
-- **When every agent knows exactly which files it's about to touch**,
-  Nool and a well-scheduled git setup perform about the same — both
-  land essentially 100% of tickets cleanly. Nool's edge isn't the
-  *coordination idea*, which git can also implement; it's specifically
-  useful when that plan turns out to be wrong.
-- **When agents' declared plans are unreliable** — they under-report or
-  over-report which files they'll touch, which happens for real
-  (agents genuinely go outside their stated scope sometimes) — Nool
-  held up better than the git baseline at every level of unreliability
-  tested, and the gap between them grew the worse the information got
-  (from a 0-point gap with perfect information to a 6.7-percentage-point
-  gap in the worst case tested). This is still an early result: the
-  original balanced comparison has 2 repeated runs per condition; the
-  light-noise replication has since reached 5 and retains a smaller
-  2.0-point Nool lead. Heavy and very-heavy replications remain in
-  progress, so this is not yet a strong claim. It points at *when* a
-  coordination layer like this actually earns its keep: not when plans
-  are perfect, but when they aren't.
-- **A system can "pass" and still be broken.** In one run, every
-  individual ticket's own test passed (100% accepted) while the shared
-  codebase's overall test suite was silently failing — a reminder that
-  counting "how many tickets got accepted" isn't the same as checking
-  "is the result actually healthy."
-- Nool's mechanism-level tests also show real, measurable wins in
-  tracking who-changed-what under heavy concurrency and in undoing a bad
-  change without losing later good ones — alongside a real cost:
-  landing a change through Nool takes roughly 6–10x longer than a git
-  commit that runs a comparable pre-commit stack for typical 1–10 file
-  changes (about 40x for a 100-file change), in fast mode. The absolute figure — a few hundred milliseconds — sits
-  inside the noise of the model call that precedes any agent commit.
-
-Everything below is the full, unedited methodology and data behind those
-four bullets, written for readers who want to check the work.
+The latest enterprise smoke run passed 35 of 36 checks. The failed check is
+an imported-history integrity failure and remains in the report. The
+[results overview](docs/findings/2026-11-01-benchmark-results.md) gives the
+outcomes and limitations for each track and links to the underlying reports.
 
 ## Why this suite, not an existing benchmark
 
@@ -264,6 +244,7 @@ rates are what carry over to a differently-sized corpus, counts don't.
 | `analysis/make_figures.py` | Regenerates every figure in `docs/findings/` from the raw JSON |
 | `Makefile` / `Dockerfile` | One-command replication (`make trackB`, `tier1`, `trackC`) and containerized execution ([§8](docs/superpowers/specs/2026-08-20-nool-benchmark-suite-design.md#sec-8)) |
 | `docs/findings/` | Findings report with figures; `docs/paper/` holds the academic write-up |
+| `docs/findings/2026-11-01-benchmark-results.md` | Current cross-track results guide, with limits and links to raw evidence |
 
 Pre-suite pilot material (manual runs, no provenance — **not evidence**) was
 archived and then removed from the working tree; it remains recoverable from
@@ -514,6 +495,10 @@ throughput. Full detail, root-cause tracing, and the corrected ranking
 in findings [§6d](docs/findings/2026-08-21-findings.md#sec-6d)-[§6g](docs/findings/2026-08-21-findings.md#sec-6g); a third rep per cell remains the natural next step
 if quota allows. External benchmark adaptations (CooperBench,
 SlopCodeBench) are Tier 2 — see the spec.
+
+Since this status was written, a one-repetition Codex Track C grid and two
+local enterprise mechanism probes have been collected. Their outcomes and
+limits are in the [2026-11-01 results overview](docs/findings/2026-11-01-benchmark-results.md).
 
 ## Threats to validity
 
