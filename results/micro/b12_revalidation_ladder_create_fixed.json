@@ -1,0 +1,498 @@
+{
+ "benchmark": "b12_revalidation_ladder_create",
+ "provenance": {
+  "run_id": "16f8486e-9099-4eaa-9935-6a12039f390d",
+  "timestamp_utc": "2026-11-15T01:13:30.934546+00:00",
+  "system_load": {
+   "load_1m": 37.86,
+   "load_5m": 44.76,
+   "load_15m": 39.82,
+   "cpu_count": 12,
+   "load_per_core_1m": 3.15,
+   "quiet": false
+  },
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "nool_version": "nool 7.29.0",
+  "binary": "/private/tmp/claude-501/-Users-arunbalakrishnan-Development-NoolWorkspace-Nool/a7fae2ab-c8c5-4a51-8d78-795b185002c4/scratchpad/fixbin/nool",
+  "binary_sha256": "53453bf8386299c73df9ae10e958baaf7d4c974e5085e2aac03ada81233de2a0",
+  "nool_build": {
+   "version": "7.29.0",
+   "edition": "community",
+   "git_sha": "3c5dea6f33dfed7f48c98181d3477cad8e5dbe23",
+   "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+   "target": "aarch64-apple-darwin",
+   "dirty": true
+  },
+  "harness": {
+   "git_sha": "f126a6ea1b95355352e66fe73dce452ea5fe2a4b",
+   "dirty": true
+  },
+  "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+  "env_overrides": {
+   "NOOL_NO_DAEMON": "1",
+   "GIT_TERMINAL_PROMPT": "0"
+  },
+  "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
+  "git_version": "git version 2.50.1 (Apple Git-155)",
+  "go_version": "go version go1.26.2 darwin/arm64",
+  "python_version": "3.11.2",
+  "os_version": "26.6.2",
+  "execution": "local (containerization deferred; see spec \u00a78)"
+ },
+ "config": {
+  "design": "create",
+  "max_contention_retries": 3,
+  "n_values": [
+   10,
+   25,
+   50
+  ],
+  "overlaps": [
+   "low",
+   "medium",
+   "high"
+  ],
+  "arms": [
+   "after"
+  ],
+  "call_share": {
+   "low": 0.0,
+   "medium": 0.5,
+   "high": 1.0
+  },
+  "provider_files": [
+   "store/memstore.go",
+   "util/ids.go",
+   "util/clock.go"
+  ],
+  "treatment": "NOOL_BENCH_REVERSE_ONLY=1 (before) vs unset (after)"
+ },
+ "cells": {
+  "after_low_n10": {
+   "arm": "after",
+   "n": 10,
+   "overlap": "low",
+   "design": "create",
+   "contention_retries": 0,
+   "providers": 3,
+   "consumers": 7,
+   "consumers_calling_a_provider": 0,
+   "proposals": 14,
+   "landed": 14,
+   "refused": 0,
+   "wall_time_s": 34.6,
+   "seals_per_hour": 1458.7,
+   "seconds_per_landed_ticket": 2.47,
+   "region": {
+    "fresh": 14,
+    "revalidated": 0,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 7,
+     "revalidated": 0,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 7,
+     "revalidated": 0,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.0,
+   "consumer_revalidation_share": 0.0,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 14,
+    "median_ms": 20782.44,
+    "p10_ms": 5534.19,
+    "p90_ms": 27038.59,
+    "min_ms": 5534.19,
+    "max_ms": 28922.63
+   },
+   "final_tree_builds": true
+  },
+  "after_medium_n10": {
+   "arm": "after",
+   "n": 10,
+   "overlap": "medium",
+   "design": "create",
+   "contention_retries": 0,
+   "providers": 3,
+   "consumers": 7,
+   "consumers_calling_a_provider": 4,
+   "proposals": 16,
+   "landed": 16,
+   "refused": 0,
+   "wall_time_s": 25.8,
+   "seals_per_hour": 2232.6,
+   "seconds_per_landed_ticket": 1.61,
+   "region": {
+    "fresh": 15,
+    "revalidated": 1,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 8,
+     "revalidated": 1,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 7,
+     "revalidated": 0,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.062,
+   "consumer_revalidation_share": 0.0,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 16,
+    "median_ms": 7648.22,
+    "p10_ms": 2287.72,
+    "p90_ms": 15556.72,
+    "min_ms": 2287.72,
+    "max_ms": 19975.42
+   },
+   "final_tree_builds": true
+  },
+  "after_high_n10": {
+   "arm": "after",
+   "n": 10,
+   "overlap": "high",
+   "design": "create",
+   "contention_retries": 0,
+   "providers": 3,
+   "consumers": 7,
+   "consumers_calling_a_provider": 7,
+   "proposals": 16,
+   "landed": 16,
+   "refused": 0,
+   "wall_time_s": 23.7,
+   "seals_per_hour": 2429.3,
+   "seconds_per_landed_ticket": 1.48,
+   "region": {
+    "fresh": 12,
+    "revalidated": 4,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 7,
+     "revalidated": 2,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 5,
+     "revalidated": 2,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.25,
+   "consumer_revalidation_share": 0.286,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 16,
+    "median_ms": 7311.34,
+    "p10_ms": 2063.92,
+    "p90_ms": 13195.41,
+    "min_ms": 2063.92,
+    "max_ms": 19027.61
+   },
+   "final_tree_builds": true
+  },
+  "after_low_n25": {
+   "arm": "after",
+   "n": 25,
+   "overlap": "low",
+   "design": "create",
+   "contention_retries": 0,
+   "providers": 3,
+   "consumers": 22,
+   "consumers_calling_a_provider": 0,
+   "proposals": 35,
+   "landed": 35,
+   "refused": 0,
+   "wall_time_s": 63.0,
+   "seals_per_hour": 2000.2,
+   "seconds_per_landed_ticket": 1.8,
+   "region": {
+    "fresh": 35,
+    "revalidated": 0,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 13,
+     "revalidated": 0,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 22,
+     "revalidated": 0,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.0,
+   "consumer_revalidation_share": 0.0,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 35,
+    "median_ms": 19697.9,
+    "p10_ms": 5748.97,
+    "p90_ms": 47631.5,
+    "min_ms": 4746.72,
+    "max_ms": 57920.35
+   },
+   "final_tree_builds": true
+  },
+  "after_medium_n25": {
+   "arm": "after",
+   "n": 25,
+   "overlap": "medium",
+   "design": "create",
+   "contention_retries": 0,
+   "providers": 3,
+   "consumers": 22,
+   "consumers_calling_a_provider": 11,
+   "proposals": 38,
+   "landed": 38,
+   "refused": 0,
+   "wall_time_s": 46.4,
+   "seals_per_hour": 2945.5,
+   "seconds_per_landed_ticket": 1.22,
+   "region": {
+    "fresh": 35,
+    "revalidated": 3,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 14,
+     "revalidated": 2,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 21,
+     "revalidated": 1,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.079,
+   "consumer_revalidation_share": 0.045,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 38,
+    "median_ms": 12703.1,
+    "p10_ms": 4093.18,
+    "p90_ms": 21266.36,
+    "min_ms": 3698.14,
+    "max_ms": 41206.03
+   },
+   "final_tree_builds": true
+  },
+  "after_high_n25": {
+   "arm": "after",
+   "n": 25,
+   "overlap": "high",
+   "design": "create",
+   "contention_retries": 1,
+   "providers": 3,
+   "consumers": 22,
+   "consumers_calling_a_provider": 22,
+   "proposals": 28,
+   "landed": 28,
+   "refused": 0,
+   "wall_time_s": 32.6,
+   "seals_per_hour": 3094.4,
+   "seconds_per_landed_ticket": 1.16,
+   "region": {
+    "fresh": 22,
+    "revalidated": 6,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 4,
+     "revalidated": 2,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 18,
+     "revalidated": 4,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.214,
+   "consumer_revalidation_share": 0.182,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 28,
+    "median_ms": 14061.37,
+    "p10_ms": 3014.19,
+    "p90_ms": 26095.93,
+    "min_ms": 2413.35,
+    "max_ms": 29323.53
+   },
+   "final_tree_builds": true
+  },
+  "after_low_n50": {
+   "arm": "after",
+   "n": 50,
+   "overlap": "low",
+   "design": "create",
+   "contention_retries": 1,
+   "providers": 3,
+   "consumers": 47,
+   "consumers_calling_a_provider": 0,
+   "proposals": 55,
+   "landed": 55,
+   "refused": 0,
+   "wall_time_s": 91.3,
+   "seals_per_hour": 2168.1,
+   "seconds_per_landed_ticket": 1.66,
+   "region": {
+    "fresh": 55,
+    "revalidated": 0,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 8,
+     "revalidated": 0,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 47,
+     "revalidated": 0,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.0,
+   "consumer_revalidation_share": 0.0,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 55,
+    "median_ms": 51280.42,
+    "p10_ms": 14706.51,
+    "p90_ms": 78332.46,
+    "min_ms": 6846.01,
+    "max_ms": 84902.5
+   },
+   "final_tree_builds": true
+  },
+  "after_medium_n50": {
+   "arm": "after",
+   "n": 50,
+   "overlap": "medium",
+   "design": "create",
+   "contention_retries": 1,
+   "providers": 3,
+   "consumers": 47,
+   "consumers_calling_a_provider": 24,
+   "proposals": 55,
+   "landed": 54,
+   "refused": 1,
+   "wall_time_s": 74.8,
+   "seals_per_hour": 2599.9,
+   "seconds_per_landed_ticket": 1.38,
+   "region": {
+    "fresh": 49,
+    "revalidated": 5,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 6,
+     "revalidated": 1,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 43,
+     "revalidated": 4,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.093,
+   "consumer_revalidation_share": 0.085,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 54,
+    "median_ms": 31460.27,
+    "p10_ms": 8892.08,
+    "p90_ms": 67583.63,
+    "min_ms": 3559.47,
+    "max_ms": 73018.7
+   },
+   "final_tree_builds": true,
+   "refusal_log_tail": "--- b12 provider 2 op 2 rc=2\n\n1. PREPARING  [\u25cf\u25cf\u25cb]  Collecting changes...\n  [Graph] Caught up with HEAD: 22 edge(s) written, 0 retired.\n\n2. ANALYZING  [\u25cf\u25cf\u25cf]  Blast radius evaluation...\n\u26a0\ufe0f  Warning: Blast radius 19 node(s) needs review (declared 1).\n\n   Semantic Impact (from community structure):\n     Direct dependents: 0 files\n     Same community: 0 files\n   Affected nodes:\n     - ext/w16/w.go\n     - ext/w2/w.go\n     - ext/w5/w.go\n     - ext/w7/w.go\n     - ext/w10/w.go\n     - ... (and 14 more; use --detailed to show all)\n\n   Action: Provide a --justification to proceed, or abort with Ctrl+C.\n   If unintended, you may reject this Knot or use 'nool pluck' after solidification to revert.\nError: Blast radius exceeds declared scope (19 nodes). Non-interactive mode: re-run with --justification \"<reason>\" (or --auto-justify) to proceed. (A prior justification does not cover this blast or these packages.)\n\n"
+  },
+  "after_high_n50": {
+   "arm": "after",
+   "n": 50,
+   "overlap": "high",
+   "design": "create",
+   "contention_retries": 0,
+   "providers": 3,
+   "consumers": 47,
+   "consumers_calling_a_provider": 47,
+   "proposals": 53,
+   "landed": 51,
+   "refused": 2,
+   "wall_time_s": 47.4,
+   "seals_per_hour": 3872.2,
+   "seconds_per_landed_ticket": 0.93,
+   "region": {
+    "fresh": 40,
+    "revalidated": 11,
+    "untagged": 0
+   },
+   "region_by_role": {
+    "provider": {
+     "fresh": 4,
+     "revalidated": 1,
+     "untagged": 0
+    },
+    "consumer": {
+     "fresh": 36,
+     "revalidated": 10,
+     "untagged": 0
+    }
+   },
+   "revalidation_share": 0.216,
+   "consumer_revalidation_share": 0.217,
+   "quarantined": 0,
+   "quarantine_share": 0.0,
+   "lock_wait": "not reported by this binary",
+   "op_latency": {
+    "n": 51,
+    "median_ms": 17949.41,
+    "p10_ms": 5201.96,
+    "p90_ms": 40260.58,
+    "min_ms": 2961.95,
+    "max_ms": 44816.06
+   },
+   "final_tree_builds": true,
+   "refusal_log_tail": "--- b12 provider 2 op 1 rc=2\n\n1. PREPARING  [\u25cf\u25cf\u25cb]  Collecting changes...\n  [Graph] Caught up with HEAD: 4 edge(s) written, 0 retired.\n\n2. ANALYZING  [\u25cf\u25cf\u25cf]  Blast radius evaluation...\n\u26a0\ufe0f  Warning: Blast radius 23 node(s) needs review (declared 1).\n\n   Semantic Impact (from community structure):\n     Direct dependents: 0 files\n     Same community: 0 files\n   Affected nodes:\n     - ext/w8/w.go\n     - ext/w31/w.go\n     - ext/w13/w.go\n     - ext/w11/w.go\n     - ext/w7/w.go\n     - ... (and 18 more; use --detailed to show all)\n\n   Action: Provide a --justification to proceed, or abort with Ctrl+C.\n   If unintended, you may reject this Knot or use 'nool pluck' after solidification to revert.\nError: Blast radius exceeds declared scope (23 nodes). Non-interactive mode: re-run with --justification \"<reason>\" (or --auto-justify) to proceed. (A prior justification does not cover this blast or these packages.)\n\n--- b12 consumer 29 rc=1\noolbench_b12_oahl0w9c/after_high_n50/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_oahl0w9c/after_high_n50/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] integrity: deps ? units ?s / workspace 0.4s / tests 0.5s\n  [Reify] \u2705 Verified Runnable (Project-Level: .go). Hash: ac3eb7836c3a29b0975a3386f93e05f00f1ff9c74f832169b7fa6a683abff717\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Mutation] tests_constrain_change: error (nothing to mutate: no changed source line holds an operator to change)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w29/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 0 \u2014 Why: b12 scripted writer\n     [solidify] nool init: record Nool's configuration files \u2014 Mutation  config  @ nool.toml\n     [solidify] b12 consumer 7 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 27 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 08b113ce\n  Intent  : b12 consumer 29\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 36 concurrent knot(s) touched the region since propose (util/clock.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w29/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 11c6648f694d334bcbf2eb6e99e233281110f7f1a436804f26336b2b58d5ce3a\nError: candidate 08b113ce2b4e93ff860a42a1097d8ba4adba19173bb755769d78f298e8a317ae was sealed, dropped or replaced while it was re-validated; check `nool log` and `nool candidate list`\n\n"
+  }
+ }
+}

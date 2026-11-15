@@ -1,7 +1,7 @@
 commit_policy_hash: 2e8b563ff1a0f6d478257fc6a82b13ac853a3787b40d0cc00df2893e7522a5c1
 commit_policy_version: 1
 commit_template_hash: 686bd6f6d3f60a9716f8ca85195b61c4852e2e6d8a91cf7a01fc867d6252a9af
-intent: B12 revalidation/quarantine ladder: probe, reverse-only treatment patch, modify+create results, findings note (Nool task f36857ee)
-knot_id: bdc5956b6ef4c72ff6140b58572078144eac0631bfd659739d57b115dc700b73
-solidified_at: 1794702149008
+intent: B12 follow-up: create-design rerun after the new-file region fix (Nool knot 26dc4fd8)
+knot_id: 952b1bbedc749589326f9b143cf5116879289c4474309ebee2120516fe264a49
+solidified_at: 1794708032355
 thread: main

@@ -129,3 +129,31 @@ No candidate was quarantined in any cell of either design.
 cd micro && PATH=<dir with that nool>:$PATH B12_DESIGN=modify python3 b12_revalidation_ladder.py
 B12_DESIGN=create B12_N=10 B12_OVERLAP=high ...   # narrower cells
 ```
+
+## Follow-up: new-file region fixed (Nool knot 26dc4fd8)
+
+Finding 4 led to a fix the same day. The seal now reads a new file's dependencies from its source
+(`seal_graph::source_dependencies`). Its imports are walked forward, and its Go and Java package
+siblings are walked both ways, so the package's importers count as its dependents. The blanket
+"every concurrent path is stale" rule now applies only when the source cannot be read or is
+generated.
+
+The create design was rerun on a build of that fix, "after" arm only. Results are in
+`results/micro/b12_revalidation_ladder_create_fixed.json`. Writers in the rerun retry exit 3 up to
+three times; the original create run did not, and the rerun needed 0–1 retries per cell.
+
+| N | overlap | revalidation share, before → after fix | consumers revalidated, before → after | refused, before → after |
+|---|---|---|---|---|
+| 10 | low | 0.27 → 0.00 | 4/4 → 0/7 | 3/18 → 0/14 |
+| 10 | medium | 0.38 → 0.06 | 3/4 → 0/7 | 4/12 → 0/16 |
+| 10 | high | 0.46 → 0.25 | 4/5 → 2/7 | 3/14 → 0/16 |
+| 25 | low | 0.63 → 0.00 | 15/16 → 0/22 | 6/30 → 0/35 |
+| 25 | medium | 0.50 → 0.08 | 11/12 → 1/22 | 10/34 → 0/38 |
+| 25 | high | 0.71 → 0.21 | 9/10 → 4/22 | 12/29 → 0/28 |
+| 50 | low | 0.71 → 0.00 | 22/23 → 0/47 | 24/55 → 0/55 |
+| 50 | medium | 0.68 → 0.09 | 20/21 → 4/47 | 26/60 → 1/55 |
+| 50 | high | 0.75 → 0.22 | 22/23 → 10/46 | 25/57 → 2/53 |
+
+After the fix, new files behave like edited ones. They are revalidated only when a file they import
+landed in between, and they are never revalidated at low overlap. Every final tree still builds.
+The machine was loaded during the rerun (3.2 per core), so compare shares, not seals per hour.
