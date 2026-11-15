@@ -1,0 +1,15 @@
+diff --git a/crates/nool-cli/src/solidify.rs b/crates/nool-cli/src/solidify.rs
+index b50fdaa2a..8b431ab9b 100644
+--- a/crates/nool-cli/src/solidify.rs
++++ b/crates/nool-cli/src/solidify.rs
+@@ -2745,7 +2745,9 @@ pub(crate) fn stale_region_for(
+         let entity_id = nool_core::semantic::generate_stable_id("entity", p, "file", p);
+         // Reverse = dependents (what the verdict's tests covered); forward =
+         // dependencies (what the verdict assumed stayed put).
+-        for reverse in [true, false] {
++        // BENCHMARK-ONLY (task f36857ee, never landed): reverse-only = pre-90280876.
++        let bench_dirs: &[bool] = if std::env::var_os("NOOL_BENCH_REVERSE_ONLY").is_some() { &[true] } else { &[true, false] };
++        for &reverse in bench_dirs {
+             for candidate in ledger
+                 .reachable(&entity_id, &BLAST_EDGE_KINDS, None, reverse)
+                 .unwrap_or_default()

@@ -1,0 +1,901 @@
+{
+  "benchmark": "b12_revalidation_ladder",
+  "provenance": {
+    "run_id": "ab2ce1ce-a748-4da2-9e61-caaeb359a151",
+    "timestamp_utc": "2026-11-14T23:55:30.411927+00:00",
+    "system_load": {
+      "load_1m": 22.6,
+      "load_5m": 16.07,
+      "load_15m": 12.36,
+      "cpu_count": 12,
+      "load_per_core_1m": 1.88,
+      "quiet": false
+    },
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "nool_version": "nool 7.28.0",
+    "binary": "/private/tmp/claude-501/-Users-arunbalakrishnan-Development-NoolWorkspace-Nool/a7fae2ab-c8c5-4a51-8d78-795b185002c4/scratchpad/wt/target/debug/nool",
+    "binary_sha256": "ebf065c128ed23f0ce212df7bddc1361760703e99051fe04861ee4b4c31f3d00",
+    "nool_build": {
+      "version": "7.28.0",
+      "edition": "community",
+      "git_sha": "3cce6870d3c6b166f469c7ea5b14e2c2ca48b32b",
+      "rustc": "rustc 1.95.0 (59807616e 2026-04-14)",
+      "target": "aarch64-apple-darwin",
+      "dirty": true
+    },
+    "harness": {
+      "git_sha": "2496ed9c60a1bc2881e2e1a0f079c29f3e825bd4",
+      "dirty": true
+    },
+    "daemon_mode": "NOOL_NO_DAEMON=1: benchmark clients never start or register a daemon",
+    "env_overrides": {
+      "NOOL_NO_DAEMON": "1",
+      "GIT_TERMINAL_PROMPT": "0"
+    },
+    "output_streams": "scored outputs read stdout alone (run_split); merged elsewhere",
+    "git_version": "git version 2.50.1 (Apple Git-155)",
+    "go_version": "go version go1.26.2 darwin/arm64",
+    "python_version": "3.11.2",
+    "os_version": "26.6.2",
+    "execution": "local (containerization deferred; see spec \u00a78)"
+  },
+  "config": {
+    "n_values": [
+      10,
+      25,
+      50
+    ],
+    "overlaps": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "arms": [
+      "before",
+      "after"
+    ],
+    "call_share": {
+      "low": 0.0,
+      "medium": 0.5,
+      "high": 1.0
+    },
+    "provider_files": [
+      "store/memstore.go",
+      "util/ids.go",
+      "util/clock.go"
+    ],
+    "treatment": "NOOL_BENCH_REVERSE_ONLY=1 (before) vs unset (after)",
+    "design": "create"
+  },
+  "cells": {
+    "before_low_n10": {
+      "arm": "before",
+      "n": 10,
+      "overlap": "low",
+      "providers": 3,
+      "consumers": 7,
+      "consumers_calling_a_provider": 0,
+      "proposals": 14,
+      "landed": 12,
+      "refused": 2,
+      "wall_time_s": 17.5,
+      "seals_per_hour": 2467.0,
+      "seconds_per_landed_ticket": 1.46,
+      "region": {
+        "fresh": 8,
+        "revalidated": 4,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 7,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 4,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.333,
+      "consumer_revalidation_share": 0.8,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 12,
+        "median_ms": 7320.74,
+        "p10_ms": 1894.2,
+        "p90_ms": 12364.85,
+        "min_ms": 1894.2,
+        "max_ms": 13545.9
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "g proposal...\n  [Reify] Recorded Full verdict is stale: 6 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w2/w.go, ext/w4/w.go, ext/w5/w.go, store/memstore.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w1/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 5b0f4c07805ac7629ac42b65115232c0aa80606147f59d280cb696a72f6fee00\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/clock.go); re-run the seal to validate it against them\n\n--- b12 consumer 3 rc=3\n\u25cf\u25cf\u25cf]  Merge simulation...\n  [Reify] \u2705 Hydrated 1 bundle file(s) to scratchpad\n  [Reify] \ud83d\udce6 Checking project-level integrity (#2): /private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_low_n10/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_low_n10/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w3/w.go:6 `3` became `4`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w3/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 6 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 5 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 4 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 2 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : b1b7c756\n  Intent  : b12 consumer 3\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 8 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w2/w.go, ext/w4/w.go, ext/w5/w.go, ext/w6/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w3/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 643569ab4d23f59e0b32d6a3ad9daec7752d4f41fe9d261aa2926c8568e66d9a\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n"
+    },
+    "after_low_n10": {
+      "arm": "after",
+      "n": 10,
+      "overlap": "low",
+      "providers": 3,
+      "consumers": 7,
+      "consumers_calling_a_provider": 0,
+      "proposals": 18,
+      "landed": 15,
+      "refused": 3,
+      "wall_time_s": 22.7,
+      "seals_per_hour": 2378.3,
+      "seconds_per_landed_ticket": 1.51,
+      "region": {
+        "fresh": 11,
+        "revalidated": 4,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 11,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 0,
+          "revalidated": 4,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.267,
+      "consumer_revalidation_share": 1.0,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 15,
+        "median_ms": 6516.72,
+        "p10_ms": 1937.34,
+        "p90_ms": 11736.56,
+        "min_ms": 1937.34,
+        "max_ms": 21281.19
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 3 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w5/w.go, store/memstore.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w4/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 8595eca2e8f0d01a1c5460f2015328b6297bd442e5e4b92283abef7ccb814a80\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n--- b12 consumer 3 rc=3\n\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Reify] \u2705 Hydrated 1 bundle file(s) to scratchpad\n  [Reify] \ud83d\udce6 Checking project-level integrity (#2): /private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_low_n10/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_low_n10/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w3/w.go:6 `3` became `4`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w3/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 6 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 5 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 2 op 0 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : a0bda9bd\n  Intent  : b12 consumer 3\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 6 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w5/w.go, ext/w6/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w3/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 22e5193da5ac0f4c15585a8f172aba9cb5281920e2a0818f4c3183effa9c42de\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (store/memstore.go); re-run the seal to validate it against them\n\n"
+    },
+    "before_medium_n10": {
+      "arm": "before",
+      "n": 10,
+      "overlap": "medium",
+      "providers": 3,
+      "consumers": 7,
+      "consumers_calling_a_provider": 4,
+      "proposals": 13,
+      "landed": 10,
+      "refused": 3,
+      "wall_time_s": 13.6,
+      "seals_per_hour": 2652.7,
+      "seconds_per_landed_ticket": 1.36,
+      "region": {
+        "fresh": 6,
+        "revalidated": 4,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 5,
+          "revalidated": 1,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 3,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.4,
+      "consumer_revalidation_share": 0.75,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 10,
+        "median_ms": 6509.08,
+        "p10_ms": 2742.68,
+        "p90_ms": 10007.03,
+        "min_ms": 2742.68,
+        "max_ms": 10007.03
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 1 concurrent knot(s) touched the region since propose (ext/w0/w.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w4/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 199815f5b68b265cfa950e130add0411ee7bed428be29a14c64b55cefd192078\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w6/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 2 rc=3\ntore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_medium_n10/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] integrity: deps ? units ?s / workspace 0.2s / tests 0.3s\n  [Reify] \u2705 Verified Runnable (Project-Level: .go). Hash: c0feeaf35ab05c71433540dbb04e826669f9788d3aaa54e0d8a55de49b4cd603\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Mutation] tests_constrain_change: error (nothing to mutate: no changed source line holds an operator to change)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w2/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 6 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 3 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 2 op 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 0 op 0 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 3c85d3f9\n  Intent  : b12 consumer 2\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 5 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w3/w.go, ext/w6/w.go, store/memstore.go, util/clock.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w2/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: f8a42b9c0ce933b62dbc9eae4de4980afbb7d81e18746b1cd0045d6418938ffa\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w1/w.go, util/ids.go); re-run the seal to validate it against them\n\n"
+    },
+    "after_medium_n10": {
+      "arm": "after",
+      "n": 10,
+      "overlap": "medium",
+      "providers": 3,
+      "consumers": 7,
+      "consumers_calling_a_provider": 4,
+      "proposals": 12,
+      "landed": 8,
+      "refused": 4,
+      "wall_time_s": 12.6,
+      "seals_per_hour": 2287.1,
+      "seconds_per_landed_ticket": 1.57,
+      "region": {
+        "fresh": 5,
+        "revalidated": 3,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 4,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 3,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.375,
+      "consumer_revalidation_share": 0.75,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 8,
+        "median_ms": 4197.72,
+        "p10_ms": 1509.94,
+        "p90_ms": 11419.15,
+        "min_ms": 1509.94,
+        "max_ms": 11419.15
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 3 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w2/w.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w4/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 69503481002e25f9e01a34b03b4c2cba1a655bd7bdbaf4458f0c43aeb9c03a7d\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n--- b12 consumer 6 rc=3\nLATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Reify] \u2705 Hydrated 1 bundle file(s) to scratchpad\n  [Reify] \ud83d\udce6 Checking project-level integrity (#2): /private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_medium_n10/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_medium_n10/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w6/w.go:6 `6` became `7`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w6/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 2 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 0 \u2014 Why: b12 scripted writer\n     [solidify] nool init: record Nool's configuration files \u2014 Mutation  config  @ nool.toml\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 7972599e\n  Intent  : b12 consumer 6\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 4 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w2/w.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w6/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 88653b608d46e7b11bd4a1401070b7640b2d59434a25cb511e33b8f5fe53060b\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w5/w.go, util/ids.go); re-run the seal to validate it against them\n\n"
+    },
+    "before_high_n10": {
+      "arm": "before",
+      "n": 10,
+      "overlap": "high",
+      "providers": 3,
+      "consumers": 7,
+      "consumers_calling_a_provider": 7,
+      "proposals": 12,
+      "landed": 9,
+      "refused": 3,
+      "wall_time_s": 11.3,
+      "seals_per_hour": 2873.4,
+      "seconds_per_landed_ticket": 1.25,
+      "region": {
+        "fresh": 4,
+        "revalidated": 5,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 3,
+          "revalidated": 2,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 3,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.556,
+      "consumer_revalidation_share": 0.75,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 9,
+        "median_ms": 4476.66,
+        "p10_ms": 1552.63,
+        "p90_ms": 9352.01,
+        "min_ms": 1552.63,
+        "max_ms": 9352.01
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 3 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w6/w.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w5/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 3cac0887670d02bc7d386f8db6f68913245c69bf9666da9adebf2d4ef846d418\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/clock.go); re-run the seal to validate it against them\n\n--- b12 consumer 2 rc=3\n[Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_high_n10/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] integrity: deps ? units ?s / workspace 0.2s / tests 0.2s\n  [Reify] \u2705 Verified Runnable (Project-Level: .go). Hash: 11a1653ffd65884e6d90664e0d98207e0c496acd85538ce1ea8e4a23ad21b526\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Mutation] tests_constrain_change: error (nothing to mutate: no changed source line holds an operator to change)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w2/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 6 \u2014 Why: b12 scripted writer\n     [solidify] nool init: record Nool's configuration files \u2014 Mutation  config  @ nool.toml\n     [solidify] nool init: record Nool's configuration files \u2014 Synthesis (4 props):\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 50debf1a\n  Intent  : b12 consumer 2\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 3 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w6/w.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w2/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 88653b608d46e7b11bd4a1401070b7640b2d59434a25cb511e33b8f5fe53060b\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/clock.go, util/ids.go); re-run the seal to validate it against them\n\n"
+    },
+    "after_high_n10": {
+      "arm": "after",
+      "n": 10,
+      "overlap": "high",
+      "providers": 3,
+      "consumers": 7,
+      "consumers_calling_a_provider": 7,
+      "proposals": 14,
+      "landed": 11,
+      "refused": 3,
+      "wall_time_s": 14.7,
+      "seals_per_hour": 2692.9,
+      "seconds_per_landed_ticket": 1.34,
+      "region": {
+        "fresh": 6,
+        "revalidated": 5,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 5,
+          "revalidated": 1,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 4,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.455,
+      "consumer_revalidation_share": 0.8,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 11,
+        "median_ms": 5629.47,
+        "p10_ms": 2069.06,
+        "p90_ms": 10369.5,
+        "min_ms": 2069.06,
+        "max_ms": 13222.6
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 3 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w3/w.go, ext/w6/w.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w0/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 7c0f5db82fc83c81d607632960e4b2183cc6ade6a6d117a6e47f651980e8fa6f\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n--- b12 provider 2 op 1 rc=3\ne (Project-Level: .go). Hash: 1a7e73d0a7187407da740a13f5efe61fac94ae0636aa474c83484cf6d07faf3f\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Reify] \u2705 Hydrated 1 bundle file(s) to scratchpad\n  [Reify] \ud83d\udce6 Checking project-level integrity (#2): /private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_high_n10/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_high_n10/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: util/clock.go:14 `1` became `2`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 4 node(s) affected (declared 1) \u2014 ELEVATED [indicative]\n     \u00b7 service/users.go\n     \u00b7 util/clock.go\n     \u00b7 service/orders.go\n     \u00b7 ext/w1/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 provider 2 op 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 0 op 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 3 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 0 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 65c15e5f\n  Intent  : b12 provider 2 op 1\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 2 concurrent knot(s) touched the region since propose (ext/w2/w.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: 0/1 test files: dependents closure of 1 touched path(s), estimated cost 0% of the full suite; no selected test file to scope the run by, so the whole suite runs\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 4ad7a9cca5906f591a4fb92170753b02edce2976f223b3f7f0af0700bd7f8d94\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w5/w.go); re-run the seal to validate it against them\n\n"
+    },
+    "before_low_n25": {
+      "arm": "before",
+      "n": 25,
+      "overlap": "low",
+      "providers": 3,
+      "consumers": 22,
+      "consumers_calling_a_provider": 0,
+      "proposals": 36,
+      "landed": 29,
+      "refused": 7,
+      "wall_time_s": 43.9,
+      "seals_per_hour": 2377.7,
+      "seconds_per_landed_ticket": 1.51,
+      "region": {
+        "fresh": 15,
+        "revalidated": 14,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 14,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 14,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.483,
+      "consumer_revalidation_share": 0.933,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 29,
+        "median_ms": 14769.02,
+        "p10_ms": 1961.87,
+        "p90_ms": 34421.15,
+        "min_ms": 1858.2,
+        "max_ms": 42434.42
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "w.go, ext/w10/w.go, ext/w16/w.go, ext/w18/w.go, ext/w2/w.go, ext/w20/w.go, ext/w21/w.go, ext/w3/w.go, ext/w4/w.go, ext/w7/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w12/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: ed4f5edce66e3c04e04b9a03b179bb38982f22b90381d8f82c80d034900879e4\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w17/w.go, store/memstore.go); re-run the seal to validate it against them\n\n--- b12 consumer 13 rc=3\ngrity (#2): /private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_low_n25/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_low_n25/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w13/w.go:6 `13` became `14`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w13/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 17 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 4 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 7 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 1 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 3c14afb4\n  Intent  : b12 consumer 13\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 18 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w10/w.go, ext/w15/w.go, ext/w16/w.go, ext/w17/w.go, ext/w18/w.go, ext/w2/w.go, ext/w20/w.go, ext/w21/w.go, ext/w3/w.go, ext/w4/w.go, ext/w7/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w13/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 829b461d67780909507a8f075a1ee3be7d4e82b2624969a9afcf3de968bc8b9d\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (store/memstore.go); re-run the seal to validate it against them\n\n"
+    },
+    "after_low_n25": {
+      "arm": "after",
+      "n": 25,
+      "overlap": "low",
+      "providers": 3,
+      "consumers": 22,
+      "consumers_calling_a_provider": 0,
+      "proposals": 30,
+      "landed": 24,
+      "refused": 6,
+      "wall_time_s": 36.5,
+      "seals_per_hour": 2370.3,
+      "seconds_per_landed_ticket": 1.52,
+      "region": {
+        "fresh": 9,
+        "revalidated": 15,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 8,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 15,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.625,
+      "consumer_revalidation_share": 0.938,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 24,
+        "median_ms": 16868.94,
+        "p10_ms": 4853.46,
+        "p90_ms": 31272.79,
+        "min_ms": 3228.7,
+        "max_ms": 34283.57
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": ".go, ext/w1/w.go, ext/w11/w.go, ext/w12/w.go, ext/w13/w.go, ext/w15/w.go, ext/w18/w.go, ext/w2/w.go, ext/w3/w.go, ext/w4/w.go, ext/w6/w.go, ext/w8/w.go, ext/w9/w.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w21/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 8ef70f314fe3c5858395a8221ce67796573bd938b74e4baff2adbf77500e11ff\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w17/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 14 rc=3\n(#2): /private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_low_n25/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_low_n25/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Mutation] tests_constrain_change: fail (survived: ext/w14/w.go:6 `14` became `15`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w14/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 2 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 8 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 3 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 4 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : f8a7a933\n  Intent  : b12 consumer 14\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 17 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w11/w.go, ext/w12/w.go, ext/w13/w.go, ext/w15/w.go, ext/w17/w.go, ext/w18/w.go, ext/w2/w.go, ext/w3/w.go, ext/w4/w.go, ext/w6/w.go, ext/w8/w.go, ext/w9/w.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w14/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 4171a55044ac34b3c8dda6d427cf0977d6a06b9c4b86df66004346e21fb46519\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w7/w.go, store/memstore.go); re-run the seal to validate it against them\n\n"
+    },
+    "before_medium_n25": {
+      "arm": "before",
+      "n": 25,
+      "overlap": "medium",
+      "providers": 3,
+      "consumers": 22,
+      "consumers_calling_a_provider": 11,
+      "proposals": 28,
+      "landed": 18,
+      "refused": 10,
+      "wall_time_s": 27.2,
+      "seals_per_hour": 2380.9,
+      "seconds_per_landed_ticket": 1.51,
+      "region": {
+        "fresh": 5,
+        "revalidated": 13,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 4,
+          "revalidated": 2,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 11,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.722,
+      "consumer_revalidation_share": 0.917,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 18,
+        "median_ms": 12100.88,
+        "p10_ms": 2309.41,
+        "p90_ms": 24246.86,
+        "min_ms": 2309.41,
+        "max_ms": 27215.52
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "knot(s) touched the region since propose (ext/w1/w.go, ext/w10/w.go, ext/w11/w.go, ext/w14/w.go, ext/w3/w.go, ext/w6/w.go, ext/w7/w.go, ext/w8/w.go, ext/w9/w.go, store/memstore.go, util/clock.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w5/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 7901ac89e558b127ad9c2119e9540e87bb0204863c9ad554ca1b8a34f0cb7cd3\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w4/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 21 rc=3\no scratchpad\n  [Reify] \ud83d\udce6 Checking project-level integrity (#2): /private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_medium_n25/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_medium_n25/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w21/w.go:6 `21` became `22`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w21/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 10 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 7 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 8 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 6 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 4 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 9f280fde\n  Intent  : b12 consumer 21\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 12 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w10/w.go, ext/w11/w.go, ext/w14/w.go, ext/w3/w.go, ext/w4/w.go, ext/w6/w.go, ext/w7/w.go, ext/w8/w.go, ext/w9/w.go, store/memstore.go, util/clock.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w21/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 54608b1b8b672ff6f863e66a955a0c3c6d40d495cf3592b028c0ae423aa14342\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w20/w.go); re-run the seal to validate it against them\n\n"
+    },
+    "after_medium_n25": {
+      "arm": "after",
+      "n": 25,
+      "overlap": "medium",
+      "providers": 3,
+      "consumers": 22,
+      "consumers_calling_a_provider": 11,
+      "proposals": 34,
+      "landed": 24,
+      "refused": 10,
+      "wall_time_s": 34.8,
+      "seals_per_hour": 2482.5,
+      "seconds_per_landed_ticket": 1.45,
+      "region": {
+        "fresh": 12,
+        "revalidated": 12,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 11,
+          "revalidated": 1,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 11,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.5,
+      "consumer_revalidation_share": 0.917,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 24,
+        "median_ms": 9495.57,
+        "p10_ms": 3015.04,
+        "p90_ms": 21306.74,
+        "min_ms": 2592.53,
+        "max_ms": 32051.69
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "xt/w1/w.go, ext/w10/w.go, ext/w11/w.go, ext/w13/w.go, ext/w14/w.go, ext/w15/w.go, ext/w16/w.go, ext/w2/w.go, ext/w6/w.go, ext/w7/w.go, ext/w9/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w19/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 569d128cad90c7e16bdddf6e143bedc2541fb3492e0de989bfc678ed4526a3bd\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n--- b12 consumer 21 rc=3\ning project-level integrity (#2): /private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_medium_n25/.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_medium_n25/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w21/w.go:6 `21` became `22`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w21/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 2 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 7 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 6 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 0 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 085acc3f\n  Intent  : b12 consumer 21\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 18 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w10/w.go, ext/w11/w.go, ext/w13/w.go, ext/w14/w.go, ext/w15/w.go, ext/w16/w.go, ext/w2/w.go, ext/w6/w.go, ext/w7/w.go, ext/w9/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w21/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 0c90daf824eb3a05909ecb93eae437be1aeaa43e03ffefbb8a6dbc8b9f8773f3\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n"
+    },
+    "before_high_n25": {
+      "arm": "before",
+      "n": 25,
+      "overlap": "high",
+      "providers": 3,
+      "consumers": 22,
+      "consumers_calling_a_provider": 22,
+      "proposals": 27,
+      "landed": 14,
+      "refused": 13,
+      "wall_time_s": 19.8,
+      "seals_per_hour": 2546.3,
+      "seconds_per_landed_ticket": 1.41,
+      "region": {
+        "fresh": 5,
+        "revalidated": 9,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 4,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 9,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.643,
+      "consumer_revalidation_share": 0.9,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 14,
+        "median_ms": 9084.75,
+        "p10_ms": 1640.82,
+        "p90_ms": 15941.55,
+        "min_ms": 1640.82,
+        "max_ms": 18000.95
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "verdict is stale: 10 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w14/w.go, ext/w17/w.go, ext/w2/w.go, ext/w20/w.go, ext/w5/w.go, ext/w7/w.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: 0/1 test files: dependents closure of 1 touched path(s), estimated cost 0% of the full suite; no selected test file to scope the run by, so the whole suite runs\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: b8f63b904f44705f1d52c5c62a0d1a97013141fbb9a746520e20509e6174450f\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w10/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 3 rc=3\nreification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_high_n25/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] integrity: deps ? units ?s / workspace 0.2s / tests 0.3s\n  [Reify] \u2705 Verified Runnable (Project-Level: .go). Hash: 31dd70d6a6972262f1c380db18c54c7a07ec2d22560feada61e0466260aa8810\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Mutation] tests_constrain_change: error (nothing to mutate: no changed source line holds an operator to change)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w3/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 7 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 2 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 6 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 17 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 2cda1afb\n  Intent  : b12 consumer 3\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 11 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w10/w.go, ext/w12/w.go, ext/w14/w.go, ext/w17/w.go, ext/w2/w.go, ext/w20/w.go, ext/w5/w.go, ext/w6/w.go, ext/w7/w.go, store/memstore.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w3/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 1a6b599aac7c42f031fbeba40ad3f06f1a314a9d0e4705f48198da19836329d8\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n"
+    },
+    "after_high_n25": {
+      "arm": "after",
+      "n": 25,
+      "overlap": "high",
+      "providers": 3,
+      "consumers": 22,
+      "consumers_calling_a_provider": 22,
+      "proposals": 29,
+      "landed": 17,
+      "refused": 12,
+      "wall_time_s": 22.3,
+      "seals_per_hour": 2743.8,
+      "seconds_per_landed_ticket": 1.31,
+      "region": {
+        "fresh": 5,
+        "revalidated": 12,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 4,
+          "revalidated": 3,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 9,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.706,
+      "consumer_revalidation_share": 0.9,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 17,
+        "median_ms": 8144.21,
+        "p10_ms": 1929.89,
+        "p90_ms": 19009.31,
+        "min_ms": 1929.89,
+        "max_ms": 19325.83
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "corded Full verdict is stale: 9 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w11/w.go, ext/w17/w.go, ext/w18/w.go, ext/w2/w.go, ext/w5/w.go, ext/w9/w.go, util/clock.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w14/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 1e2c251939142d602db7c2e313abe26950bb0372e3ea740f4d8a802a11fd253d\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w21/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 15 rc=3\nck) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_high_n25/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] integrity: deps ? units ?s / workspace 0.2s / tests 0.3s\n  [Reify] \u2705 Verified Runnable (Project-Level: .go). Hash: 3f389363eb0e0946b8bc335b40489f1d849369b56c2544d8fcca7fedf280db74\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Mutation] tests_constrain_change: error (nothing to mutate: no changed source line holds an operator to change)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w15/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 17 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 5 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 2 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 0 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : f5229e8b\n  Intent  : b12 consumer 15\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 12 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w11/w.go, ext/w17/w.go, ext/w18/w.go, ext/w2/w.go, ext/w21/w.go, ext/w5/w.go, ext/w9/w.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w15/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: f82dcb3b4c145a0393682795a03060ce93aaca249f817147d3c00be0fb88ae52\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w8/w.go, store/memstore.go); re-run the seal to validate it against them\n\n"
+    },
+    "before_low_n50": {
+      "arm": "before",
+      "n": 50,
+      "overlap": "low",
+      "providers": 3,
+      "consumers": 47,
+      "consumers_calling_a_provider": 0,
+      "proposals": 61,
+      "landed": 41,
+      "refused": 20,
+      "wall_time_s": 72.4,
+      "seals_per_hour": 2037.4,
+      "seconds_per_landed_ticket": 1.77,
+      "region": {
+        "fresh": 15,
+        "revalidated": 26,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 14,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 26,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.634,
+      "consumer_revalidation_share": 0.963,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 41,
+        "median_ms": 28536.08,
+        "p10_ms": 4352.96,
+        "p90_ms": 54279.28,
+        "min_ms": 3393.38,
+        "max_ms": 64978.34
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "t/w36/w.go, ext/w37/w.go, ext/w38/w.go, ext/w43/w.go, ext/w44/w.go, ext/w45/w.go, ext/w46/w.go, ext/w5/w.go, ext/w6/w.go, ext/w8/w.go, ext/w9/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w40/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: bcb7838ac1cb5579c68e8b353fb54ff4ee98dacb6802ffd633ca8503365db360\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n--- b12 consumer 39 rc=3\ner's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_low_n50/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w39/w.go:6 `39` became `40`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w39/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 5 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 46 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 3 \u2014 Why: b12 scripted writer\n     [solidify] nool init: record Nool's configuration files \u2014 Mutation  config  @ nool.toml\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 32731473\n  Intent  : b12 consumer 39\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 37 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w11/w.go, ext/w12/w.go, ext/w15/w.go, ext/w16/w.go, ext/w19/w.go, ext/w2/w.go, ext/w20/w.go, ext/w23/w.go, ext/w26/w.go, ext/w29/w.go, ext/w3/w.go, ext/w32/w.go, ext/w33/w.go, ext/w34/w.go, ext/w36/w.go, ext/w37/w.go, ext/w38/w.go, ext/w43/w.go, ext/w44/w.go, ext/w45/w.go, ext/w46/w.go, ext/w5/w.go, ext/w6/w.go, ext/w8/w.go, ext/w9/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w39/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 2678010ce12894ab549c9ec9a44fd8817b2622b6ed81c8a1c9c379a2f409686b\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/clock.go); re-run the seal to validate it against them\n\n"
+    },
+    "after_low_n50": {
+      "arm": "after",
+      "n": 50,
+      "overlap": "low",
+      "providers": 3,
+      "consumers": 47,
+      "consumers_calling_a_provider": 0,
+      "proposals": 55,
+      "landed": 31,
+      "refused": 24,
+      "wall_time_s": 63.5,
+      "seals_per_hour": 1757.9,
+      "seconds_per_landed_ticket": 2.05,
+      "region": {
+        "fresh": 9,
+        "revalidated": 22,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 8,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 22,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.71,
+      "consumer_revalidation_share": 0.957,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 31,
+        "median_ms": 28883.96,
+        "p10_ms": 8371.9,
+        "p90_ms": 53240.72,
+        "min_ms": 2295.4,
+        "max_ms": 62396.14
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "27/w.go, ext/w29/w.go, ext/w30/w.go, ext/w32/w.go, ext/w36/w.go, ext/w37/w.go, ext/w43/w.go, ext/w44/w.go, ext/w46/w.go, ext/w5/w.go, ext/w7/w.go, ext/w8/w.go, store/memstore.go, util/clock.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w33/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 0ea149e5f6d8534df205ce7ce78c272e8e5cd802942dad1e9ee8c9c85b53d5a0\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w45/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 39 rc=3\ne strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_low_n50/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w39/w.go:6 `39` became `40`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w39/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 11 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 7 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 29 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 46 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 78aa40ab\n  Intent  : b12 consumer 39\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 27 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w11/w.go, ext/w14/w.go, ext/w18/w.go, ext/w19/w.go, ext/w21/w.go, ext/w22/w.go, ext/w24/w.go, ext/w26/w.go, ext/w27/w.go, ext/w29/w.go, ext/w30/w.go, ext/w32/w.go, ext/w36/w.go, ext/w37/w.go, ext/w43/w.go, ext/w44/w.go, ext/w45/w.go, ext/w46/w.go, ext/w5/w.go, ext/w7/w.go, ext/w8/w.go, store/memstore.go, util/clock.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w39/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: a6fa435aa558412719bfbeaf9399afdf4ff62df7f4b0a54ddbfa19c8315bfc61\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (store/memstore.go); re-run the seal to validate it against them\n\n"
+    },
+    "before_medium_n50": {
+      "arm": "before",
+      "n": 50,
+      "overlap": "medium",
+      "providers": 3,
+      "consumers": 47,
+      "consumers_calling_a_provider": 24,
+      "proposals": 56,
+      "landed": 35,
+      "refused": 21,
+      "wall_time_s": 51.0,
+      "seals_per_hour": 2469.5,
+      "seconds_per_landed_ticket": 1.46,
+      "region": {
+        "fresh": 9,
+        "revalidated": 26,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 8,
+          "revalidated": 0,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 26,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.743,
+      "consumer_revalidation_share": 0.963,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 35,
+        "median_ms": 21177.33,
+        "p10_ms": 2492.47,
+        "p90_ms": 42963.16,
+        "min_ms": 2303.67,
+        "max_ms": 49528.01
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": ", ext/w22/w.go, ext/w23/w.go, ext/w29/w.go, ext/w3/w.go, ext/w30/w.go, ext/w33/w.go, ext/w34/w.go, ext/w39/w.go, ext/w44/w.go, ext/w45/w.go, ext/w46/w.go, ext/w8/w.go, ext/w9/w.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w31/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 0df2b85e46bf9f54c4a76623c08de1ac1e23d1e7892719cc8d12eb35da0e410c\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w28/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 36 rc=3\nnd-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_medium_n50/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w36/w.go:6 `36` became `37`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w36/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 8 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 29 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 17 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 46 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 44 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : a099fd14\n  Intent  : b12 consumer 36\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 24 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w14/w.go, ext/w15/w.go, ext/w16/w.go, ext/w17/w.go, ext/w19/w.go, ext/w2/w.go, ext/w21/w.go, ext/w22/w.go, ext/w23/w.go, ext/w28/w.go, ext/w29/w.go, ext/w3/w.go, ext/w30/w.go, ext/w33/w.go, ext/w34/w.go, ext/w39/w.go, ext/w44/w.go, ext/w45/w.go, ext/w46/w.go, ext/w8/w.go, ext/w9/w.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w36/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 879feecad6db44c20543bf05fe7f2783147c44a28ca7b11df058aa3b5021c728\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w41/w.go, util/ids.go); re-run the seal to validate it against them\n\n"
+    },
+    "after_medium_n50": {
+      "arm": "after",
+      "n": 50,
+      "overlap": "medium",
+      "providers": 3,
+      "consumers": 47,
+      "consumers_calling_a_provider": 24,
+      "proposals": 60,
+      "landed": 34,
+      "refused": 26,
+      "wall_time_s": 57.3,
+      "seals_per_hour": 2137.9,
+      "seconds_per_landed_ticket": 1.68,
+      "region": {
+        "fresh": 11,
+        "revalidated": 23,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 10,
+          "revalidated": 3,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 20,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.676,
+      "consumer_revalidation_share": 0.952,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 34,
+        "median_ms": 17583.53,
+        "p10_ms": 2862.76,
+        "p90_ms": 44297.72,
+        "min_ms": 2463.77,
+        "max_ms": 54697.9
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "w21/w.go, ext/w23/w.go, ext/w28/w.go, ext/w29/w.go, ext/w31/w.go, ext/w33/w.go, ext/w35/w.go, ext/w44/w.go, ext/w45/w.go, ext/w8/w.go, ext/w9/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w40/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 628ff0620b5cf6560d6ae9c664f72cd082faeffa5d4ad8a2c620a91073386380\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n--- b12 consumer 34 rc=3\n.. Using apply-and-restore strategy.\n  [Reify] \u23f3 Waiting up to 179s for another reification (reify.lock) (covers the holder's own timeout; override with NOOL_LOCK_TIMEOUT_MS)\n  [Reify] \ud83e\uddea Building HEAD + 1 candidate file(s) in an isolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/after_medium_n50/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Mutation] tests_constrain_change: fail (survived: ext/w34/w.go:6 `34` became `35`)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w34/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 2 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 29 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 17 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 45 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 9b76dbc6\n  Intent  : b12 consumer 34\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 29 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w10/w.go, ext/w11/w.go, ext/w13/w.go, ext/w14/w.go, ext/w17/w.go, ext/w2/w.go, ext/w20/w.go, ext/w21/w.go, ext/w23/w.go, ext/w26/w.go, ext/w28/w.go, ext/w29/w.go, ext/w31/w.go, ext/w33/w.go, ext/w35/w.go, ext/w44/w.go, ext/w45/w.go, ext/w8/w.go, ext/w9/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w34/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: 07e64f393966d6ee1a249be1a2833b6cd9033d026c96af774d4306ded8f0e87c\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (store/memstore.go); re-run the seal to validate it against them\n\n"
+    },
+    "before_high_n50": {
+      "arm": "before",
+      "n": 50,
+      "overlap": "high",
+      "providers": 3,
+      "consumers": 47,
+      "consumers_calling_a_provider": 47,
+      "proposals": 58,
+      "landed": 30,
+      "refused": 28,
+      "wall_time_s": 43.1,
+      "seals_per_hour": 2503.9,
+      "seconds_per_landed_ticket": 1.44,
+      "region": {
+        "fresh": 10,
+        "revalidated": 20,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 9,
+          "revalidated": 1,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 19,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.667,
+      "consumer_revalidation_share": 0.95,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 30,
+        "median_ms": 14661.94,
+        "p10_ms": 3043.22,
+        "p90_ms": 37283.61,
+        "min_ms": 2570.66,
+        "max_ms": 41458.03
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": " (ext/w24/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 46 rc=3\nisolated worktree (/private/var/folders/4s/hgctgjw55jx6_s6mypy41s1m0000gn/T/noolbench_b12_rmlkalgq/before_high_n50/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] integrity: deps ? units ?s / workspace 0.2s / tests 0.3s\n  [Reify] \u2705 Verified Runnable (Project-Level: .go). Hash: 3cbefb574dfae63740598dc85304bcdee17cf91f3b02209a6649b35e966d7520\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Mutation] tests_constrain_change: error (nothing to mutate: no changed source line holds an operator to change)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w46/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 5 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 0 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 1 \u2014 Why: b12 scripted writer\n     [solidify] b12 provider 1 op 2 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : d84ae9d1\n  Intent  : b12 consumer 46\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 21 concurrent knot(s) touched the region since propose (ext/w1/w.go, ext/w10/w.go, ext/w13/w.go, ext/w16/w.go, ext/w20/w.go, ext/w22/w.go, ext/w24/w.go, ext/w26/w.go, ext/w33/w.go, ext/w34/w.go, ext/w4/w.go, ext/w40/w.go, ext/w42/w.go, ext/w43/w.go, ext/w44/w.go, ext/w5/w.go, ext/w8/w.go, store/memstore.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w46/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: eab8d3570ed3bc462772e1a0f78d949ee26f3f724c404d11f7c4631645732df1\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w14/w.go, store/memstore.go); re-run the seal to validate it against them\n\n--- b12 provider 2 op 1 rc=2\n\n1. PREPARING  [\u25cf\u25cf\u25cb]  Collecting changes...\n  [Graph] Caught up with HEAD: 4 edge(s) written, 0 retired.\n\n2. ANALYZING  [\u25cf\u25cf\u25cf]  Blast radius evaluation...\n\u26a0\ufe0f  Warning: Blast radius 19 node(s) needs review (declared 1).\n\n   Semantic Impact (from community structure):\n     Direct dependents: 0 files\n     Same community: 0 files\n   Affected nodes:\n     - ext/w13/w.go\n     - ext/w8/w.go\n     - ext/w14/w.go\n     - ext/w20/w.go\n     - ext/w37/w.go\n     - ... (and 14 more; use --detailed to show all)\n\n   Action: Provide a --justification to proceed, or abort with Ctrl+C.\n   If unintended, you may reject this Knot or use 'nool pluck' after solidification to revert.\nError: Blast radius exceeds declared scope (19 nodes). Non-interactive mode: re-run with --justification \"<reason>\" (or --auto-justify) to proceed. (A prior justification does not cover this blast or these packages.)\n\n"
+    },
+    "after_high_n50": {
+      "arm": "after",
+      "n": 50,
+      "overlap": "high",
+      "providers": 3,
+      "consumers": 47,
+      "consumers_calling_a_provider": 47,
+      "proposals": 57,
+      "landed": 32,
+      "refused": 25,
+      "wall_time_s": 43.7,
+      "seals_per_hour": 2638.6,
+      "seconds_per_landed_ticket": 1.36,
+      "region": {
+        "fresh": 8,
+        "revalidated": 24,
+        "untagged": 0
+      },
+      "region_by_role": {
+        "provider": {
+          "fresh": 7,
+          "revalidated": 2,
+          "untagged": 0
+        },
+        "consumer": {
+          "fresh": 1,
+          "revalidated": 22,
+          "untagged": 0
+        }
+      },
+      "revalidation_share": 0.75,
+      "consumer_revalidation_share": 0.957,
+      "quarantined": 0,
+      "quarantine_share": 0.0,
+      "lock_wait": "not reported by this binary",
+      "op_latency": {
+        "n": 32,
+        "median_ms": 17640.54,
+        "p10_ms": 4007.58,
+        "p90_ms": 35487.34,
+        "min_ms": 1986.13,
+        "max_ms": 40507.26
+      },
+      "final_tree_builds": true,
+      "refusal_log_tail": "ng proposal...\n  [Reify] Recorded Full verdict is stale: 6 concurrent knot(s) touched the region since propose (ext/w25/w.go, ext/w26/w.go, ext/w41/w.go, ext/w5/w.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: 0/1 test files: dependents closure of 1 touched path(s), estimated cost 0% of the full suite; no selected test file to scope the run by, so the whole suite runs\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u2705 Full validation passed. Hash: 85176fd304d7a7f91f47d88eac02a14b73fc7ee1045150917e51721cde970479\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (ext/w32/w.go); re-run the seal to validate it against them\n\n--- b12 consumer 13 rc=3\n0000gn/T/noolbench_b12_rmlkalgq/after_high_n50/.nool/reify-tree/main/); uncommitted edits elsewhere in the checkout are not part of this check\n  [Reify] \u23f1  check timeout 120s (default floor (3x the last successful check (1s) is less); override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default floor (3x the last successful ghost-run (1s) is less); override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] integrity: deps ? units ?s / workspace 0.2s / tests 0.3s\n  [Reify] \u2705 Verified Runnable (Project-Level: .go). Hash: 12a30b850b29999790953fefa42fa7711985ec19dff28040593ba145402f4ee7\n\n4. SIMULATING [\u25cf\u25cf\u25cf]  Merge simulation...\n  [Mutation] tests_constrain_change: error (nothing to mutate: no changed source line holds an operator to change)\n\n\ud83d\udd2d Semantic signal\n   Blast radius: 1 node(s) affected (declared 1) \u2014 LOW [indicative]\n   \u26a0 Envelope precision: unknown \u2014 symbol-level resolution did not fully succeed; treat this as a reason to look closer, not as low risk.\n     \u00b7 ext/w13/w.go\n   Affected contracts: none\n   Evidence plan: PackageTests\n   Intent/diff overlap: 50% [advisory]\n   Relevant prior findings (5):\n     [solidify] b12 consumer 25 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 29 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 46 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 27 \u2014 Why: b12 scripted writer\n     [solidify] b12 consumer 22 \u2014 Why: b12 scripted writer\n\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\nPROPOSAL SUMMARY\n  ID      : 80a1feac\n  Intent  : b12 consumer 13\n  Thread  : main\n  Mode    : Full (Semantic)\n\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\n\n[Auto] Solidifying proposal...\n  [Reify] Recorded Full verdict is stale: 29 concurrent knot(s) touched the region since propose (ext/w0/w.go, ext/w1/w.go, ext/w12/w.go, ext/w14/w.go, ext/w15/w.go, ext/w19/w.go, ext/w22/w.go, ext/w25/w.go, ext/w26/w.go, ext/w27/w.go, ext/w28/w.go, ext/w29/w.go, ext/w3/w.go, ext/w32/w.go, ext/w34/w.go, ext/w36/w.go, ext/w39/w.go, ext/w41/w.go, ext/w44/w.go, ext/w45/w.go, ext/w46/w.go, ext/w5/w.go, ext/w9/w.go, store/memstore.go, util/clock.go, util/ids.go); re-running validation before sealing.\n  [Pre-check] \u2705 In-process parse OK (go)\n  [Reify] \ud83c\udfaf Test selection: full: ext/w13/w.go has no footprint in the semantic index and matches no `[[reification.declared_tests]]` entry (run `nool discover`)\n  [Reify] \u23f1  check timeout 120s (default; override with NOOL_INTEGRITY_TIMEOUT_SECS)\n  [Reify] \ud83d\udc7b Ghost-Run: Executing project-level tests...\n  [Reify] \u23f1  ghost-run timeout 600s (default; override with NOOL_GHOST_RUN_TIMEOUT_SECS)\n  [Reify] \u2705 Full validation passed. Hash: a5e739e76ed4e820edaa6037c24bc572190345414af9418f08fa259f0e78a691\nError: lock timeout (contention, not a policy denial \u2014 safe to retry): knots touching this candidate's region landed while it was validated (util/ids.go); re-run the seal to validate it against them\n\n"
+    }
+  }
+}
